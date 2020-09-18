@@ -3,11 +3,11 @@
   <title>Hzktester`s Blog</title>
   
   
-  <link href="atom.xml" rel="self"/>
+  <link href="https://gitee.com/hzktester/hzktester.git/atom.xml" rel="self"/>
   
-  <link href="https://ipvb.gitee.io/blog/"/>
+  <link href="https://gitee.com/hzktester/hzktester.git/"/>
   <updated>2020-09-18T11:40:52.401Z</updated>
-  <id>https://ipvb.gitee.io/blog/</id>
+  <id>https://gitee.com/hzktester/hzktester.git/</id>
   
   <author>
     <name>hzktester</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <link href="2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
-    <id>2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
     <published>2020-08-16T07:31:00.000Z</published>
     <updated>2020-09-18T11:40:52.401Z</updated>
     
@@ -40,17 +40,17 @@
     
     
     
-    <category term="APP渗透" scheme="categories/APP渗透/"/>
+    <category term="APP渗透" scheme="https://gitee.com/hzktester/hzktester.git/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="APP反编译" scheme="tags/APP反编译/"/>
+    <category term="APP反编译" scheme="https://gitee.com/hzktester/hzktester.git/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>APP反编译-下载源码</title>
-    <link href="2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
     <published>2020-08-16T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:04.722Z</updated>
     
@@ -64,17 +64,17 @@
     
     
     
-    <category term="APP渗透" scheme="categories/APP渗透/"/>
+    <category term="APP渗透" scheme="https://gitee.com/hzktester/hzktester.git/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="APP反编译" scheme="tags/APP反编译/"/>
+    <category term="APP反编译" scheme="https://gitee.com/hzktester/hzktester.git/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>luac的解密过程</title>
-    <link href="2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-16T07:31:00.000Z</published>
     <updated>2020-09-18T11:40:48.056Z</updated>
     
@@ -90,17 +90,17 @@
     
     
     
-    <category term="APP渗透" scheme="categories/APP渗透/"/>
+    <category term="APP渗透" scheme="https://gitee.com/hzktester/hzktester.git/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="APP反编译" scheme="tags/APP反编译/"/>
+    <category term="APP反编译" scheme="https://gitee.com/hzktester/hzktester.git/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:36.969Z</updated>
     
@@ -112,17 +112,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-046 CVE-2017-5638复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:34.705Z</updated>
     
@@ -134,17 +134,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:26.105Z</updated>
     
@@ -155,17 +155,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:32.170Z</updated>
     
@@ -177,17 +177,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-052 CVE-2017-9805复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:30.256Z</updated>
     
@@ -199,17 +199,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:28.158Z</updated>
     
@@ -221,17 +221,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-057 CVE-2018-11776复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:24.035Z</updated>
     
@@ -243,17 +243,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:20.640Z</updated>
     
@@ -266,17 +266,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-devMode CVE-2016-4438复现过程</title>
-    <link href="2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:17.346Z</updated>
     
@@ -288,17 +288,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="tags/Struts2/"/>
+    <category term="Struts2" scheme="https://gitee.com/hzktester/hzktester.git/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat-弱口令-getshell复现过程</title>
-    <link href="2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-12T11:10:00.000Z</published>
     <updated>2020-09-18T11:41:52.507Z</updated>
     
@@ -310,17 +310,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Tomcat" scheme="tags/Tomcat/"/>
+    <category term="Tomcat" scheme="https://gitee.com/hzktester/hzktester.git/tags/Tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <link href="2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/"/>
-    <id>2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</id>
     <published>2020-08-11T00:35:00.000Z</published>
     <updated>2020-09-18T11:41:55.433Z</updated>
     
@@ -332,17 +332,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Tomcat" scheme="tags/Tomcat/"/>
+    <category term="Tomcat" scheme="https://gitee.com/hzktester/hzktester.git/tags/Tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
-    <link href="2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-08T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:46.320Z</updated>
     
@@ -355,17 +355,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Fastjson" scheme="tags/Fastjson/"/>
+    <category term="Fastjson" scheme="https://gitee.com/hzktester/hzktester.git/tags/Fastjson/"/>
     
   </entry>
   
   <entry>
     <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <link href="2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
-    <id>2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
+    <link href="https://gitee.com/hzktester/hzktester.git/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
+    <id>https://gitee.com/hzktester/hzktester.git/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
     <published>2020-08-06T07:22:00.000Z</published>
     <updated>2020-09-18T12:14:07.084Z</updated>
     
@@ -378,10 +378,10 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="categories/vulfocus靶场练习/"/>
+    <category term="vulfocus靶场练习" scheme="https://gitee.com/hzktester/hzktester.git/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Apache Shiro" scheme="tags/Apache-Shiro/"/>
+    <category term="Apache Shiro" scheme="https://gitee.com/hzktester/hzktester.git/tags/Apache-Shiro/"/>
     
   </entry>
   
