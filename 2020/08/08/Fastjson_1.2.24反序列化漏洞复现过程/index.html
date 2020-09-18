@@ -5,25 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/blog/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"ipvb.gitee.io","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="漏洞描述FastJson 库是 Java 的一个 Json 库，其作用是将 Java 对象转换成 json 数据来表示，也可以将 json 数据转换成 Java 对象，使用非常方便，号称是执行速度最快的库。 在 1.2.24 版本的 Fastjson 出现了一个反序列化的漏洞，fastjson 在解析 json 的过程中，支持使用 autoType 来实例化某一个具体的类，并调用该类的 set&#x2F;g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fastjson_1.2.24反序列化漏洞复现过程">
-<meta property="og:url" content="http://example.com/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:url" content="https://ipvb.gitee.io/blog/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
 <meta property="og:description" content="漏洞描述FastJson 库是 Java 的一个 Json 库，其作用是将 Java 对象转换成 json 数据来表示，也可以将 json 数据转换成 Java 对象，使用非常方便，号称是执行速度最快的库。 在 1.2.24 版本的 Fastjson 出现了一个反序列化的漏洞，fastjson 在解析 json 的过程中，支持使用 autoType 来实例化某一个具体的类，并调用该类的 set&#x2F;g">
 <meta property="og:locale" content="zh_CN">
@@ -46,7 +46,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080801.png">
 
-<link rel="canonical" href="http://example.com/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
+<link rel="canonical" href="https://ipvb.gitee.io/blog/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
 
 
 <script id="page-configurations">
@@ -90,7 +90,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="Hzktester`s Blog" type="application/atom+xml">
+<link rel="alternate" href="/blog/atom.xml" title="Hzktester`s Blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -111,7 +111,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/blog/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">Hzktester`s Blog</h1>
       <span class="logo-line-after"><i></i></span>
@@ -132,27 +132,27 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -210,10 +210,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://ipvb.gitee.io/blog/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
       <meta itemprop="name" content="hzktester">
       <meta itemprop="description" content="越努力越幸运">
     </span>
@@ -248,7 +248,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">vulfocus靶场练习</span></a>
+                  <a href="/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">vulfocus靶场练习</span></a>
                 </span>
             </span>
 
@@ -347,7 +347,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" title="Fastjson_1.2.24反序列化漏洞复现过程">http://example.com/2020/08/08/Fastjson_1.2.24反序列化漏洞复现过程/</a>
+    <a href="https://ipvb.gitee.io/blog/2020/08/08/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" title="Fastjson_1.2.24反序列化漏洞复现过程">https://ipvb.gitee.io/blog/2020/08/08/Fastjson_1.2.24反序列化漏洞复现过程/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -377,7 +377,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Fastjson/" rel="tag"># Fastjson</a>
+              <a href="/blog/tags/Fastjson/" rel="tag"># Fastjson</a>
           </div>
 
         
@@ -386,11 +386,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/08/06/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/" rel="prev" title="Shiro rememberMe反序列化漏洞复现过程（Shiro-550）">
+    <a href="/blog/2020/08/06/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/" rel="prev" title="Shiro rememberMe反序列化漏洞复现过程（Shiro-550）">
       <i class="fa fa-chevron-left"></i> Shiro rememberMe反序列化漏洞复现过程（Shiro-550）
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/08/11/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/" rel="next" title="Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）">
+    <a href="/blog/2020/08/11/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/" rel="next" title="Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）">
       Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615） <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -458,27 +458,27 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="hzktester"
-      src="/images/avatar.jpg">
+      src="/blog/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">hzktester</p>
   <div class="site-description" itemprop="description">越努力越幸运</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/blog/archives/">
         
           <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+            <a href="/blog/categories/">
           
         <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+            <a href="/blog/tags/">
           
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
@@ -494,7 +494,7 @@
       </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/blog/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
@@ -589,47 +589,47 @@
 
   
   
-  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/blog/js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
+<script src="/blog/js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
 
 
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
+<script src="/blog/js/next-boot.js"></script>
 
 
 
 
   
 
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+  
+
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/blog/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
 </html>
