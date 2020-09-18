@@ -399,36 +399,4 @@
         <tag>Tomcat</tag>
       </tags>
   </entry>
-  <entry>
-    <title>使用burp爆破需要认证的401页面</title>
-    <url>/2020/08/12/%E4%BD%BF%E7%94%A8burp%E7%88%86%E7%A0%B4%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E7%9A%84401%E9%A1%B5%E9%9D%A2/</url>
-    <content><![CDATA[<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081207.png" alt="image"></p>
-<ol>
-<li><p>挂上 BurpSuite 的代理，随便输个账号密码（比如: 账号tomcat 密码 123456）访问，查看 HTTP 响应报文：<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081208.png" alt="image"></p>
-</li>
-<li><p>请求包中 dG9tY2F0OjEyMzQ1Ng== 使用base64解码就是我们输入的tomcat:123456</p>
-</li>
-<li><p>将报文发送到 Intruder, 将 Basic 后面 base64 部分添加为 payload position<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081209.png" alt="image"></p>
-</li>
-<li><p>在 Payloads 选项卡下，选择 Payload Type 为 SimpleList, 然后在 Payload Options 中点击 load 加载密码字典<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081210.png" alt="image"></p>
-</li>
-<li><p>例如知道账号为tomcat，爆破其密码</p>
-</li>
-<li><p>添加前缀tomcat:<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081211.png" alt="image"></p>
-</li>
-<li><p>添加base64的编码方式<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081212.png" alt="image"></p>
-</li>
-<li><p>取消勾选的 URL-encode, 不然你会看到 base64 之后的 = 会被转成 %3d ，你就算爆破到天荒地老也不会出来<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081213.png" alt="image"></p>
-</li>
-<li><p>爆破完成后，响应为200的就是账号密码，使用base64解码即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081214.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Web渗透</category>
-      </categories>
-      <tags>
-        <tag>401爆破</tag>
-      </tags>
-  </entry>
 </search>

@@ -1136,7 +1136,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/12/%E4%BD%BF%E7%94%A8burp%E7%88%86%E7%A0%B4%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E7%9A%84401%E9%A1%B5%E9%9D%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/12/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1150,7 +1150,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/12/%E4%BD%BF%E7%94%A8burp%E7%88%86%E7%A0%B4%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E7%9A%84401%E9%A1%B5%E9%9D%A2/" class="post-title-link" itemprop="url">使用burp爆破需要认证的401页面</a>
+            <a href="/2020/08/12/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">Tomcat-弱口令-getshell复现过程</a>
         </h2>
 
         <div class="post-meta">
@@ -1160,14 +1160,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-12 20:15:00" itemprop="dateCreated datePublished" datetime="2020-08-12T20:15:00+08:00">2020-08-12</time>
+              <time title="创建时间：2020-08-12 19:10:00" itemprop="dateCreated datePublished" datetime="2020-08-12T19:10:00+08:00">2020-08-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-17 16:48:27" itemprop="dateModified" datetime="2020-09-17T16:48:27+08:00">2020-09-17</time>
+                <time title="修改时间：2020-09-17 16:47:25" itemprop="dateModified" datetime="2020-09-17T16:47:25+08:00">2020-09-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1175,7 +1175,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
+                  <a href="/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">vulfocus靶场练习</span></a>
                 </span>
             </span>
 
@@ -1185,7 +1185,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>360</span>
+              <span>581</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1204,31 +1204,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081207.png" alt="image"></p>
-<ol>
-<li><p>挂上 BurpSuite 的代理，随便输个账号密码（比如: 账号tomcat 密码 123456）访问，查看 HTTP 响应报文：<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081208.png" alt="image"></p>
+          <h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包，可以直接将 webshell 部署到 web 目录下，如果 tomcat 后台管理用户存在弱口令，这很容易被利用上传 webshell。</p>
+<h2 id="知识点：什么是war包"><a href="#知识点：什么是war包" class="headerlink" title="知识点：什么是war包"></a>知识点：什么是war包</h2><p>war 包是一种打包格式<br>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。<br>war 包的结构（是一个web 项目编译后的结果）</p>
+<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
+<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081201.png" alt="image"></p>
 </li>
-<li><p>请求包中 dG9tY2F0OjEyMzQ1Ng== 使用base64解码就是我们输入的tomcat:123456</p>
+<li><p>访问漏洞环境，点击“Manager App”<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081202.png" alt="image"></p>
 </li>
-<li><p>将报文发送到 Intruder, 将 Basic 后面 base64 部分添加为 payload position<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081209.png" alt="image"></p>
+<li><p>弱口令登录，账号tomcat，密码tomcat</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081203.png" alt="image"></p>
 </li>
-<li><p>在 Payloads 选项卡下，选择 Payload Type 为 SimpleList, 然后在 Payload Options 中点击 load 加载密码字典<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081210.png" alt="image"></p>
+<li><p>把jsp木马解压为zip压缩文件，改后缀名为war</p>
 </li>
-<li><p>例如知道账号为tomcat，爆破其密码</p>
+<li><p>上传war包<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081204.png" alt="image"></p>
 </li>
-<li><p>添加前缀tomcat:<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081211.png" alt="image"></p>
+<li><p>部署war包之后，war包会在当前路径下解压。<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081205.png" alt="image"></p>
 </li>
-<li><p>添加base64的编码方式<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081212.png" alt="image"></p>
-</li>
-<li><p>取消勾选的 URL-encode, 不然你会看到 base64 之后的 = 会被转成 %3d ，你就算爆破到天荒地老也不会出来<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081213.png" alt="image"></p>
-</li>
-<li><p>爆破完成后，响应为200的就是账号密码，使用base64解码即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081214.png" alt="image"></p>
+<li><p>访问路径是 /war (war包路径) /XXX.jsp（你的 webshell），拿到flag<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081206.png" alt="image"></p>
 </li>
 </ol>
 
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/08/12/%E4%BD%BF%E7%94%A8burp%E7%88%86%E7%A0%B4%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E7%9A%84401%E9%A1%B5%E9%9D%A2/#more" rel="contents">
+              <a class="btn" href="/2020/08/12/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1319,20 +1317,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1396,13 +1394,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">14k</span>
+    <span title="站点总字数">13k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">13 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
