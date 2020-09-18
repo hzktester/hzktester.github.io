@@ -5,25 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/hzktester/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/hzktester/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/hzktester/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/hzktester/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/hzktester/css/main.css">
+<link rel="stylesheet" href="css/main.css">
 
 
-<link rel="stylesheet" href="/hzktester/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"ipvb.gitee.io","root":"/hzktester/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"https:/hzktester.gitee.io/hzktester","root":"/hzktester/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="漏洞概述Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat-弱口令-getshell复现过程">
-<meta property="og:url" content="https://ipvb.gitee.io/hzktester/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:url" content="2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
 <meta property="og:description" content="漏洞概述Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包">
 <meta property="og:locale" content="zh_CN">
@@ -40,7 +40,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081201.png">
 
-<link rel="canonical" href="https://ipvb.gitee.io/hzktester/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
+<link rel="canonical" href="2020/08/12/vulfocus靶场练习/Tomcat-弱口令-getshell复现过程/">
 
 
 <script id="page-configurations">
@@ -84,7 +84,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/hzktester/atom.xml" title="Hzktester`s Blog" type="application/atom+xml">
+<link rel="alternate" href="atom.xml" title="Hzktester`s Blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -126,27 +126,27 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/hzktester/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/hzktester/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/hzktester/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/hzktester/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/hzktester/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -204,10 +204,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ipvb.gitee.io/hzktester/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="2020/08/12/vulfocus靶场练习/Tomcat-弱口令-getshell复现过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/hzktester/images/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="hzktester">
       <meta itemprop="description" content="越努力越幸运">
     </span>
@@ -243,7 +243,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/hzktester/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">vulfocus靶场练习</span></a>
+                  <a href="categories/vulfocus靶场练习/" itemprop="url" rel="index"><span itemprop="name">vulfocus靶场练习</span></a>
                 </span>
             </span>
 
@@ -314,7 +314,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://ipvb.gitee.io/hzktester/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" title="Tomcat-弱口令-getshell复现过程">https://ipvb.gitee.io/hzktester/2020/08/12/vulfocus靶场练习/Tomcat-弱口令-getshell复现过程/</a>
+    <a href="2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" title="Tomcat-弱口令-getshell复现过程">2020/08/12/vulfocus靶场练习/Tomcat-弱口令-getshell复现过程/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -344,7 +344,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/hzktester/tags/Tomcat/" rel="tag"><i class="fa fa-tag"></i> Tomcat</a>
+              <a href="tags/Tomcat/" rel="tag"><i class="fa fa-tag"></i> Tomcat</a>
           </div>
 
         
@@ -353,12 +353,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/hzktester/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/" rel="prev" title="Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）">
+    <a href="2020/08/11/vulfocus靶场练习/Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）/" rel="prev" title="Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）">
       <i class="fa fa-chevron-left"></i> Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）
     </a></div>
       <div class="post-nav-item">
-    <a href="/hzktester/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" rel="next" title="S2-059 CVE-2019-0230复现过程">
-      S2-059 CVE-2019-0230复现过程 <i class="fa fa-chevron-right"></i>
+    <a href="2020/08/14/vulfocus靶场练习/S2-devMode CVE-2016-4438复现过程/" rel="next" title="S2-devMode CVE-2016-4438复现过程">
+      S2-devMode CVE-2016-4438复现过程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -425,27 +425,27 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="hzktester"
-      src="/hzktester/images/avatar.jpg">
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">hzktester</p>
   <div class="site-description" itemprop="description">越努力越幸运</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/hzktester/archives/">
+          <a href="/archives/">
         
           <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/hzktester/categories/">
+            <a href="/categories/">
           
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/hzktester/tags/">
+            <a href="/tags/">
           
         <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
@@ -461,7 +461,7 @@
       </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/hzktester/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
@@ -556,31 +556,31 @@
 
   
   
-  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/hzktester/lib/canvas-nest/canvas-nest.min.js"></script>
-  <script src="/hzktester/lib/anime.min.js"></script>
-  <script src="/hzktester/lib/velocity/velocity.min.js"></script>
-  <script src="/hzktester/lib/velocity/velocity.ui.min.js"></script>
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="lib/anime.min.js"></script>
+  <script src="lib/velocity/velocity.min.js"></script>
+  <script src="lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/hzktester/js/utils.js"></script>
+<script src="js/utils.js"></script>
 
-<script src="/hzktester/js/motion.js"></script>
-
-
-<script src="/hzktester/js/schemes/pisces.js"></script>
+<script src="js/motion.js"></script>
 
 
-<script src="/hzktester/js/next-boot.js"></script>
+<script src="js/schemes/pisces.js"></script>
 
 
-
-
-  
+<script src="js/next-boot.js"></script>
 
 
 
 
   
-<script src="/hzktester/js/local-search.js"></script>
+
+
+
+
+  
+<script src="js/local-search.js"></script>
 
 
 
