@@ -20,23 +20,32 @@
     var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="加密解密思路将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：  加密key写入文件，程序在解密时先读取文件中的加密key，再解密。 加密key与程序内部约定某个值。  显然，第一种可以破解，可以再程序中找到解密的值。">
+  <meta name="description" content="Git泄露以下需要用到python脚本：Githackhttps:&#x2F;&#x2F;github.com&#x2F;BugScanTeam&#x2F;GitHack log 知识点查看历史记录 1git log 切换版本 1git reset 对比两次提交">
 <meta property="og:type" content="article">
-<meta property="og:title" content="luac的解密过程">
-<meta property="og:url" content="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:title" content="Web基础之信息泄露（下）">
+<meta property="og:url" content="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
-<meta property="og:description" content="加密解密思路将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：  加密key写入文件，程序在解密时先读取文件中的加密key，再解密。 加密key与程序内部约定某个值。  显然，第一种可以破解，可以再程序中找到解密的值。">
+<meta property="og:description" content="Git泄露以下需要用到python脚本：Githackhttps:&#x2F;&#x2F;github.com&#x2F;BugScanTeam&#x2F;GitHack log 知识点查看历史记录 1git log 切换版本 1git reset 对比两次提交">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png">
-<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png">
-<meta property="article:published_time" content="2020-08-16T07:31:00.000Z">
-<meta property="article:modified_time" content="2020-09-18T11:40:48.056Z">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png">
+<meta property="article:published_time" content="2020-08-18T07:31:00.000Z">
+<meta property="article:modified_time" content="2020-09-20T04:14:22.716Z">
 <meta property="article:author" content="hzktester">
-<meta property="article:tag" content="APP反编译">
+<meta property="article:tag" content="信息泄露">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png">
+<meta name="twitter:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png">
 
-<link rel="canonical" href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/">
+<link rel="canonical" href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -49,7 +58,7 @@
   };
 </script>
 
-  <title>luac的解密过程 | Hzktester`s Blog</title>
+  <title>Web基础之信息泄露（下） | Hzktester`s Blog</title>
   
 
 
@@ -200,7 +209,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -213,7 +222,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          luac的解密过程
+          Web基础之信息泄露（下）
         </h1>
 
         <div class="post-meta">
@@ -224,14 +233,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-16 15:31:00" itemprop="dateCreated datePublished" datetime="2020-08-16T15:31:00+08:00">2020-08-16</time>
+              <time title="创建时间：2020-08-18 15:31:00" itemprop="dateCreated datePublished" datetime="2020-08-18T15:31:00+08:00">2020-08-18</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-18 19:40:48" itemprop="dateModified" datetime="2020-09-18T19:40:48+08:00">2020-09-18</time>
+                <time title="修改时间：2020-09-20 12:14:22" itemprop="dateModified" datetime="2020-09-20T12:14:22+08:00">2020-09-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +248,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/APP%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">APP渗透</span></a>
+                  <a href="/categories/Web%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Web基础</span></a>
                 </span>
             </span>
 
@@ -256,7 +265,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>476</span>
+              <span>542</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -275,29 +284,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
-<ol>
-<li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li>
-<li>加密key与程序内部约定某个值。</li>
+        <h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a target="_blank" rel="noopener" href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
+<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>切换版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
+<p>对比两次提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol>
+<li><p>扫描发现 .git 泄露</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p>
+</li>
+<li><p>使用 GitHack 工具 clone 目标源代码到本地</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p>
+</li>
+<li><p>执行 git log 查看历史记录</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p>
+</li>
+<li><p>执行 git show 查看提交详情</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p>
+<h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p>
+</li>
 </ol>
-<p>显然，第一种可以破解，可以再程序中找到解密的值。</p>
-<a id="more"></a>
-<h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p>
-<ol>
-<li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p>
+<p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p>
+<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol>
+<li><p>尝试访问敏感目录，发现.git目录<strong><a target="_blank" rel="noopener" href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p>
 </li>
-<li><p>寻找加密<strong>key</strong></p>
-<ul>
-<li>下载<strong>Hex Workshop</strong>工具：<a target="_blank" rel="noopener" href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li>
-<li>将<strong>lib\libgame.so</strong>文件拖入工具中</li>
-<li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li>
-<li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li>
-</ul>
+<li><p>利用GitHack 工具将网站源代码 clone 到本地</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p>
 </li>
-<li><p>下载<strong>XXTEADecrypt</strong>：<a target="_blank" rel="noopener" href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p>
+<li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p>
+</li>
+<li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p>
 </li>
 </ol>
+<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>
 
     </div>
 
@@ -313,7 +339,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/" title="luac的解密过程">https://hzktester.top/2020/08/16/APP渗透/luac的解密过程/</a>
+    <a href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/" title="Web基础之信息泄露（下）">https://hzktester.top/2020/08/18/Web基础/CTFHub题解-Web基础之信息泄露（下）/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -343,7 +369,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/" rel="tag"><i class="fa fa-tag"></i> APP反编译</a>
+              <a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag"><i class="fa fa-tag"></i> 信息泄露</a>
           </div>
 
         
@@ -352,12 +378,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" rel="prev" title="S2-029 CVE-2016-0785复现过程">
-      <i class="fa fa-chevron-left"></i> S2-029 CVE-2016-0785复现过程
+    <a href="/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/" rel="prev" title="APP之反编译+目录结构+重新打包+重新签名">
+      <i class="fa fa-chevron-left"></i> APP之反编译+目录结构+重新打包+重新签名
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/" rel="next" title="APP反编译-下载源码">
-      APP反编译-下载源码 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/" rel="next" title="Web基础之信息泄露（上）">
+      Web基础之信息泄露（上） <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -417,7 +443,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">加密解密思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%8A%A0%E5%AF%86sign%E5%92%8Ckey"><span class="nav-number">2.</span> <span class="nav-text">寻找加密sign和key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86luac%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">解密luac文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E6%B3%84%E9%9C%B2"><span class="nav-number">1.</span> <span class="nav-text">Git泄露</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log"><span class="nav-number">1.1.</span> <span class="nav-text">log</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stash"><span class="nav-number">1.2.</span> <span class="nav-text">Stash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">解题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Index"><span class="nav-number">1.3.</span> <span class="nav-text">Index</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
