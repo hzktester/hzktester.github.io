@@ -91,7 +91,7 @@
 <p>检查安装情况<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080610.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Apache Shiro</tag>
@@ -241,33 +241,6 @@
       </tags>
   </entry>
   <entry>
-    <title>APP反编译-下载源码</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
-<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
-<li>解压<strong>dex2jar.jar</strong>文件</li>
-<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
-<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
-<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
-<p>d2j-dex2jar.bat classes.dex</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
-<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
-<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
-<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
-<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>luac的解密过程</title>
     <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
@@ -302,6 +275,33 @@
       </tags>
   </entry>
   <entry>
+    <title>APP反编译-下载源码</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
+<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
+<li>解压<strong>dex2jar.jar</strong>文件</li>
+<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
+<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
+<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
+<p>d2j-dex2jar.bat classes.dex</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
+<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
+<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
+<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
+<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
+</ol>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
     <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
@@ -313,7 +313,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -338,7 +338,7 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -358,7 +358,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -384,7 +384,7 @@
 <p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -404,7 +404,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -427,7 +427,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -449,7 +449,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -473,7 +473,7 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -493,7 +493,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -524,7 +524,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Tomcat</tag>
@@ -551,7 +551,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Tomcat</tag>
@@ -611,7 +611,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Vulfocus靶场练习</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
         <tag>Fastjson</tag>
