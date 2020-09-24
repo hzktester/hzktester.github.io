@@ -295,6 +295,183 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="越努力越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">sqli-labs-Background-3 导入导出的相关操作</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-24 16:05:00 / 修改时间：16:05:51" itemprop="dateCreated datePublished" datetime="2020-09-24T16:05:00+08:00">2020-09-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="load-file-导出文件"><a href="#load-file-导出文件" class="headerlink" title="load_file()导出文件"></a>load_file()导出文件</h2><blockquote>
+<p>Load_file(file_name):读取文件并返回该文件的内容作为一个字符串。</p>
+</blockquote>
+<h3 id="使用条件："><a href="#使用条件：" class="headerlink" title="使用条件："></a>使用条件：</h3><ol>
+<li>必须有权限读取并且文件必须完全可读 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from mysql.user)&gt;0&#x2F;*    &#x2F;&#x2F;如果结果返回正常,说明具有读写权限。</span><br><span class="line">and (select count(*) from mysql.user)&gt;0&#x2F;*    &#x2F;&#x2F;返回错误，应该是管理员给数据库帐户降权了</span><br></pre></td></tr></table></figure></li>
+<li>欲读取文件必须在服务器上</li>
+<li>必须指定文件完整的路径</li>
+<li>欲读取文件必须小于 max_allowed_packet<blockquote>
+<p>如果该文件不存在，或因为上面的任一原因而不能被读出，函数返回空。比较难满足的<br>就是权限，在 windows 下，如果 NTFS 设置得当，是不能读取相关的文件的，当遇到只有<br>administrators 才能访问的文件，users 就别想 load_file 出来</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="在实际的注入中，有两个难点需要解决："><a href="#在实际的注入中，有两个难点需要解决：" class="headerlink" title="在实际的注入中，有两个难点需要解决："></a>在实际的注入中，有两个难点需要解决：</h3><ol>
+<li>绝对物理路径</li>
+<li>构造有效的畸形语句（报错爆出绝对路径）<blockquote>
+<p>在很多 PHP 程序中，当提交一个错误的 Query，如果 display_errors = on，程序就会暴露<br>WEB 目录的绝对路径，只要知道路径，那么对于一个可以注入的 PHP 程序来说，整个服务<br>器的安全将受到严重的威胁.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="常用路径："><a href="#常用路径：" class="headerlink" title="常用路径："></a>常用路径：</h3><h4 id="WINDOWS下："><a href="#WINDOWS下：" class="headerlink" title="WINDOWS下："></a>WINDOWS下：</h4><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>c:/boot.ini</td>
+<td>查看系统版本</td>
+</tr>
+<tr>
+<td>c:/windows/php.ini 或 c:/winnt/php.ini</td>
+<td>php配置信息</td>
+</tr>
+<tr>
+<td>c:/windows/my.ini 或 c:/winnt/my.ini 或 C:\Program Files\mysql\my.ini</td>
+<td>MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码</td>
+</tr>
+<tr>
+<td>c:\mysql\data\mysql\user.MYD</td>
+<td>存储了mysql.user表中的数据库连接密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini</td>
+<td>存储了虚拟主机网站路径和密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\Serv-U\ServUDaemon.ini</td>
+<td>存储了虚拟主机网站路径和密码</td>
+</tr>
+<tr>
+<td>c:\windows\system32\inetsrv\MetaBase.xml</td>
+<td>查看IIS的虚拟主机配置</td>
+</tr>
+<tr>
+<td>c:\windows\repair\sam</td>
+<td>存储了WINDOWS系统初次安装的密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\ Serv-U\ServUAdmin.exe</td>
+<td>6.0版本以前的serv-u管理员密码存储</td>
+</tr>
+<tr>
+<td>c:\Program Files\RhinoSoft.com\ServUDaemon.exe</td>
+<td>serv-u管理员密码存储</td>
+</tr>
+<tr>
+<td>C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件</td>
+<td>存储了pcAnywhere的登陆密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\Apache Group\Apache\conf\httpd.conf 或C:\apache\conf\httpd.conf</td>
+<td>查看WINDOWS系统apache文件</td>
+</tr>
+<tr>
+<td>c:/Resin-3.0.14/conf/resin.conf</td>
+<td>查看jsp开发的网站 resin文件配置信息</td>
+</tr>
+<tr>
+<td>c:/Resin/conf/resin.conf /usr/local/resin/conf/resin.conf</td>
+<td>查看linux系统配置的JSP虚拟主机</td>
+</tr>
+<tr>
+<td>C:\mysql\data\mysql\user.MYD</td>
+<td>存在MYSQL系统中的用户密码</td>
+</tr>
+</tbody></table>
+<h4 id="LUNIX-UNIX-下"><a href="#LUNIX-UNIX-下" class="headerlink" title="LUNIX/UNIX 下:"></a>LUNIX/UNIX 下:</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1113,108 +1290,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="越努力越幸运">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/" class="post-title-link" itemprop="url">Web基础之信息泄露（下）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-18 15:31:00" itemprop="dateCreated datePublished" datetime="2020-08-18T15:31:00+08:00">2020-08-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-20 12:14:22" itemprop="dateModified" datetime="2020-09-20T12:14:22+08:00">2020-09-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Web基础</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>542</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a target="_blank" rel="noopener" href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
-<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p>
-<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<p>切换版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
-<p>对比两次提交</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1286,7 +1361,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1359,12 +1434,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">29k</span>
+    <span title="站点总字数">32k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">26 分钟</span>
+    <span title="站点阅读时长">29 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

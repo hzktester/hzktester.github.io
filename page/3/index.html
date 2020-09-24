@@ -193,7 +193,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -207,7 +207,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">S2-059 CVE-2019-0230复现过程</a>
+            <a href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">S2-057 CVE-2018-11776复现过程</a>
         </h2>
 
         <div class="post-meta">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-21 20:03:35" itemprop="dateModified" datetime="2020-09-21T20:03:35+08:00">2020-09-21</time>
+                <time title="修改时间：2020-09-21 20:03:37" itemprop="dateModified" datetime="2020-09-21T20:03:37+08:00">2020-09-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,7 +243,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>827</span>
+              <span>798</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -262,12 +262,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
-<p>Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
+          <h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/#more" rel="contents">
+              <a class="btn" href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -365,6 +364,104 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="越努力越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">S2-059 CVE-2019-0230复现过程</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-14 15:31:00" itemprop="dateCreated datePublished" datetime="2020-08-14T15:31:00+08:00">2020-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-21 20:03:35" itemprop="dateModified" datetime="2020-09-21T20:03:35+08:00">2020-09-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vulfocus%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">vulfocus靶场练习</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>827</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
+<p>Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -747,7 +844,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -820,12 +917,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">29k</span>
+    <span title="站点总字数">32k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">26 分钟</span>
+    <span title="站点阅读时长">29 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
