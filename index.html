@@ -295,6 +295,193 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.hzktester.top/2020/10/15/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/15/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/" class="post-title-link" itemprop="url">linux操作系统加固</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-15 14:29:00 / 修改时间：14:24:03" itemprop="dateCreated datePublished" datetime="2020-10-15T14:29:00+08:00">2020-10-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" itemprop="url" rel="index"><span itemprop="name">安全加固</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Linux系统基本操作"><a href="#Linux系统基本操作" class="headerlink" title="Linux系统基本操作"></a>Linux系统基本操作</h1><h2 id="文件结构图及关键文件功能"><a href="#文件结构图及关键文件功能" class="headerlink" title="文件结构图及关键文件功能"></a>文件结构图及关键文件功能</h2><h3 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101501.png" alt="image"></p>
+<h3 id="Linux文件结构图"><a href="#Linux文件结构图" class="headerlink" title="Linux文件结构图"></a>Linux文件结构图</h3><p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020101502.png" alt="image"></p>
+<h3 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/bin</td>
+<td>放置的是在单人维护模式下能够被操作的指令，在/bin底下的指令可以被root与 一般账号所使用</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>这个目录只要在放置开机会使用到的文件，包括Linux核心文件以及开机选单与 开机所需配置的文件等等</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>在Linux系统上，任何装置与接口设备都是以文件的形态存在于这个目录当中的</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>系统主要的配置文件几乎都放置在这个目录内，例如人员的账号密码文件，各 种服务的启动档，系统变量配置等</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>这是系统默认的用户家目录(homedirectory)</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>/lib放置的则是在开机时会用到的函式库，以及在/lib或/sbin底下的指令会呼叫 的函式库</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>/media底下放置的是可移出的装置，包括软盘、光盘、DVD等等装置都杂事挂载与此</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>给第三方协议软件放置的目录</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>系统管理员（root）的家目录</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>放置/sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所 需要的指令。</td>
+</tr>
+<tr>
+<td>/srv</td>
+<td>srv可视为[service]的缩写，是一些网络服务启动之后，这些服务所需要取用的 数据目录</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>这是让一般使用者或者是正在执行的程序暂时放置文件的地方</td>
+</tr>
+</tbody></table>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/etc/passwd</td>
+<td>记录系统本地用户的属性信息，如UId,Gid,家目录等信息</td>
+</tr>
+<tr>
+<td>/etc/shadow</td>
+<td>存放用户的口令等信息，只有系统管理员用户能查看</td>
+</tr>
+<tr>
+<td>/etc/pam.d/system-auth</td>
+<td>账户安全配置文件</td>
+</tr>
+<tr>
+<td>/etc/login.defs</td>
+<td>设置用户账户限制的配置文件，对root用户无效</td>
+</tr>
+<tr>
+<td>/etc/securetty</td>
+<td>网络配置文件</td>
+</tr>
+<tr>
+<td>/etc/pam.d/su</td>
+<td>su命令配置</td>
+</tr>
+<tr>
+<td>/etc/hosts.allow、/etc/hosts.deny</td>
+<td>允许/拒接某网段远程连接到主机</td>
+</tr>
+<tr>
+<td>/etc/profile</td>
+<td>保存Linux全局环境变量信息，如umask,bash历史命令设置</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/15/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.hzktester.top/2020/10/14/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1244,104 +1431,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/" class="post-title-link" itemprop="url">sqli-labs靶场Less-8-10</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-04 16:33:00 / 修改时间：16:33:23" itemprop="dateCreated datePublished" datetime="2020-10-04T16:33:00+08:00">2020-10-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less8"><a href="#Less8" class="headerlink" title="Less8"></a>Less8</h2><p>经过简单的测试，发现<code>&#39;or 1=1--+</code>返回结果正常，基本确定应该怎么注入了</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100401.png" alt="image"></p>
-<p>这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100402.png" alt="image"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-8&#x2F;?id&#x3D;1&#39; union select 1,count(*),concat(0x3a,0x3a,(select user())),0x3a,0x3a,floor(rand(0)*2))a from information schema.columns group by a--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100403.png" alt="image"></p>
-<p>如果报错注入可以使用的话是可以直接返回user()的，但是这里没有返回。</p>
-<p>其他的payload参考less5直接进行注入即可</p>
-<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1413,7 +1502,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1426,7 +1515,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1486,12 +1575,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">62k</span>
+    <span title="站点总字数">67k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">56 分钟</span>
+    <span title="站点阅读时长">1:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
