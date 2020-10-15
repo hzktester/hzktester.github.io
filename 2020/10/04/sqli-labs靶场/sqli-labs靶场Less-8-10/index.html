@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
 <meta property="og:description" content="Less8经过简单的测试，发现&#39;or 1&#x3D;1--+返回结果正常，基本确定应该怎么注入了  这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了  1http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-8&#x2F;?id&#x3D;1&#39; union select 1,count(*),concat(0x3a,0x">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100401.png">
-<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100402.png">
-<meta property="og:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100403.png">
+<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100401.png">
+<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100402.png">
+<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100403.png">
 <meta property="article:published_time" content="2020-10-04T08:33:00.000Z">
-<meta property="article:modified_time" content="2020-10-04T08:33:23.391Z">
+<meta property="article:modified_time" content="2020-10-15T06:42:28.222Z">
 <meta property="article:author" content="hzktester">
 <meta property="article:tag" content="sqli-labs">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100401.png">
+<meta name="twitter:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100401.png">
 
 <link rel="canonical" href="https://blog.hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/">
 
@@ -224,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-04 16:33:00 / 修改时间：16:33:23" itemprop="dateCreated datePublished" datetime="2020-10-04T16:33:00+08:00">2020-10-04</time>
+              <time title="创建时间：2020-10-04 16:33:00" itemprop="dateCreated datePublished" datetime="2020-10-04T16:33:00+08:00">2020-10-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-15 14:42:28" itemprop="dateModified" datetime="2020-10-15T14:42:28+08:00">2020-10-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -271,11 +277,11 @@
 
       
         <h2 id="Less8"><a href="#Less8" class="headerlink" title="Less8"></a>Less8</h2><p>经过简单的测试，发现<code>&#39;or 1=1--+</code>返回结果正常，基本确定应该怎么注入了</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100401.png" alt="image"></p>
+<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100401.png" alt="image"></p>
 <p>这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了</p>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100402.png" alt="image"></p>
+<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100402.png" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-8&#x2F;?id&#x3D;1&#39; union select 1,count(*),concat(0x3a,0x3a,(select user())),0x3a,0x3a,floor(rand(0)*2))a from information schema.columns group by a--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qgsmrtll0.hn-bkt.clouddn.com/tp2020100403.png" alt="image"></p>
+<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100403.png" alt="image"></p>
 <p>如果报错注入可以使用的话是可以直接返回user()的，但是这里没有返回。</p>
 <p>其他的payload参考less5直接进行注入即可</p>
 <h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>本关从标题可以看到《基于时间-单引号》，所以很明显这关要利用延时注入进行，同时id参数进行的是’的处理。大概演示一次演示注入。使用<code>sleep()</code>函数</p>
