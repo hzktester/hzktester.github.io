@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="IISIIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。  IIS目前只适用于Windows系统，不适用于其他操作系统。  IIS 6.x文件名解析漏洞该版本默认会将*.asp;.jpg此种格式的文件名，当成Asp解析，原理是 服务器默认不解析;号及其后面的内容，相当于截断。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web中间件常见解析漏洞总结">
+<meta property="og:url" content="https://hzktester.top/posts/37b72f03.html">
+<meta property="og:site_name" content="Hzktester&#96;s Blog">
+<meta property="og:description" content="IISIIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。  IIS目前只适用于Windows系统，不适用于其他操作系统。  IIS 6.x文件名解析漏洞该版本默认会将*.asp;.jpg此种格式的文件名，当成Asp解析，原理是 服务器默认不解析;号及其后面的内容，相当于截断。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101201.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101202.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101203.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101204.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101205.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101206.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101207.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101208.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101209.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101210.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101211.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101212.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101213.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101214.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101215.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101216.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101206.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020101207.png">
+<meta property="article:published_time" content="2020-10-12T09:31:00.000Z">
+<meta property="article:modified_time" content="2020-10-19T13:01:29.156Z">
+<meta property="article:author" content="hzktester">
+<meta property="article:tag" content="中间件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020101201.png">
+
+<link rel="canonical" href="https://hzktester.top/posts/37b72f03.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Web中间件常见解析漏洞总结 | Hzktester`s Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hzktester`s Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	
+	<a target="_blank" rel="noopener" href="https://github.com/hzktester" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hzktester`s Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/37b72f03.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Web中间件常见解析漏洞总结
+        </h1>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-12 17:31:00" itemprop="dateCreated datePublished" datetime="2020-10-12T17:31:00+08:00">2020-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-19 21:01:29" itemprop="dateModified" datetime="2020-10-19T21:01:29+08:00">2020-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Web基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" style="display: inline;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><p><code>IIS</code>是<code>Internet Information Services</code>的缩写，意为互联网信息服务，是由微软公司提供的基于运行<code>Microsoft Windows</code>的互联网基本服务。</p>
+<blockquote>
+<p>IIS目前只适用于Windows系统，不适用于其他操作系统。</p>
+</blockquote>
+<h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a>IIS 6.x</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p>该版本默认会将<code>*.asp;.jpg</code>此种格式的文件名，当成<code>Asp</code>解析，原理是 服务器默认不解析<code>;</code>号及其后面的内容，相当于截断。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp;.jpg</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020101201.png" alt="image"></p>
+<h3 id="文件夹名解析漏洞"><a href="#文件夹名解析漏洞" class="headerlink" title="文件夹名解析漏洞"></a>文件夹名解析漏洞</h3><p>该版本默认会将<code>*.asp/</code>目录下的所有文件当成<code>Asp</code>解析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp&#x2F;xxx.jpg</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020101202.png" alt="image"></p>
+<p>另外，<code>IIS6.x</code>除了会将扩展名为<code>.asp</code>的文件解析为<code>asp</code>之外，还默认会将扩展名为<code>.asa</code>，<code>.cdx</code>，<code>.cer</code>解析为<code>asp</code></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101203.png" alt="image"></p>
+<h3 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h3><p>由于微软并不认为这是一个漏洞，也没有推出<code>IIS 6.0</code>的补丁，因此漏洞需要自己修复。</p>
+<ol>
+<li>限制上传目录执行权限，不允许执行脚本。</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020101204.png" alt="image"></p>
+<ol start="2">
+<li>不允许新建目录。</li>
+<li>上传的文件需经过重命名(时间戳+随机数+.jpg等)</li>
+</ol>
+<h2 id="IIS-7-x"><a href="#IIS-7-x" class="headerlink" title="IIS 7.x"></a>IIS 7.x</h2><h3 id="IIS-7-x解析漏洞"><a href="#IIS-7-x解析漏洞" class="headerlink" title="IIS 7.x解析漏洞"></a>IIS 7.x解析漏洞</h3><p><code>IIS7.x</code>版本在<code>Fast-CGI</code>运行模式下,在任意文件，例：<code>test.jpg</code>后面加上<code>/.php</code>，会将<code>test.jpg</code>解析为<code>php</code>文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.jpg&#x2F;.php</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020101205.png" alt="image"></p>
+<h3 id="修复建议-1"><a href="#修复建议-1" class="headerlink" title="修复建议"></a>修复建议</h3><p>配置<code>php.ini</code>中的<code>cgi.fix_pathinfo</code>为0并重启<code>php-cgi</code>程序</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101206.png" alt="image"></p>
+<p>结果如下：</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101207.png" alt="image"></p>
+<h1 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h1><p><code>Apache</code>是世界使用排名第一的<code>Web</code>服务器软件。它可以运行在几乎所有广泛使用的计算机平台上，由于其跨平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的<code>API</code>扩充，将<code>Perl/Python</code>等解释器编译到服务器中。</p>
+<h2 id="未知扩展名解析漏洞"><a href="#未知扩展名解析漏洞" class="headerlink" title="未知扩展名解析漏洞"></a>未知扩展名解析漏洞</h2><p><code>Apache</code>的解析漏洞依赖于一个特性： <strong>Apache默认一个文件可以有多个以点分割的后缀，当最右边的后缀无法识别（不在mime.types文件内），则继续向左识别，直到识别到合法后缀才进行解析。</strong></p>
+<p>访问<code>phpinfo.php.xxx</code></p>
+<p><img src="https://qiniu.hzktester.top/tp2020101208.png" alt="image"></p>
+<p>实战中可以上传<code>rar</code>，<code>owf</code>等文件进行利用，如果上传<code>phpinfo.php.jpg</code>，即使文件名中有<code>.php</code>，也会直接解析为<code>jpg</code>。因为<code>Apache</code>认识<code>.jpg</code>,停止继续向左识别。</p>
+<h2 id="AddHandler导致的解析漏洞"><a href="#AddHandler导致的解析漏洞" class="headerlink" title="AddHandler导致的解析漏洞"></a>AddHandler导致的解析漏洞</h2><p>如果运维人员给<code>.php</code>后缀增加了处理器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddHandler application&#x2F;x-httpd-php .php</span><br></pre></td></tr></table></figure>
+<p>那么，在有多个后缀的情况下，只要一个文件名中含有<code>.php</code>后缀，即被识别成<code>PHP</code>文件，没必要是最后一个后缀。<br>利用这个特性，将会造成一个可以绕过上传白名单的解析漏洞。</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101209.png" alt="image"></p>
+<p>即使最右边的文件格式是在<code>mime.types</code>文件内，只要文件名中出现<code>.php</code>，就直接被解析为<code>php</code>。</p>
+<h2 id="Apache-HTTPD-换行解析漏洞（CVE-2017-15715）"><a href="#Apache-HTTPD-换行解析漏洞（CVE-2017-15715）" class="headerlink" title="Apache HTTPD 换行解析漏洞（CVE-2017-15715）"></a>Apache HTTPD 换行解析漏洞（CVE-2017-15715）</h2><p>影响范围：2.4.0~2.4.29版本</p>
+<p>环境：phpstudy2014 Apache + PHP5.4n</p>
+<p>此漏洞形成的根本原因，在于<code>$</code>, 正则表达式中<code>$</code>不仅匹配字符串结尾位置，也可以匹配<code>\n</code> 或<code>\r</code></p>
+<p>在解析<code>PHP</code>时，<code>1.php\x0A</code>将被按照<code>PHP</code>后缀进行解析，导致绕过一些服务器的安全策略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application&#x2F;x-httpd-php</span><br><span class="line">&lt;&#x2F;FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;name&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;上传文件&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">if(isset($_FILES[&#39;file&#39;])) &#123;</span><br><span class="line">    $name &#x3D; basename($_POST[&#39;name&#39;]);</span><br><span class="line">    $ext &#x3D; pathinfo($name,PATHINFO_EXTENSION);</span><br><span class="line">    if(in_array($ext, [&#39;php&#39;, &#39;php3&#39;, &#39;php4&#39;, &#39;php5&#39;, &#39;phtml&#39;, &#39;pht&#39;])) &#123;</span><br><span class="line">        exit(&#39;bad file&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">echo &quot;ok&quot;;</span><br><span class="line">    move_uploaded_file($_FILES[&#39;file&#39;][&#39;tmp_name&#39;], &#39;.&#x2F;&#39; . $name);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020101210.png" alt="image"></p>
+<p>点击Go后，效果如下:</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101211.png" alt="image"></p>
+<p>相同代码在Linux下进行测试，可以正常写入。</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101212.png" alt="image"></p>
+<p>访问：</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101213.png" alt="image"></p>
+<p>限制：获取文件名时不能用<code>$_FILES[‘file’][‘name’]</code>，因为它会自动把换行去掉。</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101214.png" alt="image"></p>
+<h2 id="修复建议-2"><a href="#修复建议-2" class="headerlink" title="修复建议"></a>修复建议</h2><ol>
+<li>升级到最新版本</li>
+<li>或将上传的文件重命名为为时间戳+随机数+.jpg的格式并禁用上传文件目录执行脚本权限。</li>
+</ol>
+<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p><code>Nginx</code>是一款轻量级的<code>Web</code> 服务器/反向代理服务器及电子邮件<code>（IMAP/POP3）</code>代理服务器，在<code>BSD-like</code> 协议下发行。其特点是占有内存少，并发能力强，事实上<code>nginx</code>的并发能力确实在同类型的网页服务器中表现较好</p>
+<h2 id="Nginx配置文件错误导致的解析漏洞"><a href="#Nginx配置文件错误导致的解析漏洞" class="headerlink" title="Nginx配置文件错误导致的解析漏洞"></a>Nginx配置文件错误导致的解析漏洞</h2><p>对于任意文件名，在后面添加<code>/xxx.php</code>（xxx为任意字符）后,即可将文件作为<code>php</code>解析。</p>
+<p>例：<code>info.jpg</code>后面加上<code>/xxx.php</code>，会将<code>info.jpg</code> 以<code>php</code>解析。</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101215.png" alt="image"></p>
+<p>该漏洞是<code>Nginx</code>配置所导致，与<code>Nginx</code>版本无关，下面是常见的漏洞配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root           &#x2F;work&#x2F;www&#x2F;test;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME    </span><br><span class="line">	$document_root$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">        fastcgi_pass   unix:&#x2F;tmp&#x2F;php-fpm.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当攻击者访问<code>/info.jpg/xxx.php</code>时， <code>Nginx</code>将查看<code>URL</code>，看到它以<code>.php</code>结尾，并将路径传递给<code>PHP fastcgi</code>处理程序。</p>
+<p><code>Nginx</code>传给<code>php</code>的路径为<code>c:/WWW/info.jpg/xxx.php</code>,<br>在<code>phpinfo</code>中可以查看<code>_SERVER[&quot;ORIG_SCRIPT_FILENAME&quot;]</code>得到。</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101216.png" alt="image"></p>
+<h3 id="修复建议-3"><a href="#修复建议-3" class="headerlink" title="修复建议"></a>修复建议</h3><p>配置<code>php.ini</code>中的<code>cgi.fix_pathinfo</code>为0并重启<code>php-cgi</code>程序</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101206.png" alt="image"></p>
+<p>结果如下：</p>
+<p><img src="https://qiniu.hzktester.top/tp2020101207.png" alt="image"></p>
+<p>如果需要使用到<code>cgi.fix_pathinfo</code>这个特性（例如：<code>Wordpress</code>），那么可以禁止上传目录的执行脚本权限。<br>或将上传存储的内容与网站分离，即站库分离。</p>
+<p>或高版本<code>PHP</code>提供了<code>security.limit_extensions</code>这个配置参数，设置<code>security.limit_extensions = .php</code></p>
+<hr>
+<p>转载自<a target="_blank" rel="noopener" href="https://www.lxhsec.com/2019/03/04/middleware/">lxhsec</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>hzktester
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hzktester.top/posts/37b72f03.html" title="Web中间件常见解析漏洞总结">https://hzktester.top/posts/37b72f03.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 中间件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/ca77975b.html" rel="prev" title="Adobe ColdFusion 反序列化漏洞（CVE-2017-3066）">
+      <i class="fa fa-chevron-left"></i> Adobe ColdFusion 反序列化漏洞（CVE-2017-3066）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c63e133.html" rel="next" title="windows操作系统加固">
+      windows操作系统加固 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IIS"><span class="nav-number">1.</span> <span class="nav-text">IIS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS-6-x"><span class="nav-number">1.1.</span> <span class="nav-text">IIS 6.x</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.1.1.</span> <span class="nav-text">文件名解析漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E5%90%8D%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.1.2.</span> <span class="nav-text">文件夹名解析漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.1.3.</span> <span class="nav-text">修复建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS-7-x"><span class="nav-number">1.2.</span> <span class="nav-text">IIS 7.x</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IIS-7-x%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.2.1.</span> <span class="nav-text">IIS 7.x解析漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">修复建议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Apache"><span class="nav-number">2.</span> <span class="nav-text">Apache</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E7%9F%A5%E6%89%A9%E5%B1%95%E5%90%8D%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.</span> <span class="nav-text">未知扩展名解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AddHandler%E5%AF%BC%E8%87%B4%E7%9A%84%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.</span> <span class="nav-text">AddHandler导致的解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-HTTPD-%E6%8D%A2%E8%A1%8C%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-15715%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">Apache HTTPD 换行解析漏洞（CVE-2017-15715）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE-2"><span class="nav-number">2.4.</span> <span class="nav-text">修复建议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx"><span class="nav-number">3.</span> <span class="nav-text">Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%94%99%E8%AF%AF%E5%AF%BC%E8%87%B4%E7%9A%84%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">3.1.</span> <span class="nav-text">Nginx配置文件错误导致的解析漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE-3"><span class="nav-number">3.1.1.</span> <span class="nav-text">修复建议</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="hzktester"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">hzktester</p>
+  <div class="site-description" itemprop="description">偷偷努力，然后惊艳所有人</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hzktester" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hzktester" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1243547769@qq.com" title="E-Mail → mailto:1243547769@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://sunian.top/" title="https:&#x2F;&#x2F;sunian.top&#x2F;" rel="noopener" target="_blank">sunian</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wintrysec.github.io/" title="https:&#x2F;&#x2F;wintrysec.github.io&#x2F;" rel="noopener" target="_blank">wintrysec</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzktester</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">69k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:03</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" style="display: inline;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" style="display: inline;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

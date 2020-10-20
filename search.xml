@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <url>/2020/08/06/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Shiro%20rememberMe%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88Shiro-550%EF%BC%89/</url>
+    <url>/posts/48e0a35f.html</url>
     <content><![CDATA[<p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
 <h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。</p>
 <p>那么，Payload产生的过程：</p>
@@ -99,7 +99,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less23（过滤了注释符的绕过）</title>
-    <url>/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess23%EF%BC%88%E8%BF%87%E6%BB%A4%E4%BA%86%E6%B3%A8%E9%87%8A%E7%AC%A6%E7%9A%84%E7%BB%95%E8%BF%87%EF%BC%89/</url>
+    <url>/posts/13aa761f.html</url>
     <content><![CDATA[<h2 id="Less23"><a href="#Less23" class="headerlink" title="Less23"></a>Less23</h2><p>本关对<code>id</code>参数过滤了<code>#</code>和<code>--</code>的处理。但是还可以使用闭合的方式来注入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">?id&#x3D;-1&#39; union select 1,@@datadir,&#39;3</span><br></pre></td></tr></table></figure>
 <p><img src="https://qiniu.hzktester.top/tp2020102009.png" alt="image"></p>
@@ -113,7 +113,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less20、21、22(cookie注入)</title>
-    <url>/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess20%E3%80%8121%E3%80%8122(cookie%E6%B3%A8%E5%85%A5)/</url>
+    <url>/posts/eb6bd74b.html</url>
     <content><![CDATA[<h2 id="Less20"><a href="#Less20" class="headerlink" title="Less20"></a>Less20</h2><p>从源代码中我们可以看到 <code>cookie</code> 从 <code>username</code> 中获得值后，当再次刷新时，会从 <code>cookie</code> 中读<br>取 <code>username</code>，然后进行查询。<br>登录成功后，我们修改 <code>cookie</code>，再次刷新时，这时候 <code>sql</code> 语句就会被修改了</p>
 <p>先使用正确的账号密码登录一次。使用burp抓取第二个数据包。修改<code>cookie</code>的值</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</span><br></pre></td></tr></table></figure>
@@ -135,7 +135,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-19(referer注入)</title>
-    <url>/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess19(referer%E6%B3%A8%E5%85%A5)/</url>
+    <url>/posts/588aed09.html</url>
     <content><![CDATA[<h2 id="Less19"><a href="#Less19" class="headerlink" title="Less19"></a>Less19</h2><p>本关和Less18基本是一致的，只不过是<code>referer</code>处存在注入</p>
 <p>使用burp抓包修改<code>referer</code></p>
 <p><img src="https://qiniu.hzktester.top/tp2020102005.png" alt="image"></p>
@@ -149,7 +149,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-18(useragent注入)</title>
-    <url>/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess18(useragent%E6%B3%A8%E5%85%A5)/</url>
+    <url>/posts/e9f63d2e.html</url>
     <content><![CDATA[<h2 id="Less18"><a href="#Less18" class="headerlink" title="Less18"></a>Less18</h2><p>本关可以从源码了解到对<code>uname</code>和<code>passwd</code>进行了<code>check_input()</code>函数的处理，所以这里无法注入了。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$uname &#x3D; check_input($_POST[&#39;uname&#39;]);</span><br><span class="line">$passwd &#x3D; check_input($_POST[&#39;passwd&#39;]);</span><br></pre></td></tr></table></figure>
 <p>但是代码中将<code>useragent</code>和<code>ip</code>插入到数据库中，可以使用<code>useragent</code>进行注入</p>
@@ -170,7 +170,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-17(update注入)</title>
-    <url>/2020/10/20/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess17(update%E6%B3%A8%E5%85%A5)/</url>
+    <url>/posts/cb3a4153.html</url>
     <content><![CDATA[<h2 id="Less17"><a href="#Less17" class="headerlink" title="Less17"></a>Less17</h2><p>本关可以看到是一个修改密码的过程，利用的是<code>update</code>语句，与再用<code>select</code>时是一样的。</p>
 <p>尝试报错：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
@@ -189,7 +189,7 @@
   </entry>
   <entry>
     <title>linux操作系统加固</title>
-    <url>/2020/10/15/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/</url>
+    <url>/posts/61d5f45a.html</url>
     <content><![CDATA[<h1 id="Linux系统基本操作"><a href="#Linux系统基本操作" class="headerlink" title="Linux系统基本操作"></a>Linux系统基本操作</h1><h2 id="文件结构图及关键文件功能"><a href="#文件结构图及关键文件功能" class="headerlink" title="文件结构图及关键文件功能"></a>文件结构图及关键文件功能</h2><h3 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h3><p><img src="https://qiniu.hzktester.top/tp2020101501.png" alt="image"></p>
 <h3 id="Linux文件结构图"><a href="#Linux文件结构图" class="headerlink" title="Linux文件结构图"></a>Linux文件结构图</h3><p><img src="https://qiniu.hzktester.top/tp2020101502.png" alt="image"></p>
 <h3 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h3><table>
@@ -413,7 +413,7 @@
   </entry>
   <entry>
     <title>windows操作系统加固</title>
-    <url>/2020/10/14/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8A%A0%E5%9B%BA/</url>
+    <url>/posts/c63e133.html</url>
     <content><![CDATA[<h1 id="windows系统基本操作"><a href="#windows系统基本操作" class="headerlink" title="windows系统基本操作"></a>windows系统基本操作</h1><h2 id="windows常见目录"><a href="#windows常见目录" class="headerlink" title="windows常见目录"></a>windows常见目录</h2><table>
 <thead>
 <tr>
@@ -834,7 +834,7 @@
   </entry>
   <entry>
     <title>Web中间件常见解析漏洞总结</title>
-    <url>/2020/10/12/Web%E5%9F%BA%E7%A1%80/Web%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%B8%B8%E8%A7%81%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</url>
+    <url>/posts/37b72f03.html</url>
     <content><![CDATA[<h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><p><code>IIS</code>是<code>Internet Information Services</code>的缩写，意为互联网信息服务，是由微软公司提供的基于运行<code>Microsoft Windows</code>的互联网基本服务。</p>
 <blockquote>
 <p>IIS目前只适用于Windows系统，不适用于其他操作系统。</p>
@@ -920,7 +920,7 @@
   </entry>
   <entry>
     <title>Adobe ColdFusion 反序列化漏洞（CVE-2017-3066）</title>
-    <url>/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Adobe%20ColdFusion%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-3066%EF%BC%89/</url>
+    <url>/posts/ca77975b.html</url>
     <content><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Adobe ColdFusion</code>是美国<code>Adobe</code>公司的一款动态Web服务器产品，其运行的<code>CFML（ColdFusion Markup Language）</code>是针对Web应用的一种程序设计语言。</p>
 <p><code>Adobe ColdFusion</code>中存在<code>java</code>反序列化漏洞。攻击者可利用该漏洞在受影响应用程序的上下文中执行任意代码或造成拒绝服务。以下版本受到影响：<code>Adobe ColdFusion (2016 release) Update 3</code>及之前的版本，<code>ColdFusion 11 Update 11</code>及之前的版本，<code>oldFusion 10 Update 22</code>及之前的版本。</p>
 <h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
@@ -957,7 +957,7 @@
   </entry>
   <entry>
     <title>Apereo CAS 4.1 反序列化命令执行漏洞</title>
-    <url>/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apereo%20CAS%204.1%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</url>
+    <url>/posts/a52bba00.html</url>
     <content><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apereo CAS</code>是一款<code>Apereo</code>发布的集中认证服务平台，常被用于企业内部单点登录系统。其4.1.7版本之前存在一处默认密钥的问题，利用这个默认密钥我们可以构造恶意信息触发目标反序列化漏洞，进而执行任意命令。</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;apereo-cas&#x2F;4.1-rce&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
@@ -984,7 +984,7 @@
   </entry>
   <entry>
     <title>ActiveMQ 反序列化漏洞（CVE-2015-5254）</title>
-    <url>/2020/10/10/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89/</url>
+    <url>/posts/5632f60a.html</url>
     <content><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apache ActiveMQ</code>是美国阿帕奇（Apache）软件基金会所研发的一套开源的消息中间件，它支持<code>Java</code>消息服务、集群、<code>Spring Framework</code>等。</p>
 <p><code>Apache ActiveMQ 5.13.0</code>之前<code>5.x</code>版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的<code>Java Message Service(JMS)ObjectMessage</code>对象利用该漏洞执行任意代码。</p>
 <h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>运行漏洞环境</p>
@@ -1028,7 +1028,7 @@
   </entry>
   <entry>
     <title>JBoss 4.x JBossMQ JMS 反序列化漏洞（CVE-2017-7504）</title>
-    <url>/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%204.x%20JBossMQ%20JMS%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-7504%EF%BC%89/</url>
+    <url>/posts/38bd85b0.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p><code>Red Hat JBoss Application Server</code>是一款基于<code>JavaEE</code>的开源应用服务器。<code>JBoss AS 4.x</code>及之前版本中，<code>JbossMQ</code>实现过程的<code>JMS over HTTP Invocation Layer</code>的<code>HTTPServerILServlet.java</code>文件存在反序列化漏洞，远程攻击者可借助特制的序列化数据利用该漏洞执行任意代码。</p>
 <h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <p>环境启动后，目标为<code>http://your-ip:8080</code>。</p>
@@ -1051,7 +1051,7 @@
   </entry>
   <entry>
     <title>JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）</title>
-    <url>/2020/10/09/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/JBoss%205.x%206.x%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-12149%EF%BC%89/</url>
+    <url>/posts/33d0907b.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>该漏洞为<code>Java</code>反序列化错误类型，存在于<code>Jboss</code>的<code>HttpInvoker</code>组件中的 <code>ReadOnlyAccessFilter</code>过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>漏洞影响5.x和6.x版本的JBOSSAS</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
@@ -1084,7 +1084,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less11-16(二次注入)</title>
-    <url>/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess11-16(%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5)/</url>
+    <url>/posts/18b82261.html</url>
     <content><![CDATA[<h2 id="Less11"><a href="#Less11" class="headerlink" title="Less11"></a>Less11</h2><p>这一关开始使用post注入，什么是post注入呢？</p>
 <blockquote>
 <p> 就是数据从客户端提交<br>到服务器端，例如我们在登录过程中，输入用户名和密码，用户名和密码以表单的形式提交，<br>提交到服务器后服务器再进行验证。这就是一次 post 的过程的。</p>
@@ -1146,7 +1146,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-8-10</title>
-    <url>/2020/10/04/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-8-10/</url>
+    <url>/posts/5809cdbe.html</url>
     <content><![CDATA[<h2 id="Less8"><a href="#Less8" class="headerlink" title="Less8"></a>Less8</h2><p>经过简单的测试，发现<code>&#39;or 1=1--+</code>返回结果正常，基本确定应该怎么注入了</p>
 <p><img src="https://qiniu.hzktester.top/tp2020100401.png" alt="image"></p>
 <p>这里查看源码可以看出，对sql报错进行了注释，那么采用报错注入就不行了</p>
@@ -1187,7 +1187,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-7(上传webshell)</title>
-    <url>/2020/10/02/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-7(%E4%B8%8A%E4%BC%A0webshell)/</url>
+    <url>/posts/6dd81cb5.html</url>
     <content><![CDATA[<h2 id="Less7"><a href="#Less7" class="headerlink" title="Less7"></a>Less7</h2><p>本关利用文件导入的方式进行注入</p>
 <p>查看源码，重点关注对id参数的处理和sql语句上，源代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$sql&#x3D;&quot;SELECT * FROM users WHERE id&#x3D;((&#39;$id&#39;)) LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
@@ -1214,7 +1214,7 @@
   </entry>
   <entry>
     <title>Spring Cloud Config 目录穿越漏洞复现（CVE-2020-5410）</title>
-    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Cloud%20Config%20%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2020-5410%EF%BC%89/</url>
+    <url>/posts/a05af4c0.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Cloud Config 为分布式系统中的外部配置提供服务器和客户端支持，使用 Config Server ，用户可以在所有环境中管理应用程序的外部属性。<br>近日，百度云安全团队监测到 Spring Cloud Config 官方发布了一个目录遍历漏洞的风险通告，漏洞编号为 CVE-2020-5410 。攻击者可通过构造特殊的 HTTP 请求，从而跨目录读取文件。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>2.2.x&lt;=2.2.2 2.1.x&lt;=2.1.8</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocus启动漏洞环境</p>
@@ -1231,7 +1231,7 @@
   </entry>
   <entry>
     <title>Spring Data Commons 远程命令执行漏洞（CVE-2018-1273）</title>
-    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20Commons%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-1273%EF%BC%89/</url>
+    <url>/posts/71711a88.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Data是一个用于简化数据库访问，并支持云服务的开源框架，Spring Data Commons是Spring Data下所有子项目共享的基础框架。Spring Data Commons 在2.0.5及以前版本中，存在一处SpEL表达式注入漏洞，攻击者可以注入恶意SpEL表达式以执行任意命令。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Data Commons 1.13 - 1.13.10(Ingalls SR10)</p>
 <p>Spring Data REST 2.6 - 2.6.10 (Ingalls SR10)</p>
@@ -1263,7 +1263,7 @@
   </entry>
   <entry>
     <title>Spring Data REST PATCH 请求代码执行漏洞复现（CVE-2017-8046）</title>
-    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Data%20REST%20PATCH%20%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-8046%EF%BC%89/</url>
+    <url>/posts/eea09eec.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Data REST是Spring Data项目的一部分，可以轻松地在Spring Data存储库之上构建超媒体驱动的REST Web服务。</p>
 <p>恶意的PATCH请求使用精心构造的JSON数据提交到spring-data-rest服务可以执行任意JAVA代码</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring Data REST versions prior to 2.5.12, 2.6.7, 3.0 RC3</p>
@@ -1295,7 +1295,7 @@
   </entry>
   <entry>
     <title>Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）</title>
-    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20WebFlow%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-4971%EF%BC%89/</url>
+    <url>/posts/f3c13ec6.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring WebFlow 是一个适用于开发基于流程的应用程序的框架（如购物逻辑），可以将流程的定义和实现流程行为的类和视图分离开来。在其 2.4.x 版本中，如果我们控制了数据绑定时的field，将导致一个SpEL表达式注入漏洞，最终造成任意命令执行。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Spring WebFlow 2.4.0 – 2.4.4</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2017-4971&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
@@ -1326,7 +1326,7 @@
   </entry>
   <entry>
     <title>Spring Security OAuth2 远程命令执行漏洞复现（CVE-2016-4977）</title>
-    <url>/2020/09/29/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Spring%20Security%20OAuth2%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2016-4977%EF%BC%89/</url>
+    <url>/posts/8059749f.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Spring Security OAuth2处理认证请求的时候如果使用了whitelabel视图，response_type参数值会被当做Spring SpEL来执行，恶意攻击者通过构造response_type值可以触发远程代码执行漏洞 </p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulhub搭建漏洞环境</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;vulhub&#x2F;spring&#x2F;CVE-2016-4977&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
@@ -1354,7 +1354,7 @@
   </entry>
   <entry>
     <title>ThinkPHP 2.x 任意代码执行漏洞复现</title>
-    <url>/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%202.x%20%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</url>
+    <url>/posts/5c231b10.html</url>
     <content><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>ThinkPHP 2.x版本中，使用 <strong>preg_replace</strong> 的 <strong>/e</strong> 模式匹配路由：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$res &#x3D; preg_replace(&#39;@(\w+)&#39;.$depr.&#39;([^&#39;.$depr.&#39;\&#x2F;]+)@e&#39;, &#39;$var[\&#39;\\1\&#39;]&#x3D;&quot;\\2&quot;;&#39;, implode($depr,$paths));</span><br></pre></td></tr></table></figure>
 <p>导致用户的输入参数被插入双引号中执行，造成任意代码执行漏洞。</p>
@@ -1381,7 +1381,7 @@
   </entry>
   <entry>
     <title>ThinkPHP 5.x 远程代码执行漏洞复现（CNVD-2018-24942）</title>
-    <url>/2020/09/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/ThinkPHP%205.x%20%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CNVD-2018-24942%EF%BC%89/</url>
+    <url>/posts/6cb1a1d1.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>ThinkPHP5 存在远程代码执行漏洞。该漏洞由于框架对控制器名未能进行足够的检测，攻击者利用该漏洞对目标网站进行远程命令执行攻击。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>上海顶想信息科技有限公司 ThinkPHP 5.*，&lt;5.1.31</p>
 <p>上海顶想信息科技有限公司 ThinkPHP &lt;=5.0.23</p>
@@ -1402,7 +1402,7 @@
   </entry>
   <entry>
     <title>WebLogic T3协议反序列化漏洞复现（CVE-2018-2628）</title>
-    <url>/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%20T3%E5%8D%8F%E8%AE%AE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2628%EF%BC%89/</url>
+    <url>/posts/5c6d7c93.html</url>
     <content><![CDATA[<h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>开放Weblogic控制台的7001端口，默认会开启T3协议服务，T3协议触发的Weblogic Server WLS Core Components中存在反序列化漏洞，攻击者可以发送构造的恶意T3协议数据，获取目标服务器权限。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="靶机环境"><a href="#靶机环境" class="headerlink" title="靶机环境"></a>靶机环境</h3><p>使用vulhub搭建漏洞环境</p>
@@ -1437,7 +1437,7 @@
   </entry>
   <entry>
     <title>WebLogic任意文件上传漏洞复现（CVE-2018-2894）</title>
-    <url>/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2018-2894%EF%BC%89/</url>
+    <url>/posts/c10a0e25.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Oracle官方发布了7月份的关键补丁更新CPU（Critical Patch Update）,其中包含一个高危的Weblogic未授权任意文件上传漏洞(CVE-2018-2894)</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Oracle WebLogic Server，版本<strong>10.3.6.0，12.1.3.0，12.2.1.2，12.2.1.3</strong>。 </p>
 <p>该漏洞的影响模块为web服务测试页，在默认情况下不启用。 受影响的页面为 <strong>/ws_utc/config.do</strong> 和 <strong>/ws_utc/begin.do</strong></p>
@@ -1463,7 +1463,7 @@
   </entry>
   <entry>
     <title>WebLogic反序列化漏洞复现（CVE-2017-10271）</title>
-    <url>/2020/09/27/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/WebLogic%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%EF%BC%88CVE-2017-10271%EF%BC%89/</url>
+    <url>/posts/f04107ca.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>CVE-2017-10271漏洞产生的原因大致是Weblogic的WLS Security组件对外提供webservice服务，其中使用了XMLDecoder来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导致可执行任意命令。攻击者发送精心构造的xml数据甚至能通过反弹shell拿到权限</p>
 <h2 id="受影响版本"><a href="#受影响版本" class="headerlink" title="受影响版本"></a>受影响版本</h2><p>10.3.6.0.0，12.1.3.0.0，12.2.1.1.0，12.2.1.2.0</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfoces搭建漏洞环境</p>
@@ -1489,7 +1489,7 @@
   </entry>
   <entry>
     <title>sqli-labs-Background-3 导入导出的相关操作</title>
-    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-3%20%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
+    <url>/posts/a7d7c886.html</url>
     <content><![CDATA[<h2 id="load-file-导出文件"><a href="#load-file-导出文件" class="headerlink" title="load_file()导出文件"></a>load_file()导出文件</h2><blockquote>
 <p>Load_file(file_name):读取文件并返回该文件的内容作为一个字符串。</p>
 </blockquote>
@@ -1667,7 +1667,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-6</title>
-    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-6/</url>
+    <url>/posts/3ef022d0.html</url>
     <content><![CDATA[<h2 id="Less6"><a href="#Less6" class="headerlink" title="Less6"></a>Less6</h2><blockquote>
 <p>Less6 与 less5 的区别在于 less6 在 id 参数传到服务器时，对 id 参数进行了处理。这里可以从源代码中可以看到。</p>
 </blockquote>
@@ -1686,7 +1686,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-5(延时盲注)</title>
-    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8)/</url>
+    <url>/posts/39947c43.html</url>
     <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><p>下面使用延时盲注演示</p>
 <h3 id="利用sleep-函数"><a href="#利用sleep-函数" class="headerlink" title="利用sleep()函数"></a>利用sleep()函数</h3><p>sql语句:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">and If(ascii(substr(database(),1,1))&#x3D;116,1,sleep(5))</span><br></pre></td></tr></table></figure>
@@ -1710,7 +1710,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-5(报错盲注)</title>
-    <url>/2020/09/24/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8)/</url>
+    <url>/posts/d416df9e.html</url>
     <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><p>下面使用报错盲注来演示</p>
 <h3 id="BUG-8652报错盲注"><a href="#BUG-8652报错盲注" class="headerlink" title="BUG #8652报错盲注"></a>BUG #8652报错盲注</h3><p>sql语句：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union Select 1,count(*),concat(0x3a,0x3a,(select user()),0x3a,0x3a,floor(rand(0)*2))a from information_schema.columns group by a</span><br></pre></td></tr></table></figure>
@@ -1752,7 +1752,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-5(布尔盲注)</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-5(%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8)/</url>
+    <url>/posts/a1c378af.html</url>
     <content><![CDATA[<h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><blockquote>
 <p>我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示<br>一下使用方法。</p>
 </blockquote>
@@ -1814,7 +1814,7 @@
   </entry>
   <entry>
     <title>sqli-labs-Background-2 盲注</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-2%20%E7%9B%B2%E6%B3%A8(%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3)/</url>
+    <url>/posts/175b777c.html</url>
     <content><![CDATA[<h2 id="什么是盲注？"><a href="#什么是盲注？" class="headerlink" title="什么是盲注？"></a>什么是盲注？</h2><blockquote>
 <p>盲注就是在 sql 注入过程中，sql 语句执行的选择后，选择的数据不能回显<br>到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。</p>
 </blockquote>
@@ -1883,7 +1883,7 @@
   </entry>
   <entry>
     <title>sqli-labs靶场Less-1-4</title>
-    <url>/2020/09/23/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs%E9%9D%B6%E5%9C%BALess-1-4/</url>
+    <url>/posts/1150102b.html</url>
     <content><![CDATA[<h2 id="Less1"><a href="#Less1" class="headerlink" title="Less1"></a>Less1</h2><h3 id="验证存在SQL注入"><a href="#验证存在SQL注入" class="headerlink" title="验证存在SQL注入"></a>验证存在SQL注入</h3><p><strong><a href="http://47.101.62.20:11567/Less-1/?id=1">http://47.101.62.20:11567/Less-1/?id=1</a></strong> 后面直接添加一个’，报错</p>
 <p><img src="https://qiniu.hzktester.top/tp2020092304.png" alt="image"></p>
 <h3 id="使用order-by得到有多少字段数"><a href="#使用order-by得到有多少字段数" class="headerlink" title="使用order by得到有多少字段数"></a>使用order by得到有多少字段数</h3><p>依次请求order by 1,2,3,4直到报错。</p>
@@ -1931,7 +1931,7 @@
   </entry>
   <entry>
     <title>sqli-labs-Background-1 基础知识</title>
-    <url>/2020/09/22/sqli-labs%E9%9D%B6%E5%9C%BA/sqli-labs-Background-1%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <url>/posts/cd41c5ab.html</url>
     <content><![CDATA[<p>此处介绍一些<strong>mysql</strong>注入的基础知识</p>
 <h2 id="注入的分类"><a href="#注入的分类" class="headerlink" title="注入的分类"></a>注入的分类</h2><h3 id="基于从服务器接收到的响应"><a href="#基于从服务器接收到的响应" class="headerlink" title="基于从服务器接收到的响应"></a>基于从服务器接收到的响应</h3><ol>
 <li>基于错误的SQL注入</li>
@@ -2005,7 +2005,7 @@
   </entry>
   <entry>
     <title>Web基础之信息泄露（上）</title>
-    <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
+    <url>/posts/e414d437.html</url>
     <content><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="https://qiniu.hzktester.top/tp2020081801.png" alt="image"></p>
 <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>许多的Web应用程序一般会有对服务器的文件读取查看的功能，大多会用到提交的参数来指明文件名。</p>
 <p>路径遍历漏洞隐藏一般在文件读取或者展示图片功能块这样的通过参数提交上来的文件名</p>
@@ -2065,7 +2065,7 @@
   </entry>
   <entry>
     <title>Web基础之信息泄露（下）</title>
-    <url>/2020/08/18/Web%E5%9F%BA%E7%A1%80/CTFHub%E9%A2%98%E8%A7%A3-Web%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%EF%BC%88%E4%B8%8B%EF%BC%89/</url>
+    <url>/posts/5ca8b352.html</url>
     <content><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
 <h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="https://qiniu.hzktester.top/tp2020081824.png" alt="image"></p>
 <h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
@@ -2116,7 +2116,7 @@
   </entry>
   <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91+%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84+%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85+%E9%87%8D%E6%96%B0%E7%AD%BE%E5%90%8D/</url>
+    <url>/posts/7c76bf46.html</url>
     <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
 <ol>
 <li>分别下载<strong>apktool.bat</strong>、<strong>apktool.jar</strong>，并把需要反编译的APP放在同一个目录中<br><img src="https://qiniu.hzktester.top/tp2020081604.png" alt="image"></li>
@@ -2147,35 +2147,8 @@
       </tags>
   </entry>
   <entry>
-    <title>APP反编译-下载源码</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/APP%E5%8F%8D%E7%BC%96%E8%AF%91-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
-<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
-<li>解压<strong>dex2jar.jar</strong>文件</li>
-<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
-<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="https://qiniu.hzktester.top/tp2020081601.png" alt="image"></li>
-<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
-<p>d2j-dex2jar.bat classes.dex</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="https://qiniu.hzktester.top/tp2020081602.png" alt="image"></p>
-<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
-<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
-<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="https://qiniu.hzktester.top/tp2020081603.png" alt="image"></li>
-<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
-</ol>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>luac的解密过程</title>
-    <url>/2020/08/16/APP%E6%B8%97%E9%80%8F/luac%E7%9A%84%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/cc2548f2.html</url>
     <content><![CDATA[<h2 id="加密解密思路"><a href="#加密解密思路" class="headerlink" title="加密解密思路"></a>加密解密思路</h2><p>将后缀为.luac文件放入到apk文件中，那么在程序运行时，势必需要对.luac文件进行解密，然后再加载运行文件。那程序是如何知道我们在加密key呢？有两个猜想：</p>
 <ol>
 <li>加密key写入文件，程序在解密时先读取文件中的加密key，再解密。</li>
@@ -2208,8 +2181,35 @@
       </tags>
   </entry>
   <entry>
+    <title>APP反编译-下载源码</title>
+    <url>/posts/b5afabd3.html</url>
+    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
+<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
+<li>解压<strong>dex2jar.jar</strong>文件</li>
+<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
+<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="https://qiniu.hzktester.top/tp2020081601.png" alt="image"></li>
+<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
+<p>d2j-dex2jar.bat classes.dex</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020081602.png" alt="image"></p>
+<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
+<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
+<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="https://qiniu.hzktester.top/tp2020081603.png" alt="image"></li>
+<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
+</ol>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-019 CVE-2013-4316复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-019%20CVE-2013-4316%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/984b6053.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>要求开发者模式，且poc第一个参数是debug，触发点在DebuggingInterceptor上，查看intercept函数，从debug参数获取调试模式，如果模式是command，则把expression参数放到stack.findValue中，最终放到了ognl.getValue中</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.0 - 2.3.15.1</p>
 <a id="more"></a>
@@ -2227,7 +2227,7 @@
   </entry>
   <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-029%20CVE-2016-0785%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/33bebcf9.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
 <a id="more"></a>
 
@@ -2252,7 +2252,7 @@
   </entry>
   <entry>
     <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-046%20CVE-2017-5638%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/2b1c937.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
 <a id="more"></a>
@@ -2272,7 +2272,7 @@
   </entry>
   <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-048%20CVE-2017-9791%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/37119a29.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
 <a id="more"></a>
@@ -2297,8 +2297,28 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <url>/posts/1359d177.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
+</li>
+<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-053%20CVE-2017-12611%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/b9ffad5e.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
 <a id="more"></a>
@@ -2320,28 +2340,8 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-052%20CVE-2017-9805%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
-</li>
-<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-057%20CVE-2018-11776%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/e935ed10.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
 <a id="more"></a>
@@ -2362,8 +2362,28 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-devMode CVE-2016-4438复现过程</title>
+    <url>/posts/ec495d19.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081418.png" alt="image"></p>
+</li>
+<li><p>直接使用工具获得flag<br><img src="https://qiniu.hzktester.top/tp2020081419.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-059%20CVE-2019-0230%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/a058ddb7.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
 <p>Apache Struts2框架是一个用于开发Java EE网络应用程序的Web框架，应用十分广泛。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.0.0 - 2.5.20</p>
@@ -2386,28 +2406,8 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-devMode CVE-2016-4438复现过程</title>
-    <url>/2020/08/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/S2-devMode%20CVE-2016-4438%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081418.png" alt="image"></p>
-</li>
-<li><p>直接使用工具获得flag<br><img src="https://qiniu.hzktester.top/tp2020081419.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Tomcat-弱口令-getshell复现过程</title>
-    <url>/2020/08/12/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Tomcat-%E5%BC%B1%E5%8F%A3%E4%BB%A4-getshell%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/4e833979.html</url>
     <content><![CDATA[<h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>Apache+Tomcat 是很常用的网站解决方案，Apache 用于提供 web 服务，而 Tomcat 是 Apache 服务器的扩展，用于运行 jsp 页面和 servlet。Tomcat 有一个管理后台，其用户名和密码在 Tomcat 安装目录下的 conf\tomcat-users.xml 文件中配置，不少管理员为了方便，经常采用弱口令。 Tomcat 支持在后台部署 war 包，可以直接将 webshell 部署到 web 目录下，如果 tomcat 后台管理用户存在弱口令，这很容易被利用上传 webshell。</p>
 <h2 id="知识点：什么是war包"><a href="#知识点：什么是war包" class="headerlink" title="知识点：什么是war包"></a>知识点：什么是war包</h2><p>war 包是一种打包格式<br>Java web工程，都是打成war包，进行发布，打成war包的好处是不会缺少目录，并且只管理好一个发布文件就好，并且tomcat服务器能够自动识别，将war包放在tomcat容器的webapps下，启动服务，即可运行该项目，该war包会自动解压出一个同名的文件夹。<br>war 包的结构（是一个web 项目编译后的结果）</p>
 <a id="more"></a>
@@ -2438,7 +2438,7 @@
   </entry>
   <entry>
     <title>Tomcat 任意写入文件漏洞复现过程（CVE-2017-12615）</title>
-    <url>/2020/08/11/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Tomcat%20%E4%BB%BB%E6%84%8F%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%88CVE-2017-12615%EF%BC%89/</url>
+    <url>/posts/171b876c.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Tomcat 7.0.0到7.0.79版本中存在远程代码执行漏洞，当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法时，攻击者可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件，文件中的代码被服务器执行。</p>
 <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Tomcat &gt;=7.0.0，&lt;=7.0.79</p>
 <a id="more"></a>
@@ -2465,7 +2465,7 @@
   </entry>
   <entry>
     <title>Fastjson_1.2.24反序列化漏洞复现过程</title>
-    <url>/2020/08/08/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Fastjson_1.2.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/</url>
+    <url>/posts/e672ba7.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>FastJson 库是 Java 的一个 Json 库，其作用是将 Java 对象转换成 json 数据来表示，也可以将 json 数据转换成 Java 对象，使用非常方便，号称是执行速度最快的库。</p>
 <p>在 1.2.24 版本的 Fastjson 出现了一个反序列化的漏洞，fastjson 在解析 json 的过程中，支持使用 autoType 来实例化某一个具体的类，并调用该类的 set/get 方法来访问属性。通过查找代码中相关的方法，即可构造出一些恶意利用链。</p>
 <h2 id="漏洞影响版本"><a href="#漏洞影响版本" class="headerlink" title="漏洞影响版本"></a>漏洞影响版本</h2><p>fastjson &lt;= 1.2.47</p>
