@@ -193,6 +193,282 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/c63e133.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/c63e133.html" class="post-title-link" itemprop="url">windows操作系统加固</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-14 14:29:00" itemprop="dateCreated datePublished" datetime="2020-10-14T14:29:00+08:00">2020-10-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" itemprop="url" rel="index"><span itemprop="name">安全加固</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="windows系统基本操作"><a href="#windows系统基本操作" class="headerlink" title="windows系统基本操作"></a>windows系统基本操作</h1><h2 id="windows常见目录"><a href="#windows常见目录" class="headerlink" title="windows常见目录"></a>windows常见目录</h2><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C:\Windows\System32</td>
+<td>存放系统配置文件</td>
+</tr>
+<tr>
+<td>C:\Windows\SysWOW64</td>
+<td>Windows操作系统的子系统</td>
+</tr>
+<tr>
+<td>C:\Windows\System32\config\SAM</td>
+<td>存放windows帐号和密码</td>
+</tr>
+<tr>
+<td>C:\Windows\System32\drivers\etc\hosts</td>
+<td>DNS解析文件</td>
+</tr>
+<tr>
+<td>C:\Program Files、C:\Program Files (x86)</td>
+<td>64位系统安装在Windows操作系统的子系统,32位下会安装在x86下</td>
+</tr>
+<tr>
+<td>C:\Windows\System32\winevt\Logs</td>
+<td>日志目录</td>
+</tr>
+</tbody></table>
+<h2 id="windows常用系统命令"><a href="#windows常用系统命令" class="headerlink" title="windows常用系统命令"></a>windows常用系统命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ver</td>
+<td>查看系统版本</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>查看主机名</td>
+</tr>
+<tr>
+<td>ipconfig /all</td>
+<td>查看网络配置</td>
+</tr>
+<tr>
+<td>net user/localgroup/share/config</td>
+<td>查看用户/用户组/共享/当前运行可配置服务</td>
+</tr>
+<tr>
+<td>at</td>
+<td>建立或查看系统作业</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>查看开放端口</td>
+</tr>
+<tr>
+<td>secpol.msc</td>
+<td>查看和修改本地安全设置</td>
+</tr>
+<tr>
+<td>services.msc</td>
+<td>查看和修改服务</td>
+</tr>
+<tr>
+<td>eventvwr.msc</td>
+<td>查看日志</td>
+</tr>
+<tr>
+<td>regedit</td>
+<td>打开注册表</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>查看当前操作用户的用户名</td>
+</tr>
+</tbody></table>
+<h2 id="windows常见端口"><a href="#windows常见端口" class="headerlink" title="windows常见端口"></a>windows常见端口</h2><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>80/8080/8081</td>
+<td>HTTP协议代理服务器常用端口号</td>
+</tr>
+<tr>
+<td>443</td>
+<td>HTTPS协议代理服务器常用端口号</td>
+</tr>
+<tr>
+<td>21</td>
+<td>FTP(文件传输协议)协议代理服务器常用端口号</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Telnet(远程登录)协议代理服务器常用端口号</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH（安全登录）、SCP（文件传输）</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>Oracle 数据库</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>MS SQL SERVER数据库</td>
+</tr>
+<tr>
+<td>1080</td>
+<td>QQ</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>Mysql数据库</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP（简单邮件传输协议）</td>
+</tr>
+</tbody></table>
+<h2 id="net命令的使用"><a href="#net命令的使用" class="headerlink" title="net命令的使用"></a>net命令的使用</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>net user abc /add</td>
+<td>创建（空密码）账户abc</td>
+</tr>
+<tr>
+<td>net user abc</td>
+<td>查看账户abc的详细信息</td>
+</tr>
+<tr>
+<td>net user abc /del</td>
+<td>删除账户abc</td>
+</tr>
+<tr>
+<td>net user abc 123/add</td>
+<td>创建普通账户abc，密码为123</td>
+</tr>
+<tr>
+<td>net localgroup administrators abc /add</td>
+<td>把abc用户加入管理员组</td>
+</tr>
+<tr>
+<td>net localgroup administrators abc /del</td>
+<td>把abc用户退出管理员组</td>
+</tr>
+<tr>
+<td>net user abc /active:yes[no]</td>
+<td>启用[停用]abc账户</td>
+</tr>
+<tr>
+<td>net localgroup admin /add[del]</td>
+<td>新建[删除]组admin</td>
+</tr>
+<tr>
+<td>net share</td>
+<td>查看本地开启的共享</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>查看开启哪些端口</td>
+</tr>
+</tbody></table>
+<h1 id="windows系统加固"><a href="#windows系统加固" class="headerlink" title="windows系统加固"></a>windows系统加固</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/c63e133.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/37b72f03.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1116,107 +1392,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/a05af4c0.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/a05af4c0.html" class="post-title-link" itemprop="url">Spring Cloud Config 目录穿越漏洞复现（CVE-2020-5410）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-29 17:30:00" itemprop="dateCreated datePublished" datetime="2020-09-29T17:30:00+08:00">2020-09-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>364</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Spring Cloud Config 为分布式系统中的外部配置提供服务器和客户端支持，使用 Config Server ，用户可以在所有环境中管理应用程序的外部属性。<br>近日，百度云安全团队监测到 Spring Cloud Config 官方发布了一个目录遍历漏洞的风险通告，漏洞编号为 CVE-2020-5410 。攻击者可通过构造特殊的 HTTP 请求，从而跨目录读取文件。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>2.2.x&lt;=2.2.2 2.1.x&lt;=2.1.8</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用vulfocus启动漏洞环境</p>
-<p><img src="https://qiniu.hzktester.top/tp2020092923.png" alt="image"></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>直接访问<br><code>http://47.101.62.20:48259/..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252Ftmp%23foo/development</code></p>
-<p><img src="https://qiniu.hzktester.top/tp2020092924.png" alt="image"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/a05af4c0.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1288,7 +1463,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1361,12 +1536,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">79k</span>
+    <span title="站点总字数">88k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:12</span>
+    <span title="站点阅读时长">1:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
