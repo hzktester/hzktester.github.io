@@ -295,6 +295,349 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e0d0a34b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/e0d0a34b.html" class="post-title-link" itemprop="url">边界资产信息搜集</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-05 16:12:00 / 修改时间：16:12:23" itemprop="dateCreated datePublished" datetime="2020-11-05T16:12:00+08:00">2020-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Web基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="红队边界资产信息收集"><a href="#红队边界资产信息收集" class="headerlink" title="红队边界资产信息收集"></a>红队边界资产信息收集</h1><p>当有一个很大的集团目标时，一般的信息搜集流程如下：</p>
+<h2 id="集团结构："><a href="#集团结构：" class="headerlink" title="集团结构："></a>集团结构：</h2><p>主要提取出历史网站备案，域名、子公司域名、备案号、注册邮箱（邮箱@后的也可能是域名）、手机号。</p>
+<ul>
+<li><p>天眼查：<a target="_blank" rel="noopener" href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></p>
+</li>
+<li><p>爱企查：<a target="_blank" rel="noopener" href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com/</a></p>
+</li>
+<li><p>企查查：<a target="_blank" rel="noopener" href="https://www.qcc.com/">https://www.qcc.com/</a></p>
+<h3 id="备案号查同备案的网站"><a href="#备案号查同备案的网站" class="headerlink" title="备案号查同备案的网站"></a>备案号查同备案的网站</h3></li>
+<li><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">https://beian.miit.gov.cn/#/Integrated/recordQuery</a></p>
+<h3 id="主域名中的跳转链接、JS中的链接搜集"><a href="#主域名中的跳转链接、JS中的链接搜集" class="headerlink" title="主域名中的跳转链接、JS中的链接搜集"></a>主域名中的跳转链接、JS中的链接搜集</h3><p>集团结构信息搜集后一般会得到主域名，也就是官网信息，可能有很多跳转链接，也属于他的资产，包括JS中的链接。推荐使用这个工具进行提取：</p>
+</li>
+<li><p>jsfinder（扫API和子域名）：<a target="_blank" rel="noopener" href="https://github.com/Threezh1/JSFinder">https://github.com/Threezh1/JSFinder</a></p>
+<h2 id="深挖更多IP资产："><a href="#深挖更多IP资产：" class="headerlink" title="深挖更多IP资产："></a>深挖更多IP资产：</h2><h3 id="CDN："><a href="#CDN：" class="headerlink" title="CDN："></a>CDN：</h3><h4 id="根据域名查是否有CDN："><a href="#根据域名查是否有CDN：" class="headerlink" title="根据域名查是否有CDN："></a>根据域名查是否有CDN：</h4></li>
+<li><p>多地ping：<a target="_blank" rel="noopener" href="https://tools.ipip.net/httphead.php">https://tools.ipip.net/httphead.php</a>。如果返回都是一样的IP那就没有CDN</p>
+<h4 id="CDN绕过："><a href="#CDN绕过：" class="headerlink" title="CDN绕过："></a>CDN绕过：</h4></li>
+<li><p>全球ping：<a target="_blank" rel="noopener" href="https://asm.ca.com/en/ping.php">https://asm.ca.com/en/ping.php</a> （针对小厂CDN，国外访问可能获得真实IP）</p>
+</li>
+<li><p>注册查看邮件原文</p>
+</li>
+<li><p>历史解析：</p>
+<ul>
+<li><strong>DNSdumpster</strong>（在线）： <a target="_blank" rel="noopener" href="https://dnsdumpster.com/">https://dnsdumpster.com/</a></li>
+<li>历史DNS记录： <a target="_blank" rel="noopener" href="https://rapiddns.io/subdomain">https://rapiddns.io/subdomain</a></li>
+</ul>
+</li>
+<li><p>配置不当</p>
+<ul>
+<li>phpinfo</li>
+<li>站点同时支持http和https访问，CDN只配置 https协议，那么这时访问http就可以轻易绕过。</li>
+</ul>
+</li>
+<li><p>通过找到的子域名辅助查找真实IP</p>
+<h4 id="确认真实IP："><a href="#确认真实IP：" class="headerlink" title="确认真实IP："></a>确认真实IP：</h4></li>
+<li><p>直接访问IP和访问域名的结果是一样的。</p>
+<h3 id="可信IP："><a href="#可信IP：" class="headerlink" title="可信IP："></a>可信IP：</h3><p>当拿到很多IP之后，如何确定是不是目标的资产？</p>
+</li>
+<li><p>查IP归属：<a target="_blank" rel="noopener" href="https://www.ipip.net/ip.html">https://www.ipip.net/ip.html</a>（如果查到是阿里云或者腾讯云的基本可以放弃）</p>
+</li>
+<li><p>直接<a target="_blank" rel="noopener" href="https://gobies.org/">goby</a>扫C段（说不定就扫到命令执行了呢）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://nmap.org/">nmap</a>扫全端口</p>
+</li>
+<li><p>同IP网站查询其他域名：<a target="_blank" rel="noopener" href="http://dns.bugscaner.com/">http://dns.bugscaner.com/</a></p>
+<h2 id="子域名搜集，目录扫描："><a href="#子域名搜集，目录扫描：" class="headerlink" title="子域名搜集，目录扫描："></a>子域名搜集，目录扫描：</h2><p>通过以上的信息搜集，就会得到很多域名</p>
+</li>
+<li><p>子域名收集。推荐一个工具<a target="_blank" rel="noopener" href="https://paper.seebug.org/1053/"><strong>OneForAll</strong></a></p>
+</li>
+</ul>
+<p><strong>能扫到多级目录，多，有标题</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">python3 oneforall.py --target example.com --port=80,443,8080,8009,7001 --valid=True --path=./subs.csv run</span><br><span class="line"></span><br><span class="line">--port=PORT</span><br><span class="line">请求验证子域的端口范围(默认只探测80端口)</span><br><span class="line">--valid=VALID</span><br><span class="line">只导出存活的子域结果(默认False)</span><br><span class="line">--path=PATH</span><br><span class="line">结果保存路径(默认None)</span><br><span class="line">--takeover=TAKEOVER</span><br><span class="line">检查子域接管(默认False)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>访问域名404或者403的，权重高的直接爆破目录（字典要强大，说不定就扫到源码了呢）</p>
+<h2 id="拓展资产搜集"><a href="#拓展资产搜集" class="headerlink" title="拓展资产搜集"></a>拓展资产搜集</h2><h3 id="FOFA关键词搜集："><a href="#FOFA关键词搜集：" class="headerlink" title="FOFA关键词搜集："></a>FOFA关键词搜集：</h3><p>师傅这篇文章写的很详细了可以参考一下：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU3MTU3NDk4Mw==&mid=2247484420&idx=1&sn=a18a908a0146b6fd08a9533520b9bc4b&chksm=fcdf5baccba8d2ba592cdeca87ded3b97915c5b0f557b18f7b6e152e4bc66d4141eddc105d5d&mpshare=1&scene=23&srcid=1104qlIdyYCsgUX58hjx7iAp&sharer_sharetime=1604499225727&sharer_shareid=1f9f9a5c0563a1d0ce3d7b29ade29fd3#rd">链接</a></p>
+<h3 id="微信小程序搜集："><a href="#微信小程序搜集：" class="headerlink" title="微信小程序搜集："></a>微信小程序搜集：</h3><p>很多集团的资产找不到的情况下，可以试一下微信搜，或许会有不一样的发现</p>
+<h3 id="APP搜集："><a href="#APP搜集：" class="headerlink" title="APP搜集："></a>APP搜集：</h3><p>提取APK中的所有URL链接<a target="_blank" rel="noopener" href="https://github.com/s0md3v/Diggy">Diggy</a>：</p>
+<h3 id="icon搜集："><a href="#icon搜集：" class="headerlink" title="icon搜集："></a>icon搜集：</h3></li>
+<li><p>提取集团icon的hash然后fofa搜：<a target="_blank" rel="noopener" href="https://github.com/Becivells/iconhash">iconhash</a></p>
+<h3 id="供应链，网站指纹："><a href="#供应链，网站指纹：" class="headerlink" title="供应链，网站指纹："></a>供应链，网站指纹：</h3></li>
+<li><p>供应链</p>
+<ul>
+<li>网站底部可能会有技术支持的公司名称显示</li>
+<li>F12找特征FOFA搜可能会找到开发此网站的公司，查该公司说不定会有演示网站或者测试站</li>
+</ul>
+</li>
+<li><p>指纹识别：<a target="_blank" rel="noopener" href="http://finger.tidesec.net/">潮汐指纹</a>、<a target="_blank" rel="noopener" href="https://www.yunsee.cn/">云悉指纹</a></p>
+<h3 id="社工钓鱼："><a href="#社工钓鱼：" class="headerlink" title="社工钓鱼："></a>社工钓鱼：</h3><p>这里没研究过，基本流程就是爬企业员工邮箱，网盘查泄露的资料然后发钓鱼邮件诱导其下载。</p>
+<h2 id="漏洞库："><a href="#漏洞库：" class="headerlink" title="漏洞库："></a>漏洞库：</h2></li>
+<li><p>零组文库：<a target="_blank" rel="noopener" href="http://47.94.96.209/index.html">零组</a></p>
+</li>
+<li><p>乌云镜像：<a target="_blank" rel="noopener" href="https://wooyun.x10sec.org/">https://wooyun.x10sec.org/</a></p>
+<h2 id="常见端口渗透思路："><a href="#常见端口渗透思路：" class="headerlink" title="常见端口渗透思路："></a>常见端口渗透思路：</h2><table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>渗透思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21/69</td>
+<td>FTP/TFTP：文件传输协议</td>
+<td>爆破、内网嗅探</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH：远程连接</td>
+<td>用户名枚举、爆破</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Telnet：远程连接</td>
+<td>爆破、内网嗅探</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP：邮件服务</td>
+<td>邮件伪造</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS：域名系统</td>
+<td>DNS域传送\DNS缓存投毒\DNS欺骗\利用DNS隧道技术刺透防火墙</td>
+</tr>
+<tr>
+<td>389</td>
+<td>LDAP</td>
+<td>未授权访问（通过LdapBrowser工具直接连入）</td>
+</tr>
+<tr>
+<td>443</td>
+<td>https服务</td>
+<td>OpenSSL 心脏滴血（nmap -sV –script=ssl-heartbleed ）</td>
+</tr>
+<tr>
+<td>445</td>
+<td>SMB服务</td>
+<td>ms17_010远程代码执行</td>
+</tr>
+<tr>
+<td>873</td>
+<td>rsync服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>1090/1099</td>
+<td>Java-rmi</td>
+<td>JAVA反序列化远程命令执行漏洞</td>
+</tr>
+<tr>
+<td>1352</td>
+<td>Lotus Domino邮件服务</td>
+<td>爆破：弱口令、信息泄漏：源代码</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>MSSQL</td>
+<td>注入、SA弱口令爆破、提权</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>Oracle</td>
+<td>注入、TNS爆破</td>
+</tr>
+<tr>
+<td>2049</td>
+<td>NFS</td>
+<td>配置不当</td>
+</tr>
+<tr>
+<td>2181</td>
+<td>ZooKeeper服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>MySQL</td>
+<td>注入、爆破、写shell、提权</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>RDP</td>
+<td>爆破、Shift后门、CVE-2019-0708远程代码执行</td>
+</tr>
+<tr>
+<td>4848</td>
+<td>GlassFish控制台</td>
+<td>爆破：控制台弱口令、认证绕过</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>Sybase/DB2数据库</td>
+<td>爆破、注入</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>PostgreSQL</td>
+<td>爆破弱口令、高权限执行系统命令</td>
+</tr>
+<tr>
+<td>5632</td>
+<td>PcAnywhere服务</td>
+<td>爆破弱口令</td>
+</tr>
+<tr>
+<td>5900</td>
+<td>VNC</td>
+<td>爆破：弱口令、认证绕过</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>Redis</td>
+<td>未授权访问、爆破弱口令</td>
+</tr>
+<tr>
+<td>7001</td>
+<td>WebLogic中间件</td>
+<td>反序列化、控制台弱口令+部署war包、SSRF</td>
+</tr>
+<tr>
+<td>8000</td>
+<td>jdwp</td>
+<td>JDWP 远程命令执行漏洞（<a target="_blank" rel="noopener" href="https://github.com/IOActive/jdwp-shellifier">工具</a>）</td>
+</tr>
+<tr>
+<td>8080/8089</td>
+<td>Tomcat/JBoss/Resin/Jetty/Jenkins</td>
+<td>反序列化、控制台弱口令、未授权</td>
+</tr>
+<tr>
+<td>8161</td>
+<td>ActiveMQ</td>
+<td>admin/admin、任意文件写入、反序列化</td>
+</tr>
+<tr>
+<td>8069</td>
+<td>Zabbix</td>
+<td>远程命令执行</td>
+</tr>
+<tr>
+<td>9043</td>
+<td>WebSphere控制台</td>
+<td>控制台弱口令https://:9043/ibm/console/logon.jsp、远程代码执行</td>
+</tr>
+<tr>
+<td>9200/9300</td>
+<td>Elasticsearch服务</td>
+<td>远程代码执行</td>
+</tr>
+<tr>
+<td>11211</td>
+<td>Memcache</td>
+<td>未授权访问（nc -vv  11211）</td>
+</tr>
+<tr>
+<td>27017</td>
+<td>MongoDB</td>
+<td>未授权访问、爆破弱口令</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>SAP</td>
+<td>远程代码执行</td>
+</tr>
+<tr>
+<td>50070</td>
+<td>hadoop</td>
+<td>未授权访问</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>信息收集是一个看似琐碎但不可或缺的步骤，在网络攻击和防御的成本都越来越低的当下，信息差往往是决定成败的关键。只有找到更多的资产暴露攻击面，才能找到别人发现不了的漏洞。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/e0d0a34b.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e7ac7642.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -321,7 +664,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-21 17:57:00 / 修改时间：17:58:01" itemprop="dateCreated datePublished" datetime="2020-10-21T17:57:00+08:00">2020-10-21</time>
+              <time title="创建时间：2020-10-21 17:57:00 / 修改时间：17:58:44" itemprop="dateCreated datePublished" datetime="2020-10-21T17:57:00+08:00">2020-10-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1082,199 +1425,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/61d5f45a.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/61d5f45a.html" class="post-title-link" itemprop="url">linux操作系统加固</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-15 14:29:00" itemprop="dateCreated datePublished" datetime="2020-10-15T14:29:00+08:00">2020-10-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" itemprop="url" rel="index"><span itemprop="name">安全加固</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Linux系统基本操作"><a href="#Linux系统基本操作" class="headerlink" title="Linux系统基本操作"></a>Linux系统基本操作</h1><h2 id="文件结构图及关键文件功能"><a href="#文件结构图及关键文件功能" class="headerlink" title="文件结构图及关键文件功能"></a>文件结构图及关键文件功能</h2><h3 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h3><p><img src="https://qiniu.hzktester.top/tp2020101501.png" alt="image"></p>
-<h3 id="Linux文件结构图"><a href="#Linux文件结构图" class="headerlink" title="Linux文件结构图"></a>Linux文件结构图</h3><p><img src="https://qiniu.hzktester.top/tp2020101502.png" alt="image"></p>
-<h3 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h3><table>
-<thead>
-<tr>
-<th>目录</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>/bin</td>
-<td>放置的是在单人维护模式下能够被操作的指令，在/bin底下的指令可以被root与 一般账号所使用</td>
-</tr>
-<tr>
-<td>/boot</td>
-<td>这个目录只要在放置开机会使用到的文件，包括Linux核心文件以及开机选单与 开机所需配置的文件等等</td>
-</tr>
-<tr>
-<td>/dev</td>
-<td>在Linux系统上，任何装置与接口设备都是以文件的形态存在于这个目录当中的</td>
-</tr>
-<tr>
-<td>/etc</td>
-<td>系统主要的配置文件几乎都放置在这个目录内，例如人员的账号密码文件，各 种服务的启动档，系统变量配置等</td>
-</tr>
-<tr>
-<td>/home</td>
-<td>这是系统默认的用户家目录(homedirectory)</td>
-</tr>
-<tr>
-<td>/lib</td>
-<td>/lib放置的则是在开机时会用到的函式库，以及在/lib或/sbin底下的指令会呼叫 的函式库</td>
-</tr>
-<tr>
-<td>/media</td>
-<td>/media底下放置的是可移出的装置，包括软盘、光盘、DVD等等装置都杂事挂载与此</td>
-</tr>
-<tr>
-<td>/opt</td>
-<td>给第三方协议软件放置的目录</td>
-</tr>
-<tr>
-<td>/root</td>
-<td>系统管理员（root）的家目录</td>
-</tr>
-<tr>
-<td>/sbin</td>
-<td>放置/sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所 需要的指令。</td>
-</tr>
-<tr>
-<td>/srv</td>
-<td>srv可视为[service]的缩写，是一些网络服务启动之后，这些服务所需要取用的 数据目录</td>
-</tr>
-<tr>
-<td>/tmp</td>
-<td>这是让一般使用者或者是正在执行的程序暂时放置文件的地方</td>
-</tr>
-</tbody></table>
-<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><table>
-<thead>
-<tr>
-<th>目录</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>/etc/passwd</td>
-<td>记录系统本地用户的属性信息，如UId,Gid,家目录等信息</td>
-</tr>
-<tr>
-<td>/etc/shadow</td>
-<td>存放用户的口令等信息，只有系统管理员用户能查看</td>
-</tr>
-<tr>
-<td>/etc/pam.d/system-auth</td>
-<td>账户安全配置文件</td>
-</tr>
-<tr>
-<td>/etc/login.defs</td>
-<td>设置用户账户限制的配置文件，对root用户无效</td>
-</tr>
-<tr>
-<td>/etc/securetty</td>
-<td>网络配置文件</td>
-</tr>
-<tr>
-<td>/etc/pam.d/su</td>
-<td>su命令配置</td>
-</tr>
-<tr>
-<td>/etc/hosts.allow、/etc/hosts.deny</td>
-<td>允许/拒接某网段远程连接到主机</td>
-</tr>
-<tr>
-<td>/etc/profile</td>
-<td>保存Linux全局环境变量信息，如umask,bash历史命令设置</td>
-</tr>
-</tbody></table>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/61d5f45a.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1346,7 +1496,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1359,7 +1509,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1419,12 +1569,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">88k</span>
+    <span title="站点总字数">91k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:20</span>
+    <span title="站点阅读时长">1:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
