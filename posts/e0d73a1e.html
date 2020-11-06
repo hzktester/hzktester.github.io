@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是字符串 在C语言中字符串是作为字节数组处理的。在Java语言中字符串是作为对象处理的。而php则把字符串作为基本数据类型来处理。通常对字符串的处理涉及字符串的格式化。字符串的分割和连接、字符串的比较、以及字符串的查找、匹配和替换。  常用的字符串输出函数常规输出字符串 echo()：输出字符串 print()：输出一个字符串123456$array &#x3D; [1,2,3];$strin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串介绍，常用字符串输出函数、格式化函数、比较函数">
+<meta property="og:url" content="https://hzktester.top/posts/e0d73a1e.html">
+<meta property="og:site_name" content="Hzktester&#96;s Blog">
+<meta property="og:description" content="什么是字符串 在C语言中字符串是作为字节数组处理的。在Java语言中字符串是作为对象处理的。而php则把字符串作为基本数据类型来处理。通常对字符串的处理涉及字符串的格式化。字符串的分割和连接、字符串的比较、以及字符串的查找、匹配和替换。  常用的字符串输出函数常规输出字符串 echo()：输出字符串 print()：输出一个字符串123456$array &#x3D; [1,2,3];$strin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020110608.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020110609.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020110610.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020110611.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020110612.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020110613.png">
+<meta property="article:published_time" content="2020-11-06T09:09:00.000Z">
+<meta property="article:modified_time" content="2020-11-06T09:10:02.534Z">
+<meta property="article:author" content="hzktester">
+<meta property="article:tag" content="PHP基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020110608.png">
+
+<link rel="canonical" href="https://hzktester.top/posts/e0d73a1e.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>字符串介绍，常用字符串输出函数、格式化函数、比较函数 | Hzktester`s Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hzktester`s Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	
+	<a target="_blank" rel="noopener" href="https://github.com/hzktester" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hzktester`s Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e0d73a1e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符串介绍，常用字符串输出函数、格式化函数、比较函数
+        </h1>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-06 17:09:00 / 修改时间：17:10:02" itemprop="dateCreated datePublished" datetime="2020-11-06T17:09:00+08:00">2020-11-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">PHP基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" style="display: inline;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="什么是字符串"><a href="#什么是字符串" class="headerlink" title="什么是字符串"></a>什么是字符串</h2><blockquote>
+<p>在C语言中字符串是作为字节数组处理的。在Java语言中字符串是作为对象处理的。而php则把字符串作为基本数据类型来处理。通常对字符串的处理涉及字符串的格式化。字符串的分割和连接、字符串的比较、以及字符串的查找、匹配和替换。</p>
+</blockquote>
+<h2 id="常用的字符串输出函数"><a href="#常用的字符串输出函数" class="headerlink" title="常用的字符串输出函数"></a>常用的字符串输出函数</h2><h3 id="常规输出字符串"><a href="#常规输出字符串" class="headerlink" title="常规输出字符串"></a>常规输出字符串</h3><ul>
+<li><code>echo()</code>：输出字符串</li>
+<li><code>print()</code>：输出一个字符串<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$array &#x3D; [1,2,3];</span><br><span class="line">$string &#x3D; &quot;123&quot;;</span><br><span class="line">&#x2F;&#x2F;echo $array;</span><br><span class="line">echo $string;</span><br><span class="line">&#x2F;&#x2F;print($array);</span><br><span class="line">print($string);</span><br></pre></td></tr></table></figure>
+<code>echo()</code>和<code>print()</code>都只能输出字符串，而不能输出数组<h3 id="输出字符串并退出程序"><a href="#输出字符串并退出程序" class="headerlink" title="输出字符串并退出程序"></a>输出字符串并退出程序</h3><code>die()和exit()</code>：输出一个字符串后退出程序<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$string &#x3D; &quot;123&quot;;</span><br><span class="line">&#x2F;&#x2F;die($string);</span><br><span class="line">exit($string);</span><br><span class="line">echo &quot;我不会运行&quot;;</span><br></pre></td></tr></table></figure>
+<code>die()</code>和<code>exit()</code>同样都只能输出字符串，而不能输出数组<h3 id="格式化输出字符串"><a href="#格式化输出字符串" class="headerlink" title="格式化输出字符串"></a>格式化输出字符串</h3>字符串转换格式：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%%</td>
+<td>返回百分比符号</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>二进制数</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>依照ASCII值的字符</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>带符号十进制数</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>可续计数法（如1.5e3）</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>无符号十进制数</td>
+</tr>
+<tr>
+<td>%f或%F</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>八进制数</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>%x或%X</td>
+<td>十六进制数</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>printf()</code>：输出格式化字符串</li>
+<li><code>sprintf()</code>：把格式化的字符串写入一个变量中</li>
+</ul>
+<p><code>printf()</code>和<code>sprintf()</code>都是格式化输出字符串，区别在于<code>sprintf()</code>可以把格式化的字符串写入到一个变量中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;我是%s&quot;,&quot;test&quot;);    &#x2F;&#x2F;输出我是test</span><br><span class="line">$aa &#x3D; sprintf(&quot;我是%s&quot;,&quot;test&quot;);</span><br><span class="line">echo $aa;   &#x2F;&#x2F;输出我是test</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用的字符串格式化函数"><a href="#常用的字符串格式化函数" class="headerlink" title="常用的字符串格式化函数"></a>常用的字符串格式化函数</h2><h3 id="去除空格和字符串填充函数"><a href="#去除空格和字符串填充函数" class="headerlink" title="去除空格和字符串填充函数"></a>去除空格和字符串填充函数</h3><ul>
+<li><code>ltrim()</code>：删去字符串前面的空格</li>
+<li><code>rtrim()</code>：删去字符串后面的空格</li>
+<li><code>trim()</code>：删去字符串前后的空格  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   $info &#x3D; &quot; 我前面有个空格&quot;;</span><br><span class="line">$info1 &#x3D; &quot;我后面有个空格 &quot;;</span><br><span class="line">$info2 &#x3D; &quot; 我前后有个空格 &quot;;</span><br><span class="line">var_dump(ltrim($info));		&#x2F;&#x2F;去除字符串前面的空格</span><br><span class="line">var_dump(rtrim($info1));	&#x2F;&#x2F;去除字符串后面的空格</span><br><span class="line">var_dump(trim($info2));		&#x2F;&#x2F;去除字符串前后的空格</span><br></pre></td></tr></table></figure></li>
+<li><code>str_pad()</code>：按需求对字符串进行填充<ul>
+<li><code>STR_PAD_LEFT</code>：字符串左填补</li>
+<li><code>STR_PAD_RIGHT</code>：字符串右填补</li>
+<li><code>STR_PAD_BOTH</code>：字符串左右两端填补<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   $input &#x3D; &quot;Alien&quot;;</span><br><span class="line">var_dump(str_pad($input, 10));&#x2F;&#x2F; 输出&quot;Alien     &quot;</span><br><span class="line">var_dump(str_pad($input, 10, &quot;-&#x3D;&quot;, STR_PAD_LEFT));&#x2F;&#x2F; 输出 &quot;-&#x3D;-&#x3D;-Alien&quot;</span><br><span class="line">var_dump(str_pad($input, 10, &quot;_&quot;, STR_PAD_BOTH));&#x2F;&#x2F; 输出 &quot;__Alien___&quot;</span><br><span class="line">var_dump(str_pad($input, 6 , &quot;___&quot;));&#x2F;&#x2F; 输出&quot;Alien_&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="字符串大小写的转换"><a href="#字符串大小写的转换" class="headerlink" title="字符串大小写的转换"></a>字符串大小写的转换</h3></li>
+</ul>
+</li>
+<li><code>strtolower()</code>：将字符串全部转换为小写字符串</li>
+<li><code>strtoupper()</code>：将字符串全部转换为大写字符串</li>
+<li><code>ucfirst()</code>：将字符串第一个字符改大写</li>
+<li><code>ucwords()</code>：将字符串每个字第一个字母改大写  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$info &#x3D; &quot;ABCDEFG HIJFLNM&quot;;</span><br><span class="line">&#x2F;&#x2F; 转换成小写</span><br><span class="line">$info &#x3D; strtolower($info);</span><br><span class="line">var_dump($info);</span><br><span class="line">&#x2F;&#x2F; 转换成大写</span><br><span class="line">var_dump(strtoupper($info));</span><br><span class="line">&#x2F;&#x2F; 把首字母变成大写</span><br><span class="line">var_dump(ucfirst($info));</span><br><span class="line">&#x2F;&#x2F; 每个字第一个字母改大写。</span><br><span class="line">var_dump(ucwords($info));</span><br></pre></td></tr></table></figure>
+  <img src="https://qiniu.hzktester.top/tp2020110608.png" alt="image"><h3 id="和HTML标签相关联的字符串格式化"><a href="#和HTML标签相关联的字符串格式化" class="headerlink" title="和HTML标签相关联的字符串格式化"></a>和HTML标签相关联的字符串格式化</h3></li>
+<li><code>nl2br()</code>：将字符串中<code>\n</code>转成HTML换行符<code>&lt;br/&gt;</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$html &#x3D; &quot;我要换行\n&quot;;</span><br><span class="line">var_dump(nl2br($html));</span><br></pre></td></tr></table></figure>
+  <img src="https://qiniu.hzktester.top/tp2020110609.png" alt="image"></li>
+<li><code>htmlspecialchars()</code>：把指定特殊符号转换成实体，如&lt;&gt;  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$html &#x3D; &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;我是开始&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;&lt;&#x2F;body&gt;&lt;&#x2F;html&gt;&quot;;</span><br><span class="line">$shilihuahtml &#x3D; htmlspecialchars($html);</span><br><span class="line">var_dump($shilihuahtml);</span><br></pre></td></tr></table></figure>
+  <img src="https://qiniu.hzktester.top/tp2020110610.png" alt="image"></li>
+<li><code>htmlspecialchars_decode()</code>：实体转换为<code>html</code></li>
+<li><code>strip_tags()</code>：删除<code>html</code>的标签函数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   $html &#x3D; &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;我是开始&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;&lt;&#x2F;body&gt;&lt;&#x2F;html&gt;&quot;;</span><br><span class="line">   var_dump(strip_tags($html));	&#x2F;&#x2F;删除全部html代码，输出string(12) &quot;我是开始&quot;</span><br><span class="line">var_dump(strip_tags($html,&quot;&lt;title&gt;&quot;));	&#x2F;&#x2F;只保留title标签,标题会显示我是开始</span><br></pre></td></tr></table></figure>
+  <img src="https://qiniu.hzktester.top/tp2020110611.png" alt="image"><h3 id="其他字符串格式化函数"><a href="#其他字符串格式化函数" class="headerlink" title="其他字符串格式化函数"></a>其他字符串格式化函数</h3></li>
+<li><code>strrev()</code>：颠倒字符串，将字符串前后颠倒</li>
+<li><code>strlen()</code>：取得字符串长度</li>
+<li><code>number_format()</code>：格式货币、数字、时间等</li>
+<li><code>md5()</code>：md5加密函数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$a &#x3D; &quot;123456&quot;;</span><br><span class="line">&#x2F;&#x2F;颠倒字符串</span><br><span class="line">var_dump(strrev($a));</span><br><span class="line">&#x2F;&#x2F; 获取字符串的长度</span><br><span class="line">var_dump(strlen($a));</span><br><span class="line">&#x2F;&#x2F;格式货币、数字、时间等。</span><br><span class="line">$number &#x3D; 1234.5678;</span><br><span class="line">var_dump(number_format($number,2,&#39;.&#39;,&#39;&#39;));</span><br><span class="line">&#x2F;&#x2F;md5加密</span><br><span class="line">var_dump(md5($a));</span><br></pre></td></tr></table></figure>
+  <img src="https://qiniu.hzktester.top/tp2020110612.png" alt="image"></li>
+</ul>
+<h2 id="字符串比较函数"><a href="#字符串比较函数" class="headerlink" title="字符串比较函数"></a>字符串比较函数</h2><h3 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h3><ul>
+<li><code>strcmp()</code>：字符串整个比较是否相同</li>
+<li><code>strncmp()</code>：指定比较长度的字符串比较</li>
+<li><code>strcasecmp()</code>：不区分大小写的字符串比较</li>
+<li><code>strnatcmp()</code>：按自然排序法对字符串比较</li>
+<li><code>similar_text()</code>：字符串的模糊比较，返回相似字符串的个数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var_dump(strcmp(&#39;ABCcc&#39;,&#39;ABccc&#39;));		&#x2F;&#x2F;int(-1)</span><br><span class="line">var_dump(strncmp(&#39;ABCcc&#39;,&#39;ABccc&#39;,6));	&#x2F;&#x2F;int(-1)</span><br><span class="line">var_dump(strcasecmp(&#39;ABCcc&#39;,&#39;ABccc&#39;));	&#x2F;&#x2F;int(0)</span><br><span class="line">var_dump(strnatcmp(&#39;ABCcc&#39;,&#39;ABccc&#39;));	&#x2F;&#x2F;int(-1)</span><br><span class="line">var_dump(similar_text(&#39;ABCcc&#39;,&#39;ABCcc&#39;));&#x2F;&#x2F;int(5)</span><br></pre></td></tr></table></figure>
+<h3 id="字符串的分割与拼装"><a href="#字符串的分割与拼装" class="headerlink" title="字符串的分割与拼装"></a>字符串的分割与拼装</h3></li>
+<li><code>explode()</code>：使用一个字符串分割另一个字符串，返回一个数组  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   $pizza &#x3D; &quot;piece1 piece2 piece3&quot;;</span><br><span class="line">$pieces &#x3D; explode(&quot; &quot;, $pizza); &#x2F;&#x2F;用空格分隔pizza变量组成数组赋值给pieces</span><br><span class="line">echo $pieces[0]; 	&#x2F;&#x2F; piece1</span><br><span class="line">echo $pieces[1]; 	&#x2F;&#x2F; piece2</span><br><span class="line">   echo $pieces[2];    &#x2F;&#x2F; piece3</span><br></pre></td></tr></table></figure></li>
+<li><code>implode()</code>：用一组较小的字符串创建一个大字符串  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$array &#x3D; array(&#39;lastname&#39;,&#39;email&#39;,&#39;phone&#39;);</span><br><span class="line">$comma_separated &#x3D; implode(&quot;,&quot;,$array); &#x2F;&#x2F;使用,分割array的每个值组成一个字符串</span><br><span class="line">echo $comma_separated; &#x2F;&#x2F;输出lastname,email,phone</span><br></pre></td></tr></table></figure>
+<h3 id="字符串的截取、查找、替换"><a href="#字符串的截取、查找、替换" class="headerlink" title="字符串的截取、查找、替换"></a>字符串的截取、查找、替换</h3><h4 id="截取"><a href="#截取" class="headerlink" title="截取"></a>截取</h4></li>
+<li><code>substr()</code>：取部分字符串，返回一个新的字符串</li>
+<li><code>strstr()</code>：截取字符串某个参数第一次出现到结尾的字符串</li>
+<li><code>strrchr()</code>：截取字符串某个参数最后一次出现到结尾的字符串</li>
+</ul>
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><ul>
+<li><code>strpos()</code>：寻找字符串某个参数最先出现的位置</li>
+<li><code>strrpos()</code>：寻找字符串某个参数最后出现的位置</li>
+</ul>
+<h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><ul>
+<li><code>str_replace()</code>：替换字符串</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$info &#x3D; &quot;ABCDEFG HIJFLNM&quot;;</span><br><span class="line">&#x2F;&#x2F;截取</span><br><span class="line">var_dump(substr($info,4,7));	&#x2F;&#x2F;从字符串第4位开始，截取7位</span><br><span class="line">var_dump(strstr($info,&#39;F&#39;));	&#x2F;&#x2F;截取字符串第一个F开始到结尾的字符串</span><br><span class="line">var_dump(strrchr($info,&#39;F&#39;));	&#x2F;&#x2F;截取字符串最后一个F开始到结尾的字符串</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查找</span><br><span class="line">var_dump(strpos($info,&#39;F&#39;));	&#x2F;&#x2F;寻找字符串F最先出现的位置，返回下标，默认从0开始</span><br><span class="line">var_dump(strrpos($info,&#39;F&#39;));	&#x2F;&#x2F;寻找字符串F最后一次出现的位置，返回下标，默认从0开始</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;替换</span><br><span class="line">var_dump($info);</span><br><span class="line">var_dump(str_replace([&quot;A&quot;,&quot;B&quot;], [&quot;2&quot;,&quot;4&quot;], $info));	&#x2F;&#x2F;把字符串A和B分别替换为2和4</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020110613.png" alt="image"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>hzktester
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hzktester.top/posts/e0d73a1e.html" title="字符串介绍，常用字符串输出函数、格式化函数、比较函数">https://hzktester.top/posts/e0d73a1e.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PHP%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i> PHP基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/50045358.html" rel="prev" title="数组的定义，遍历，预定义数组、数组相关处理函数">
+      <i class="fa fa-chevron-left"></i> 数组的定义，遍历，预定义数组、数组相关处理函数
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">什么是字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BE%93%E5%87%BA%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">常用的字符串输出函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.1.</span> <span class="nav-text">常规输出字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B9%B6%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">输出字符串并退出程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.3.</span> <span class="nav-text">格式化输出字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">常用的字符串格式化函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%BB%E9%99%A4%E7%A9%BA%E6%A0%BC%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A1%AB%E5%85%85%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">去除空格和字符串填充函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%A7%E5%B0%8F%E5%86%99%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">字符串大小写的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%92%8CHTML%E6%A0%87%E7%AD%BE%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">3.3.</span> <span class="nav-text">和HTML标签相关联的字符串格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">其他字符串格式化函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">字符串比较函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">4.1.</span> <span class="nav-text">字符串的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%88%86%E5%89%B2%E4%B8%8E%E6%8B%BC%E8%A3%85"><span class="nav-number">4.2.</span> <span class="nav-text">字符串的分割与拼装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%88%AA%E5%8F%96%E3%80%81%E6%9F%A5%E6%89%BE%E3%80%81%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">字符串的截取、查找、替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%AA%E5%8F%96"><span class="nav-number">4.3.1.</span> <span class="nav-text">截取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">4.3.2.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.3.3.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.3.4.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="hzktester"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">hzktester</p>
+  <div class="site-description" itemprop="description">偷偷努力，然后惊艳所有人</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hzktester" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hzktester" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1243547769@qq.com" title="E-Mail → mailto:1243547769@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://hackergu.com/" title="http:&#x2F;&#x2F;hackergu.com&#x2F;" rel="noopener" target="_blank">Gu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://sunian.top/" title="https:&#x2F;&#x2F;sunian.top&#x2F;" rel="noopener" target="_blank">sunian</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wintrysec.github.io/" title="https:&#x2F;&#x2F;wintrysec.github.io&#x2F;" rel="noopener" target="_blank">wintrysec</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzktester</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">108k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:38</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" style="display: inline;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" style="display: inline;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

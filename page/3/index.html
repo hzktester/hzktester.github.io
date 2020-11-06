@@ -193,6 +193,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/18b82261.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/18b82261.html" class="post-title-link" itemprop="url">sqli-labs靶场Less11-16(二次注入)</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-04 23:29:00" itemprop="dateCreated datePublished" datetime="2020-10-04T23:29:00+08:00">2020-10-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Less11"><a href="#Less11" class="headerlink" title="Less11"></a>Less11</h2><p>这一关开始使用post注入，什么是post注入呢？</p>
+<blockquote>
+<p> 就是数据从客户端提交<br>到服务器端，例如我们在登录过程中，输入用户名和密码，用户名和密码以表单的形式提交，<br>提交到服务器后服务器再进行验证。这就是一次 post 的过程的。</p>
+</blockquote>
+<p>当我们输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin&#39;</span><br><span class="line">Password:ddd(任意值)</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020100404.png" alt="image"></p>
+<p>显示错误了，可以从错误中分析到程序对参数进行单引号的处理。<br>这里我们可以在输入框输入万能密码来尝试一下。</p>
+<p>这里<code>username</code>输入：<code>admin&#39;or&#39;1&#39;=&#39;1#</code>，密码随意</p>
+<p><img src="https://qiniu.hzktester.top/tp2020100405.png" alt="image"></p>
+<p>返回的正确的结果，那么原因是什么呢？我们在<code>background-1</code>中已经其实提到了，逻辑运算的部分中已经讲解了原理。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/18b82261.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/5809cdbe.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1110,107 +1216,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/5c6d7c93.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/5c6d7c93.html" class="post-title-link" itemprop="url">WebLogic T3协议反序列化漏洞复现（CVE-2018-2628）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-27 16:19:00" itemprop="dateCreated datePublished" datetime="2020-09-27T16:19:00+08:00">2020-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p>开放Weblogic控制台的7001端口，默认会开启T3协议服务，T3协议触发的Weblogic Server WLS Core Components中存在反序列化漏洞，攻击者可以发送构造的恶意T3协议数据，获取目标服务器权限。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="靶机环境"><a href="#靶机环境" class="headerlink" title="靶机环境"></a>靶机环境</h3><p>使用vulhub搭建漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;weblogic&#x2F;CVE-2018-2628</span><br><span class="line"></span><br><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092711.png" alt="image"></p>
-<p>访问 <a target="_blank" rel="noopener" href="http://47.101.62.20:7001/console">http://47.101.62.20:7001/console</a> 初始化整个环境</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/5c6d7c93.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1282,7 +1287,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1355,12 +1360,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">103k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:33</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
