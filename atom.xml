@@ -6,7 +6,7 @@
   <link href="https://hzktester.top/atom.xml" rel="self"/>
   
   <link href="https://hzktester.top/"/>
-  <updated>2020-11-06T09:10:02.534Z</updated>
+  <updated>2020-11-06T09:11:23.549Z</updated>
   <id>https://hzktester.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://hzktester.top/posts/e0d73a1e.html"/>
     <id>https://hzktester.top/posts/e0d73a1e.html</id>
     <published>2020-11-06T09:09:00.000Z</published>
-    <updated>2020-11-06T09:10:02.534Z</updated>
+    <updated>2020-11-06T09:11:23.549Z</updated>
     
     <content type="html"><![CDATA[<h2 id="什么是字符串"><a href="#什么是字符串" class="headerlink" title="什么是字符串"></a>什么是字符串</h2><blockquote><p>在C语言中字符串是作为字节数组处理的。在Java语言中字符串是作为对象处理的。而php则把字符串作为基本数据类型来处理。通常对字符串的处理涉及字符串的格式化。字符串的分割和连接、字符串的比较、以及字符串的查找、匹配和替换。</p></blockquote><h2 id="常用的字符串输出函数"><a href="#常用的字符串输出函数" class="headerlink" title="常用的字符串输出函数"></a>常用的字符串输出函数</h2><h3 id="常规输出字符串"><a href="#常规输出字符串" class="headerlink" title="常规输出字符串"></a>常规输出字符串</h3><ul><li><code>echo()</code>：输出字符串</li><li><code>print()</code>：输出一个字符串<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$array &#x3D; [1,2,3];</span><br><span class="line">$string &#x3D; &quot;123&quot;;</span><br><span class="line">&#x2F;&#x2F;echo $array;</span><br><span class="line">echo $string;</span><br><span class="line">&#x2F;&#x2F;print($array);</span><br><span class="line">print($string);</span><br></pre></td></tr></table></figure><code>echo()</code>和<code>print()</code>都只能输出字符串，而不能输出数组<h3 id="输出字符串并退出程序"><a href="#输出字符串并退出程序" class="headerlink" title="输出字符串并退出程序"></a>输出字符串并退出程序</h3><code>die()和exit()</code>：输出一个字符串后退出程序<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$string &#x3D; &quot;123&quot;;</span><br><span class="line">&#x2F;&#x2F;die($string);</span><br><span class="line">exit($string);</span><br><span class="line">echo &quot;我不会运行&quot;;</span><br></pre></td></tr></table></figure><code>die()</code>和<code>exit()</code>同样都只能输出字符串，而不能输出数组<h3 id="格式化输出字符串"><a href="#格式化输出字符串" class="headerlink" title="格式化输出字符串"></a>格式化输出字符串</h3>字符串转换格式：</li></ul><table><thead><tr><th>格式</th><th>作用</th></tr></thead><tbody><tr><td>%%</td><td>返回百分比符号</td></tr><tr><td>%b</td><td>二进制数</td></tr><tr><td>%c</td><td>依照ASCII值的字符</td></tr><tr><td>%d</td><td>带符号十进制数</td></tr><tr><td>%e</td><td>可续计数法（如1.5e3）</td></tr><tr><td>%u</td><td>无符号十进制数</td></tr><tr><td>%f或%F</td><td>浮点数</td></tr><tr><td>%o</td><td>八进制数</td></tr><tr><td>%s</td><td>字符串</td></tr><tr><td>%x或%X</td><td>十六进制数</td></tr></tbody></table><ul><li><code>printf()</code>：输出格式化字符串</li><li><code>sprintf()</code>：把格式化的字符串写入一个变量中</li></ul><p><code>printf()</code>和<code>sprintf()</code>都是格式化输出字符串，区别在于<code>sprintf()</code>可以把格式化的字符串写入到一个变量中</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;我是%s&quot;,&quot;test&quot;);    &#x2F;&#x2F;输出我是test</span><br><span class="line">$aa &#x3D; sprintf(&quot;我是%s&quot;,&quot;test&quot;);</span><br><span class="line">echo $aa;   &#x2F;&#x2F;输出我是test</span><br></pre></td></tr></table></figure><h2 id="常用的字符串格式化函数"><a href="#常用的字符串格式化函数" class="headerlink" title="常用的字符串格式化函数"></a>常用的字符串格式化函数</h2><h3 id="去除空格和字符串填充函数"><a href="#去除空格和字符串填充函数" class="headerlink" title="去除空格和字符串填充函数"></a>去除空格和字符串填充函数</h3><ul><li><code>ltrim()</code>：删去字符串前面的空格</li><li><code>rtrim()</code>：删去字符串后面的空格</li><li><code>trim()</code>：删去字符串前后的空格  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   $info &#x3D; &quot; 我前面有个空格&quot;;</span><br><span class="line">$info1 &#x3D; &quot;我后面有个空格 &quot;;</span><br><span class="line">$info2 &#x3D; &quot; 我前后有个空格 &quot;;</span><br><span class="line">var_dump(ltrim($info));&#x2F;&#x2F;去除字符串前面的空格</span><br><span class="line">var_dump(rtrim($info1));&#x2F;&#x2F;去除字符串后面的空格</span><br><span class="line">var_dump(trim($info2));&#x2F;&#x2F;去除字符串前后的空格</span><br></pre></td></tr></table></figure></li><li><code>str_pad()</code>：按需求对字符串进行填充<ul><li><code>STR_PAD_LEFT</code>：字符串左填补</li><li><code>STR_PAD_RIGHT</code>：字符串右填补</li><li><code>STR_PAD_BOTH</code>：字符串左右两端填补<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   $input &#x3D; &quot;Alien&quot;;</span><br><span class="line">var_dump(str_pad($input, 10));&#x2F;&#x2F; 输出&quot;Alien     &quot;</span><br><span class="line">var_dump(str_pad($input, 10, &quot;-&#x3D;&quot;, STR_PAD_LEFT));&#x2F;&#x2F; 输出 &quot;-&#x3D;-&#x3D;-Alien&quot;</span><br><span class="line">var_dump(str_pad($input, 10, &quot;_&quot;, STR_PAD_BOTH));&#x2F;&#x2F; 输出 &quot;__Alien___&quot;</span><br><span class="line">var_dump(str_pad($input, 6 , &quot;___&quot;));&#x2F;&#x2F; 输出&quot;Alien_&quot;</span><br></pre></td></tr></table></figure><h3 id="字符串大小写的转换"><a href="#字符串大小写的转换" class="headerlink" title="字符串大小写的转换"></a>字符串大小写的转换</h3></li></ul></li><li><code>strtolower()</code>：将字符串全部转换为小写字符串</li><li><code>strtoupper()</code>：将字符串全部转换为大写字符串</li><li><code>ucfirst()</code>：将字符串第一个字符改大写</li><li><code>ucwords()</code>：将字符串每个字第一个字母改大写  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$info &#x3D; &quot;ABCDEFG HIJFLNM&quot;;</span><br><span class="line">&#x2F;&#x2F; 转换成小写</span><br><span class="line">$info &#x3D; strtolower($info);</span><br><span class="line">var_dump($info);</span><br><span class="line">&#x2F;&#x2F; 转换成大写</span><br><span class="line">var_dump(strtoupper($info));</span><br><span class="line">&#x2F;&#x2F; 把首字母变成大写</span><br><span class="line">var_dump(ucfirst($info));</span><br><span class="line">&#x2F;&#x2F; 每个字第一个字母改大写。</span><br><span class="line">var_dump(ucwords($info));</span><br></pre></td></tr></table></figure>  <img src="https://qiniu.hzktester.top/tp2020110608.png" alt="image"><h3 id="和HTML标签相关联的字符串格式化"><a href="#和HTML标签相关联的字符串格式化" class="headerlink" title="和HTML标签相关联的字符串格式化"></a>和HTML标签相关联的字符串格式化</h3></li><li><code>nl2br()</code>：将字符串中<code>\n</code>转成HTML换行符<code>&lt;br/&gt;</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$html &#x3D; &quot;我要换行\n&quot;;</span><br><span class="line">var_dump(nl2br($html));</span><br></pre></td></tr></table></figure>  <img src="https://qiniu.hzktester.top/tp2020110609.png" alt="image"></li><li><code>htmlspecialchars()</code>：把指定特殊符号转换成实体，如&lt;&gt;  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$html &#x3D; &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;我是开始&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;&lt;&#x2F;body&gt;&lt;&#x2F;html&gt;&quot;;</span><br><span class="line">$shilihuahtml &#x3D; htmlspecialchars($html);</span><br><span class="line">var_dump($shilihuahtml);</span><br></pre></td></tr></table></figure>  <img src="https://qiniu.hzktester.top/tp2020110610.png" alt="image"></li><li><code>htmlspecialchars_decode()</code>：实体转换为<code>html</code></li><li><code>strip_tags()</code>：删除<code>html</code>的标签函数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   $html &#x3D; &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;我是开始&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;&lt;&#x2F;body&gt;&lt;&#x2F;html&gt;&quot;;</span><br><span class="line">   var_dump(strip_tags($html));&#x2F;&#x2F;删除全部html代码，输出string(12) &quot;我是开始&quot;</span><br><span class="line">var_dump(strip_tags($html,&quot;&lt;title&gt;&quot;));&#x2F;&#x2F;只保留title标签,标题会显示我是开始</span><br></pre></td></tr></table></figure>  <img src="https://qiniu.hzktester.top/tp2020110611.png" alt="image"><h3 id="其他字符串格式化函数"><a href="#其他字符串格式化函数" class="headerlink" title="其他字符串格式化函数"></a>其他字符串格式化函数</h3></li><li><code>strrev()</code>：颠倒字符串，将字符串前后颠倒</li><li><code>strlen()</code>：取得字符串长度</li><li><code>number_format()</code>：格式货币、数字、时间等</li><li><code>md5()</code>：md5加密函数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$a &#x3D; &quot;123456&quot;;</span><br><span class="line">&#x2F;&#x2F;颠倒字符串</span><br><span class="line">var_dump(strrev($a));</span><br><span class="line">&#x2F;&#x2F; 获取字符串的长度</span><br><span class="line">var_dump(strlen($a));</span><br><span class="line">&#x2F;&#x2F;格式货币、数字、时间等。</span><br><span class="line">$number &#x3D; 1234.5678;</span><br><span class="line">var_dump(number_format($number,2,&#39;.&#39;,&#39;&#39;));</span><br><span class="line">&#x2F;&#x2F;md5加密</span><br><span class="line">var_dump(md5($a));</span><br></pre></td></tr></table></figure>  <img src="https://qiniu.hzktester.top/tp2020110612.png" alt="image"></li></ul><h2 id="字符串比较函数"><a href="#字符串比较函数" class="headerlink" title="字符串比较函数"></a>字符串比较函数</h2><h3 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h3><ul><li><code>strcmp()</code>：字符串整个比较是否相同</li><li><code>strncmp()</code>：指定比较长度的字符串比较</li><li><code>strcasecmp()</code>：不区分大小写的字符串比较</li><li><code>strnatcmp()</code>：按自然排序法对字符串比较</li><li><code>similar_text()</code>：字符串的模糊比较，返回相似字符串的个数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var_dump(strcmp(&#39;ABCcc&#39;,&#39;ABccc&#39;));&#x2F;&#x2F;int(-1)</span><br><span class="line">var_dump(strncmp(&#39;ABCcc&#39;,&#39;ABccc&#39;,6));&#x2F;&#x2F;int(-1)</span><br><span class="line">var_dump(strcasecmp(&#39;ABCcc&#39;,&#39;ABccc&#39;));&#x2F;&#x2F;int(0)</span><br><span class="line">var_dump(strnatcmp(&#39;ABCcc&#39;,&#39;ABccc&#39;));&#x2F;&#x2F;int(-1)</span><br><span class="line">var_dump(similar_text(&#39;ABCcc&#39;,&#39;ABCcc&#39;));&#x2F;&#x2F;int(5)</span><br></pre></td></tr></table></figure><h3 id="字符串的分割与拼装"><a href="#字符串的分割与拼装" class="headerlink" title="字符串的分割与拼装"></a>字符串的分割与拼装</h3></li><li><code>explode()</code>：使用一个字符串分割另一个字符串，返回一个数组  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   $pizza &#x3D; &quot;piece1 piece2 piece3&quot;;</span><br><span class="line">$pieces &#x3D; explode(&quot; &quot;, $pizza); &#x2F;&#x2F;用空格分隔pizza变量组成数组赋值给pieces</span><br><span class="line">echo $pieces[0]; &#x2F;&#x2F; piece1</span><br><span class="line">echo $pieces[1]; &#x2F;&#x2F; piece2</span><br><span class="line">   echo $pieces[2];    &#x2F;&#x2F; piece3</span><br></pre></td></tr></table></figure></li><li><code>implode()</code>：用一组较小的字符串创建一个大字符串  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$array &#x3D; array(&#39;lastname&#39;,&#39;email&#39;,&#39;phone&#39;);</span><br><span class="line">$comma_separated &#x3D; implode(&quot;,&quot;,$array); &#x2F;&#x2F;使用,分割array的每个值组成一个字符串</span><br><span class="line">echo $comma_separated; &#x2F;&#x2F;输出lastname,email,phone</span><br></pre></td></tr></table></figure><h3 id="字符串的截取、查找、替换"><a href="#字符串的截取、查找、替换" class="headerlink" title="字符串的截取、查找、替换"></a>字符串的截取、查找、替换</h3><h4 id="截取"><a href="#截取" class="headerlink" title="截取"></a>截取</h4></li><li><code>substr()</code>：取部分字符串，返回一个新的字符串</li><li><code>strstr()</code>：截取字符串某个参数第一次出现到结尾的字符串</li><li><code>strrchr()</code>：截取字符串某个参数最后一次出现到结尾的字符串</li></ul><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><ul><li><code>strpos()</code>：寻找字符串某个参数最先出现的位置</li><li><code>strrpos()</code>：寻找字符串某个参数最后出现的位置</li></ul><h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><ul><li><code>str_replace()</code>：替换字符串</li></ul><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$info &#x3D; &quot;ABCDEFG HIJFLNM&quot;;</span><br><span class="line">&#x2F;&#x2F;截取</span><br><span class="line">var_dump(substr($info,4,7));&#x2F;&#x2F;从字符串第4位开始，截取7位</span><br><span class="line">var_dump(strstr($info,&#39;F&#39;));&#x2F;&#x2F;截取字符串第一个F开始到结尾的字符串</span><br><span class="line">var_dump(strrchr($info,&#39;F&#39;));&#x2F;&#x2F;截取字符串最后一个F开始到结尾的字符串</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查找</span><br><span class="line">var_dump(strpos($info,&#39;F&#39;));&#x2F;&#x2F;寻找字符串F最先出现的位置，返回下标，默认从0开始</span><br><span class="line">var_dump(strrpos($info,&#39;F&#39;));&#x2F;&#x2F;寻找字符串F最后一次出现的位置，返回下标，默认从0开始</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;替换</span><br><span class="line">var_dump($info);</span><br><span class="line">var_dump(str_replace([&quot;A&quot;,&quot;B&quot;], [&quot;2&quot;,&quot;4&quot;], $info));&#x2F;&#x2F;把字符串A和B分别替换为2和4</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020110613.png" alt="image"></p>]]></content>
     
@@ -147,266 +147,30 @@
     <link href="https://hzktester.top/posts/e0d0a34b.html"/>
     <id>https://hzktester.top/posts/e0d0a34b.html</id>
     <published>2020-11-05T08:12:00.000Z</published>
-    <updated>2020-11-05T08:14:00.012Z</updated>
+    <updated>2020-11-10T02:45:19.254Z</updated>
     
-    <content type="html"><![CDATA[<p>当有一个很大的集团目标时，一般的信息搜集流程如下：</p><h2 id="集团结构："><a href="#集团结构：" class="headerlink" title="集团结构："></a>集团结构：</h2><p>主要提取出历史网站备案，域名、子公司域名、备案号、注册邮箱（邮箱@后的也可能是域名）、手机号。</p><ul><li><p>天眼查：<a href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></p></li><li><p>爱企查：<a href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com/</a></p></li><li><p>企查查：<a href="https://www.qcc.com/">https://www.qcc.com/</a></p><h3 id="备案号查同备案的网站"><a href="#备案号查同备案的网站" class="headerlink" title="备案号查同备案的网站"></a>备案号查同备案的网站</h3></li><li><p><a href="https://beian.miit.gov.cn/#/Integrated/recordQuery">https://beian.miit.gov.cn/#/Integrated/recordQuery</a></p><h3 id="主域名中的跳转链接、JS中的链接搜集"><a href="#主域名中的跳转链接、JS中的链接搜集" class="headerlink" title="主域名中的跳转链接、JS中的链接搜集"></a>主域名中的跳转链接、JS中的链接搜集</h3><p>集团结构信息搜集后一般会得到主域名，也就是官网信息，可能有很多跳转链接，也属于他的资产，包括JS中的链接。推荐使用这个工具进行提取：</p></li><li><p>jsfinder（扫API和子域名）：<a href="https://github.com/Threezh1/JSFinder">https://github.com/Threezh1/JSFinder</a></p><h2 id="深挖更多IP资产："><a href="#深挖更多IP资产：" class="headerlink" title="深挖更多IP资产："></a>深挖更多IP资产：</h2><h3 id="CDN："><a href="#CDN：" class="headerlink" title="CDN："></a>CDN：</h3><h4 id="根据域名查是否有CDN："><a href="#根据域名查是否有CDN：" class="headerlink" title="根据域名查是否有CDN："></a>根据域名查是否有CDN：</h4></li><li><p>多地ping：<a href="https://tools.ipip.net/httphead.php">https://tools.ipip.net/httphead.php</a>。如果返回都是一样的IP那就没有CDN</p><h4 id="CDN绕过："><a href="#CDN绕过：" class="headerlink" title="CDN绕过："></a>CDN绕过：</h4></li><li><p>全球ping：<a href="https://asm.ca.com/en/ping.php">https://asm.ca.com/en/ping.php</a> （针对小厂CDN，国外访问可能获得真实IP）</p></li><li><p>注册查看邮件原文</p></li><li><p>历史解析：</p><ul><li><strong>DNSdumpster</strong>（在线）： <a href="https://dnsdumpster.com/">https://dnsdumpster.com/</a></li><li>历史DNS记录： <a href="https://rapiddns.io/subdomain">https://rapiddns.io/subdomain</a></li></ul></li><li><p>配置不当</p><ul><li>phpinfo</li><li>站点同时支持http和https访问，CDN只配置 https协议，那么这时访问http就可以轻易绕过。</li></ul></li><li><p>通过找到的子域名辅助查找真实IP</p><h4 id="确认真实IP："><a href="#确认真实IP：" class="headerlink" title="确认真实IP："></a>确认真实IP：</h4></li><li><p>直接访问IP和访问域名的结果是一样的。</p><h3 id="可信IP："><a href="#可信IP：" class="headerlink" title="可信IP："></a>可信IP：</h3><p>当拿到很多IP之后，如何确定是不是目标的资产？</p></li><li><p>查IP归属：<a href="https://www.ipip.net/ip.html">https://www.ipip.net/ip.html</a>（如果查到是阿里云或者腾讯云的基本可以放弃）</p></li><li><p>直接<a href="https://gobies.org/">goby</a>扫C段（说不定就扫到命令执行了呢）</p></li><li><p><a href="https://nmap.org/">nmap</a>扫全端口</p></li><li><p>同IP网站查询其他域名：<a href="http://dns.bugscaner.com/">http://dns.bugscaner.com/</a></p><h2 id="子域名搜集，目录扫描："><a href="#子域名搜集，目录扫描：" class="headerlink" title="子域名搜集，目录扫描："></a>子域名搜集，目录扫描：</h2><p>通过以上的信息搜集，就会得到很多域名</p></li><li><p>子域名收集。推荐一个工具<a href="https://paper.seebug.org/1053/"><strong>OneForAll</strong></a></p></li></ul><p><strong>能扫到多级目录，多，有标题</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">python3 oneforall.py --target example.com --port=80,443,8080,8009,7001 --valid=True --path=./subs.csv run</span><br><span class="line"></span><br><span class="line">--port=PORT</span><br><span class="line">请求验证子域的端口范围(默认只探测80端口)</span><br><span class="line">--valid=VALID</span><br><span class="line">只导出存活的子域结果(默认False)</span><br><span class="line">--path=PATH</span><br><span class="line">结果保存路径(默认None)</span><br><span class="line">--takeover=TAKEOVER</span><br><span class="line">检查子域接管(默认False)</span><br></pre></td></tr></table></figure><ul><li><p>访问域名404或者403的，权重高的直接爆破目录（字典要强大，说不定就扫到源码了呢）</p><h2 id="拓展资产搜集"><a href="#拓展资产搜集" class="headerlink" title="拓展资产搜集"></a>拓展资产搜集</h2><h3 id="FOFA关键词搜集："><a href="#FOFA关键词搜集：" class="headerlink" title="FOFA关键词搜集："></a>FOFA关键词搜集：</h3><p>师傅这篇文章写的很详细了可以参考一下：<a href="https://mp.weixin.qq.com/s?__biz=MzU3MTU3NDk4Mw==&mid=2247484420&idx=1&sn=a18a908a0146b6fd08a9533520b9bc4b&chksm=fcdf5baccba8d2ba592cdeca87ded3b97915c5b0f557b18f7b6e152e4bc66d4141eddc105d5d&mpshare=1&scene=23&srcid=1104qlIdyYCsgUX58hjx7iAp&sharer_sharetime=1604499225727&sharer_shareid=1f9f9a5c0563a1d0ce3d7b29ade29fd3#rd">链接</a></p><h3 id="微信小程序搜集："><a href="#微信小程序搜集：" class="headerlink" title="微信小程序搜集："></a>微信小程序搜集：</h3><p>很多集团的资产找不到的情况下，可以试一下微信搜，或许会有不一样的发现</p><h3 id="APP搜集："><a href="#APP搜集：" class="headerlink" title="APP搜集："></a>APP搜集：</h3><p>提取APK中的所有URL链接<a href="https://github.com/s0md3v/Diggy">Diggy</a>：</p><h3 id="icon搜集："><a href="#icon搜集：" class="headerlink" title="icon搜集："></a>icon搜集：</h3></li><li><p>提取集团icon的hash然后fofa搜：<a href="https://github.com/Becivells/iconhash">iconhash</a></p><h3 id="供应链，网站指纹："><a href="#供应链，网站指纹：" class="headerlink" title="供应链，网站指纹："></a>供应链，网站指纹：</h3></li><li><p>供应链</p><ul><li>网站底部可能会有技术支持的公司名称显示</li><li>F12找特征FOFA搜可能会找到开发此网站的公司，查该公司说不定会有演示网站或者测试站</li></ul></li><li><p>指纹识别：<a href="http://finger.tidesec.net/">潮汐指纹</a>、<a href="https://www.yunsee.cn/">云悉指纹</a></p><h3 id="社工钓鱼："><a href="#社工钓鱼：" class="headerlink" title="社工钓鱼："></a>社工钓鱼：</h3><p>这里没研究过，基本流程就是爬企业员工邮箱，网盘查泄露的资料然后发钓鱼邮件诱导其下载。</p><h2 id="漏洞库："><a href="#漏洞库：" class="headerlink" title="漏洞库："></a>漏洞库：</h2></li><li><p>零组文库：<a href="http://47.94.96.209/index.html">零组</a></p></li><li><p>乌云镜像：<a href="https://wooyun.x10sec.org/">https://wooyun.x10sec.org/</a></p><h2 id="常见端口渗透思路："><a href="#常见端口渗透思路：" class="headerlink" title="常见端口渗透思路："></a>常见端口渗透思路：</h2><table><thead><tr><th>端口号</th><th>端口说明</th><th>渗透思路</th></tr></thead><tbody><tr><td>21/69</td><td>FTP/TFTP：文件传输协议</td><td>爆破、内网嗅探</td></tr><tr><td>22</td><td>SSH：远程连接</td><td>用户名枚举、爆破</td></tr><tr><td>23</td><td>Telnet：远程连接</td><td>爆破、内网嗅探</td></tr><tr><td>25</td><td>SMTP：邮件服务</td><td>邮件伪造</td></tr><tr><td>53</td><td>DNS：域名系统</td><td>DNS域传送\DNS缓存投毒\DNS欺骗\利用DNS隧道技术刺透防火墙</td></tr><tr><td>389</td><td>LDAP</td><td>未授权访问（通过LdapBrowser工具直接连入）</td></tr><tr><td>443</td><td>https服务</td><td>OpenSSL 心脏滴血（nmap -sV –script=ssl-heartbleed ）</td></tr><tr><td>445</td><td>SMB服务</td><td>ms17_010远程代码执行</td></tr><tr><td>873</td><td>rsync服务</td><td>未授权访问</td></tr><tr><td>1090/1099</td><td>Java-rmi</td><td>JAVA反序列化远程命令执行漏洞</td></tr><tr><td>1352</td><td>Lotus Domino邮件服务</td><td>爆破：弱口令、信息泄漏：源代码</td></tr><tr><td>1433</td><td>MSSQL</td><td>注入、SA弱口令爆破、提权</td></tr><tr><td>1521</td><td>Oracle</td><td>注入、TNS爆破</td></tr><tr><td>2049</td><td>NFS</td><td>配置不当</td></tr><tr><td>2181</td><td>ZooKeeper服务</td><td>未授权访问</td></tr><tr><td>3306</td><td>MySQL</td><td>注入、爆破、写shell、提权</td></tr><tr><td>3389</td><td>RDP</td><td>爆破、Shift后门、CVE-2019-0708远程代码执行</td></tr><tr><td>4848</td><td>GlassFish控制台</td><td>爆破：控制台弱口令、认证绕过</td></tr><tr><td>5000</td><td>Sybase/DB2数据库</td><td>爆破、注入</td></tr><tr><td>5432</td><td>PostgreSQL</td><td>爆破弱口令、高权限执行系统命令</td></tr><tr><td>5632</td><td>PcAnywhere服务</td><td>爆破弱口令</td></tr><tr><td>5900</td><td>VNC</td><td>爆破：弱口令、认证绕过</td></tr><tr><td>6379</td><td>Redis</td><td>未授权访问、爆破弱口令</td></tr><tr><td>7001</td><td>WebLogic中间件</td><td>反序列化、控制台弱口令+部署war包、SSRF</td></tr><tr><td>8000</td><td>jdwp</td><td>JDWP 远程命令执行漏洞（<a href="https://github.com/IOActive/jdwp-shellifier">工具</a>）</td></tr><tr><td>8080/8089</td><td>Tomcat/JBoss/Resin/Jetty/Jenkins</td><td>反序列化、控制台弱口令、未授权</td></tr><tr><td>8161</td><td>ActiveMQ</td><td>admin/admin、任意文件写入、反序列化</td></tr><tr><td>8069</td><td>Zabbix</td><td>远程命令执行</td></tr><tr><td>9043</td><td>WebSphere控制台</td><td>控制台弱口令https://:9043/ibm/console/logon.jsp、远程代码执行</td></tr><tr><td>9200/9300</td><td>Elasticsearch服务</td><td>远程代码执行</td></tr><tr><td>11211</td><td>Memcache</td><td>未授权访问（nc -vv  11211）</td></tr><tr><td>27017</td><td>MongoDB</td><td>未授权访问、爆破弱口令</td></tr><tr><td>50000</td><td>SAP</td><td>远程代码执行</td></tr><tr><td>50070</td><td>hadoop</td><td>未授权访问</td></tr></tbody></table></li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>信息收集是一个看似琐碎但不可或缺的步骤，在网络攻击和防御的成本都越来越低的当下，信息差往往是决定成败的关键。只有找到更多的资产暴露攻击面，才能找到别人发现不了的漏洞。</p>]]></content>
+    <content type="html"><![CDATA[<p>当有一个很大的集团目标时，一般的信息搜集流程如下：</p><h1 id="集团结构："><a href="#集团结构：" class="headerlink" title="集团结构："></a>集团结构：</h1><p>主要提取出历史网站备案，域名、子公司域名、备案号、注册邮箱（邮箱@后的也可能是域名）、手机号。</p><ul><li>天眼查：<a href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></li><li>爱企查：<a href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com/</a></li><li>企查查：<a href="https://www.qcc.com/">https://www.qcc.com/</a></li></ul><h3 id="备案号查同备案的网站"><a href="#备案号查同备案的网站" class="headerlink" title="备案号查同备案的网站"></a>备案号查同备案的网站</h3><ul><li><p><a href="https://beian.miit.gov.cn/#/Integrated/recordQuery">https://beian.miit.gov.cn/#/Integrated/recordQuery</a></p><p>  <img src="https://qiniu.hzktester.top/tp2020110906.png" alt="image"></p></li></ul><h3 id="主域名中的跳转链接、JS中的链接搜集"><a href="#主域名中的跳转链接、JS中的链接搜集" class="headerlink" title="主域名中的跳转链接、JS中的链接搜集"></a>主域名中的跳转链接、JS中的链接搜集</h3><p>集团结构信息搜集后一般会得到主域名，也就是官网信息，可能有很多跳转链接，也属于他的资产，包括JS中的链接。推荐使用这个工具进行提取：</p><ul><li>jsfinder（扫API和子域名）：<a href="https://github.com/Threezh1/JSFinder">https://github.com/Threezh1/JSFinder</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python JSFinder.py -u http:&#x2F;&#x2F;www.baidu.com -d -ou mi_url.txt -os mi_subdomain.txt</span><br></pre></td></tr></table></figure></li></ul><h1 id="深挖更多IP资产："><a href="#深挖更多IP资产：" class="headerlink" title="深挖更多IP资产："></a>深挖更多IP资产：</h1><h3 id="CDN："><a href="#CDN：" class="headerlink" title="CDN："></a>CDN：</h3><h4 id="根据域名查是否有CDN："><a href="#根据域名查是否有CDN：" class="headerlink" title="根据域名查是否有CDN："></a>根据域名查是否有CDN：</h4><ul><li><p>多地<code>ping</code>：<a href="https://tools.ipip.net/httphead.php">https://tools.ipip.net/httphead.php</a>。如果返回都是一样的IP那就没有CDN</p></li><li><p><code>Nslookup</code>：Win下使用nslookup命令进行查询，若返回域名解析结果为多个ip，多半使用了CDN</p><p>  <img src="https://qiniu.hzktester.top/tp2020110907.png" alt="image"></p></li></ul><h4 id="CDN绕过找到真实IP："><a href="#CDN绕过找到真实IP：" class="headerlink" title="CDN绕过找到真实IP："></a>CDN绕过找到真实IP：</h4><ul><li>全球<code>ping</code>：<a href="https://asm.ca.com/en/ping.php">https://asm.ca.com/en/ping.php</a>（针对小厂CDN，国外访问可能获得真实IP）</li><li>注册查看邮件原文</li><li>历史解析：<ul><li><code>DNSdumpster</code>（在线）：<a href="https://dnsdumpster.com/">https://dnsdumpster.com/</a></li><li>历史<code>DNS</code>记录：<a href="https://rapiddns.io/subdomain">https://rapiddns.io/subdomain</a></li></ul></li><li>配置不当<ul><li><code>phpinfo</code></li><li>站点同时支持<code>http</code>和<code>https</code>访问，<code>CDN</code>只配置 <code>https</code>协议，那么这时访问<code>http</code>就可以轻易绕过。</li><li>其他信息泄露、<code>git</code>、<code>svn</code>源码</li></ul></li><li>通过找到的子域名辅助查找真实IP</li><li>查询<code>https</code>证书：<a href="https://censys.io/ipv4">https://censys.io/ipv4</a></li></ul><h4 id="确认是否为真实IP："><a href="#确认是否为真实IP：" class="headerlink" title="确认是否为真实IP："></a>确认是否为真实IP：</h4><ul><li>直接访问IP和访问域名的结果是一样的。</li></ul><h3 id="IP资产证明："><a href="#IP资产证明：" class="headerlink" title="IP资产证明："></a>IP资产证明：</h3><p>当拿到很多IP之后，如何确定是不是目标的资产？</p><ul><li>查IP归属：<a href="https://www.ipip.net/ip.html">https://www.ipip.net/ip.html</a>（如果查到是阿里云或者腾讯云的基本可以放弃）</li><li>网站logo</li><li>网站底部版权声明</li></ul><h3 id="批量扫描"><a href="#批量扫描" class="headerlink" title="批量扫描"></a>批量扫描</h3><ul><li><a href="https://gobies.org/">goby</a>扫C段（说不定就扫到命令执行了呢）</li><li><a href="https://nmap.org/">nmap</a>扫全端口</li><li>同IP网站查询其他域名：<a href="https://tools.ipip.net/ipdomain.php">https://tools.ipip.net/ipdomain.php</a></li></ul><h2 id="子域名搜集，目录扫描："><a href="#子域名搜集，目录扫描：" class="headerlink" title="子域名搜集，目录扫描："></a>子域名搜集，目录扫描：</h2><h3 id="子域名搜集"><a href="#子域名搜集" class="headerlink" title="子域名搜集"></a>子域名搜集</h3><p>通过以上的信息搜集，就会得到很多域名。子域名收集。推荐一个工具<a href="https://paper.seebug.org/1053/"><strong>OneForAll</strong></a></p><p><strong>能扫到多级目录，多，有标题</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">python3 oneforall.py --target example.com --port&#x3D;80,443,8080,8009,7001 --valid&#x3D;True --path&#x3D;.&#x2F;subs.csv run</span><br><span class="line"></span><br><span class="line">--port&#x3D;PORT</span><br><span class="line">请求验证子域的端口范围(默认只探测80端口)</span><br><span class="line">--valid&#x3D;VALID</span><br><span class="line">只导出存活的子域结果(默认False)</span><br><span class="line">--path&#x3D;PATH</span><br><span class="line">结果保存路径(默认None)</span><br><span class="line">--takeover&#x3D;TAKEOVER</span><br><span class="line">检查子域接管(默认False)</span><br></pre></td></tr></table></figure><h3 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h3><p>遇见、<a href="https://github.com/shack2/SWebScan">swebscan</a></p><ul><li>访问域名404或者403的，权重高的直接批量扫目录（字典要强大，说不定就扫到源码了呢）</li></ul><h2 id="拓展资产搜集"><a href="#拓展资产搜集" class="headerlink" title="拓展资产搜集"></a>拓展资产搜集</h2><h3 id="FOFA关键词搜集："><a href="#FOFA关键词搜集：" class="headerlink" title="FOFA关键词搜集："></a>FOFA关键词搜集：</h3><p>师傅这篇文章写的很详细了可以参考一下：<a href="https://mp.weixin.qq.com/s?__biz=MzU3MTU3NDk4Mw==&mid=2247484420&idx=1&sn=a18a908a0146b6fd08a9533520b9bc4b&chksm=fcdf5baccba8d2ba592cdeca87ded3b97915c5b0f557b18f7b6e152e4bc66d4141eddc105d5d&mpshare=1&scene=23&srcid=1104qlIdyYCsgUX58hjx7iAp&sharer_sharetime=1604499225727&sharer_shareid=1f9f9a5c0563a1d0ce3d7b29ade29fd3#rd">链接</a></p><h3 id="微信公众号搜集："><a href="#微信公众号搜集：" class="headerlink" title="微信公众号搜集："></a>微信公众号搜集：</h3><ul><li>很多集团的资产找不到的情况下，可以试一下微信搜公众号，或许会有不一样的发现</li><li>找其他技术文章也一样，一般精品文章都在微信</li></ul><h3 id="APP搜集："><a href="#APP搜集：" class="headerlink" title="APP搜集："></a>APP搜集：</h3><p>反编译APK并提取所有URL链接<a href="https://github.com/s0md3v/Diggy">Diggy</a>：</p><p><strong>注意：</strong></p><ul><li>需要在linux下使用</li><li>需要安装配置<a href="https://ibotpeaches.github.io/Apktool/install/">apktool</a></li></ul><h3 id="icon搜集："><a href="#icon搜集：" class="headerlink" title="icon搜集："></a>icon搜集：</h3><p>提取集团<code>icon</code>的<code>hash</code>然后<code>fofa</code>搜：</p><p><code>python</code>几行代码实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import mmh3</span><br><span class="line">import requests</span><br><span class="line">import codecs</span><br><span class="line">import sys</span><br><span class="line"> </span><br><span class="line">url &#x3D; sys.argv[1]</span><br><span class="line">response &#x3D; requests.get(url)</span><br><span class="line">favicon &#x3D; codecs.encode(response.content,&quot;base64&quot;)</span><br><span class="line">hash &#x3D; mmh3.hash(favicon)</span><br><span class="line">print(hash)</span><br></pre></td></tr></table></figure><p><img src="https://qiniu.hzktester.top/tp2020110908.png" alt="image"></p><p><img src="https://qiniu.hzktester.top/tp2020110909.png" alt="image"></p><h3 id="供应链，网站指纹："><a href="#供应链，网站指纹：" class="headerlink" title="供应链，网站指纹："></a>供应链，网站指纹：</h3><ul><li>供应链<ul><li>网站底部可能会有技术支持的公司名称显示</li><li>F12找特征<code>FOFA</code>搜可能会找到开发此网站的公司，查该公司说不定会有演示网站或者测试站或者源码</li></ul></li><li>指纹识别：<a href="http://finger.tidesec.net/">潮汐指纹</a>、<a href="https://www.yunsee.cn/">云悉指纹</a></li></ul><h3 id="一些好用的谷歌插件："><a href="#一些好用的谷歌插件：" class="headerlink" title="一些好用的谷歌插件："></a>一些好用的谷歌插件：</h3><ul><li><p><code>wappalyzer</code>：查看网站使用了哪些技术,配合上<code>FOFA</code>就可以更快熟悉目标。</p><p>  <img src="https://qiniu.hzktester.top/tp2020110901.png" alt="image"></p></li><li><p><code>FOFA Pro View</code>：查看网站IP,以及开放的端口，同IP网站等</p><p>  <img src="https://qiniu.hzktester.top/tp2020110902.png" alt="image"></p></li><li><p><code>EditThisCookie</code>：可以很方便修改已保存的<code>cookie</code></p><p>  <img src="https://qiniu.hzktester.top/tp2020110903.png" alt="image"></p></li><li><p><code>User-Agent</code>：可以快速修改请求ua(某些url只能用手机访问)</p><p>  <img src="https://qiniu.hzktester.top/tp2020110904.png" alt="image"></p></li><li><p><code>X-Forwarded-For Header</code>：可以很方便的在请求里面加<code>X-Forwarded-For</code>头</p><p>  <img src="https://qiniu.hzktester.top/tp2020110905.png" alt="image"></p></li><li><p><code>JSONView</code>：美化<code>json</code>,方便浏览(无图脑补)</p></li><li><p><code>HackBar</code>：这个不用介绍，手艺人必备。</p></li></ul><h3 id="社工搜集："><a href="#社工搜集：" class="headerlink" title="社工搜集："></a>社工搜集：</h3><p>这里没研究过，提供一个思路：</p><ul><li><p>网盘搜关键词找是否有泄露的敏感文件（有些员工分享文件可能会用这个）：<a href="https://www.lingfengyun.com/">凌风云网盘</a></p><p>  <img src="https://qiniu.hzktester.top/tp2020110910.png" alt="image"></p></li><li><p>写脚本爬各招聘网站HR的邮箱然后发简历钓鱼</p></li><li><p>已知集团邮箱后缀，全拼姓名TOP500字典爆破验证存活的邮箱然后针对发邮件（最笨的法子了）：<a href="https://verify-email.org/">链接</a></p></li><li><p>针对某个员工生成字典撞库<a href="https://www.shentoushi.top/tools/dict/index.php">密码字典生成器</a></p></li></ul><h2 id="漏洞库："><a href="#漏洞库：" class="headerlink" title="漏洞库："></a>漏洞库：</h2><ul><li>零组文库：<a href="http://47.94.96.209/index.html">零组</a></li><li>乌云镜像：<a href="https://wooyun.x10sec.org/">https://wooyun.x10sec.org/</a></li></ul><h2 id="常见端口渗透思路："><a href="#常见端口渗透思路：" class="headerlink" title="常见端口渗透思路："></a>常见端口渗透思路：</h2><table><thead><tr><th>端口号</th><th>端口说明</th><th>渗透思路</th></tr></thead><tbody><tr><td>21/69</td><td>FTP/TFTP：文件传输协议</td><td>爆破、内网嗅探</td></tr><tr><td>22</td><td>SSH：远程连接</td><td>用户名枚举、爆破</td></tr><tr><td>23</td><td>Telnet：远程连接</td><td>爆破、内网嗅探</td></tr><tr><td>25</td><td>SMTP：邮件服务</td><td>邮件伪造</td></tr><tr><td>53</td><td>DNS：域名系统</td><td>DNS域传送\DNS缓存投毒\DNS欺骗\利用DNS隧道技术刺透防火墙</td></tr><tr><td>389</td><td>LDAP</td><td>未授权访问（通过LdapBrowser工具直接连入）</td></tr><tr><td>443</td><td>https服务</td><td>OpenSSL 心脏滴血（nmap -sV –script=ssl-heartbleed ）</td></tr><tr><td>445</td><td>SMB服务</td><td>ms17_010远程代码执行</td></tr><tr><td>873</td><td>rsync服务</td><td>未授权访问</td></tr><tr><td>1090/1099</td><td>Java-rmi</td><td>JAVA反序列化远程命令执行漏洞</td></tr><tr><td>1352</td><td>Lotus Domino邮件服务</td><td>爆破：弱口令、信息泄漏：源代码</td></tr><tr><td>1433</td><td>MSSQL</td><td>注入、SA弱口令爆破、提权</td></tr><tr><td>1521</td><td>Oracle</td><td>注入、TNS爆破</td></tr><tr><td>2049</td><td>NFS</td><td>配置不当</td></tr><tr><td>2181</td><td>ZooKeeper服务</td><td>未授权访问</td></tr><tr><td>3306</td><td>MySQL</td><td>注入、爆破、写shell、提权</td></tr><tr><td>3389</td><td>RDP</td><td>爆破、Shift后门、CVE-2019-0708远程代码执行</td></tr><tr><td>4848</td><td>GlassFish控制台</td><td>爆破：控制台弱口令、认证绕过</td></tr><tr><td>5000</td><td>Sybase/DB2数据库</td><td>爆破、注入</td></tr><tr><td>5432</td><td>PostgreSQL</td><td>爆破弱口令、高权限执行系统命令</td></tr><tr><td>5632</td><td>PcAnywhere服务</td><td>爆破弱口令</td></tr><tr><td>5900</td><td>VNC</td><td>爆破：弱口令、认证绕过</td></tr><tr><td>6379</td><td>Redis</td><td>未授权访问、爆破弱口令</td></tr><tr><td>7001</td><td>WebLogic中间件</td><td>反序列化、控制台弱口令+部署war包、SSRF</td></tr><tr><td>8000</td><td>jdwp</td><td>JDWP 远程命令执行漏洞（<a href="https://github.com/IOActive/jdwp-shellifier">工具</a>）</td></tr><tr><td>8080/8089</td><td>Tomcat/JBoss/Resin/Jetty/Jenkins</td><td>反序列化、控制台弱口令、未授权</td></tr><tr><td>8161</td><td>ActiveMQ</td><td>admin/admin、任意文件写入、反序列化</td></tr><tr><td>8069</td><td>Zabbix</td><td>远程命令执行</td></tr><tr><td>9043</td><td>WebSphere控制台</td><td>控制台弱口令https://:9043/ibm/console/logon.jsp、远程代码执行</td></tr><tr><td>9200/9300</td><td>Elasticsearch服务</td><td>远程代码执行</td></tr><tr><td>11211</td><td>Memcache</td><td>未授权访问（nc -vv 11211）</td></tr><tr><td>27017</td><td>MongoDB</td><td>未授权访问、爆破弱口令</td></tr><tr><td>50000</td><td>SAP</td><td>远程代码执行</td></tr><tr><td>50070</td><td>hadoop</td><td>未授权访问</td></tr></tbody></table><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>信息收集是一个看似琐碎但不可或缺的步骤，在网络攻击和防御的成本都越来越低的当下，信息差往往是决定成败的关键。只有找到更多的资产暴露攻击面，才能找到别人发现不了的漏洞。</p>]]></content>
     
     
     <summary type="html">&lt;p&gt;当有一个很大的集团目标时，一般的信息搜集流程如下：&lt;/p&gt;
-&lt;h2 id=&quot;集团结构：&quot;&gt;&lt;a href=&quot;#集团结构：&quot; class=&quot;headerlink&quot; title=&quot;集团结构：&quot;&gt;&lt;/a&gt;集团结构：&lt;/h2&gt;&lt;p&gt;主要提取出历史网站备案，域名、子公司域名、备案号、注册邮箱（邮箱@后的也可能是域名）、手机号。&lt;/p&gt;
+&lt;h1 id=&quot;集团结构：&quot;&gt;&lt;a href=&quot;#集团结构：&quot; class=&quot;headerlink&quot; title=&quot;集团结构：&quot;&gt;&lt;/a&gt;集团结构：&lt;/h1&gt;&lt;p&gt;主要提取出历史网站备案，域名、子公司域名、备案号、注册邮箱（邮箱@后的也可能是域名）、手机号。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;天眼查：&lt;a href=&quot;https://www.tianyancha.com/&quot;&gt;https://www.tianyancha.com/&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;爱企查：&lt;a href=&quot;https://aiqicha.baidu.com/&quot;&gt;https://aiqicha.baidu.com/&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;企查查：&lt;a href=&quot;https://www.qcc.com/&quot;&gt;https://www.qcc.com/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;备案号查同备案的网站&quot;&gt;&lt;a href=&quot;#备案号查同备案的网站&quot; class=&quot;headerlink&quot; title=&quot;备案号查同备案的网站&quot;&gt;&lt;/a&gt;备案号查同备案的网站&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;天眼查：&lt;a href=&quot;https://www.tianyancha.com/&quot;&gt;https://www.tianyancha.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;爱企查：&lt;a href=&quot;https://aiqicha.baidu.com/&quot;&gt;https://aiqicha.baidu.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;企查查：&lt;a href=&quot;https://www.qcc.com/&quot;&gt;https://www.qcc.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;备案号查同备案的网站&quot;&gt;&lt;a href=&quot;#备案号查同备案的网站&quot; class=&quot;headerlink&quot; title=&quot;备案号查同备案的网站&quot;&gt;&lt;/a&gt;备案号查同备案的网站&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://beian.miit.gov.cn/#/Integrated/recordQuery&quot;&gt;https://beian.miit.gov.cn/#/Integrated/recordQuery&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;img src=&quot;https://qiniu.hzktester.top/tp2020110906.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&quot;主域名中的跳转链接、JS中的链接搜集&quot;&gt;&lt;a href=&quot;#主域名中的跳转链接、JS中的链接搜集&quot; class=&quot;headerlink&quot; title=&quot;主域名中的跳转链接、JS中的链接搜集&quot;&gt;&lt;/a&gt;主域名中的跳转链接、JS中的链接搜集&lt;/h3&gt;&lt;p&gt;集团结构信息搜集后一般会得到主域名，也就是官网信息，可能有很多跳转链接，也属于他的资产，包括JS中的链接。推荐使用这个工具进行提取：&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;jsfinder（扫API和子域名）：&lt;a href=&quot;https://github.com/Threezh1/JSFinder&quot;&gt;https://github.com/Threezh1/JSFinder&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;深挖更多IP资产：&quot;&gt;&lt;a href=&quot;#深挖更多IP资产：&quot; class=&quot;headerlink&quot; title=&quot;深挖更多IP资产：&quot;&gt;&lt;/a&gt;深挖更多IP资产：&lt;/h2&gt;&lt;h3 id=&quot;CDN：&quot;&gt;&lt;a href=&quot;#CDN：&quot; class=&quot;headerlink&quot; title=&quot;CDN：&quot;&gt;&lt;/a&gt;CDN：&lt;/h3&gt;&lt;h4 id=&quot;根据域名查是否有CDN：&quot;&gt;&lt;a href=&quot;#根据域名查是否有CDN：&quot; class=&quot;headerlink&quot; title=&quot;根据域名查是否有CDN：&quot;&gt;&lt;/a&gt;根据域名查是否有CDN：&lt;/h4&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;多地ping：&lt;a href=&quot;https://tools.ipip.net/httphead.php&quot;&gt;https://tools.ipip.net/httphead.php&lt;/a&gt;。如果返回都是一样的IP那就没有CDN&lt;/p&gt;
-&lt;h4 id=&quot;CDN绕过：&quot;&gt;&lt;a href=&quot;#CDN绕过：&quot; class=&quot;headerlink&quot; title=&quot;CDN绕过：&quot;&gt;&lt;/a&gt;CDN绕过：&lt;/h4&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;全球ping：&lt;a href=&quot;https://asm.ca.com/en/ping.php&quot;&gt;https://asm.ca.com/en/ping.php&lt;/a&gt; （针对小厂CDN，国外访问可能获得真实IP）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;注册查看邮件原文&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;历史解析：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;DNSdumpster&lt;/strong&gt;（在线）： &lt;a href=&quot;https://dnsdumpster.com/&quot;&gt;https://dnsdumpster.com/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;历史DNS记录： &lt;a href=&quot;https://rapiddns.io/subdomain&quot;&gt;https://rapiddns.io/subdomain&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;配置不当&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;phpinfo&lt;/li&gt;
-&lt;li&gt;站点同时支持http和https访问，CDN只配置 https协议，那么这时访问http就可以轻易绕过。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;通过找到的子域名辅助查找真实IP&lt;/p&gt;
-&lt;h4 id=&quot;确认真实IP：&quot;&gt;&lt;a href=&quot;#确认真实IP：&quot; class=&quot;headerlink&quot; title=&quot;确认真实IP：&quot;&gt;&lt;/a&gt;确认真实IP：&lt;/h4&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;直接访问IP和访问域名的结果是一样的。&lt;/p&gt;
-&lt;h3 id=&quot;可信IP：&quot;&gt;&lt;a href=&quot;#可信IP：&quot; class=&quot;headerlink&quot; title=&quot;可信IP：&quot;&gt;&lt;/a&gt;可信IP：&lt;/h3&gt;&lt;p&gt;当拿到很多IP之后，如何确定是不是目标的资产？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;查IP归属：&lt;a href=&quot;https://www.ipip.net/ip.html&quot;&gt;https://www.ipip.net/ip.html&lt;/a&gt;（如果查到是阿里云或者腾讯云的基本可以放弃）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;直接&lt;a href=&quot;https://gobies.org/&quot;&gt;goby&lt;/a&gt;扫C段（说不定就扫到命令执行了呢）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://nmap.org/&quot;&gt;nmap&lt;/a&gt;扫全端口&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;同IP网站查询其他域名：&lt;a href=&quot;http://dns.bugscaner.com/&quot;&gt;http://dns.bugscaner.com/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;子域名搜集，目录扫描：&quot;&gt;&lt;a href=&quot;#子域名搜集，目录扫描：&quot; class=&quot;headerlink&quot; title=&quot;子域名搜集，目录扫描：&quot;&gt;&lt;/a&gt;子域名搜集，目录扫描：&lt;/h2&gt;&lt;p&gt;通过以上的信息搜集，就会得到很多域名&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;子域名收集。推荐一个工具&lt;a href=&quot;https://paper.seebug.org/1053/&quot;&gt;&lt;strong&gt;OneForAll&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;能扫到多级目录，多，有标题&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;python3 oneforall.py --target example.com --port=80,443,8080,8009,7001 --valid=True --path=./subs.csv run&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--port=PORT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;请求验证子域的端口范围(默认只探测80端口)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--valid=VALID&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;只导出存活的子域结果(默认False)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--path=PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结果保存路径(默认None)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--takeover=TAKEOVER&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;检查子域接管(默认False)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;li&gt;jsfinder（扫API和子域名）：&lt;a href=&quot;https://github.com/Threezh1/JSFinder&quot;&gt;https://github.com/Threezh1/JSFinder&lt;/a&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;python JSFinder.py -u http:&amp;#x2F;&amp;#x2F;www.baidu.com -d -ou mi_url.txt -os mi_subdomain.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;访问域名404或者403的，权重高的直接爆破目录（字典要强大，说不定就扫到源码了呢）&lt;/p&gt;
-&lt;h2 id=&quot;拓展资产搜集&quot;&gt;&lt;a href=&quot;#拓展资产搜集&quot; class=&quot;headerlink&quot; title=&quot;拓展资产搜集&quot;&gt;&lt;/a&gt;拓展资产搜集&lt;/h2&gt;&lt;h3 id=&quot;FOFA关键词搜集：&quot;&gt;&lt;a href=&quot;#FOFA关键词搜集：&quot; class=&quot;headerlink&quot; title=&quot;FOFA关键词搜集：&quot;&gt;&lt;/a&gt;FOFA关键词搜集：&lt;/h3&gt;&lt;p&gt;师傅这篇文章写的很详细了可以参考一下：&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU3MTU3NDk4Mw==&amp;mid=2247484420&amp;idx=1&amp;sn=a18a908a0146b6fd08a9533520b9bc4b&amp;chksm=fcdf5baccba8d2ba592cdeca87ded3b97915c5b0f557b18f7b6e152e4bc66d4141eddc105d5d&amp;mpshare=1&amp;scene=23&amp;srcid=1104qlIdyYCsgUX58hjx7iAp&amp;sharer_sharetime=1604499225727&amp;sharer_shareid=1f9f9a5c0563a1d0ce3d7b29ade29fd3#rd&quot;&gt;链接&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;微信小程序搜集：&quot;&gt;&lt;a href=&quot;#微信小程序搜集：&quot; class=&quot;headerlink&quot; title=&quot;微信小程序搜集：&quot;&gt;&lt;/a&gt;微信小程序搜集：&lt;/h3&gt;&lt;p&gt;很多集团的资产找不到的情况下，可以试一下微信搜，或许会有不一样的发现&lt;/p&gt;
-&lt;h3 id=&quot;APP搜集：&quot;&gt;&lt;a href=&quot;#APP搜集：&quot; class=&quot;headerlink&quot; title=&quot;APP搜集：&quot;&gt;&lt;/a&gt;APP搜集：&lt;/h3&gt;&lt;p&gt;提取APK中的所有URL链接&lt;a href=&quot;https://github.com/s0md3v/Diggy&quot;&gt;Diggy&lt;/a&gt;：&lt;/p&gt;
-&lt;h3 id=&quot;icon搜集：&quot;&gt;&lt;a href=&quot;#icon搜集：&quot; class=&quot;headerlink&quot; title=&quot;icon搜集：&quot;&gt;&lt;/a&gt;icon搜集：&lt;/h3&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;提取集团icon的hash然后fofa搜：&lt;a href=&quot;https://github.com/Becivells/iconhash&quot;&gt;iconhash&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;供应链，网站指纹：&quot;&gt;&lt;a href=&quot;#供应链，网站指纹：&quot; class=&quot;headerlink&quot; title=&quot;供应链，网站指纹：&quot;&gt;&lt;/a&gt;供应链，网站指纹：&lt;/h3&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;供应链&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;网站底部可能会有技术支持的公司名称显示&lt;/li&gt;
-&lt;li&gt;F12找特征FOFA搜可能会找到开发此网站的公司，查该公司说不定会有演示网站或者测试站&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;指纹识别：&lt;a href=&quot;http://finger.tidesec.net/&quot;&gt;潮汐指纹&lt;/a&gt;、&lt;a href=&quot;https://www.yunsee.cn/&quot;&gt;云悉指纹&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;社工钓鱼：&quot;&gt;&lt;a href=&quot;#社工钓鱼：&quot; class=&quot;headerlink&quot; title=&quot;社工钓鱼：&quot;&gt;&lt;/a&gt;社工钓鱼：&lt;/h3&gt;&lt;p&gt;这里没研究过，基本流程就是爬企业员工邮箱，网盘查泄露的资料然后发钓鱼邮件诱导其下载。&lt;/p&gt;
-&lt;h2 id=&quot;漏洞库：&quot;&gt;&lt;a href=&quot;#漏洞库：&quot; class=&quot;headerlink&quot; title=&quot;漏洞库：&quot;&gt;&lt;/a&gt;漏洞库：&lt;/h2&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;零组文库：&lt;a href=&quot;http://47.94.96.209/index.html&quot;&gt;零组&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;乌云镜像：&lt;a href=&quot;https://wooyun.x10sec.org/&quot;&gt;https://wooyun.x10sec.org/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;常见端口渗透思路：&quot;&gt;&lt;a href=&quot;#常见端口渗透思路：&quot; class=&quot;headerlink&quot; title=&quot;常见端口渗透思路：&quot;&gt;&lt;/a&gt;常见端口渗透思路：&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;端口号&lt;/th&gt;
-&lt;th&gt;端口说明&lt;/th&gt;
-&lt;th&gt;渗透思路&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;21/69&lt;/td&gt;
-&lt;td&gt;FTP/TFTP：文件传输协议&lt;/td&gt;
-&lt;td&gt;爆破、内网嗅探&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;22&lt;/td&gt;
-&lt;td&gt;SSH：远程连接&lt;/td&gt;
-&lt;td&gt;用户名枚举、爆破&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;23&lt;/td&gt;
-&lt;td&gt;Telnet：远程连接&lt;/td&gt;
-&lt;td&gt;爆破、内网嗅探&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;25&lt;/td&gt;
-&lt;td&gt;SMTP：邮件服务&lt;/td&gt;
-&lt;td&gt;邮件伪造&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;53&lt;/td&gt;
-&lt;td&gt;DNS：域名系统&lt;/td&gt;
-&lt;td&gt;DNS域传送\DNS缓存投毒\DNS欺骗\利用DNS隧道技术刺透防火墙&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;389&lt;/td&gt;
-&lt;td&gt;LDAP&lt;/td&gt;
-&lt;td&gt;未授权访问（通过LdapBrowser工具直接连入）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;443&lt;/td&gt;
-&lt;td&gt;https服务&lt;/td&gt;
-&lt;td&gt;OpenSSL 心脏滴血（nmap -sV –script=ssl-heartbleed ）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;445&lt;/td&gt;
-&lt;td&gt;SMB服务&lt;/td&gt;
-&lt;td&gt;ms17_010远程代码执行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;873&lt;/td&gt;
-&lt;td&gt;rsync服务&lt;/td&gt;
-&lt;td&gt;未授权访问&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1090/1099&lt;/td&gt;
-&lt;td&gt;Java-rmi&lt;/td&gt;
-&lt;td&gt;JAVA反序列化远程命令执行漏洞&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1352&lt;/td&gt;
-&lt;td&gt;Lotus Domino邮件服务&lt;/td&gt;
-&lt;td&gt;爆破：弱口令、信息泄漏：源代码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1433&lt;/td&gt;
-&lt;td&gt;MSSQL&lt;/td&gt;
-&lt;td&gt;注入、SA弱口令爆破、提权&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1521&lt;/td&gt;
-&lt;td&gt;Oracle&lt;/td&gt;
-&lt;td&gt;注入、TNS爆破&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2049&lt;/td&gt;
-&lt;td&gt;NFS&lt;/td&gt;
-&lt;td&gt;配置不当&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2181&lt;/td&gt;
-&lt;td&gt;ZooKeeper服务&lt;/td&gt;
-&lt;td&gt;未授权访问&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;3306&lt;/td&gt;
-&lt;td&gt;MySQL&lt;/td&gt;
-&lt;td&gt;注入、爆破、写shell、提权&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;3389&lt;/td&gt;
-&lt;td&gt;RDP&lt;/td&gt;
-&lt;td&gt;爆破、Shift后门、CVE-2019-0708远程代码执行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;4848&lt;/td&gt;
-&lt;td&gt;GlassFish控制台&lt;/td&gt;
-&lt;td&gt;爆破：控制台弱口令、认证绕过&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;5000&lt;/td&gt;
-&lt;td&gt;Sybase/DB2数据库&lt;/td&gt;
-&lt;td&gt;爆破、注入&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;5432&lt;/td&gt;
-&lt;td&gt;PostgreSQL&lt;/td&gt;
-&lt;td&gt;爆破弱口令、高权限执行系统命令&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;5632&lt;/td&gt;
-&lt;td&gt;PcAnywhere服务&lt;/td&gt;
-&lt;td&gt;爆破弱口令&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;5900&lt;/td&gt;
-&lt;td&gt;VNC&lt;/td&gt;
-&lt;td&gt;爆破：弱口令、认证绕过&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;6379&lt;/td&gt;
-&lt;td&gt;Redis&lt;/td&gt;
-&lt;td&gt;未授权访问、爆破弱口令&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;7001&lt;/td&gt;
-&lt;td&gt;WebLogic中间件&lt;/td&gt;
-&lt;td&gt;反序列化、控制台弱口令+部署war包、SSRF&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;8000&lt;/td&gt;
-&lt;td&gt;jdwp&lt;/td&gt;
-&lt;td&gt;JDWP 远程命令执行漏洞（&lt;a href=&quot;https://github.com/IOActive/jdwp-shellifier&quot;&gt;工具&lt;/a&gt;）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;8080/8089&lt;/td&gt;
-&lt;td&gt;Tomcat/JBoss/Resin/Jetty/Jenkins&lt;/td&gt;
-&lt;td&gt;反序列化、控制台弱口令、未授权&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;8161&lt;/td&gt;
-&lt;td&gt;ActiveMQ&lt;/td&gt;
-&lt;td&gt;admin/admin、任意文件写入、反序列化&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;8069&lt;/td&gt;
-&lt;td&gt;Zabbix&lt;/td&gt;
-&lt;td&gt;远程命令执行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;9043&lt;/td&gt;
-&lt;td&gt;WebSphere控制台&lt;/td&gt;
-&lt;td&gt;控制台弱口令https://:9043/ibm/console/logon.jsp、远程代码执行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;9200/9300&lt;/td&gt;
-&lt;td&gt;Elasticsearch服务&lt;/td&gt;
-&lt;td&gt;远程代码执行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;11211&lt;/td&gt;
-&lt;td&gt;Memcache&lt;/td&gt;
-&lt;td&gt;未授权访问（nc -vv  11211）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;27017&lt;/td&gt;
-&lt;td&gt;MongoDB&lt;/td&gt;
-&lt;td&gt;未授权访问、爆破弱口令&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;50000&lt;/td&gt;
-&lt;td&gt;SAP&lt;/td&gt;
-&lt;td&gt;远程代码执行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;50070&lt;/td&gt;
-&lt;td&gt;hadoop&lt;/td&gt;
-&lt;td&gt;未授权访问&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;结语&quot;&gt;&lt;a href=&quot;#结语&quot; class=&quot;headerlink&quot; title=&quot;结语&quot;&gt;&lt;/a&gt;结语&lt;/h2&gt;&lt;p&gt;信息收集是一个看似琐碎但不可或缺的步骤，在网络攻击和防御的成本都越来越低的当下，信息差往往是决定成败的关键。只有找到更多的资产暴露攻击面，才能找到别人发现不了的漏洞。&lt;/p&gt;
-</summary>
+&lt;h1 id=&quot;深挖更多IP资产：&quot;&gt;&lt;a href=&quot;#深挖更多IP资产：&quot; class=&quot;headerlink&quot; title=&quot;深挖更多IP资产：&quot;&gt;&lt;/a&gt;深挖更多IP资产：&lt;/h1&gt;</summary>
     
     
     
