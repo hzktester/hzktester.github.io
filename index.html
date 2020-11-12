@@ -295,6 +295,144 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/c0ec548.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/c0ec548.html" class="post-title-link" itemprop="url">正则表达式，字符串的匹配与查找函数，数组切割</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-10 17:09:00" itemprop="dateCreated datePublished" datetime="2020-11-10T17:09:00+08:00">2020-11-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-12 20:59:10" itemprop="dateModified" datetime="2020-11-12T20:59:10+08:00">2020-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">PHP基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PHP中的正则表达式"><a href="#PHP中的正则表达式" class="headerlink" title="PHP中的正则表达式"></a>PHP中的正则表达式</h2><blockquote>
+<p>在php中，有两套正则表达式函数库，两者功能相似、知识执行效率略有差异：</p>
+</blockquote>
+<ul>
+<li><code>PCRE</code>库提供，使用<code>preg_</code>为前缀命名的函数</li>
+<li><code>POSIX</code>扩展提供的。使用以<code>ereg_</code>为前缀命名的函数</li>
+</ul>
+<p><code>PCRE</code>来源于<code>Perl</code>语言，而Perl是对字符串操作功能最强大的语言之一，<code>PHP</code>的最初版本就是由<code>Perl</code>开发的产品。</p>
+<p><code>PCRE</code>语法支持更多特性，比<code>POSIX</code>语法更强大。</p>
+<h3 id="与Perl语言兼容的正则表达式处理函数"><a href="#与Perl语言兼容的正则表达式处理函数" class="headerlink" title="与Perl语言兼容的正则表达式处理函数"></a>与Perl语言兼容的正则表达式处理函数</h3><table>
+<thead>
+<tr>
+<th align="center"><strong>函数名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>preg_match()</strong></td>
+<td>进行正则表达式匹配</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_match_all()</strong></td>
+<td>进行全局正则表达式匹配</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_replace()</strong></td>
+<td>执行正则表达式的搜索和替换</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_split()</strong></td>
+<td>用正则表达式分割字符串</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_grep()</strong></td>
+<td>返回与模式匹配的数组单元</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_replace_callback</strong></td>
+<td>用回调函数执行正则表达式的搜索和替换</td>
+</tr>
+</tbody></table>
+<h2 id="正则表达式语法规则"><a href="#正则表达式语法规则" class="headerlink" title="正则表达式语法规则"></a>正则表达式语法规则</h2><p>正则表达式作为一个匹配的模板，是由原子（普通字符，例如字符a到z）、特殊字符（元字符，例如*、+和？等）、以及模式修正符三部分组成的匹配模板。</p>
+<h3 id="定界符"><a href="#定界符" class="headerlink" title="定界符"></a>定界符</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/c0ec548.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e0d73a1e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1171,99 +1309,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/588aed09.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/588aed09.html" class="post-title-link" itemprop="url">sqli-labs靶场Less-19(referer注入)</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-20 14:34:00 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2020-10-20T14:34:00+08:00">2020-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>55</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less19"><a href="#Less19" class="headerlink" title="Less19"></a>Less19</h2><p>本关和Less18基本是一致的，只不过是<code>referer</code>处存在注入</p>
-<p>使用burp抓包修改<code>referer</code></p>
-<p><img src="https://qiniu.hzktester.top/tp2020102005.png" alt="image"></p>
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/588aed09.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1335,7 +1380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1408,12 +1453,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">109k</span>
+    <span title="站点总字数">120k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:39</span>
+    <span title="站点阅读时长">1:49</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
