@@ -193,6 +193,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/53895abe.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/53895abe.html" class="post-title-link" itemprop="url">PHP-任意文件读取/下载漏洞.md</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-20 20:32:00 / 修改时间：20:36:49" itemprop="dateCreated datePublished" datetime="2020-11-20T20:32:00+08:00">2020-11-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="危害说明"><a href="#危害说明" class="headerlink" title="危害说明"></a>危害说明</h1><p>下载服务器任意文件，例如脚本代码、系统配置文件、等等可用的代码进行代码审计或是获取系统<code>ssh</code>进行登录、获取数据库账号密码进行连接等等</p>
+<h1 id="任意文件读取-利用与代码"><a href="#任意文件读取-利用与代码" class="headerlink" title="任意文件读取-利用与代码"></a>任意文件读取-利用与代码</h1><h2 id="例子一：读取文件"><a href="#例子一：读取文件" class="headerlink" title="例子一：读取文件"></a>例子一：读取文件</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line">    readfile($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    $fp = fopen($filename,<span class="string">&quot;r&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;Unable to open file!&quot;</span>);</span><br><span class="line">    $data = fread($fp,filesize($filename));</span><br><span class="line">    fclose($fp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> $data;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line">    <span class="keyword">echo</span> file_get_contents($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><p>把以上三个文件分别上传到我自己的服务器：<br><img src="https://qiniu.hzktester.top/tp2020112012.png" alt="image.png"><br>分别访问三个测试代码读取<code>1.txt</code>文件</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/53895abe.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/b6cdb199.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1221,109 +1315,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/208f6916.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/208f6916.html" class="post-title-link" itemprop="url">流程控制语句、分支、循环</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-21 11:46:00 / 修改时间：13:15:57" itemprop="dateCreated datePublished" datetime="2020-10-21T11:46:00+08:00">2020-10-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PHP%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">PHP基础</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="流程控制概述"><a href="#流程控制概述" class="headerlink" title="流程控制概述"></a>流程控制概述</h2><ul>
-<li>任何 <code>PHP</code> 脚本都是由一系列语句构成的。一条语句可以是一个赋值语句，一个函数调用，一个循环，甚至一个什么也不做的（空语句）条件语句。语句通常以分号结束。此外，还可以用花括号将一组语句封装成一个语句组。语句组本身可以当作是一行语句。</li>
-<li>在任何一门程序设计语言中，都需要支持满足程序结构化所需要的三种基本结构:<ul>
-<li><strong>顺序结构</strong></li>
-<li><strong>分支结构（选择结构）</strong></li>
-<li><strong>循环结构</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h2><h3 id="单一条件分支结构-if"><a href="#单一条件分支结构-if" class="headerlink" title="单一条件分支结构(if)"></a>单一条件分支结构(if)</h3><p>当条件表达式的值为真<code>true</code>时，<code>PHP</code>将执行语句组，相反条件表达式的值为假<code>false</code>时，<code>PHP</code>将不执行语句组，忽略语句组执行下面的语句。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$a&#x3D;5;</span><br><span class="line">	$b&#x3D;3;</span><br><span class="line">    if ($a &gt; $b)</span><br><span class="line">        echo &quot;a &gt; b&quot;; &#x2F;&#x2F;如果变量a的值大于b的值则会输出：a大于b</span><br><span class="line">    </span><br><span class="line">    $x&#x3D;10;</span><br><span class="line">    $y&#x3D;20;</span><br><span class="line">    if($x&lt;$y)&#123;          &#x2F;&#x2F;判断是否x小于y。多条语句需要使用&#123; &#125;括起来。</span><br><span class="line">         $t&#x3D;$x;</span><br><span class="line">         $x&#x3D;$y;</span><br><span class="line">         $y&#x3D;$t;</span><br><span class="line">    &#125;</span><br><span class="line">    var_dump($x&gt;$y);  &#x2F;&#x2F;输出：bool(true)</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="双向条件分支结构-else从句"><a href="#双向条件分支结构-else从句" class="headerlink" title="双向条件分支结构(else从句)"></a>双向条件分支结构(else从句)</h3><p><code>if-else</code> 条件判断与 <code>if</code> 条件判断类似，所不同的是，<code>if-else</code> 语<br>句的条件表达式值为真<code>true</code>时，会执行 <code>if</code> 的本体语句<strong>语句组1</strong>，<br>而条件表达式值为假<code>false</code>时，则执行 <code>else</code> 的本体语句<strong>语句组2</strong>。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020102101.png" alt="image"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(false)&#123;  &#x2F;&#x2F; 真区间</span><br><span class="line">	echo 1;</span><br><span class="line">&#125; else &#123;    &#x2F;&#x2F; 假区间</span><br><span class="line">	echo 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/208f6916.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1395,7 +1386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1408,7 +1399,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1468,12 +1459,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">130k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:58</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
