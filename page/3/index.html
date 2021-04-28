@@ -193,7 +193,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/eb6bd74b.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/50d3edd2.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -207,393 +207,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/eb6bd74b.html" class="post-title-link" itemprop="url">sqli-labs靶场Less20、21、22(cookie注入)</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-20 14:59:00 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2020-10-20T14:59:00+08:00">2020-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>683</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less20"><a href="#Less20" class="headerlink" title="Less20"></a>Less20</h2><p>从源代码中我们可以看到 <code>cookie</code> 从 <code>username</code> 中获得值后，当再次刷新时，会从 <code>cookie</code> 中读<br>取 <code>username</code>，然后进行查询。<br>登录成功后，我们修改 <code>cookie</code>，再次刷新时，这时候 <code>sql</code> 语句就会被修改了</p>
-<p>先使用正确的账号密码登录一次。使用burp抓取第二个数据包。修改<code>cookie</code>的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@basedir),0x7e))#</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020102006.png" alt="image"></p>
-<h2 id="Less21"><a href="#Less21" class="headerlink" title="Less21"></a>Less21</h2><p>与Less20处理流程一样，但是对cookie进行了<code>base64</code>加密。利用Less20的方法，但是需要将<code>payload</code>进行<code>base64</code>编码处理（这里对uname进行了<code>(&#39;uname&#39;)</code>处理）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YWRtaW4nKWFuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg3ZSwoc2VsZWN0IEBAYmFzZWRpciksMHg3ZSkpIw&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020102007.png" alt="image"></p>
-<h2 id="Less22"><a href="#Less22" class="headerlink" title="Less22"></a>Less22</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/eb6bd74b.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/588aed09.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/588aed09.html" class="post-title-link" itemprop="url">sqli-labs靶场Less-19(referer注入)</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-20 14:34:00 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2020-10-20T14:34:00+08:00">2020-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>55</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less19"><a href="#Less19" class="headerlink" title="Less19"></a>Less19</h2><p>本关和Less18基本是一致的，只不过是<code>referer</code>处存在注入</p>
-<p>使用burp抓包修改<code>referer</code></p>
-<p><img src="https://qiniu.hzktester.top/tp2020102005.png" alt="image"></p>
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/588aed09.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e9f63d2e.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/e9f63d2e.html" class="post-title-link" itemprop="url">sqli-labs靶场Less-18(useragent注入)</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-20 14:23:00 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2020-10-20T14:23:00+08:00">2020-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>491</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less18"><a href="#Less18" class="headerlink" title="Less18"></a>Less18</h2><p>本关可以从源码了解到对<code>uname</code>和<code>passwd</code>进行了<code>check_input()</code>函数的处理，所以这里无法注入了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$uname &#x3D; check_input($_POST[&#39;uname&#39;]);</span><br><span class="line">$passwd &#x3D; check_input($_POST[&#39;passwd&#39;]);</span><br></pre></td></tr></table></figure>
-<p>但是代码中将<code>useragent</code>和<code>ip</code>插入到数据库中，可以使用<code>useragent</code>进行注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;security&#96;.&#96;uagents&#96; (&#96;uagent&#96;, &#96;ip_address&#96;, &#96;username&#96;) VALUES (&#39;$uagent&#39;, &#39;$IP&#39;, $uname)</span><br></pre></td></tr></table></figure>
-<p>使用burp抓包修改<code>useragent</code>看看</p>
-<p><img src="https://qiniu.hzktester.top/tp2020102003.png" alt="image"></p>
-<p>修改<code>useragent</code>报错注入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and extractvalue(1,concat(0x7e,(select @@version),0x7e)) and &#39;1&#39;&#x3D;&#39;1</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020102004.png" alt="image"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/e9f63d2e.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/cb3a4153.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/cb3a4153.html" class="post-title-link" itemprop="url">sqli-labs靶场Less-17(update注入)</a>
-        </h2>
-
-        <div class="post-meta">
-			
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-20 11:27:00 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2020-10-20T11:27:00+08:00">2020-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sqli-labs%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">sqli-labs靶场</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>259</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Less17"><a href="#Less17" class="headerlink" title="Less17"></a>Less17</h2><p>本关可以看到是一个修改密码的过程，利用的是<code>update</code>语句，与再用<code>select</code>时是一样的。</p>
-<p>尝试报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p>可以看到<code>sql</code>语句报错</p>
-<p><img src="https://qiniu.hzktester.top/tp2020102001.png" alt="image"></p>
-<p>尝试一下报错注入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname&#x3D;admin&amp;passwd&#x3D;11&#39;and extractvalue(1,concat(0x7e,(select @@version),0x7e))#&amp;submit&#x3D;Submit</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020102002.png" alt="image"></p>
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/cb3a4153.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/61d5f45a.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="hzktester">
-      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hzktester`s Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/61d5f45a.html" class="post-title-link" itemprop="url">linux操作系统加固</a>
+            <a href="/posts/50d3edd2.html" class="post-title-link" itemprop="url">内网权限基础</a>
         </h2>
 
         <div class="post-meta">
@@ -604,14 +218,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-15 14:29:00" itemprop="dateCreated datePublished" datetime="2020-10-15T14:29:00+08:00">2020-10-15</time>
+              <time title="创建时间：2020-11-21 21:38:00" itemprop="dateCreated datePublished" datetime="2020-11-21T21:38:00+08:00">2020-11-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
+                <time title="修改时间：2020-11-25 17:28:24" itemprop="dateModified" datetime="2020-11-25T17:28:24+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -619,7 +233,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" itemprop="url" rel="index"><span itemprop="name">安全加固</span></a>
+                  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">内网渗透</span></a>
                 </span>
             </span>
 
@@ -629,14 +243,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.6k</span>
+              <span>470</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -648,107 +262,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Linux系统基本操作"><a href="#Linux系统基本操作" class="headerlink" title="Linux系统基本操作"></a>Linux系统基本操作</h1><h2 id="文件结构图及关键文件功能"><a href="#文件结构图及关键文件功能" class="headerlink" title="文件结构图及关键文件功能"></a>文件结构图及关键文件功能</h2><h3 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h3><p><img src="https://qiniu.hzktester.top/tp2020101501.png" alt="image"></p>
-<h3 id="Linux文件结构图"><a href="#Linux文件结构图" class="headerlink" title="Linux文件结构图"></a>Linux文件结构图</h3><p><img src="https://qiniu.hzktester.top/tp2020101502.png" alt="image"></p>
-<h3 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h3><table>
-<thead>
-<tr>
-<th>目录</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>/bin</td>
-<td>放置的是在单人维护模式下能够被操作的指令，在/bin底下的指令可以被root与 一般账号所使用</td>
-</tr>
-<tr>
-<td>/boot</td>
-<td>这个目录只要在放置开机会使用到的文件，包括Linux核心文件以及开机选单与 开机所需配置的文件等等</td>
-</tr>
-<tr>
-<td>/dev</td>
-<td>在Linux系统上，任何装置与接口设备都是以文件的形态存在于这个目录当中的</td>
-</tr>
-<tr>
-<td>/etc</td>
-<td>系统主要的配置文件几乎都放置在这个目录内，例如人员的账号密码文件，各 种服务的启动档，系统变量配置等</td>
-</tr>
-<tr>
-<td>/home</td>
-<td>这是系统默认的用户家目录(homedirectory)</td>
-</tr>
-<tr>
-<td>/lib</td>
-<td>/lib放置的则是在开机时会用到的函式库，以及在/lib或/sbin底下的指令会呼叫 的函式库</td>
-</tr>
-<tr>
-<td>/media</td>
-<td>/media底下放置的是可移出的装置，包括软盘、光盘、DVD等等装置都杂事挂载与此</td>
-</tr>
-<tr>
-<td>/opt</td>
-<td>给第三方协议软件放置的目录</td>
-</tr>
-<tr>
-<td>/root</td>
-<td>系统管理员（root）的家目录</td>
-</tr>
-<tr>
-<td>/sbin</td>
-<td>放置/sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所 需要的指令。</td>
-</tr>
-<tr>
-<td>/srv</td>
-<td>srv可视为[service]的缩写，是一些网络服务启动之后，这些服务所需要取用的 数据目录</td>
-</tr>
-<tr>
-<td>/tmp</td>
-<td>这是让一般使用者或者是正在执行的程序暂时放置文件的地方</td>
-</tr>
-</tbody></table>
-<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><table>
-<thead>
-<tr>
-<th>目录</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>/etc/passwd</td>
-<td>记录系统本地用户的属性信息，如UId,Gid,家目录等信息</td>
-</tr>
-<tr>
-<td>/etc/shadow</td>
-<td>存放用户的口令等信息，只有系统管理员用户能查看</td>
-</tr>
-<tr>
-<td>/etc/pam.d/system-auth</td>
-<td>账户安全配置文件</td>
-</tr>
-<tr>
-<td>/etc/login.defs</td>
-<td>设置用户账户限制的配置文件，对root用户无效</td>
-</tr>
-<tr>
-<td>/etc/securetty</td>
-<td>网络配置文件</td>
-</tr>
-<tr>
-<td>/etc/pam.d/su</td>
-<td>su命令配置</td>
-</tr>
-<tr>
-<td>/etc/hosts.allow、/etc/hosts.deny</td>
-<td>允许/拒接某网段远程连接到主机</td>
-</tr>
-<tr>
-<td>/etc/profile</td>
-<td>保存Linux全局环境变量信息，如umask,bash历史命令设置</td>
-</tr>
-</tbody></table>
+          <h1 id="权限划分"><a href="#权限划分" class="headerlink" title="权限划分"></a>权限划分</h1><h2 id="Windwos权限"><a href="#Windwos权限" class="headerlink" title="Windwos权限"></a>Windwos权限</h2><ul>
+<li><code>SYSTEM</code>：系统权限</li>
+<li><code>Administrator</code>：管理员权限</li>
+<li><code>User</code>：普通用户权限</li>
+</ul>
+<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ul>
+<li><code>root</code>：最高权限</li>
+<li><code>user</code>：普通用户权限</li>
+</ul>
+<h2 id="shell权限"><a href="#shell权限" class="headerlink" title="shell权限"></a>shell权限</h2><p><code>shell</code>权限是由当前执行该服务（进程）的用户的权限决定的</p>
+<h1 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h1><h2 id="windows系统"><a href="#windows系统" class="headerlink" title="windows系统"></a>windows系统</h2><h3 id="启动项维持"><a href="#启动项维持" class="headerlink" title="启动项维持"></a>启动项维持</h3>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/61d5f45a.html#more" rel="contents">
+              <a class="btn" href="/posts/50d3edd2.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -772,7 +299,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/c63e133.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/53895abe.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -786,7 +313,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/c63e133.html" class="post-title-link" itemprop="url">windows操作系统加固</a>
+            <a href="/posts/53895abe.html" class="post-title-link" itemprop="url">PHP-任意文件读取/下载漏洞</a>
         </h2>
 
         <div class="post-meta">
@@ -797,14 +324,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-14 14:29:00" itemprop="dateCreated datePublished" datetime="2020-10-14T14:29:00+08:00">2020-10-14</time>
+              <time title="创建时间：2020-11-20 20:32:00" itemprop="dateCreated datePublished" datetime="2020-11-20T20:32:00+08:00">2020-11-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
+                <time title="修改时间：2020-11-25 17:28:04" itemprop="dateModified" datetime="2020-11-25T17:28:04+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -812,7 +339,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" itemprop="url" rel="index"><span itemprop="name">安全加固</span></a>
+                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
                 </span>
             </span>
 
@@ -822,7 +349,208 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="危害说明"><a href="#危害说明" class="headerlink" title="危害说明"></a>危害说明</h1><p>下载服务器任意文件，例如脚本代码、系统配置文件、等等可用的代码进行代码审计或是获取系统<code>ssh</code>进行登录、获取数据库账号密码进行连接等等</p>
+<h1 id="任意文件读取-利用与代码"><a href="#任意文件读取-利用与代码" class="headerlink" title="任意文件读取-利用与代码"></a>任意文件读取-利用与代码</h1><h2 id="例子一：读取文件"><a href="#例子一：读取文件" class="headerlink" title="例子一：读取文件"></a>例子一：读取文件</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line">    readfile($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    $fp = fopen($filename,<span class="string">&quot;r&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;Unable to open file!&quot;</span>);</span><br><span class="line">    $data = fread($fp,filesize($filename));</span><br><span class="line">    fclose($fp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> $data;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line">    <span class="keyword">echo</span> file_get_contents($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><p>把以上三个文件分别上传到我自己的服务器：<br><img src="https://qiniu.hzktester.top/tp2020112012.png" alt="image.png"><br>分别访问三个测试代码读取<code>1.txt</code>文件</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/53895abe.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/b6cdb199.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/b6cdb199.html" class="post-title-link" itemprop="url">巧用DNSlog实现无回显注入</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-20 11:42:00 / 修改时间：11:45:51" itemprop="dateCreated datePublished" datetime="2020-11-20T11:42:00+08:00">2020-11-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="DNSlog回显原理"><a href="#DNSlog回显原理" class="headerlink" title="DNSlog回显原理"></a>DNSlog回显原理</h1><p>首先需要有一个可以配置的域名，比如：<code>ceye.io</code>，然后通过代理商设置域名 <code>ceye.io</code> 的 <code>nameserver</code> 为自己的服务器 A，然后再服务器 A 上配置好 <code>DNS Server</code>，这样以来所有 <code>ceye.io</code> 及其子域名的查询都会到服务器 A 上，这时就能够实时地监控域名查询请求了，图示如下。<br><img src="https://qiniu.hzktester.top/tp2020112001.png" alt="tp2020112001.png"></p>
+<blockquote>
+<p>DNS在解析的时候会留下日志，这个就是读取多级域名的解析日志，来获取信息<br>简单来说就是把信息放在高级域名中，传递到自己这，然后读取日志，获取信息</p>
+</blockquote>
+<h1 id="利用场景"><a href="#利用场景" class="headerlink" title="利用场景"></a>利用场景</h1><p>在<code>sql</code>注入时为布尔盲注、时间盲注，注入的效率低且线程高容易被<code>waf</code>拦截，又或者是目标站点没有回显，我们在读取文件、执行命令注入等操作时无法明显的确认是否利用成功，这时候就要用到我们的<code>DNSlog</code>注入。</p>
+<h1 id="推荐平台"><a href="#推荐平台" class="headerlink" title="推荐平台"></a>推荐平台</h1><ul>
+<li><a target="_blank" rel="noopener" href="http://www.dnslog.cn/">http://www.dnslog.cn</a></li>
+<li><a target="_blank" rel="noopener" href="http://admin.dnslog.link/">http://admin.dnslog.link</a></li>
+<li><a target="_blank" rel="noopener" href="http://ceye.io/">http://ceye.io</a></li>
+</ul>
+<p>以下利用，我这里使用<code>ceye</code>平台演示。<br><img src="https://qiniu.hzktester.top/tp2020112002.png" alt="image.png"><br>他会给你一个三级域名，你把信息写在第四级域名上就好了，比如我这里访问hzktester.xxxx.cece.io ，访问之后就会有查询记录。<br><img src="https://qiniu.hzktester.top/tp2020112003.png" alt="tp2020112003.png"><br><img src="https://qiniu.hzktester.top/tp2020112004.png" alt="image.png"></p>
+<h2 id="利用一：SQL注入"><a href="#利用一：SQL注入" class="headerlink" title="利用一：SQL注入"></a>利用一：SQL注入</h2><h3 id="利用场景："><a href="#利用场景：" class="headerlink" title="利用场景："></a>利用场景：</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/b6cdb199.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/1a711be2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/1a711be2.html" class="post-title-link" itemprop="url">XXE漏洞总结</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-19 12:00:00" itemprop="dateCreated datePublished" datetime="2020-11-19T12:00:00+08:00">2020-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-20 10:33:58" itemprop="dateModified" datetime="2020-11-20T10:33:58+08:00">2020-11-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -841,190 +569,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="windows系统基本操作"><a href="#windows系统基本操作" class="headerlink" title="windows系统基本操作"></a>windows系统基本操作</h1><h2 id="windows常见目录"><a href="#windows常见目录" class="headerlink" title="windows常见目录"></a>windows常见目录</h2><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>C:\Windows\System32</td>
-<td>存放系统配置文件</td>
-</tr>
-<tr>
-<td>C:\Windows\SysWOW64</td>
-<td>Windows操作系统的子系统</td>
-</tr>
-<tr>
-<td>C:\Windows\System32\config\SAM</td>
-<td>存放windows帐号和密码</td>
-</tr>
-<tr>
-<td>C:\Windows\System32\drivers\etc\hosts</td>
-<td>DNS解析文件</td>
-</tr>
-<tr>
-<td>C:\Program Files、C:\Program Files (x86)</td>
-<td>64位系统安装在Windows操作系统的子系统,32位下会安装在x86下</td>
-</tr>
-<tr>
-<td>C:\Windows\System32\winevt\Logs</td>
-<td>日志目录</td>
-</tr>
-</tbody></table>
-<h2 id="windows常用系统命令"><a href="#windows常用系统命令" class="headerlink" title="windows常用系统命令"></a>windows常用系统命令</h2><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ver</td>
-<td>查看系统版本</td>
-</tr>
-<tr>
-<td>hostname</td>
-<td>查看主机名</td>
-</tr>
-<tr>
-<td>ipconfig /all</td>
-<td>查看网络配置</td>
-</tr>
-<tr>
-<td>net user/localgroup/share/config</td>
-<td>查看用户/用户组/共享/当前运行可配置服务</td>
-</tr>
-<tr>
-<td>at</td>
-<td>建立或查看系统作业</td>
-</tr>
-<tr>
-<td>netstat</td>
-<td>查看开放端口</td>
-</tr>
-<tr>
-<td>secpol.msc</td>
-<td>查看和修改本地安全设置</td>
-</tr>
-<tr>
-<td>services.msc</td>
-<td>查看和修改服务</td>
-</tr>
-<tr>
-<td>eventvwr.msc</td>
-<td>查看日志</td>
-</tr>
-<tr>
-<td>regedit</td>
-<td>打开注册表</td>
-</tr>
-<tr>
-<td>whoami</td>
-<td>查看当前操作用户的用户名</td>
-</tr>
-</tbody></table>
-<h2 id="windows常见端口"><a href="#windows常见端口" class="headerlink" title="windows常见端口"></a>windows常见端口</h2><table>
-<thead>
-<tr>
-<th>端口</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>80/8080/8081</td>
-<td>HTTP协议代理服务器常用端口号</td>
-</tr>
-<tr>
-<td>443</td>
-<td>HTTPS协议代理服务器常用端口号</td>
-</tr>
-<tr>
-<td>21</td>
-<td>FTP(文件传输协议)协议代理服务器常用端口号</td>
-</tr>
-<tr>
-<td>23</td>
-<td>Telnet(远程登录)协议代理服务器常用端口号</td>
-</tr>
-<tr>
-<td>22</td>
-<td>SSH（安全登录）、SCP（文件传输）</td>
-</tr>
-<tr>
-<td>1521</td>
-<td>Oracle 数据库</td>
-</tr>
-<tr>
-<td>1433</td>
-<td>MS SQL SERVER数据库</td>
-</tr>
-<tr>
-<td>1080</td>
-<td>QQ</td>
-</tr>
-<tr>
-<td>3306</td>
-<td>Mysql数据库</td>
-</tr>
-<tr>
-<td>25</td>
-<td>SMTP（简单邮件传输协议）</td>
-</tr>
-</tbody></table>
-<h2 id="net命令的使用"><a href="#net命令的使用" class="headerlink" title="net命令的使用"></a>net命令的使用</h2><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>net user abc /add</td>
-<td>创建（空密码）账户abc</td>
-</tr>
-<tr>
-<td>net user abc</td>
-<td>查看账户abc的详细信息</td>
-</tr>
-<tr>
-<td>net user abc /del</td>
-<td>删除账户abc</td>
-</tr>
-<tr>
-<td>net user abc 123/add</td>
-<td>创建普通账户abc，密码为123</td>
-</tr>
-<tr>
-<td>net localgroup administrators abc /add</td>
-<td>把abc用户加入管理员组</td>
-</tr>
-<tr>
-<td>net localgroup administrators abc /del</td>
-<td>把abc用户退出管理员组</td>
-</tr>
-<tr>
-<td>net user abc /active:yes[no]</td>
-<td>启用[停用]abc账户</td>
-</tr>
-<tr>
-<td>net localgroup admin /add[del]</td>
-<td>新建[删除]组admin</td>
-</tr>
-<tr>
-<td>net share</td>
-<td>查看本地开启的共享</td>
-</tr>
-<tr>
-<td>netstat</td>
-<td>查看开启哪些端口</td>
-</tr>
-</tbody></table>
-<h1 id="windows系统加固"><a href="#windows系统加固" class="headerlink" title="windows系统加固"></a>windows系统加固</h1>
+          <h1 id="XXE危害说明"><a href="#XXE危害说明" class="headerlink" title="XXE危害说明"></a>XXE危害说明</h1><p><code>XXE</code>就是<code>XML</code>外部实体注入。</p>
+<p>由于服务端未对提交的<code>xml</code>的数据中引入外部实体做必要的处理，而在外部实体中引入<code>php</code>伪协议从而造成的攻击。</p>
+<p>当允许引用外部实体时，通过构造恶意内容，可导致</p>
+<ul>
+<li>读取任意文件</li>
+<li>探测内网端口</li>
+<li>攻击内网网站</li>
+<li>执行系统命令</li>
+</ul>
+<h1 id="漏洞环境说明"><a href="#漏洞环境说明" class="headerlink" title="漏洞环境说明"></a>漏洞环境说明</h1><h2 id="PHP环境低于5-5使用此代码测试"><a href="#PHP环境低于5-5使用此代码测试" class="headerlink" title="PHP环境低于5.5使用此代码测试"></a>PHP环境低于5.5使用此代码测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$data</span> = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$data</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要回显时 注释print($xml);</span></span><br><span class="line"><span class="built_in">print</span>(<span class="variable">$xml</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="PHP环境大于等于5-5使用此代码测试"><a href="#PHP环境大于等于5-5使用此代码测试" class="headerlink" title="PHP环境大于等于5.5使用此代码测试"></a>PHP环境大于等于5.5使用此代码测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$data</span> = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$data</span>, <span class="string">&#x27;SimpleXMLElement&#x27;</span>, LIBXML_NOENT);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不需要回显时 注释print($xml);</span></span><br><span class="line"><span class="built_in">print</span>(<span class="variable">$xml</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/c63e133.html#more" rel="contents">
+              <a class="btn" href="/posts/1a711be2.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1048,7 +606,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/37b72f03.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/b70654.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1062,7 +620,108 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/37b72f03.html" class="post-title-link" itemprop="url">Web中间件常见解析漏洞总结</a>
+            <a href="/posts/b70654.html" class="post-title-link" itemprop="url">Radis未授权访问漏洞复现</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-18 21:38:00 / 修改时间：21:45:27" itemprop="dateCreated datePublished" datetime="2020-11-18T21:38:00+08:00">2020-11-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>959</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="漏洞特征："><a href="#漏洞特征：" class="headerlink" title="漏洞特征："></a>漏洞特征：</h2><ul>
+<li><code>redis</code>绑定在 <code>0.0.0.0:6379</code>，且没有进行添加防火墙规则避免其他非信任来源<code>ip</code>访问等相关安全策略，直接暴露在公网；</li>
+<li>没有设置密码认证（一般为空），可以免密码远程登录<code>redis</code>服务。 </li>
+</ul>
+<h2 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h2><ul>
+<li>攻击者无需认证访问到内部数据，可能导致敏感信息泄露，黑客也可以恶意执行<code>flushall</code>来清空所有数据；</li>
+<li>攻击者可通过<code>EVAL</code>执行<code>lua</code>代码，或通过数据备份功能往磁盘写入后门文件；</li>
+<li>最严重的情况，如果<code>Redis</code>以<code>root</code>身份运行，黑客可以给<code>root</code>账户写入<code>SSH</code>公钥文件，直接通过<code>SSH</code>登录受害服务器</li>
+</ul>
+<h2 id="影响版本："><a href="#影响版本：" class="headerlink" title="影响版本："></a>影响版本：</h2><p>Redis 2.x，3.x，4.x，5.x</p>
+<h2 id="漏洞复现："><a href="#漏洞复现：" class="headerlink" title="漏洞复现："></a>漏洞复现：</h2><h3 id="环境搭建："><a href="#环境搭建：" class="headerlink" title="环境搭建："></a>环境搭建：</h3><p>下载并安装测试用的<code>Redis</code>，本次采用的是<code>Centos7</code>镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-2.8.17.tar.gz</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/b70654.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/d83e4025.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/d83e4025.html" class="post-title-link" itemprop="url">MySQL UDF提权执行系统命令</a>
         </h2>
 
         <div class="post-meta">
@@ -1073,14 +732,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-12 17:31:00" itemprop="dateCreated datePublished" datetime="2020-10-12T17:31:00+08:00">2020-10-12</time>
+              <time title="创建时间：2020-11-15 21:38:00" itemprop="dateCreated datePublished" datetime="2020-11-15T21:38:00+08:00">2020-11-15</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-20 10:33:51" itemprop="dateModified" datetime="2020-11-20T10:33:51+08:00">2020-11-20</time>
+                <time title="修改时间：2020-11-25 16:25:38" itemprop="dateModified" datetime="2020-11-25T16:25:38+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1088,7 +747,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
+                  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">内网渗透</span></a>
                 </span>
             </span>
 
@@ -1117,17 +776,159 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><p><code>IIS</code>是<code>Internet Information Services</code>的缩写，意为互联网信息服务，是由微软公司提供的基于运行<code>Microsoft Windows</code>的互联网基本服务。</p>
-<blockquote>
-<p>IIS目前只适用于Windows系统，不适用于其他操作系统。</p>
+          <h2 id="什么是UDF库"><a href="#什么是UDF库" class="headerlink" title="什么是UDF库"></a>什么是UDF库</h2><p><code>UDF</code>即用户自定义函数。是通过添加新函数，对<code>MYSQL</code>的功能进行补充，就像使用本地<code>MYSQL</code>函数<code>user()</code>和<code>concat()</code>等。</p>
+<h2 id="UDF提权步骤"><a href="#UDF提权步骤" class="headerlink" title="UDF提权步骤"></a>UDF提权步骤</h2><h3 id="查看secure-file-priv的值"><a href="#查看secure-file-priv的值" class="headerlink" title="查看secure_file_priv的值"></a>查看<strong>secure_file_priv的值</strong></h3><p><code>secure_file_priv</code> 是用来限制<code> load dumpfile</code>、<code>into  outfile</code>、<code>load_file()</code> 函数在哪个目录下拥有上传或者读取文件的权限：</p>
+<p>使用命令<code>show global variables like &#39;secure%&#39;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables like <span class="string">&#x27;secure%&#x27;</span>;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| secure_auth      | OFF   |</span><br><span class="line">| secure_file_priv | NULL  |</span><br><span class="line">+------------------+-------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当 <code>secure_file_priv</code> 的值为 <code>NULL </code>，表示限制 <code>mysqld </code>不允许导入|导出，此时无法提权</li>
+<li>当 <code>secure_file_priv </code>的值为 <code>/tmp/</code> ，表示限制 <code>mysqld </code>的导入|导出只能发生在<code>/tmp/</code> 目录下，此时也无法提权</li>
+<li>当 <code>secure_file_priv</code>的值没有具体值时，表示不对 <code>mysqld</code>的导入|导出做限制，此时可提权</li>
+</ul>
+<p><code>secure_file_priv</code>的值在<code>MySQL</code>数据库的安装目录的 <code>my.ini</code> 文件中配置：<br><img src="https://qiniu.hzktester.top/tp2020111501.png" alt="tp2020111501.png"></p>
+<h3 id="查看系统架构以及plugin目录"><a href="#查看系统架构以及plugin目录" class="headerlink" title="查看系统架构以及plugin目录"></a><strong>查看系统架构以及plugin目录</strong></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/d83e4025.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/c0ec548.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="hzktester">
+      <meta itemprop="description" content="偷偷努力，然后惊艳所有人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hzktester`s Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/c0ec548.html" class="post-title-link" itemprop="url">正则表达式，字符串的匹配与查找函数，数组切割</a>
+        </h2>
+
+        <div class="post-meta">
+			
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-10 17:09:00" itemprop="dateCreated datePublished" datetime="2020-11-10T17:09:00+08:00">2020-11-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-12 21:00:01" itemprop="dateModified" datetime="2020-11-12T21:00:01+08:00">2020-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">PHP基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PHP中的正则表达式"><a href="#PHP中的正则表达式" class="headerlink" title="PHP中的正则表达式"></a>PHP中的正则表达式</h2><blockquote>
+<p>在php中，有两套正则表达式函数库，两者功能相似、知识执行效率略有差异：</p>
 </blockquote>
-<h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a>IIS 6.x</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p>该版本默认会将<code>*.asp;.jpg</code>此种格式的文件名，当成<code>Asp</code>解析，原理是 服务器默认不解析<code>;</code>号及其后面的内容，相当于截断。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.x.x&#x2F;test.asp;.jpg</span><br></pre></td></tr></table></figure>
-<p><img src="https://qiniu.hzktester.top/tp2020101201.png" alt="image"></p>
-<h3 id="文件夹名解析漏洞"><a href="#文件夹名解析漏洞" class="headerlink" title="文件夹名解析漏洞"></a>文件夹名解析漏洞</h3><p>该版本默认会将<code>*.asp/</code>目录下的所有文件当成<code>Asp</code>解析。</p>
+<ul>
+<li><code>PCRE</code>库提供，使用<code>preg_</code>为前缀命名的函数</li>
+<li><code>POSIX</code>扩展提供的。使用以<code>ereg_</code>为前缀命名的函数</li>
+</ul>
+<p><code>PCRE</code>来源于<code>Perl</code>语言，而Perl是对字符串操作功能最强大的语言之一，<code>PHP</code>的最初版本就是由<code>Perl</code>开发的产品。</p>
+<p><code>PCRE</code>语法支持更多特性，比<code>POSIX</code>语法更强大。</p>
+<h3 id="与Perl语言兼容的正则表达式处理函数"><a href="#与Perl语言兼容的正则表达式处理函数" class="headerlink" title="与Perl语言兼容的正则表达式处理函数"></a>与Perl语言兼容的正则表达式处理函数</h3><table>
+<thead>
+<tr>
+<th align="center"><strong>函数名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>preg_match()</strong></td>
+<td>进行正则表达式匹配</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_match_all()</strong></td>
+<td>进行全局正则表达式匹配</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_replace()</strong></td>
+<td>执行正则表达式的搜索和替换</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_split()</strong></td>
+<td>用正则表达式分割字符串</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_grep()</strong></td>
+<td>返回与模式匹配的数组单元</td>
+</tr>
+<tr>
+<td align="center"><strong>preg_replace_callback</strong></td>
+<td>用回调函数执行正则表达式的搜索和替换</td>
+</tr>
+</tbody></table>
+<h2 id="正则表达式语法规则"><a href="#正则表达式语法规则" class="headerlink" title="正则表达式语法规则"></a>正则表达式语法规则</h2><p>正则表达式作为一个匹配的模板，是由原子（普通字符，例如字符a到z）、特殊字符（元字符，例如*、+和？等）、以及模式修正符三部分组成的匹配模板。</p>
+<h3 id="定界符"><a href="#定界符" class="headerlink" title="定界符"></a>定界符</h3>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/37b72f03.html#more" rel="contents">
+              <a class="btn" href="/posts/c0ec548.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1151,7 +952,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/ca77975b.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e0d73a1e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1165,7 +966,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/ca77975b.html" class="post-title-link" itemprop="url">Adobe ColdFusion 反序列化漏洞（CVE-2017-3066）</a>
+            <a href="/posts/e0d73a1e.html" class="post-title-link" itemprop="url">字符串介绍，常用字符串输出函数、格式化函数、比较函数</a>
         </h2>
 
         <div class="post-meta">
@@ -1175,23 +976,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-10-10 16:34:00" itemprop="dateCreated datePublished" datetime="2020-10-10T16:34:00+08:00">2020-10-10</time>
+              <time title="创建时间：2020-11-06 17:09:00 / 修改时间：17:11:23" itemprop="dateCreated datePublished" datetime="2020-11-06T17:09:00+08:00">2020-11-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                  <a href="/categories/PHP%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">PHP基础</span></a>
                 </span>
             </span>
 
@@ -1201,14 +996,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>4.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -1220,17 +1015,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Adobe ColdFusion</code>是美国<code>Adobe</code>公司的一款动态Web服务器产品，其运行的<code>CFML（ColdFusion Markup Language）</code>是针对Web应用的一种程序设计语言。</p>
-<p><code>Adobe ColdFusion</code>中存在<code>java</code>反序列化漏洞。攻击者可利用该漏洞在受影响应用程序的上下文中执行任意代码或造成拒绝服务。以下版本受到影响：<code>Adobe ColdFusion (2016 release) Update 3</code>及之前的版本，<code>ColdFusion 11 Update 11</code>及之前的版本，<code>oldFusion 10 Update 22</code>及之前的版本。</p>
-<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;coldfusion&#x2F;CVE-2017-3066&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>等待数分钟时间，环境启动成功，访问<code>http://your-ip:8500/CFIDE/administrator/index.cfm</code>，输入密码<code>vulhub</code>，即可成功安装<code>Adobe ColdFusion</code></p>
-<p><img src="https://qiniu.hzktester.top/tp2020101013.png" alt="image"></p>
-<p>安装成功后页面如下：</p>
-<p><img src="https://qiniu.hzktester.top/tp2020101014.png" alt="image"></p>
+          <h2 id="什么是字符串"><a href="#什么是字符串" class="headerlink" title="什么是字符串"></a>什么是字符串</h2><blockquote>
+<p>在C语言中字符串是作为字节数组处理的。在Java语言中字符串是作为对象处理的。而php则把字符串作为基本数据类型来处理。通常对字符串的处理涉及字符串的格式化。字符串的分割和连接、字符串的比较、以及字符串的查找、匹配和替换。</p>
+</blockquote>
+<h2 id="常用的字符串输出函数"><a href="#常用的字符串输出函数" class="headerlink" title="常用的字符串输出函数"></a>常用的字符串输出函数</h2><h3 id="常规输出字符串"><a href="#常规输出字符串" class="headerlink" title="常规输出字符串"></a>常规输出字符串</h3><ul>
+<li><code>echo()</code>：输出字符串</li>
+<li><code>print()</code>：输出一个字符串<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$array &#x3D; [1,2,3];</span><br><span class="line">$string &#x3D; &quot;123&quot;;</span><br><span class="line">&#x2F;&#x2F;echo $array;</span><br><span class="line">echo $string;</span><br><span class="line">&#x2F;&#x2F;print($array);</span><br><span class="line">print($string);</span><br></pre></td></tr></table></figure>
+<code>echo()</code>和<code>print()</code>都只能输出字符串，而不能输出数组<h3 id="输出字符串并退出程序"><a href="#输出字符串并退出程序" class="headerlink" title="输出字符串并退出程序"></a>输出字符串并退出程序</h3><code>die()和exit()</code>：输出一个字符串后退出程序<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$string &#x3D; &quot;123&quot;;</span><br><span class="line">&#x2F;&#x2F;die($string);</span><br><span class="line">exit($string);</span><br><span class="line">echo &quot;我不会运行&quot;;</span><br></pre></td></tr></table></figure>
+<code>die()</code>和<code>exit()</code>同样都只能输出字符串，而不能输出数组<h3 id="格式化输出字符串"><a href="#格式化输出字符串" class="headerlink" title="格式化输出字符串"></a>格式化输出字符串</h3>字符串转换格式：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%%</td>
+<td>返回百分比符号</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>二进制数</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>依照ASCII值的字符</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>带符号十进制数</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>可续计数法（如1.5e3）</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>无符号十进制数</td>
+</tr>
+<tr>
+<td>%f或%F</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>八进制数</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>%x或%X</td>
+<td>十六进制数</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>printf()</code>：输出格式化字符串</li>
+<li><code>sprintf()</code>：把格式化的字符串写入一个变量中</li>
+</ul>
+<p><code>printf()</code>和<code>sprintf()</code>都是格式化输出字符串，区别在于<code>sprintf()</code>可以把格式化的字符串写入到一个变量中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;我是%s&quot;,&quot;test&quot;);    &#x2F;&#x2F;输出我是test</span><br><span class="line">$aa &#x3D; sprintf(&quot;我是%s&quot;,&quot;test&quot;);</span><br><span class="line">echo $aa;   &#x2F;&#x2F;输出我是test</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用的字符串格式化函数"><a href="#常用的字符串格式化函数" class="headerlink" title="常用的字符串格式化函数"></a>常用的字符串格式化函数</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/ca77975b.html#more" rel="contents">
+              <a class="btn" href="/posts/e0d73a1e.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1254,7 +1106,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/a52bba00.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/50045358.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1268,7 +1120,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/a52bba00.html" class="post-title-link" itemprop="url">Apereo CAS 4.1 反序列化命令执行漏洞</a>
+            <a href="/posts/50045358.html" class="post-title-link" itemprop="url">数组的定义，遍历，预定义数组、数组相关处理函数</a>
         </h2>
 
         <div class="post-meta">
@@ -1278,23 +1130,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-10-10 11:40:00" itemprop="dateCreated datePublished" datetime="2020-10-10T11:40:00+08:00">2020-10-10</time>
+              <time title="创建时间：2020-11-06 12:55:00 / 修改时间：12:56:17" itemprop="dateCreated datePublished" datetime="2020-11-06T12:55:00+08:00">2020-11-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                  <a href="/categories/PHP%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">PHP基础</span></a>
                 </span>
             </span>
 
@@ -1304,14 +1150,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>12k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -1323,16 +1169,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apereo CAS</code>是一款<code>Apereo</code>发布的集中认证服务平台，常被用于企业内部单点登录系统。其4.1.7版本之前存在一处默认密钥的问题，利用这个默认密钥我们可以构造恶意信息触发目标反序列化漏洞，进而执行任意命令。</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>使用<code>vulhub</code>启动漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;vulhub&#x2F;apereo-cas&#x2F;4.1-rce&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>环境启动后，访问<code>http://your-ip:8080/cas/login</code>即可查看到登录页面。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020101009.png" alt="image"></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞原理是<code>Webflow</code>中使用了默认密钥<code>changeit</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class EncryptedTranscoder implements Transcoder &#123;</span><br><span class="line">    private CipherBean cipherBean;</span><br><span class="line">    private boolean compression &#x3D; true;</span><br><span class="line"></span><br><span class="line">    public EncryptedTranscoder() throws IOException &#123;</span><br><span class="line">        BufferedBlockCipherBean bufferedBlockCipherBean &#x3D; new BufferedBlockCipherBean();</span><br><span class="line">        bufferedBlockCipherBean.setBlockCipherSpec(new BufferedBlockCipherSpec(&quot;AES&quot;, &quot;CBC&quot;, &quot;PKCS7&quot;));</span><br><span class="line">        bufferedBlockCipherBean.setKeyStore(this.createAndPrepareKeyStore());</span><br><span class="line">        bufferedBlockCipherBean.setKeyAlias(&quot;aes128&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setKeyPassword(&quot;changeit&quot;);</span><br><span class="line">        bufferedBlockCipherBean.setNonce(new RBGNonce());</span><br><span class="line">        this.setCipherBean(bufferedBlockCipherBean);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
+          <h2 id="数组的概述"><a href="#数组的概述" class="headerlink" title="数组的概述"></a>数组的概述</h2><p><code>PHP</code>中的数组实际上是一个有序图。图是一种把 <code>values</code> 映射到 <code>keys</code> 的类型。此类型在很多方面做了优化，因此可以把它当成真正的数组来使用，或列表（矢量），散列表（是图的一种实现），字典，集合，队列以及更多可能性。因为可以用另一个 <code>PHP</code> 数组作为值，也可以很容易地模拟树。</p>
+<ul>
+<li><strong>数组下标</strong>：可以视为资料内容在此数组中的识别名称，通常被称为数组下标。</li>
+<li>当<strong>索引值为数值</strong>时，也代表此资料内容在数组中的储存位置。</li>
+<li>数组中有几个索引值就被称为几维数组。</li>
+<li>数据分类：在PHP中有两种数组，<strong>索引数组</strong>和<strong>关联数组</strong>。<ul>
+<li><strong>索引（indexed）数组</strong>的索引值是整数，以0开始。当通过位置来标识东西时用索引数组。</li>
+<li><strong>关联（associative）数组</strong>以字符串做为索引值，关联数组更像操作表。索引值为列名，用于访问列的数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h2><p>由于 <code>PHP</code> 是属于弱类型数据，因此源代码中的数组并不需要经过特别的声明操作，直接将一组数值指定给某一数组元素即可。一般情况下数组的赋值有三种方式：</p>
+<ul>
+<li>直接赋值方式如：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a[0]&#x3D;&#39;spam@126.com&#39;;  </span><br><span class="line">$a[1]&#x3D;&#39;abuse@sohu.com&#39;;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>array</code>函数如：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a&#x3D;array(&quot;spam@126.com&quot;,&quot;abuse@sohu.com&quot;);</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>[]</code>如：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a&#x3D;[&quot;spam@126.com&quot;,&quot;abuse@sohu.com&quot;];</span><br></pre></td></tr></table></figure>
+<h3 id="直接赋值的方式声明数组"><a href="#直接赋值的方式声明数组" class="headerlink" title="直接赋值的方式声明数组"></a>直接赋值的方式声明数组</h3>基本格式：<code>$数组变量名[索引值]=资料内容</code></li>
+</ul>
+<p>其中<strong>索引值（下标）可以是一个字符串或一个整数</strong>。等价于整数（不以0开头）的字符串值被当作整数对待。因此，数组<code>$array[3]</code>与<code>$array[&#39;3&#39;]</code>是引用相同的元素。但是<code>$array[&#39;03&#39;]</code>引用的另外不同的元素。</p>
+<h4 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h4><p>分别定义两个数组<code>$a</code>和<code>$b</code>，看看区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$a[0]&#x3D;1;</span><br><span class="line">	$a[1]&#x3D;2;</span><br><span class="line">	$a[2]&#x3D;3;</span><br><span class="line"></span><br><span class="line">	$b[]&#x3D;1;     &#x2F;&#x2F;不定义下标默认从0开始</span><br><span class="line">	$b[]&#x3D;2;</span><br><span class="line">	$b[]&#x3D;3;</span><br><span class="line">	$b[6]&#x3D;4;    &#x2F;&#x2F;定义下标为6的值</span><br><span class="line">	$b[]&#x3D;5;     &#x2F;&#x2F;后面的顺延下标为7</span><br><span class="line"></span><br><span class="line">	var_dump($a);</span><br><span class="line">	echo &quot;&lt;br&gt;---------------&lt;br&gt;&quot;;</span><br><span class="line">	var_dump($b);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/a52bba00.html#more" rel="contents">
+              <a class="btn" href="/posts/50045358.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1356,7 +1216,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/5632f60a.html">
+    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/e0d0a34b.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1370,7 +1230,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/5632f60a.html" class="post-title-link" itemprop="url">ActiveMQ 反序列化漏洞（CVE-2015-5254）</a>
+            <a href="/posts/e0d0a34b.html" class="post-title-link" itemprop="url">边界资产信息搜集</a>
         </h2>
 
         <div class="post-meta">
@@ -1381,14 +1241,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-10 10:32:00" itemprop="dateCreated datePublished" datetime="2020-10-10T10:32:00+08:00">2020-10-10</time>
+              <time title="创建时间：2020-11-05 16:12:00" itemprop="dateCreated datePublished" datetime="2020-11-05T16:12:00+08:00">2020-11-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-20 17:21:51" itemprop="dateModified" datetime="2020-10-20T17:21:51+08:00">2020-10-20</time>
+                <time title="修改时间：2020-11-20 10:34:05" itemprop="dateModified" datetime="2020-11-20T10:34:05+08:00">2020-11-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1396,7 +1256,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                  <a href="/categories/Web%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">Web渗透</span></a>
                 </span>
             </span>
 
@@ -1406,14 +1266,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -1425,16 +1285,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h2><p><code>Apache ActiveMQ</code>是美国阿帕奇（Apache）软件基金会所研发的一套开源的消息中间件，它支持<code>Java</code>消息服务、集群、<code>Spring Framework</code>等。</p>
-<p><code>Apache ActiveMQ 5.13.0</code>之前<code>5.x</code>版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的<code>Java Message Service(JMS)ObjectMessage</code>对象利用该漏洞执行任意代码。</p>
-<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用<code>vulhub</code>运行漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd vulhub&#x2F;activemq&#x2F;CVE-2015-5254&#x2F;</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<p>环境运行后，将监听<code>61616</code>和<code>8161</code>两个端口。其中<code>61616</code>是工作端口，消息在这个端口进行传递；<code>8161</code>是Web管理页面端口。访问<code>http://your-ip:8161</code>即可看到web管理页面，不过这个漏洞理论上是不需要web的。</p>
-<p><img src="https://qiniu.hzktester.top/tp2020101001.png" alt="image"></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>漏洞利用过程如下：</p>
+          <p>当有一个很大的集团目标时，一般的信息搜集流程如下：</p>
+<h1 id="集团结构："><a href="#集团结构：" class="headerlink" title="集团结构："></a>集团结构：</h1><p>主要提取出历史网站备案，域名、子公司域名、备案号、注册邮箱（邮箱@后的也可能是域名）、手机号。</p>
+<ul>
+<li>天眼查：<a target="_blank" rel="noopener" href="https://www.tianyancha.com/">https://www.tianyancha.com/</a></li>
+<li>爱企查：<a target="_blank" rel="noopener" href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com/</a></li>
+<li>企查查：<a target="_blank" rel="noopener" href="https://www.qcc.com/">https://www.qcc.com/</a></li>
+</ul>
+<h2 id="备案号查同备案的网站"><a href="#备案号查同备案的网站" class="headerlink" title="备案号查同备案的网站"></a>备案号查同备案的网站</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">https://beian.miit.gov.cn/#/Integrated/recordQuery</a></p>
+<p>  <img src="https://qiniu.hzktester.top/tp2020110906.png" alt="image"></p>
+</li>
+</ul>
+<h2 id="主域名中的跳转链接、JS中的链接搜集"><a href="#主域名中的跳转链接、JS中的链接搜集" class="headerlink" title="主域名中的跳转链接、JS中的链接搜集"></a>主域名中的跳转链接、JS中的链接搜集</h2><p>集团结构信息搜集后一般会得到主域名，也就是官网信息，可能有很多跳转链接，也属于他的资产，包括JS中的链接。推荐使用这个工具进行提取：</p>
+<ul>
+<li>jsfinder（扫API和子域名）：<a target="_blank" rel="noopener" href="https://github.com/Threezh1/JSFinder">https://github.com/Threezh1/JSFinder</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python JSFinder.py -u http:&#x2F;&#x2F;www.baidu.com -d -ou mi_url.txt -os mi_subdomain.txt</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="深挖更多IP资产："><a href="#深挖更多IP资产：" class="headerlink" title="深挖更多IP资产："></a>深挖更多IP资产：</h1>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/5632f60a.html#more" rel="contents">
+              <a class="btn" href="/posts/e0d0a34b.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1457,7 +1329,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1525,7 +1397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1538,7 +1410,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1601,12 +1473,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">152k</span>
+    <span title="站点总字数">696k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:18</span>
+    <span title="站点阅读时长">10:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
